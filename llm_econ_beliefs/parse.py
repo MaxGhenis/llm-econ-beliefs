@@ -104,8 +104,8 @@ def _parse_structured_payload(
 ) -> BeliefEstimate:
     quantiles = _lookup_quantiles(payload)
     point_estimate = _lookup_numeric(payload, POINT_KEYS)
-    if point_estimate is None:
-        point_estimate = quantiles.get("p50")
+    if "p50" in quantiles:
+        point_estimate = quantiles["p50"]
     if point_estimate is None:
         raise ValueError("Structured response is missing a point estimate")
 

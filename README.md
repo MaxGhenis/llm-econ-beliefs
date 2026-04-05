@@ -41,7 +41,7 @@ It also includes adjacent public-finance and macro parameters:
 
 ## Initial Design
 
-Each model run is one elicited posterior over a named quantity. The prompt pins down the object, asks the model to resolve ambiguity explicitly, and returns structured JSON with:
+Each model run is one elicited posterior over a named quantity. The current default prompt is a memory-only elicitation prompt with a fixed target interpretation, and it returns structured JSON with:
 
 - `interpretation`
 - `point_estimate`
@@ -52,6 +52,8 @@ Each model run is one elicited posterior over a named quantity. The prompt pins 
 - `quantiles.p95`
 - `citations`
 - `reasoning_summary`
+
+The current default prompt version is `v2`. Older runs in the repo used earlier prompt variants and remain useful for comparison, but they should not be pooled with `v2` runs without an explicit robustness check.
 
 Repeated runs are then pooled using the law of total variance:
 

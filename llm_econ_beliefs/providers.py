@@ -133,10 +133,7 @@ def build_openai_chat_payload(
         "messages": [
             {
                 "role": "system",
-                "content": (
-                    "You are a careful empirical economist. "
-                    "Follow the requested schema exactly and return only the final answer."
-                ),
+                "content": "Follow the user's instructions exactly and return only the final answer.",
             },
             {"role": "user", "content": prompt},
         ],

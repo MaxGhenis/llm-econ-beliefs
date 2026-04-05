@@ -33,7 +33,7 @@ def run_claude_experiment(
     n_runs: int,
     output_dir: str | Path,
     model_name: str = "sonnet",
-    prompt_version: str = "v1",
+    prompt_version: str = "v2",
     invoke: Callable[[str, str], str] | None = None,
 ) -> tuple[list[RunResult], list[dict[str, object]]]:
     """Run a repeated-prompt experiment through the Claude CLI."""
@@ -66,7 +66,7 @@ def run_openai_experiment(
     n_runs: int,
     output_dir: str | Path,
     model_name: str = "gpt-5.4-mini",
-    prompt_version: str = "v1",
+    prompt_version: str = "v2",
     batch_size: int | None = None,
     temperature: float = 1.0,
     invoke_batch: Callable[[str, str, int], ProviderBatchResult | list[str]] | None = None,
@@ -318,6 +318,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--runs", type=int, default=3)
     parser.add_argument("--samples-per-request", type=int, default=1)
     parser.add_argument("--temperature", type=float, default=1.0)
+    parser.add_argument("--prompt-version", default="v2")
     parser.add_argument("--quantity", action="append", default=[])
     parser.add_argument("--tag", action="append", default=[])
     parser.add_argument("--output-dir")
@@ -357,6 +358,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             n_runs=args.runs,
             output_dir=output_dir,
             model_name=args.model,
+            prompt_version=args.prompt_version,
         )
     else:
         _, summaries = run_openai_experiment(
@@ -364,6 +366,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             n_runs=args.runs,
             output_dir=output_dir,
             model_name=args.model,
+            prompt_version=args.prompt_version,
             batch_size=args.samples_per_request,
             temperature=args.temperature,
         )

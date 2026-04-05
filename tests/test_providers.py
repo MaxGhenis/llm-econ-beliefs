@@ -6,7 +6,7 @@ from llm_econ_beliefs import build_claude_command, build_openai_chat_payload
 def test_build_claude_command_includes_model_and_schema():
     command = build_claude_command("hello", model_name="sonnet")
 
-    assert command[0] == "claude"
+    assert command[0].endswith("claude")
     assert "--model" in command
     assert "sonnet" in command
     assert "--json-schema" in command
@@ -26,6 +26,9 @@ def test_build_openai_chat_payload_includes_n_and_schema():
     assert payload["temperature"] == 0.8
     assert payload["response_format"]["type"] == "json_schema"
     assert payload["messages"][-1]["content"] == "hello"
+    assert payload["messages"][0]["content"] == (
+        "Follow the user's instructions exactly and return only the final answer."
+    )
 
 
 def test_build_openai_chat_payload_rejects_n_above_api_limit():

@@ -17,7 +17,7 @@ def build_run_grid(
     model_names: Sequence[str],
     quantity_ids: Sequence[str],
     n_runs: int,
-    prompt_version: str = "v1",
+    prompt_version: str = "v2",
     include_uncertainty: bool = True,
 ) -> list[PromptRun]:
     """Create a grid of prompts ready to hand to an inference client."""

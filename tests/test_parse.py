@@ -32,6 +32,28 @@ def test_parse_json_response():
     assert len(parsed.citations) == 2
 
 
+def test_parse_json_response_uses_p50_as_point_estimate_when_present():
+    response = """
+    {
+      "interpretation": "Lifecycle Frisch elasticity",
+      "point_estimate": 0.75,
+      "quantiles": {
+        "p05": 0.2,
+        "p25": 0.35,
+        "p50": 0.5,
+        "p75": 0.9,
+        "p95": 1.5
+      },
+      "citations": [],
+      "reasoning_summary": "Short summary."
+    }
+    """
+
+    parsed = parse_belief_response(response)
+
+    assert parsed.point_estimate == 0.5
+
+
 def test_parse_free_text_response():
     parsed = parse_belief_response("About 0.4 for a macro-calibration Frisch elasticity.")
 
