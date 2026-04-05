@@ -329,8 +329,8 @@ function selectPreferredSummaries(rows: SummaryRecord[]): SummaryRecord[] {
 function compareSummaryRows(left: SummaryRecord, right: SummaryRecord): number {
   return (
     right.nSuccessfulRuns - left.nSuccessfulRuns ||
-    (right.usageTotalTokensTotal ?? -1) - (left.usageTotalTokensTotal ?? -1) ||
     right.experimentUpdatedAt - left.experimentUpdatedAt ||
+    (right.usageTotalTokensTotal ?? -1) - (left.usageTotalTokensTotal ?? -1) ||
     right.experimentDir.localeCompare(left.experimentDir)
   );
 }

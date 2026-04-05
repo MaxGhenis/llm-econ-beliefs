@@ -823,11 +823,6 @@ function formatCurrency(value: number | null): string {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 4 }).format(value);
 }
 
-function formatPercent(value: number | null): string {
-  if (value === null) return "—";
-  return new Intl.NumberFormat("en-US", { style: "percent", maximumFractionDigits: 1 }).format(value);
-}
-
 function formatInterval(lower: number | null | undefined, upper: number | null | undefined): string {
   if (lower === null || lower === undefined || upper === null || upper === undefined) return "—";
   return `[${formatNumber(lower)}, ${formatNumber(upper)}]`;
