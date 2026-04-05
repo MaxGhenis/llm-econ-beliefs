@@ -2,6 +2,5 @@
   "buildCommand": "cp -r ../results ./results && next build",
   "outputDirectory": ".next",
   "installCommand": "npm install",
-  "framework": "nextjs",
-  "rootDirectory": "dashboard"
+  "framework": "nextjs"
 }
