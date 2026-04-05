@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 import subprocess
+import shutil
 from urllib import error, request
 from typing import Any
 
@@ -56,7 +57,7 @@ def build_claude_command(
 ) -> list[str]:
     """Build a non-interactive Claude CLI invocation."""
     command = [
-        "claude",
+        resolve_claude_executable(),
         "-p",
         "--output-format",
         "text",
@@ -67,6 +68,19 @@ def build_claude_command(
         command.extend(["--json-schema", json.dumps(json_schema)])
     command.append(prompt)
     return command
+
+
+def resolve_claude_executable() -> str:
+    """Resolve the Claude CLI executable, including common Homebrew locations."""
+    discovered = shutil.which("claude")
+    if discovered:
+        return discovered
+
+    for candidate in ("/opt/homebrew/bin/claude", "/usr/local/bin/claude"):
+        if os.path.exists(candidate):
+            return candidate
+
+    return "claude"
 
 
 def run_claude_prompt(
