@@ -1,0 +1,292 @@
+provider,model_name,quantity_id,run_index,prompt_version,parsed_ok,point_estimate,interpretation,lower_bound,upper_bound,confidence_level,citations,reasoning_summary,error,raw_response,prompt
+claude_cli,sonnet,labor_supply.frisch_elasticity.prime_age,1,v1,True,0.2,,,,,,"**Summary:** I chose the lifecycle/intensive-margin interpretation appropriate for OG-USA style models. Micro studies of prime-age men anchor the lower end (~0.2–0.45), while macro calibrations and higher female elasticities push the reasonable range up toward 1.0–1.5. A point estimate of **0.5** reflects the Chetty et al. (2011) reconciliation value and sits within the OG-USA documented calibration range of 0.4–0.9. The 90% interval [0.2, 1.5] honestly spans the micro-to-macro gap in the literature.",,"**Summary:** I chose the lifecycle/intensive-margin interpretation appropriate for OG-USA style models. Micro studies of prime-age men anchor the lower end (~0.2–0.45), while macro calibrations and higher female elasticities push the reasonable range up toward 1.0–1.5. A point estimate of **0.5** reflects the Chetty et al. (2011) reconciliation value and sits within the OG-USA documented calibration range of 0.4–0.9. The 90% interval [0.2, 1.5] honestly spans the micro-to-macro gap in the literature.","You are a careful empirical economist.
+
+Quantity of interest:
+- ID: labor_supply.frisch_elasticity.prime_age
+- Name: Frisch elasticity of labor supply
+- Description: Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant.
+- Population/context: Prime-age workers in the United States
+- Units: elasticity
+- Preferred interpretation: Lifecycle or macro-calibration Frisch elasticity for hours worked
+- Plausible support: [0.0, 10.0]
+- Benchmark note: A standard calibrated labor-supply parameter in OG-USA and OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Give a central 90% uncertainty interval.
+5. Give 2 to 4 literature anchors or model-documentation anchors.
+6. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""lower_bound"": 0.0,
+  ""upper_bound"": 0.0,
+  ""confidence_level"": 0.9,
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"
+claude_cli,sonnet,labor_supply.frisch_elasticity.prime_age,2,v1,True,0.5,,,,,,"**Summary of reasoning:**
+
+- **Micro lifecycle literature** (MaCurdy 1981, Altonji 1986): Frisch elasticity for prime-age workers ~0.1–0.35. These are likely downward-biased due to optimization frictions and liquidity constraints.
+- **Friction-adjusted micro** (Chetty 2012): Correcting for adjustment frictions raises the structural Frisch toward ~0.5.
+- **Macro reconciliation** (Chetty et al. 2013, Peterman 2016): After accounting for the extensive margin and model structure, macro-consistent estimates converge to ~0.5–0.8 for hours worked.
+- **OG-USA/OG-Core calibration practice**: Baseline values typically 0.5–0.75; I use 0.5 as a conservative but defensible anchor.
+
+**Central estimate: 0.5**, with a 90% interval of **[0.25, 1.0]**. Values above ~1.5 would require invoking indivisible labor or very high macro moments — not the preferred interpretation for a lifecycle hours-based model.",,"**Summary of reasoning:**
+
+- **Micro lifecycle literature** (MaCurdy 1981, Altonji 1986): Frisch elasticity for prime-age workers ~0.1–0.35. These are likely downward-biased due to optimization frictions and liquidity constraints.
+- **Friction-adjusted micro** (Chetty 2012): Correcting for adjustment frictions raises the structural Frisch toward ~0.5.
+- **Macro reconciliation** (Chetty et al. 2013, Peterman 2016): After accounting for the extensive margin and model structure, macro-consistent estimates converge to ~0.5–0.8 for hours worked.
+- **OG-USA/OG-Core calibration practice**: Baseline values typically 0.5–0.75; I use 0.5 as a conservative but defensible anchor.
+
+**Central estimate: 0.5**, with a 90% interval of **[0.25, 1.0]**. Values above ~1.5 would require invoking indivisible labor or very high macro moments — not the preferred interpretation for a lifecycle hours-based model.","You are a careful empirical economist.
+
+Quantity of interest:
+- ID: labor_supply.frisch_elasticity.prime_age
+- Name: Frisch elasticity of labor supply
+- Description: Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant.
+- Population/context: Prime-age workers in the United States
+- Units: elasticity
+- Preferred interpretation: Lifecycle or macro-calibration Frisch elasticity for hours worked
+- Plausible support: [0.0, 10.0]
+- Benchmark note: A standard calibrated labor-supply parameter in OG-USA and OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Give a central 90% uncertainty interval.
+5. Give 2 to 4 literature anchors or model-documentation anchors.
+6. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""lower_bound"": 0.0,
+  ""upper_bound"": 0.0,
+  ""confidence_level"": 0.9,
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"
+claude_cli,sonnet,household.relative_risk_aversion.crra,1,v1,True,2.0,,,,,,"**Coefficient of relative risk aversion (CRRA σ)**
+
+- **Interpretation:** Standard CRRA utility σ in u(c) = c^(1−σ)/(1−σ); σ = 1 is log utility.
+- **Point estimate:** 2.0
+- **90% interval:** [0.5, 5.0]
+
+**Reasoning:** Micro-estimates from labor supply cluster near 1 (Chetty 2006; Havranek et al. 2015 meta-analysis median ≈ 0.5). Asset-pricing literature nominally requires 5–10+ to match the equity premium, but that range is widely viewed as too high for household preference parameters. Calibrated OLG models (Auerbach–Kotlikoff lineage) typically use 2–4; DSGE models (Smets–Wouters) estimate posteriors around 1.5. σ = 2 is the modal mainstream calibration choice.
+
+**Literature anchors:**
+1. Chetty (2006), AER — labor-supply meta-estimate ≈ 0.97
+2. Havranek et al. (2015), JEL — meta-analysis median ≈ 0.5, mean ≈ 1
+3. Auerbach & Kotlikoff (1987), *Dynamic Fiscal Policy* — canonical OLG uses σ = 4
+4. Smets & Wouters (2007), AER — estimated posterior mode σ ≈ 1.5",,"**Coefficient of relative risk aversion (CRRA σ)**
+
+- **Interpretation:** Standard CRRA utility σ in u(c) = c^(1−σ)/(1−σ); σ = 1 is log utility.
+- **Point estimate:** 2.0
+- **90% interval:** [0.5, 5.0]
+
+**Reasoning:** Micro-estimates from labor supply cluster near 1 (Chetty 2006; Havranek et al. 2015 meta-analysis median ≈ 0.5). Asset-pricing literature nominally requires 5–10+ to match the equity premium, but that range is widely viewed as too high for household preference parameters. Calibrated OLG models (Auerbach–Kotlikoff lineage) typically use 2–4; DSGE models (Smets–Wouters) estimate posteriors around 1.5. σ = 2 is the modal mainstream calibration choice.
+
+**Literature anchors:**
+1. Chetty (2006), AER — labor-supply meta-estimate ≈ 0.97
+2. Havranek et al. (2015), JEL — meta-analysis median ≈ 0.5, mean ≈ 1
+3. Auerbach & Kotlikoff (1987), *Dynamic Fiscal Policy* — canonical OLG uses σ = 4
+4. Smets & Wouters (2007), AER — estimated posterior mode σ ≈ 1.5","You are a careful empirical economist.
+
+Quantity of interest:
+- ID: household.relative_risk_aversion.crra
+- Name: Coefficient of relative risk aversion
+- Description: CRRA coefficient in household utility over consumption.
+- Population/context: Representative household or calibrated household block
+- Units: coefficient
+- Preferred interpretation: CRRA coefficient, often denoted sigma
+- Plausible support: [0.0, 50.0]
+- Benchmark note: A core household-preference parameter used in overlapping-generations models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Give a central 90% uncertainty interval.
+5. Give 2 to 4 literature anchors or model-documentation anchors.
+6. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""lower_bound"": 0.0,
+  ""upper_bound"": 0.0,
+  ""confidence_level"": 0.9,
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"
+claude_cli,sonnet,household.relative_risk_aversion.crra,2,v1,True,2.0,,,,,,"**Summary:**
+
+- **Point estimate**: σ = 2
+- **90% interval**: [1, 6]
+- **Reasoning**: The modal calibration in OLG models is σ = 2–4. Log utility (σ=1) is a lower anchor with strong theoretical justification. Micro EIS estimates imply σ ≈ 1–3. Asset-pricing evidence could push σ higher, but values above 6 are rarely used in household-block OLG calibrations specifically. The Auerbach-Kotlikoff tradition uses σ=4; more recent DSGE work estimates closer to 1–2.",,"**Summary:**
+
+- **Point estimate**: σ = 2
+- **90% interval**: [1, 6]
+- **Reasoning**: The modal calibration in OLG models is σ = 2–4. Log utility (σ=1) is a lower anchor with strong theoretical justification. Micro EIS estimates imply σ ≈ 1–3. Asset-pricing evidence could push σ higher, but values above 6 are rarely used in household-block OLG calibrations specifically. The Auerbach-Kotlikoff tradition uses σ=4; more recent DSGE work estimates closer to 1–2.","You are a careful empirical economist.
+
+Quantity of interest:
+- ID: household.relative_risk_aversion.crra
+- Name: Coefficient of relative risk aversion
+- Description: CRRA coefficient in household utility over consumption.
+- Population/context: Representative household or calibrated household block
+- Units: coefficient
+- Preferred interpretation: CRRA coefficient, often denoted sigma
+- Plausible support: [0.0, 50.0]
+- Benchmark note: A core household-preference parameter used in overlapping-generations models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Give a central 90% uncertainty interval.
+5. Give 2 to 4 literature anchors or model-documentation anchors.
+6. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""lower_bound"": 0.0,
+  ""upper_bound"": 0.0,
+  ""confidence_level"": 0.9,
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"
+claude_cli,sonnet,household.annual_discount_factor,1,v1,True,0.96,"Annual beta in the household Euler equation: β = 1/(1+ρ), where ρ is the pure rate of time preference. Interpreted as the OG-Core-style annual discount factor calibrated to match observed capital-output ratios and real interest rates.",0.94,0.99,0.9,"Kydland and Prescott (1982) | Smets and Wouters (2007) | Auerbach and Kotlikoff (1987) | Evans, Diamond, and Phillips (OG-Core Documentation, 2021)","Standard macro calibrations target a real interest rate of roughly 4% and a capital-output ratio near 3, which implies ρ ≈ 0.04 and β ≈ 0.96 annually. Quarterly RBC/DSGE models (Kydland-Prescott, Smets-Wouters) use β_q = 0.99, compounding to β_a ≈ 0.9606. OG-Core documentation reports β ≈ 0.96 in its baseline. The lower tail (~0.94) covers models targeting higher discount rates; the upper tail (~0.99) covers near-unit-root patience assumed in some heterogeneous-agent models matching wealth concentration.",,"```json
+{
+  ""interpretation"": ""Annual beta in the household Euler equation: β = 1/(1+ρ), where ρ is the pure rate of time preference. Interpreted as the OG-Core-style annual discount factor calibrated to match observed capital-output ratios and real interest rates."",
+  ""point_estimate"": 0.96,
+  ""lower_bound"": 0.94,
+  ""upper_bound"": 0.99,
+  ""confidence_level"": 0.9,
+  ""reasoning_summary"": ""Standard macro calibrations target a real interest rate of roughly 4% and a capital-output ratio near 3, which implies ρ ≈ 0.04 and β ≈ 0.96 annually. Quarterly RBC/DSGE models (Kydland-Prescott, Smets-Wouters) use β_q = 0.99, compounding to β_a ≈ 0.9606. OG-Core documentation reports β ≈ 0.96 in its baseline. The lower tail (~0.94) covers models targeting higher discount rates; the upper tail (~0.99) covers near-unit-root patience assumed in some heterogeneous-agent models matching wealth concentration."",
+  ""citations"": [
+    ""Kydland and Prescott (1982)"",
+    ""Smets and Wouters (2007)"",
+    ""Auerbach and Kotlikoff (1987)"",
+    ""Evans, Diamond, and Phillips (OG-Core Documentation, 2021)""
+  ]
+}
+```","You are a careful empirical economist.
+
+Quantity of interest:
+- ID: household.annual_discount_factor
+- Name: Annual discount factor
+- Description: One-year time discount factor for household utility.
+- Population/context: Representative household or calibrated household block
+- Units: level
+- Preferred interpretation: Annual beta used in calibration
+- Plausible support: [0.0, 1.0]
+- Benchmark note: A standard preference parameter in OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Give a central 90% uncertainty interval.
+5. Give 2 to 4 literature anchors or model-documentation anchors.
+6. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""lower_bound"": 0.0,
+  ""upper_bound"": 0.0,
+  ""confidence_level"": 0.9,
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"
+claude_cli,sonnet,household.annual_discount_factor,2,v1,True,0.96,,,,,,"**Annual discount factor β ≈ 0.96**, 90% CI: [0.94, 0.99]
+
+**Interpretation chosen:** β = 1/(1+ρ), where ρ is the pure rate of time preference, calibrated annually to match real interest rates (~4%) or wealth-to-income ratios in an OLG/representative-agent model.
+
+**Key anchors:**
+- Kydland & Prescott (1982): quarterly β=0.988 → annualized ≈ 0.953
+- Auerbach & Kotlikoff (1987): OLG model with annual ρ ≈ 1.5–4%
+- OG-Core default: β ≈ 0.96
+- Smets & Wouters (2007): estimated β ≈ 0.999 quarterly (upper-bound anchor)
+
+The 90% interval [0.94, 0.99] spans standard calibration choices; values outside this range appear only in models with unusual impatience assumptions or distinct asset-pricing motivations.",,"**Annual discount factor β ≈ 0.96**, 90% CI: [0.94, 0.99]
+
+**Interpretation chosen:** β = 1/(1+ρ), where ρ is the pure rate of time preference, calibrated annually to match real interest rates (~4%) or wealth-to-income ratios in an OLG/representative-agent model.
+
+**Key anchors:**
+- Kydland & Prescott (1982): quarterly β=0.988 → annualized ≈ 0.953
+- Auerbach & Kotlikoff (1987): OLG model with annual ρ ≈ 1.5–4%
+- OG-Core default: β ≈ 0.96
+- Smets & Wouters (2007): estimated β ≈ 0.999 quarterly (upper-bound anchor)
+
+The 90% interval [0.94, 0.99] spans standard calibration choices; values outside this range appear only in models with unusual impatience assumptions or distinct asset-pricing motivations.","You are a careful empirical economist.
+
+Quantity of interest:
+- ID: household.annual_discount_factor
+- Name: Annual discount factor
+- Description: One-year time discount factor for household utility.
+- Population/context: Representative household or calibrated household block
+- Units: level
+- Preferred interpretation: Annual beta used in calibration
+- Plausible support: [0.0, 1.0]
+- Benchmark note: A standard preference parameter in OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Give a central 90% uncertainty interval.
+5. Give 2 to 4 literature anchors or model-documentation anchors.
+6. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""lower_bound"": 0.0,
+  ""upper_bound"": 0.0,
+  ""confidence_level"": 0.9,
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"

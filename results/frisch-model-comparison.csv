@@ -1,0 +1,4 @@
+source_label,model_name,quantity_id,n_successful_runs,pooled_point_estimate,pooled_90_interval,reml_predictive_90_interval,bayes_predictive_90_interval,usage_total_tokens_per_successful_run,usage_estimated_total_cost_usd_per_successful_run,source_dir
+gpt-5.4-frisch-batch5-v1,gpt-5.4,labor_supply.frisch_elasticity.prime_age,5,0.5,"[0.2, 1.5]","[0.1805, 1.31]","[0.2359, 1.028]",336.4,0.0037385,results/gpt-5.4-frisch-batch5-v1
+gpt-5.4-mini-frisch-batch5-v4,gpt-5.4-mini,labor_supply.frisch_elasticity.prime_age,5,0.54,"[0.1, 1.947]","[0.1335, 1.917]","[0.1915, 1.412]",363.4,0.00124305,results/gpt-5.4-mini-frisch-batch5-v4
+gpt-5.4-nano-frisch-batch5-v1,gpt-5.4-nano,labor_supply.frisch_elasticity.prime_age,5,0.72,"[0.2, 1.994]","[0.2313, 1.97]","[0.3075, 1.549]",327.4,0.00029942,results/gpt-5.4-nano-frisch-batch5-v1

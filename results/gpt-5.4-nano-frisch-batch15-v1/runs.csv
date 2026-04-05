@@ -1,0 +1,706 @@
+provider,model_name,quantity_id,run_index,prompt_version,parsed_ok,point_estimate,interpretation,lower_bound,upper_bound,confidence_level,quantiles,citations,reasoning_summary,error,raw_response,prompt
+openai_chat_completions,gpt-5.4-nano,labor_supply.frisch_elasticity.prime_age,1,v1,False,,,,,,{},,,"OpenAI API error 400: {
+  ""error"": {
+    ""message"": ""Invalid 'n': integer above maximum value. Expected a value <= 8, but got 15 instead."",
+    ""type"": ""invalid_request_error"",
+    ""param"": ""n"",
+    ""code"": ""integer_above_max_value""
+  }
+}",,"You are a careful empirical economist.
+
+Quantity of interest:
+- ID: labor_supply.frisch_elasticity.prime_age
+- Name: Frisch elasticity of labor supply
+- Description: Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant.
+- Population/context: Prime-age workers in the United States
+- Units: elasticity
+- Preferred interpretation: Lifecycle or macro-calibration Frisch elasticity for hours worked
+- Plausible support: [0.0, 10.0]
+- Benchmark note: A standard calibrated labor-supply parameter in OG-USA and OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Report your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+5. Make the quantiles weakly increasing and numerically coherent.
+6. Give 2 to 4 literature anchors or model-documentation anchors.
+7. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""quantiles"": {
+    ""p05"": 0.0,
+    ""p25"": 0.0,
+    ""p50"": 0.0,
+    ""p75"": 0.0,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"
+openai_chat_completions,gpt-5.4-nano,labor_supply.frisch_elasticity.prime_age,2,v1,False,,,,,,{},,,"OpenAI API error 400: {
+  ""error"": {
+    ""message"": ""Invalid 'n': integer above maximum value. Expected a value <= 8, but got 15 instead."",
+    ""type"": ""invalid_request_error"",
+    ""param"": ""n"",
+    ""code"": ""integer_above_max_value""
+  }
+}",,"You are a careful empirical economist.
+
+Quantity of interest:
+- ID: labor_supply.frisch_elasticity.prime_age
+- Name: Frisch elasticity of labor supply
+- Description: Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant.
+- Population/context: Prime-age workers in the United States
+- Units: elasticity
+- Preferred interpretation: Lifecycle or macro-calibration Frisch elasticity for hours worked
+- Plausible support: [0.0, 10.0]
+- Benchmark note: A standard calibrated labor-supply parameter in OG-USA and OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Report your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+5. Make the quantiles weakly increasing and numerically coherent.
+6. Give 2 to 4 literature anchors or model-documentation anchors.
+7. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""quantiles"": {
+    ""p05"": 0.0,
+    ""p25"": 0.0,
+    ""p50"": 0.0,
+    ""p75"": 0.0,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"
+openai_chat_completions,gpt-5.4-nano,labor_supply.frisch_elasticity.prime_age,3,v1,False,,,,,,{},,,"OpenAI API error 400: {
+  ""error"": {
+    ""message"": ""Invalid 'n': integer above maximum value. Expected a value <= 8, but got 15 instead."",
+    ""type"": ""invalid_request_error"",
+    ""param"": ""n"",
+    ""code"": ""integer_above_max_value""
+  }
+}",,"You are a careful empirical economist.
+
+Quantity of interest:
+- ID: labor_supply.frisch_elasticity.prime_age
+- Name: Frisch elasticity of labor supply
+- Description: Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant.
+- Population/context: Prime-age workers in the United States
+- Units: elasticity
+- Preferred interpretation: Lifecycle or macro-calibration Frisch elasticity for hours worked
+- Plausible support: [0.0, 10.0]
+- Benchmark note: A standard calibrated labor-supply parameter in OG-USA and OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Report your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+5. Make the quantiles weakly increasing and numerically coherent.
+6. Give 2 to 4 literature anchors or model-documentation anchors.
+7. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""quantiles"": {
+    ""p05"": 0.0,
+    ""p25"": 0.0,
+    ""p50"": 0.0,
+    ""p75"": 0.0,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"
+openai_chat_completions,gpt-5.4-nano,labor_supply.frisch_elasticity.prime_age,4,v1,False,,,,,,{},,,"OpenAI API error 400: {
+  ""error"": {
+    ""message"": ""Invalid 'n': integer above maximum value. Expected a value <= 8, but got 15 instead."",
+    ""type"": ""invalid_request_error"",
+    ""param"": ""n"",
+    ""code"": ""integer_above_max_value""
+  }
+}",,"You are a careful empirical economist.
+
+Quantity of interest:
+- ID: labor_supply.frisch_elasticity.prime_age
+- Name: Frisch elasticity of labor supply
+- Description: Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant.
+- Population/context: Prime-age workers in the United States
+- Units: elasticity
+- Preferred interpretation: Lifecycle or macro-calibration Frisch elasticity for hours worked
+- Plausible support: [0.0, 10.0]
+- Benchmark note: A standard calibrated labor-supply parameter in OG-USA and OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Report your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+5. Make the quantiles weakly increasing and numerically coherent.
+6. Give 2 to 4 literature anchors or model-documentation anchors.
+7. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""quantiles"": {
+    ""p05"": 0.0,
+    ""p25"": 0.0,
+    ""p50"": 0.0,
+    ""p75"": 0.0,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"
+openai_chat_completions,gpt-5.4-nano,labor_supply.frisch_elasticity.prime_age,5,v1,False,,,,,,{},,,"OpenAI API error 400: {
+  ""error"": {
+    ""message"": ""Invalid 'n': integer above maximum value. Expected a value <= 8, but got 15 instead."",
+    ""type"": ""invalid_request_error"",
+    ""param"": ""n"",
+    ""code"": ""integer_above_max_value""
+  }
+}",,"You are a careful empirical economist.
+
+Quantity of interest:
+- ID: labor_supply.frisch_elasticity.prime_age
+- Name: Frisch elasticity of labor supply
+- Description: Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant.
+- Population/context: Prime-age workers in the United States
+- Units: elasticity
+- Preferred interpretation: Lifecycle or macro-calibration Frisch elasticity for hours worked
+- Plausible support: [0.0, 10.0]
+- Benchmark note: A standard calibrated labor-supply parameter in OG-USA and OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Report your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+5. Make the quantiles weakly increasing and numerically coherent.
+6. Give 2 to 4 literature anchors or model-documentation anchors.
+7. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""quantiles"": {
+    ""p05"": 0.0,
+    ""p25"": 0.0,
+    ""p50"": 0.0,
+    ""p75"": 0.0,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"
+openai_chat_completions,gpt-5.4-nano,labor_supply.frisch_elasticity.prime_age,6,v1,False,,,,,,{},,,"OpenAI API error 400: {
+  ""error"": {
+    ""message"": ""Invalid 'n': integer above maximum value. Expected a value <= 8, but got 15 instead."",
+    ""type"": ""invalid_request_error"",
+    ""param"": ""n"",
+    ""code"": ""integer_above_max_value""
+  }
+}",,"You are a careful empirical economist.
+
+Quantity of interest:
+- ID: labor_supply.frisch_elasticity.prime_age
+- Name: Frisch elasticity of labor supply
+- Description: Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant.
+- Population/context: Prime-age workers in the United States
+- Units: elasticity
+- Preferred interpretation: Lifecycle or macro-calibration Frisch elasticity for hours worked
+- Plausible support: [0.0, 10.0]
+- Benchmark note: A standard calibrated labor-supply parameter in OG-USA and OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Report your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+5. Make the quantiles weakly increasing and numerically coherent.
+6. Give 2 to 4 literature anchors or model-documentation anchors.
+7. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""quantiles"": {
+    ""p05"": 0.0,
+    ""p25"": 0.0,
+    ""p50"": 0.0,
+    ""p75"": 0.0,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"
+openai_chat_completions,gpt-5.4-nano,labor_supply.frisch_elasticity.prime_age,7,v1,False,,,,,,{},,,"OpenAI API error 400: {
+  ""error"": {
+    ""message"": ""Invalid 'n': integer above maximum value. Expected a value <= 8, but got 15 instead."",
+    ""type"": ""invalid_request_error"",
+    ""param"": ""n"",
+    ""code"": ""integer_above_max_value""
+  }
+}",,"You are a careful empirical economist.
+
+Quantity of interest:
+- ID: labor_supply.frisch_elasticity.prime_age
+- Name: Frisch elasticity of labor supply
+- Description: Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant.
+- Population/context: Prime-age workers in the United States
+- Units: elasticity
+- Preferred interpretation: Lifecycle or macro-calibration Frisch elasticity for hours worked
+- Plausible support: [0.0, 10.0]
+- Benchmark note: A standard calibrated labor-supply parameter in OG-USA and OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Report your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+5. Make the quantiles weakly increasing and numerically coherent.
+6. Give 2 to 4 literature anchors or model-documentation anchors.
+7. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""quantiles"": {
+    ""p05"": 0.0,
+    ""p25"": 0.0,
+    ""p50"": 0.0,
+    ""p75"": 0.0,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"
+openai_chat_completions,gpt-5.4-nano,labor_supply.frisch_elasticity.prime_age,8,v1,False,,,,,,{},,,"OpenAI API error 400: {
+  ""error"": {
+    ""message"": ""Invalid 'n': integer above maximum value. Expected a value <= 8, but got 15 instead."",
+    ""type"": ""invalid_request_error"",
+    ""param"": ""n"",
+    ""code"": ""integer_above_max_value""
+  }
+}",,"You are a careful empirical economist.
+
+Quantity of interest:
+- ID: labor_supply.frisch_elasticity.prime_age
+- Name: Frisch elasticity of labor supply
+- Description: Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant.
+- Population/context: Prime-age workers in the United States
+- Units: elasticity
+- Preferred interpretation: Lifecycle or macro-calibration Frisch elasticity for hours worked
+- Plausible support: [0.0, 10.0]
+- Benchmark note: A standard calibrated labor-supply parameter in OG-USA and OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Report your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+5. Make the quantiles weakly increasing and numerically coherent.
+6. Give 2 to 4 literature anchors or model-documentation anchors.
+7. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""quantiles"": {
+    ""p05"": 0.0,
+    ""p25"": 0.0,
+    ""p50"": 0.0,
+    ""p75"": 0.0,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"
+openai_chat_completions,gpt-5.4-nano,labor_supply.frisch_elasticity.prime_age,9,v1,False,,,,,,{},,,"OpenAI API error 400: {
+  ""error"": {
+    ""message"": ""Invalid 'n': integer above maximum value. Expected a value <= 8, but got 15 instead."",
+    ""type"": ""invalid_request_error"",
+    ""param"": ""n"",
+    ""code"": ""integer_above_max_value""
+  }
+}",,"You are a careful empirical economist.
+
+Quantity of interest:
+- ID: labor_supply.frisch_elasticity.prime_age
+- Name: Frisch elasticity of labor supply
+- Description: Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant.
+- Population/context: Prime-age workers in the United States
+- Units: elasticity
+- Preferred interpretation: Lifecycle or macro-calibration Frisch elasticity for hours worked
+- Plausible support: [0.0, 10.0]
+- Benchmark note: A standard calibrated labor-supply parameter in OG-USA and OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Report your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+5. Make the quantiles weakly increasing and numerically coherent.
+6. Give 2 to 4 literature anchors or model-documentation anchors.
+7. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""quantiles"": {
+    ""p05"": 0.0,
+    ""p25"": 0.0,
+    ""p50"": 0.0,
+    ""p75"": 0.0,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"
+openai_chat_completions,gpt-5.4-nano,labor_supply.frisch_elasticity.prime_age,10,v1,False,,,,,,{},,,"OpenAI API error 400: {
+  ""error"": {
+    ""message"": ""Invalid 'n': integer above maximum value. Expected a value <= 8, but got 15 instead."",
+    ""type"": ""invalid_request_error"",
+    ""param"": ""n"",
+    ""code"": ""integer_above_max_value""
+  }
+}",,"You are a careful empirical economist.
+
+Quantity of interest:
+- ID: labor_supply.frisch_elasticity.prime_age
+- Name: Frisch elasticity of labor supply
+- Description: Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant.
+- Population/context: Prime-age workers in the United States
+- Units: elasticity
+- Preferred interpretation: Lifecycle or macro-calibration Frisch elasticity for hours worked
+- Plausible support: [0.0, 10.0]
+- Benchmark note: A standard calibrated labor-supply parameter in OG-USA and OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Report your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+5. Make the quantiles weakly increasing and numerically coherent.
+6. Give 2 to 4 literature anchors or model-documentation anchors.
+7. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""quantiles"": {
+    ""p05"": 0.0,
+    ""p25"": 0.0,
+    ""p50"": 0.0,
+    ""p75"": 0.0,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"
+openai_chat_completions,gpt-5.4-nano,labor_supply.frisch_elasticity.prime_age,11,v1,False,,,,,,{},,,"OpenAI API error 400: {
+  ""error"": {
+    ""message"": ""Invalid 'n': integer above maximum value. Expected a value <= 8, but got 15 instead."",
+    ""type"": ""invalid_request_error"",
+    ""param"": ""n"",
+    ""code"": ""integer_above_max_value""
+  }
+}",,"You are a careful empirical economist.
+
+Quantity of interest:
+- ID: labor_supply.frisch_elasticity.prime_age
+- Name: Frisch elasticity of labor supply
+- Description: Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant.
+- Population/context: Prime-age workers in the United States
+- Units: elasticity
+- Preferred interpretation: Lifecycle or macro-calibration Frisch elasticity for hours worked
+- Plausible support: [0.0, 10.0]
+- Benchmark note: A standard calibrated labor-supply parameter in OG-USA and OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Report your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+5. Make the quantiles weakly increasing and numerically coherent.
+6. Give 2 to 4 literature anchors or model-documentation anchors.
+7. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""quantiles"": {
+    ""p05"": 0.0,
+    ""p25"": 0.0,
+    ""p50"": 0.0,
+    ""p75"": 0.0,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"
+openai_chat_completions,gpt-5.4-nano,labor_supply.frisch_elasticity.prime_age,12,v1,False,,,,,,{},,,"OpenAI API error 400: {
+  ""error"": {
+    ""message"": ""Invalid 'n': integer above maximum value. Expected a value <= 8, but got 15 instead."",
+    ""type"": ""invalid_request_error"",
+    ""param"": ""n"",
+    ""code"": ""integer_above_max_value""
+  }
+}",,"You are a careful empirical economist.
+
+Quantity of interest:
+- ID: labor_supply.frisch_elasticity.prime_age
+- Name: Frisch elasticity of labor supply
+- Description: Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant.
+- Population/context: Prime-age workers in the United States
+- Units: elasticity
+- Preferred interpretation: Lifecycle or macro-calibration Frisch elasticity for hours worked
+- Plausible support: [0.0, 10.0]
+- Benchmark note: A standard calibrated labor-supply parameter in OG-USA and OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Report your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+5. Make the quantiles weakly increasing and numerically coherent.
+6. Give 2 to 4 literature anchors or model-documentation anchors.
+7. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""quantiles"": {
+    ""p05"": 0.0,
+    ""p25"": 0.0,
+    ""p50"": 0.0,
+    ""p75"": 0.0,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"
+openai_chat_completions,gpt-5.4-nano,labor_supply.frisch_elasticity.prime_age,13,v1,False,,,,,,{},,,"OpenAI API error 400: {
+  ""error"": {
+    ""message"": ""Invalid 'n': integer above maximum value. Expected a value <= 8, but got 15 instead."",
+    ""type"": ""invalid_request_error"",
+    ""param"": ""n"",
+    ""code"": ""integer_above_max_value""
+  }
+}",,"You are a careful empirical economist.
+
+Quantity of interest:
+- ID: labor_supply.frisch_elasticity.prime_age
+- Name: Frisch elasticity of labor supply
+- Description: Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant.
+- Population/context: Prime-age workers in the United States
+- Units: elasticity
+- Preferred interpretation: Lifecycle or macro-calibration Frisch elasticity for hours worked
+- Plausible support: [0.0, 10.0]
+- Benchmark note: A standard calibrated labor-supply parameter in OG-USA and OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Report your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+5. Make the quantiles weakly increasing and numerically coherent.
+6. Give 2 to 4 literature anchors or model-documentation anchors.
+7. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""quantiles"": {
+    ""p05"": 0.0,
+    ""p25"": 0.0,
+    ""p50"": 0.0,
+    ""p75"": 0.0,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"
+openai_chat_completions,gpt-5.4-nano,labor_supply.frisch_elasticity.prime_age,14,v1,False,,,,,,{},,,"OpenAI API error 400: {
+  ""error"": {
+    ""message"": ""Invalid 'n': integer above maximum value. Expected a value <= 8, but got 15 instead."",
+    ""type"": ""invalid_request_error"",
+    ""param"": ""n"",
+    ""code"": ""integer_above_max_value""
+  }
+}",,"You are a careful empirical economist.
+
+Quantity of interest:
+- ID: labor_supply.frisch_elasticity.prime_age
+- Name: Frisch elasticity of labor supply
+- Description: Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant.
+- Population/context: Prime-age workers in the United States
+- Units: elasticity
+- Preferred interpretation: Lifecycle or macro-calibration Frisch elasticity for hours worked
+- Plausible support: [0.0, 10.0]
+- Benchmark note: A standard calibrated labor-supply parameter in OG-USA and OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Report your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+5. Make the quantiles weakly increasing and numerically coherent.
+6. Give 2 to 4 literature anchors or model-documentation anchors.
+7. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""quantiles"": {
+    ""p05"": 0.0,
+    ""p25"": 0.0,
+    ""p50"": 0.0,
+    ""p75"": 0.0,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"
+openai_chat_completions,gpt-5.4-nano,labor_supply.frisch_elasticity.prime_age,15,v1,False,,,,,,{},,,"OpenAI API error 400: {
+  ""error"": {
+    ""message"": ""Invalid 'n': integer above maximum value. Expected a value <= 8, but got 15 instead."",
+    ""type"": ""invalid_request_error"",
+    ""param"": ""n"",
+    ""code"": ""integer_above_max_value""
+  }
+}",,"You are a careful empirical economist.
+
+Quantity of interest:
+- ID: labor_supply.frisch_elasticity.prime_age
+- Name: Frisch elasticity of labor supply
+- Description: Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant.
+- Population/context: Prime-age workers in the United States
+- Units: elasticity
+- Preferred interpretation: Lifecycle or macro-calibration Frisch elasticity for hours worked
+- Plausible support: [0.0, 10.0]
+- Benchmark note: A standard calibrated labor-supply parameter in OG-USA and OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Report your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+5. Make the quantiles weakly increasing and numerically coherent.
+6. Give 2 to 4 literature anchors or model-documentation anchors.
+7. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""quantiles"": {
+    ""p05"": 0.0,
+    ""p25"": 0.0,
+    ""p50"": 0.0,
+    ""p75"": 0.0,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"

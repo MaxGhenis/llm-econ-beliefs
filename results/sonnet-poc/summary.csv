@@ -1,0 +1,4 @@
+model_name,quantity_id,quantity_name,n_successful_runs,pooled_point_estimate,pooled_lower_bound,pooled_upper_bound,within_run_sd,between_run_sd,total_sd
+sonnet,household.annual_discount_factor,Annual discount factor,2,0.96,0.9349999999999999,0.985,0.015198920797794249,0.0,0.015198920797794249
+sonnet,household.relative_risk_aversion.crra,Coefficient of relative risk aversion,2,2.0,,,0.0,0.0,0.0
+sonnet,labor_supply.frisch_elasticity.prime_age,Frisch elasticity of labor supply,2,0.35,0.10327195595727925,0.5967280440427207,0.0,0.15,0.15

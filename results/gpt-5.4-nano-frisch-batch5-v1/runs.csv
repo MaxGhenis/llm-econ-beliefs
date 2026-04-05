@@ -1,0 +1,201 @@
+provider,model_name,quantity_id,run_index,prompt_version,parsed_ok,point_estimate,interpretation,lower_bound,upper_bound,confidence_level,quantiles,citations,reasoning_summary,error,raw_response,prompt
+openai_chat_completions,gpt-5.4-nano,labor_supply.frisch_elasticity.prime_age,1,v1,True,0.7,"Lifecycle/macro-calibration Frisch elasticity of labor supply for prime-age U.S. workers (percent change in hours for a 1% change in the net-of-tax wage, holding marginal utility of wealth constant).",0.2,2.0,0.9,"{""p05"": 0.2, ""p25"": 0.4, ""p50"": 0.7, ""p75"": 1.1, ""p95"": 2.0}","Trabandt and Uhlig (2011) | Chetty et al. (2011) | Alesina, Glaeser, and Sacerdote (2005) | OG-Core / OG-USA model documentation (2016-2020 versions)","Applied calibrations and empirical evidence for prime-age Frisch labor-supply responsiveness typically place the Frisch elasticity well below 1 on average, with substantial uncertainty; I center on ~0.7 and allow a wide upper tail (to reflect disagreement across identification strategies and model/specification choices).",,"{""interpretation"":""Lifecycle/macro-calibration Frisch elasticity of labor supply for prime-age U.S. workers (percent change in hours for a 1% change in the net-of-tax wage, holding marginal utility of wealth constant)."",""point_estimate"":0.7,""quantiles"":{""p05"":0.2,""p25"":0.4,""p50"":0.7,""p75"":1.1,""p95"":2.0},""citations"":[""Trabandt and Uhlig (2011)"",""Chetty et al. (2011)"",""Alesina, Glaeser, and Sacerdote (2005)"",""OG-Core / OG-USA model documentation (2016-2020 versions)""],""reasoning_summary"":""Applied calibrations and empirical evidence for prime-age Frisch labor-supply responsiveness typically place the Frisch elasticity well below 1 on average, with substantial uncertainty; I center on ~0.7 and allow a wide upper tail (to reflect disagreement across identification strategies and model/specification choices).""}","You are a careful empirical economist.
+
+Quantity of interest:
+- ID: labor_supply.frisch_elasticity.prime_age
+- Name: Frisch elasticity of labor supply
+- Description: Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant.
+- Population/context: Prime-age workers in the United States
+- Units: elasticity
+- Preferred interpretation: Lifecycle or macro-calibration Frisch elasticity for hours worked
+- Plausible support: [0.0, 10.0]
+- Benchmark note: A standard calibrated labor-supply parameter in OG-USA and OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Report your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+5. Make the quantiles weakly increasing and numerically coherent.
+6. Give 2 to 4 literature anchors or model-documentation anchors.
+7. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""quantiles"": {
+    ""p05"": 0.0,
+    ""p25"": 0.0,
+    ""p50"": 0.0,
+    ""p75"": 0.0,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"
+openai_chat_completions,gpt-5.4-nano,labor_supply.frisch_elasticity.prime_age,2,v1,True,0.8,"Lifecycle/macro-calibration Frisch elasticity of labor supply for prime-age U.S. workers (percent change in hours from a 1% increase in the net-of-tax wage, holding the marginal utility of wealth constant).",0.2,2.0,0.9,"{""p05"": 0.2, ""p25"": 0.5, ""p50"": 0.8, ""p75"": 1.2, ""p95"": 2.0}","Chetty, Friedman, Olsen (2011) | Attanasio, Low, Sanchez-Marcos (2008) | Cesarini et al. (2017) | OG-Core / OG-USA (Golosov et al.; economic model documentation)","Standard calibrated labor-supply Frisch elasticities used in macro-fiscal models for prime-age workers are typically below 1 but not near zero; micro evidence and wage-elasticity patterns generally imply modest responsiveness of hours to net wages after accounting for intensive-margin and substitution effects. I therefore center on ~0.8 with wide-but-bounded uncertainty within [0,10].",,"{""interpretation"":""Lifecycle/macro-calibration Frisch elasticity of labor supply for prime-age U.S. workers (percent change in hours from a 1% increase in the net-of-tax wage, holding the marginal utility of wealth constant)."",""point_estimate"":0.8,""quantiles"":{""p05"":0.2,""p25"":0.5,""p50"":0.8,""p75"":1.2,""p95"":2.0},""citations"":[""Chetty, Friedman, Olsen (2011)"",""Attanasio, Low, Sanchez-Marcos (2008)"",""Cesarini et al. (2017)"",""OG-Core / OG-USA (Golosov et al.; economic model documentation)""],""reasoning_summary"":""Standard calibrated labor-supply Frisch elasticities used in macro-fiscal models for prime-age workers are typically below 1 but not near zero; micro evidence and wage-elasticity patterns generally imply modest responsiveness of hours to net wages after accounting for intensive-margin and substitution effects. I therefore center on ~0.8 with wide-but-bounded uncertainty within [0,10].""}","You are a careful empirical economist.
+
+Quantity of interest:
+- ID: labor_supply.frisch_elasticity.prime_age
+- Name: Frisch elasticity of labor supply
+- Description: Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant.
+- Population/context: Prime-age workers in the United States
+- Units: elasticity
+- Preferred interpretation: Lifecycle or macro-calibration Frisch elasticity for hours worked
+- Plausible support: [0.0, 10.0]
+- Benchmark note: A standard calibrated labor-supply parameter in OG-USA and OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Report your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+5. Make the quantiles weakly increasing and numerically coherent.
+6. Give 2 to 4 literature anchors or model-documentation anchors.
+7. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""quantiles"": {
+    ""p05"": 0.0,
+    ""p25"": 0.0,
+    ""p50"": 0.0,
+    ""p75"": 0.0,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"
+openai_chat_completions,gpt-5.4-nano,labor_supply.frisch_elasticity.prime_age,3,v1,True,0.8,Lifecycle/macro-calibration Frisch elasticity of labor supply for prime-age U.S. workers: elasticity of hours with respect to the net-of-tax wage holding marginal utility of wealth constant.,0.2,2.0,0.9,"{""p05"": 0.2, ""p25"": 0.5, ""p50"": 0.8, ""p75"": 1.2, ""p95"": 2.0}",Chetty et al. (2011) | McKay and Reis (2016) | OG-Core / OG-USA documentation (Council of Economic Advisers),"Most empirical and calibration guidance suggests a modest but not zero Frisch elasticity for prime-age hours (often consistent with values around 0.5–1.0 in lifecycle/macroeconomic models). I place the central estimate at 0.8 with a fairly wide upper tail to accommodate model- and identification-dependent variation, while keeping support within [0,10].",,"{""interpretation"":""Lifecycle/macro-calibration Frisch elasticity of labor supply for prime-age U.S. workers: elasticity of hours with respect to the net-of-tax wage holding marginal utility of wealth constant."",""point_estimate"":0.8,""quantiles"":{""p05"":0.2,""p25"":0.5,""p50"":0.8,""p75"":1.2,""p95"":2.0},""citations"":[""Chetty et al. (2011)"",""McKay and Reis (2016)"",""OG-Core / OG-USA documentation (Council of Economic Advisers)""],""reasoning_summary"":""Most empirical and calibration guidance suggests a modest but not zero Frisch elasticity for prime-age hours (often consistent with values around 0.5–1.0 in lifecycle/macroeconomic models). I place the central estimate at 0.8 with a fairly wide upper tail to accommodate model- and identification-dependent variation, while keeping support within [0,10].""}","You are a careful empirical economist.
+
+Quantity of interest:
+- ID: labor_supply.frisch_elasticity.prime_age
+- Name: Frisch elasticity of labor supply
+- Description: Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant.
+- Population/context: Prime-age workers in the United States
+- Units: elasticity
+- Preferred interpretation: Lifecycle or macro-calibration Frisch elasticity for hours worked
+- Plausible support: [0.0, 10.0]
+- Benchmark note: A standard calibrated labor-supply parameter in OG-USA and OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Report your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+5. Make the quantiles weakly increasing and numerically coherent.
+6. Give 2 to 4 literature anchors or model-documentation anchors.
+7. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""quantiles"": {
+    ""p05"": 0.0,
+    ""p25"": 0.0,
+    ""p50"": 0.0,
+    ""p75"": 0.0,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"
+openai_chat_completions,gpt-5.4-nano,labor_supply.frisch_elasticity.prime_age,4,v1,True,0.7,"Lifecycle/macro-calibration Frisch elasticity of prime-age labor supply (elasticity of hours with respect to the net-of-tax wage, holding marginal utility of wealth constant).",0.2,1.8,0.9,"{""p05"": 0.2, ""p25"": 0.5, ""p50"": 0.7, ""p75"": 1.0, ""p95"": 1.8}",Chetty et al. (2011) | Trabandt and Uhlig (2011) | OG-Core / OG-USA documentation (2014) | Holmes (2011),"Most structural and labor-supply calibration exercises for prime-age households imply a modest Frisch elasticity (often well below 1) once measurement, extensive-margin effects, and wealth effects are abstracted away; I place the central value around 0.7 with wide-but-truncated uncertainty from roughly 0.2 to under 2.",,"{""interpretation"":""Lifecycle/macro-calibration Frisch elasticity of prime-age labor supply (elasticity of hours with respect to the net-of-tax wage, holding marginal utility of wealth constant)."",""point_estimate"":0.7,""quantiles"":{""p05"":0.2,""p25"":0.5,""p50"":0.7,""p75"":1.0,""p95"":1.8},""citations"":[""Chetty et al. (2011)"",""Trabandt and Uhlig (2011)"",""OG-Core / OG-USA documentation (2014)"",""Holmes (2011)""] ,""reasoning_summary"":""Most structural and labor-supply calibration exercises for prime-age households imply a modest Frisch elasticity (often well below 1) once measurement, extensive-margin effects, and wealth effects are abstracted away; I place the central value around 0.7 with wide-but-truncated uncertainty from roughly 0.2 to under 2.""}","You are a careful empirical economist.
+
+Quantity of interest:
+- ID: labor_supply.frisch_elasticity.prime_age
+- Name: Frisch elasticity of labor supply
+- Description: Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant.
+- Population/context: Prime-age workers in the United States
+- Units: elasticity
+- Preferred interpretation: Lifecycle or macro-calibration Frisch elasticity for hours worked
+- Plausible support: [0.0, 10.0]
+- Benchmark note: A standard calibrated labor-supply parameter in OG-USA and OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Report your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+5. Make the quantiles weakly increasing and numerically coherent.
+6. Give 2 to 4 literature anchors or model-documentation anchors.
+7. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""quantiles"": {
+    ""p05"": 0.0,
+    ""p25"": 0.0,
+    ""p50"": 0.0,
+    ""p75"": 0.0,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"
+openai_chat_completions,gpt-5.4-nano,labor_supply.frisch_elasticity.prime_age,5,v1,True,0.6,Lifecycle or macro-calibration Frisch elasticity of labor supply for prime-age hours: percent change in hours from a 1% change in the net-of-tax wage holding marginal utility of wealth constant.,0.2,1.5,0.9,"{""p05"": 0.2, ""p25"": 0.4, ""p50"": 0.6, ""p75"": 0.9, ""p95"": 1.5}","Chetty, Friedman, Saez (2011) | Guner, Kaygusuz, Ventura (2014) | Hagedorn, Manovskii, Mitman (2019) | Mendoza, Razin, Tesar (1994)","Standard applied calibrations and empirical labor-supply elasticities for prime-age workers typically imply a modest Frisch elasticity (well below very large values), with much of the cross-study mass between roughly 0.3 and 1.0; I place the central tendency around 0.6 and allow for some chance of higher responsiveness in the upper tail.",,"{""interpretation"":""Lifecycle or macro-calibration Frisch elasticity of labor supply for prime-age hours: percent change in hours from a 1% change in the net-of-tax wage holding marginal utility of wealth constant."",""point_estimate"":0.6,""quantiles"":{""p05"":0.2,""p25"":0.4,""p50"":0.6,""p75"":0.9,""p95"":1.5},""citations"":[""Chetty, Friedman, Saez (2011)"",""Guner, Kaygusuz, Ventura (2014)"",""Hagedorn, Manovskii, Mitman (2019)"",""Mendoza, Razin, Tesar (1994)""] ,""reasoning_summary"":""Standard applied calibrations and empirical labor-supply elasticities for prime-age workers typically imply a modest Frisch elasticity (well below very large values), with much of the cross-study mass between roughly 0.3 and 1.0; I place the central tendency around 0.6 and allow for some chance of higher responsiveness in the upper tail.""}","You are a careful empirical economist.
+
+Quantity of interest:
+- ID: labor_supply.frisch_elasticity.prime_age
+- Name: Frisch elasticity of labor supply
+- Description: Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant.
+- Population/context: Prime-age workers in the United States
+- Units: elasticity
+- Preferred interpretation: Lifecycle or macro-calibration Frisch elasticity for hours worked
+- Plausible support: [0.0, 10.0]
+- Benchmark note: A standard calibrated labor-supply parameter in OG-USA and OG-Core style models.
+
+Task:
+1. Use the most standard interpretation in applied economics.
+2. If the quantity is ambiguous, choose one interpretation and say exactly what you chose.
+3. Give your own best central estimate.
+4. Report your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+5. Make the quantiles weakly increasing and numerically coherent.
+6. Give 2 to 4 literature anchors or model-documentation anchors.
+7. Keep the explanation brief and substantive.
+
+Use your best current sense of the literature, not a historical estimate from a specific decade unless you say so.
+
+Return valid JSON only. Use numbers, not strings, for numeric fields.
+{
+  ""interpretation"": ""short string"",
+  ""point_estimate"": 0.0,
+  ""reasoning_summary"": ""short string"",
+  ""quantiles"": {
+    ""p05"": 0.0,
+    ""p25"": 0.0,
+    ""p50"": 0.0,
+    ""p75"": 0.0,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Author (Year)"",
+    ""Author (Year)""
+  ]
+}"

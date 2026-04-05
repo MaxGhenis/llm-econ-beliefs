@@ -1,0 +1,168 @@
+[[quantity]]
+id = "labor_supply.income_elasticity.prime_age"
+name = "Income elasticity of labor supply"
+domain = "labor_supply"
+description = "Percent change in hours worked from a 1 percent increase in non-labor income, holding the wage fixed."
+population = "Prime-age workers in the United States"
+unit = "elasticity"
+preferred_interpretation = "Intensive-margin hours elasticity conditional on work"
+lower_support = -2.0
+upper_support = 1.0
+benchmark_summary = "Often modestly negative in review papers and lottery evidence."
+benchmark_source = "CBO 2012; Blundell and MaCurdy 1999; Imbens, Rubin, and Sacerdote 2001"
+tags = ["labor_supply", "review_ready", "cbo_style"]
+
+[[quantity]]
+id = "labor_supply.frisch_elasticity.prime_age"
+name = "Frisch elasticity of labor supply"
+domain = "labor_supply"
+description = "Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant."
+population = "Prime-age workers in the United States"
+unit = "elasticity"
+preferred_interpretation = "Lifecycle or macro-calibration Frisch elasticity for hours worked"
+lower_support = 0.0
+upper_support = 10.0
+benchmark_summary = "A standard calibrated labor-supply parameter in OG-USA and OG-Core style models."
+benchmark_source = "OG-USA macro calibration docs; OG-Core parameter docs; Altonji 1986; Peterman 2016"
+tags = ["labor_supply", "og_usa", "og_core", "review_ready"]
+
+[[quantity]]
+id = "labor_supply.marshallian_wage_elasticity.prime_age"
+name = "Uncompensated wage elasticity of labor supply"
+domain = "labor_supply"
+description = "Percent change in hours worked from a 1 percent change in the wage, allowing for both substitution and income effects."
+population = "Prime-age workers in the United States"
+unit = "elasticity"
+preferred_interpretation = "Marshallian intensive-margin hours elasticity"
+lower_support = -2.0
+upper_support = 4.0
+benchmark_summary = "Relevant for mapping between substitution and income effects in labor-supply reviews."
+benchmark_source = "CBO 2012; Blundell and MaCurdy 1999"
+tags = ["labor_supply", "review_ready", "cbo_style"]
+
+[[quantity]]
+id = "labor_supply.extensive_margin.single_mothers"
+name = "Extensive-margin labor-supply elasticity"
+domain = "labor_supply"
+description = "Semi-elastic or elasticity-style responsiveness of labor-force participation to work incentives."
+population = "Single mothers in the United States"
+unit = "elasticity"
+preferred_interpretation = "Participation elasticity with respect to the net-of-tax wage or work incentives"
+lower_support = -1.0
+upper_support = 5.0
+benchmark_summary = "Participation responses can materially exceed intensive-margin hours responses."
+benchmark_source = "Eissa and Liebman 1996; extensive-margin labor-supply literature"
+tags = ["labor_supply", "public_finance", "review_ready"]
+
+[[quantity]]
+id = "household.relative_risk_aversion.crra"
+name = "Coefficient of relative risk aversion"
+domain = "household_preferences"
+description = "CRRA coefficient in household utility over consumption."
+population = "Representative household or calibrated household block"
+unit = "coefficient"
+preferred_interpretation = "CRRA coefficient, often denoted sigma"
+lower_support = 0.0
+upper_support = 50.0
+benchmark_summary = "A core household-preference parameter used in overlapping-generations models."
+benchmark_source = "OG-Core parameter docs; Attanasio, Banks, Meghir, and Weber 1999"
+tags = ["household_preferences", "og_usa", "og_core", "calibration"]
+
+[[quantity]]
+id = "household.intertemporal_elasticity_of_substitution"
+name = "Intertemporal elasticity of substitution"
+domain = "household_preferences"
+description = "Percent change in consumption growth from a 1 percent change in the intertemporal price of consumption."
+population = "Representative household or calibrated household block"
+unit = "elasticity"
+preferred_interpretation = "Consumption IES, distinct from the CRRA coefficient when the environment allows that distinction"
+lower_support = 0.0
+upper_support = 5.0
+benchmark_summary = "A canonical macro quantity often discussed alongside risk aversion."
+benchmark_source = "Macroeconomics handbook and calibration literature"
+tags = ["household_preferences", "macro", "calibration"]
+
+[[quantity]]
+id = "household.annual_discount_factor"
+name = "Annual discount factor"
+domain = "household_preferences"
+description = "One-year time discount factor for household utility."
+population = "Representative household or calibrated household block"
+unit = "level"
+preferred_interpretation = "Annual beta used in calibration"
+lower_support = 0.0
+upper_support = 1.0
+benchmark_summary = "A standard preference parameter in OG-Core style models."
+benchmark_source = "OG-Core parameter docs; Carroll 2009"
+tags = ["household_preferences", "og_usa", "og_core", "calibration"]
+
+[[quantity]]
+id = "production.capital_labor_substitution"
+name = "Elasticity of substitution between capital and labor"
+domain = "production"
+description = "Percent change in the capital-labor ratio from a 1 percent change in the marginal rate of technical substitution."
+population = "U.S. aggregate production or sectoral production block"
+unit = "elasticity"
+preferred_interpretation = "CES elasticity of substitution in production"
+lower_support = 0.0
+upper_support = 10.0
+benchmark_summary = "A central production-side calibration parameter."
+benchmark_source = "Macro production-function literature"
+tags = ["production", "macro", "calibration"]
+
+[[quantity]]
+id = "production.capital_share"
+name = "Capital share in production"
+domain = "production"
+description = "Output elasticity with respect to capital in an aggregate production function."
+population = "U.S. aggregate production"
+unit = "share"
+preferred_interpretation = "Cobb-Douglas capital share alpha"
+lower_support = 0.0
+upper_support = 1.0
+benchmark_summary = "A baseline production parameter used in many macro models."
+benchmark_source = "National income accounts and macro calibration literature"
+tags = ["production", "macro", "calibration", "og_usa_adjacent"]
+
+[[quantity]]
+id = "trade.armington_elasticity.import_domestic"
+name = "Armington elasticity"
+domain = "trade"
+description = "Elasticity of substitution between imported and domestically produced goods."
+population = "U.S. trade or open-economy calibration"
+unit = "elasticity"
+preferred_interpretation = "Aggregate import-domestic Armington elasticity"
+lower_support = 0.0
+upper_support = 20.0
+benchmark_summary = "A standard open-economy elasticity used in CGE and policy models."
+benchmark_source = "Trade and CGE calibration literature"
+tags = ["trade", "open_economy", "calibration"]
+
+[[quantity]]
+id = "tax.elasticity_of_taxable_income.top_earners"
+name = "Elasticity of taxable income"
+domain = "tax"
+description = "Percent change in taxable income from a 1 percent change in the net-of-tax rate."
+population = "High-income taxpayers in the United States"
+unit = "elasticity"
+preferred_interpretation = "Medium-run ETI for top earners with avoidance and real responses combined"
+lower_support = -1.0
+upper_support = 5.0
+benchmark_summary = "A canonical sufficient statistic in public finance."
+benchmark_source = "Saez, Slemrod, and Giertz 2012; expert-elicitation and optimal-tax literature"
+tags = ["tax", "public_finance", "review_ready"]
+
+[[quantity]]
+id = "macro.tfp_persistence.ar1"
+name = "TFP persistence"
+domain = "macro_dynamics"
+description = "AR(1) coefficient on total factor productivity in a log-linear macro process."
+population = "U.S. aggregate TFP process"
+unit = "coefficient"
+preferred_interpretation = "Quarterly or annual persistence coefficient, explicitly stating the frequency"
+lower_support = 0.0
+upper_support = 1.0
+benchmark_summary = "A canonical macro-shock persistence parameter."
+benchmark_source = "Business-cycle estimation literature"
+tags = ["macro", "dynamics", "calibration"]
+
