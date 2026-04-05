@@ -62,7 +62,14 @@ interface StoredRunRecord {
   error: string | null;
 }
 
-const MODEL_ORDER = ["gpt-5.4", "gpt-5.4-mini", "gpt-5.4-nano"];
+const MODEL_ORDER = [
+  "gpt-5.4",
+  "gpt-5.4-mini",
+  "gpt-5.4-nano",
+  "opus",
+  "sonnet",
+  "haiku",
+];
 
 const METHOD_DEFINITIONS: IntervalMethodDefinition[] = [
   {
