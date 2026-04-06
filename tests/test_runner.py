@@ -12,11 +12,11 @@ def test_build_run_grid_and_write_csv(tmp_path: Path):
 
     assert len(runs) == 4
     assert runs[0].quantity_id == "labor_supply.frisch_elasticity.prime_age"
+    assert runs[0].tool_regime == "none"
 
     output_path = tmp_path / "grid.csv"
     write_run_grid_csv(output_path, runs)
 
     assert output_path.exists()
     content = output_path.read_text()
-    assert "model_name,quantity_id,run_index,prompt_version,prompt" in content
-
+    assert "model_name,quantity_id,run_index,prompt_version,tool_regime,prompt" in content

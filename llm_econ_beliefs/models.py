@@ -25,6 +25,17 @@ class EconomicQuantity:
 
 
 @dataclass(frozen=True)
+class ParameterMapping:
+    """Mapping from a policy-model parameter path to a registry quantity."""
+
+    system: str
+    parameter_path: str
+    quantity_id: str
+    label: str | None = None
+    notes: str | None = None
+
+
+@dataclass(frozen=True)
 class PromptRun:
     """One prompt instantiation in an experiment grid."""
 
@@ -32,6 +43,7 @@ class PromptRun:
     quantity_id: str
     run_index: int
     prompt_version: str
+    tool_regime: str
     prompt: str
 
 
@@ -108,6 +120,7 @@ class RunResult:
     quantity_id: str
     run_index: int
     prompt_version: str
+    tool_regime: str
     prompt: str
     raw_response: str | None
     parsed_ok: bool
@@ -129,6 +142,8 @@ class ProviderBatchResult:
     outputs: list[str]
     request_id: str | None = None
     usage: dict[str, Any] = field(default_factory=dict)
+    tool_trace: list[dict[str, Any]] = field(default_factory=list)
+    tool_sources: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -140,6 +155,7 @@ class RequestLog:
     quantity_id: str
     request_index: int
     prompt_version: str
+    tool_regime: str
     batch_size: int
     request_id: str | None = None
     prompt_tokens: int | None = None
@@ -150,5 +166,11 @@ class RequestLog:
     estimated_input_cost_usd: float | None = None
     estimated_cached_input_cost_usd: float | None = None
     estimated_output_cost_usd: float | None = None
+    estimated_tool_cost_usd: float | None = None
     estimated_total_cost_usd: float | None = None
+    tool_call_count: int | None = None
+    web_search_call_count: int | None = None
+    code_interpreter_call_count: int | None = None
+    tool_sources: list[str] = field(default_factory=list)
+    tool_trace: list[dict[str, Any]] = field(default_factory=list)
     usage: dict[str, Any] = field(default_factory=dict)

@@ -17,6 +17,7 @@ def test_estimate_request_cost_uses_cached_and_uncached_prompt_rates():
         quantity_id="labor_supply.frisch_elasticity.prime_age",
         request_index=1,
         prompt_version="v1",
+        tool_regime="none",
         batch_size=5,
         prompt_tokens=1000,
         completion_tokens=500,
@@ -34,3 +35,51 @@ def test_estimate_request_cost_uses_cached_and_uncached_prompt_rates():
         + enriched.estimated_cached_input_cost_usd
         + enriched.estimated_output_cost_usd
     )
+
+
+def test_estimate_request_cost_includes_openai_response_tool_costs():
+    request_log = RequestLog(
+        provider="openai_responses",
+        model_name="gpt-5.4-mini",
+        quantity_id="labor_supply.frisch_elasticity.prime_age",
+        request_index=1,
+        prompt_version="v3",
+        tool_regime="full",
+        batch_size=1,
+        prompt_tokens=100,
+        completion_tokens=100,
+        total_tokens=200,
+        web_search_call_count=2,
+        code_interpreter_call_count=1,
+    )
+
+    enriched = estimate_request_cost(request_log)
+
+    assert enriched.estimated_tool_cost_usd == 0.05
+    assert enriched.estimated_total_cost_usd == (
+        enriched.estimated_input_cost_usd
+        + enriched.estimated_cached_input_cost_usd
+        + enriched.estimated_output_cost_usd
+        + enriched.estimated_tool_cost_usd
+    )
+
+
+def test_estimate_request_cost_preserves_precomputed_total():
+    request_log = RequestLog(
+        provider="litellm_completion",
+        model_name="claude-haiku-4.5",
+        quantity_id="labor_supply.frisch_elasticity.prime_age",
+        request_index=1,
+        prompt_version="v2",
+        tool_regime="none",
+        batch_size=1,
+        prompt_tokens=100,
+        completion_tokens=200,
+        total_tokens=300,
+        estimated_total_cost_usd=0.123,
+    )
+
+    enriched = estimate_request_cost(request_log)
+
+    assert enriched.estimated_total_cost_usd == 0.123
+    assert enriched.estimated_input_cost_usd is None

@@ -1,5 +1,9 @@
 # Paper Framing
 
+Current draft:
+
+- `draft.md`
+
 Working title:
 
 `What Do Large Language Models Believe About Economic Parameters?`

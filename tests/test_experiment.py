@@ -4,6 +4,7 @@ from llm_econ_beliefs import ProviderBatchResult
 from llm_econ_beliefs.experiment import (
     resolve_quantity_ids,
     run_claude_experiment,
+    run_litellm_experiment,
     run_openai_experiment,
 )
 
@@ -67,7 +68,9 @@ def test_run_claude_experiment_writes_outputs(tmp_path: Path):
 
     assert len(records) == 2
     assert records[0].quantiles["p50"] == 0.96
+    assert records[0].tool_regime == "none"
     assert summaries[0]["quantity_id"] == "household.annual_discount_factor"
+    assert summaries[0]["tool_regime"] == "none"
     assert (tmp_path / "runs.jsonl").exists()
     assert (tmp_path / "runs.csv").exists()
     assert (tmp_path / "summary.csv").exists()
@@ -169,3 +172,104 @@ def test_run_openai_experiment_caps_batch_size_at_openai_limit(tmp_path: Path):
     assert len(records) == 15
     assert summaries[0]["n_successful_runs"] == 15
     assert [batch[2] for batch in batches] == [8, 7]
+
+
+def test_run_openai_responses_logs_tool_usage(tmp_path: Path):
+    def fake_invoke_batch(prompt: str, model_name: str, n: int) -> ProviderBatchResult:
+        assert n == 1
+        return ProviderBatchResult(
+            outputs=[
+                """
+                {
+                  "interpretation": "Annual discount factor",
+                  "point_estimate": 0.96,
+                  "quantiles": {
+                    "p05": 0.94,
+                    "p25": 0.95,
+                    "p50": 0.96,
+                    "p75": 0.97,
+                    "p95": 0.99
+                  },
+                  "citations": [],
+                  "reasoning_summary": "Typical annual calibration value."
+                }
+                """
+            ],
+            request_id="resp_1",
+            usage={
+                "input_tokens": 100,
+                "output_tokens": 50,
+                "total_tokens": 150,
+                "input_tokens_details": {"cached_tokens": 0},
+                "output_tokens_details": {"reasoning_tokens": 0},
+            },
+            tool_trace=[
+                {"type": "web_search_call"},
+                {"type": "code_interpreter_call"},
+            ],
+            tool_sources=["https://example.com/a", "https://example.com/b"],
+        )
+
+    records, summaries = run_openai_experiment(
+        quantity_ids=["household.annual_discount_factor"],
+        n_runs=1,
+        output_dir=tmp_path,
+        model_name="gpt-5.4-mini",
+        api_mode="responses",
+        tool_regime="full",
+        invoke_batch=fake_invoke_batch,
+    )
+
+    assert len(records) == 1
+    assert records[0].tool_regime == "full"
+    assert summaries[0]["tool_regime"] == "full"
+    assert summaries[0]["web_search_call_count_total"] == 1
+    assert summaries[0]["code_interpreter_call_count_total"] == 1
+    requests_csv = (tmp_path / "requests.csv").read_text()
+    assert "tool_trace" in requests_csv
+
+
+def test_run_litellm_experiment_uses_precomputed_cost(tmp_path: Path):
+    def fake_invoke_batch(prompt: str, model_name: str, n: int) -> ProviderBatchResult:
+        assert n == 1
+        return ProviderBatchResult(
+            outputs=[
+                """
+                {
+                  "interpretation": "Annual discount factor",
+                  "point_estimate": 0.96,
+                  "quantiles": {
+                    "p05": 0.94,
+                    "p25": 0.95,
+                    "p50": 0.96,
+                    "p75": 0.97,
+                    "p95": 0.99
+                  },
+                  "citations": [],
+                  "reasoning_summary": "Typical annual calibration value."
+                }
+                """
+            ],
+            request_id="litellm_1",
+            usage={
+                "prompt_tokens": 100,
+                "completion_tokens": 50,
+                "total_tokens": 150,
+                "prompt_tokens_details": {"cached_tokens": 0},
+                "completion_tokens_details": {"reasoning_tokens": 7},
+                "litellm_cost_usd": 0.123,
+            },
+        )
+
+    records, summaries = run_litellm_experiment(
+        quantity_ids=["household.annual_discount_factor"],
+        n_runs=2,
+        output_dir=tmp_path,
+        model_name="claude-haiku-4.5",
+        invoke_batch=fake_invoke_batch,
+    )
+
+    assert len(records) == 2
+    assert summaries[0]["n_successful_runs"] == 2
+    assert summaries[0]["usage_estimated_total_cost_usd_total"] == 0.246
+    assert summaries[0]["usage_reasoning_tokens_total"] == 14

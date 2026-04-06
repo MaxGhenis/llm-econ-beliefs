@@ -19,6 +19,7 @@ def build_run_grid(
     n_runs: int,
     prompt_version: str = "v2",
     include_uncertainty: bool = True,
+    tool_regime: str = "none",
 ) -> list[PromptRun]:
     """Create a grid of prompts ready to hand to an inference client."""
     if n_runs <= 0:
@@ -31,6 +32,7 @@ def build_run_grid(
             prompt = create_belief_prompt(
                 quantity,
                 include_uncertainty=include_uncertainty,
+                tool_regime=tool_regime,
             )
             for run_index in range(1, n_runs + 1):
                 runs.append(
@@ -39,6 +41,7 @@ def build_run_grid(
                         quantity_id=quantity_id,
                         run_index=run_index,
                         prompt_version=prompt_version,
+                        tool_regime=tool_regime,
                         prompt=prompt,
                     )
                 )
@@ -58,6 +61,7 @@ def write_run_grid_csv(path: str | Path, runs: Sequence[PromptRun]) -> None:
                 "quantity_id",
                 "run_index",
                 "prompt_version",
+                "tool_regime",
                 "prompt",
             ],
         )

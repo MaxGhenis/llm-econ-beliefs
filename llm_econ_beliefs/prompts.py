@@ -10,19 +10,34 @@ def create_belief_prompt(
     *,
     include_uncertainty: bool = True,
     ask_for_citations: bool = True,
+    tool_regime: str = "none",
 ) -> str:
     """Create a JSON-first elicitation prompt for one quantity."""
 
-    lines = [
-        "Answer from your current memory and background knowledge only.",
-        "Do not use tools, files, the web, code, or external resources.",
-        "Do not try to reconstruct a literature review or search for a consensus estimate.",
-        "Report the belief you currently endorse.",
-        "",
-        "Quantity of interest:",
-        f"- Name: {quantity.name}",
-        f"- Definition: {quantity.description}",
-    ]
+    if tool_regime == "none":
+        lines = [
+            "Answer from your current memory and background knowledge only.",
+            "Do not use tools, files, the web, code, or external resources.",
+            "Do not try to reconstruct a literature review or search for a consensus estimate.",
+            "Report the belief you currently endorse.",
+            "",
+            "Quantity of interest:",
+            f"- Name: {quantity.name}",
+            f"- Definition: {quantity.description}",
+        ]
+    elif tool_regime == "full":
+        lines = [
+            "Start from your current background knowledge.",
+            "You may use any available tools, including web or code tools, if they materially improve your estimate.",
+            "Use tools only as needed; do not turn this into an exhaustive literature review.",
+            "Report the belief you endorse after using any tools you choose to use.",
+            "",
+            "Quantity of interest:",
+            f"- Name: {quantity.name}",
+            f"- Definition: {quantity.description}",
+        ]
+    else:
+        raise ValueError(f"Unsupported tool_regime: {tool_regime}")
 
     if quantity.preferred_interpretation:
         lines.append(f"- Target interpretation: {quantity.preferred_interpretation}")

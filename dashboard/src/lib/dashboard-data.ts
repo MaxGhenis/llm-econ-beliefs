@@ -66,9 +66,14 @@ const MODEL_ORDER = [
   "gpt-5.4",
   "gpt-5.4-mini",
   "gpt-5.4-nano",
-  "opus",
-  "sonnet",
-  "haiku",
+  "claude-opus-4.6",
+  "claude-sonnet-4.6",
+  "claude-haiku-4.5",
+  "gemini-3.1-pro-preview",
+  "gemini-3-flash-preview",
+  "gemini-3.1-flash-lite-preview",
+  "grok-4.20",
+  "grok-4.1-fast",
 ];
 
 const METHOD_DEFINITIONS: IntervalMethodDefinition[] = [

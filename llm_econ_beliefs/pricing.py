@@ -9,6 +9,8 @@ from .models import RequestLog
 TOKENS_PER_MILLION = 1_000_000
 OPENAI_PRICING_SOURCE_URL = "https://openai.com/api/pricing/"
 OPENAI_PRICING_AS_OF = "2026-04-05"
+OPENAI_WEB_SEARCH_CALL_USD = 0.01
+OPENAI_CODE_INTERPRETER_SESSION_USD = 0.03
 
 
 @dataclass(frozen=True)
@@ -34,7 +36,7 @@ OPENAI_MODEL_PRICING: dict[str, ModelPricing] = {
 
 def lookup_model_pricing(provider: str, model_name: str) -> ModelPricing | None:
     """Return pricing for a provider/model pair when known."""
-    if provider != "openai_chat_completions":
+    if provider not in {"openai_chat_completions", "openai_responses"}:
         return None
 
     for base_name, pricing in sorted(
@@ -49,6 +51,18 @@ def lookup_model_pricing(provider: str, model_name: str) -> ModelPricing | None:
 
 def estimate_request_cost(request_log: RequestLog) -> RequestLog:
     """Return a request log with estimated costs filled when pricing is known."""
+    if any(
+        value is not None
+        for value in (
+            request_log.estimated_input_cost_usd,
+            request_log.estimated_cached_input_cost_usd,
+            request_log.estimated_output_cost_usd,
+            request_log.estimated_tool_cost_usd,
+            request_log.estimated_total_cost_usd,
+        )
+    ):
+        return request_log
+
     pricing = lookup_model_pricing(request_log.provider, request_log.model_name)
     if pricing is None:
         return request_log
@@ -75,8 +89,15 @@ def estimate_request_cost(request_log: RequestLog) -> RequestLog:
         completion_tokens,
         pricing.output_per_million_usd,
     )
+    estimated_tool_cost = (
+        (request_log.web_search_call_count or 0) * OPENAI_WEB_SEARCH_CALL_USD
+        + (OPENAI_CODE_INTERPRETER_SESSION_USD if (request_log.code_interpreter_call_count or 0) > 0 else 0.0)
+    )
     estimated_total_cost = (
-        estimated_input_cost + estimated_cached_input_cost + estimated_output_cost
+        estimated_input_cost
+        + estimated_cached_input_cost
+        + estimated_output_cost
+        + estimated_tool_cost
     )
 
     return RequestLog(
@@ -95,7 +116,14 @@ def estimate_request_cost(request_log: RequestLog) -> RequestLog:
         estimated_input_cost_usd=estimated_input_cost,
         estimated_cached_input_cost_usd=estimated_cached_input_cost,
         estimated_output_cost_usd=estimated_output_cost,
+        estimated_tool_cost_usd=estimated_tool_cost,
         estimated_total_cost_usd=estimated_total_cost,
+        tool_regime=request_log.tool_regime,
+        tool_call_count=request_log.tool_call_count,
+        web_search_call_count=request_log.web_search_call_count,
+        code_interpreter_call_count=request_log.code_interpreter_call_count,
+        tool_sources=list(request_log.tool_sources),
+        tool_trace=list(request_log.tool_trace),
         usage=dict(request_log.usage),
     )
 

@@ -15,3 +15,11 @@ def test_prompt_includes_core_metadata_and_json_instruction():
     assert "- ID:" not in prompt
     assert "Benchmark note" not in prompt
     assert "Plausible support" not in prompt
+
+
+def test_tool_enabled_prompt_allows_tools():
+    quantity = get_quantity("labor_supply.frisch_elasticity.prime_age")
+    prompt = create_belief_prompt(quantity, tool_regime="full")
+
+    assert "You may use any available tools" in prompt
+    assert "Do not use tools" not in prompt

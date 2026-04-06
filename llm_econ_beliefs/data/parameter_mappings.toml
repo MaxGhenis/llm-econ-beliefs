@@ -1,0 +1,86 @@
+[[mapping]]
+system = "policyengine_us"
+parameter_path = "gov.simulation.labor_supply_responses.elasticities.income"
+quantity_id = "labor_supply.policy_response.income_elasticity"
+label = "income elasticity of labor supply"
+notes = "Direct mapping to the global PolicyEngine US income-response parameter."
+
+[[mapping]]
+system = "policyengine_us"
+parameter_path = "gov.simulation.labor_supply_responses.elasticities.substitution.all"
+quantity_id = "labor_supply.policy_response.substitution_elasticity.all"
+label = "substitution elasticity of labor supply"
+notes = "Direct mapping to the global PolicyEngine US substitution-response override."
+
+[[mapping]]
+system = "policyengine_us"
+parameter_path = "gov.simulation.labor_supply_responses.elasticities.substitution.by_position_and_decile.primary.1"
+quantity_id = "labor_supply.policy_response.substitution_elasticity.primary.decile_1"
+label = "primary adult, 1st decile substitution elasticity"
+
+[[mapping]]
+system = "policyengine_us"
+parameter_path = "gov.simulation.labor_supply_responses.elasticities.substitution.by_position_and_decile.primary.2"
+quantity_id = "labor_supply.policy_response.substitution_elasticity.primary.decile_2"
+label = "primary adult, 2nd decile substitution elasticity"
+
+[[mapping]]
+system = "policyengine_us"
+parameter_path = "gov.simulation.labor_supply_responses.elasticities.substitution.by_position_and_decile.primary.3"
+quantity_id = "labor_supply.policy_response.substitution_elasticity.primary.decile_3"
+label = "primary adult, 3rd decile substitution elasticity"
+
+[[mapping]]
+system = "policyengine_us"
+parameter_path = "gov.simulation.labor_supply_responses.elasticities.substitution.by_position_and_decile.primary.4"
+quantity_id = "labor_supply.policy_response.substitution_elasticity.primary.decile_4"
+label = "primary adult, 4th decile substitution elasticity"
+
+[[mapping]]
+system = "policyengine_us"
+parameter_path = "gov.simulation.labor_supply_responses.elasticities.substitution.by_position_and_decile.primary.5"
+quantity_id = "labor_supply.policy_response.substitution_elasticity.primary.decile_5"
+label = "primary adult, 5th decile substitution elasticity"
+
+[[mapping]]
+system = "policyengine_us"
+parameter_path = "gov.simulation.labor_supply_responses.elasticities.substitution.by_position_and_decile.primary.6"
+quantity_id = "labor_supply.policy_response.substitution_elasticity.primary.decile_6"
+label = "primary adult, 6th decile substitution elasticity"
+
+[[mapping]]
+system = "policyengine_us"
+parameter_path = "gov.simulation.labor_supply_responses.elasticities.substitution.by_position_and_decile.primary.7"
+quantity_id = "labor_supply.policy_response.substitution_elasticity.primary.decile_7"
+label = "primary adult, 7th decile substitution elasticity"
+
+[[mapping]]
+system = "policyengine_us"
+parameter_path = "gov.simulation.labor_supply_responses.elasticities.substitution.by_position_and_decile.primary.8"
+quantity_id = "labor_supply.policy_response.substitution_elasticity.primary.decile_8"
+label = "primary adult, 8th decile substitution elasticity"
+
+[[mapping]]
+system = "policyengine_us"
+parameter_path = "gov.simulation.labor_supply_responses.elasticities.substitution.by_position_and_decile.primary.9"
+quantity_id = "labor_supply.policy_response.substitution_elasticity.primary.decile_9"
+label = "primary adult, 9th decile substitution elasticity"
+
+[[mapping]]
+system = "policyengine_us"
+parameter_path = "gov.simulation.labor_supply_responses.elasticities.substitution.by_position_and_decile.primary.10"
+quantity_id = "labor_supply.policy_response.substitution_elasticity.primary.decile_10"
+label = "primary adult, 10th decile substitution elasticity"
+
+[[mapping]]
+system = "policyengine_us"
+parameter_path = "gov.simulation.labor_supply_responses.elasticities.substitution.by_position_and_decile.secondary"
+quantity_id = "labor_supply.policy_response.substitution_elasticity.secondary"
+label = "secondary adult substitution elasticity"
+
+[[mapping]]
+system = "policyengine_us"
+parameter_path = "gov.simulation.capital_gains_responses.elasticity"
+quantity_id = "tax.capital_gains_realizations.elasticity"
+label = "capital gains elasticity"
+notes = "Direct mapping to the PolicyEngine US long-term capital-gains realizations response parameter."

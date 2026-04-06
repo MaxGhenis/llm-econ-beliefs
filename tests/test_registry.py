@@ -15,6 +15,13 @@ def test_can_filter_registry_by_tag():
     assert all("og_usa" in quantity.tags for quantity in og_quantities)
 
 
+def test_can_filter_registry_by_policyengine_tag():
+    pe_quantities = list_quantities(tag="policyengine_us")
+
+    assert pe_quantities
+    assert all("policyengine_us" in quantity.tags for quantity in pe_quantities)
+
+
 def test_get_quantity_returns_expected_entry():
     quantity = get_quantity("household.annual_discount_factor")
 
@@ -23,9 +30,17 @@ def test_get_quantity_returns_expected_entry():
     assert quantity.upper_support == 1.0
 
 
+def test_get_policyengine_quantity_returns_expected_entry():
+    quantity = get_quantity("tax.capital_gains_realizations.elasticity")
+
+    assert quantity.name == "Capital gains realizations elasticity"
+    assert quantity.lower_support == -10.0
+    assert quantity.upper_support == 2.0
+
+
 def test_list_tags_contains_expected_values():
     tags = list_tags()
 
     assert "labor_supply" in tags
     assert "og_usa" in tags
-
+    assert "policyengine_us" in tags

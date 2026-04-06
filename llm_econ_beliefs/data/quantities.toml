@@ -2,10 +2,10 @@
 id = "labor_supply.income_elasticity.prime_age"
 name = "Income elasticity of labor supply"
 domain = "labor_supply"
-description = "Percent change in hours worked from a 1 percent increase in non-labor income, holding the wage fixed."
-population = "Prime-age workers in the United States"
+description = "Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses."
+population = "Prime-age workers in the United States who are already working"
 unit = "elasticity"
-preferred_interpretation = "Intensive-margin hours elasticity conditional on work"
+preferred_interpretation = "Intensive-margin annual-hours elasticity conditional on employment"
 lower_support = -2.0
 upper_support = 1.0
 benchmark_summary = "Often modestly negative in review papers and lottery evidence."
@@ -16,10 +16,10 @@ tags = ["labor_supply", "review_ready", "cbo_style"]
 id = "labor_supply.frisch_elasticity.prime_age"
 name = "Frisch elasticity of labor supply"
 domain = "labor_supply"
-description = "Percent change in hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant."
-population = "Prime-age workers in the United States"
+description = "Percent change in annual hours worked from a 1 percent change in the net-of-tax wage, holding the marginal utility of wealth constant and excluding participation responses."
+population = "Prime-age workers in the United States who are already working"
 unit = "elasticity"
-preferred_interpretation = "Lifecycle or macro-calibration Frisch elasticity for hours worked"
+preferred_interpretation = "Intensive-margin annual-hours Frisch elasticity used in lifecycle or macro calibration"
 lower_support = 0.0
 upper_support = 10.0
 benchmark_summary = "A standard calibrated labor-supply parameter in OG-USA and OG-Core style models."
@@ -30,10 +30,10 @@ tags = ["labor_supply", "og_usa", "og_core", "review_ready"]
 id = "labor_supply.marshallian_wage_elasticity.prime_age"
 name = "Uncompensated wage elasticity of labor supply"
 domain = "labor_supply"
-description = "Percent change in hours worked from a 1 percent change in the wage, allowing for both substitution and income effects."
-population = "Prime-age workers in the United States"
+description = "Percent change in annual hours worked from a 1 percent change in the net-of-tax wage, allowing both substitution and income effects and excluding participation responses."
+population = "Prime-age workers in the United States who are already working"
 unit = "elasticity"
-preferred_interpretation = "Marshallian intensive-margin hours elasticity"
+preferred_interpretation = "Intensive-margin uncompensated annual-hours elasticity"
 lower_support = -2.0
 upper_support = 4.0
 benchmark_summary = "Relevant for mapping between substitution and income effects in labor-supply reviews."
@@ -42,12 +42,12 @@ tags = ["labor_supply", "review_ready", "cbo_style"]
 
 [[quantity]]
 id = "labor_supply.extensive_margin.single_mothers"
-name = "Extensive-margin labor-supply elasticity"
+name = "Employment participation elasticity of single mothers"
 domain = "labor_supply"
-description = "Semi-elastic or elasticity-style responsiveness of labor-force participation to work incentives."
+description = "Percent change in employment or labor-force participation from a 1 percent change in the net-of-tax wage."
 population = "Single mothers in the United States"
 unit = "elasticity"
-preferred_interpretation = "Participation elasticity with respect to the net-of-tax wage or work incentives"
+preferred_interpretation = "Medium-run employment participation elasticity with respect to the net-of-tax wage"
 lower_support = -1.0
 upper_support = 5.0
 benchmark_summary = "Participation responses can materially exceed intensive-margin hours responses."
@@ -72,10 +72,10 @@ tags = ["household_preferences", "og_usa", "og_core", "calibration"]
 id = "household.intertemporal_elasticity_of_substitution"
 name = "Intertemporal elasticity of substitution"
 domain = "household_preferences"
-description = "Percent change in consumption growth from a 1 percent change in the intertemporal price of consumption."
-population = "Representative household or calibrated household block"
+description = "Percent change in the growth rate of nondurable consumption from a 1 percent change in the intertemporal price of consumption."
+population = "Representative U.S. household in an annual macro-calibration setting"
 unit = "elasticity"
-preferred_interpretation = "Consumption IES, distinct from the CRRA coefficient when the environment allows that distinction"
+preferred_interpretation = "IES for nondurable consumption in annual macro calibration, distinct from risk aversion"
 lower_support = 0.0
 upper_support = 5.0
 benchmark_summary = "A canonical macro quantity often discussed alongside risk aversion."
@@ -100,10 +100,10 @@ tags = ["household_preferences", "og_usa", "og_core", "calibration"]
 id = "production.capital_labor_substitution"
 name = "Elasticity of substitution between capital and labor"
 domain = "production"
-description = "Percent change in the capital-labor ratio from a 1 percent change in the marginal rate of technical substitution."
-population = "U.S. aggregate production or sectoral production block"
+description = "Percent change in the capital-labor ratio from a 1 percent change in the marginal rate of technical substitution between capital and labor in a CES production function."
+population = "U.S. aggregate private-sector production"
 unit = "elasticity"
-preferred_interpretation = "CES elasticity of substitution in production"
+preferred_interpretation = "Long-run CES elasticity of substitution between capital and labor in aggregate private-sector production"
 lower_support = 0.0
 upper_support = 10.0
 benchmark_summary = "A central production-side calibration parameter."
@@ -128,10 +128,10 @@ tags = ["production", "macro", "calibration", "og_usa_adjacent"]
 id = "trade.armington_elasticity.import_domestic"
 name = "Armington elasticity"
 domain = "trade"
-description = "Elasticity of substitution between imported and domestically produced goods."
-population = "U.S. trade or open-economy calibration"
+description = "Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest."
+population = "U.S. aggregate trade or CGE calibration"
 unit = "elasticity"
-preferred_interpretation = "Aggregate import-domestic Armington elasticity"
+preferred_interpretation = "Top-level import-versus-domestic Armington elasticity"
 lower_support = 0.0
 upper_support = 20.0
 benchmark_summary = "A standard open-economy elasticity used in CGE and policy models."
@@ -153,6 +153,202 @@ benchmark_source = "Saez, Slemrod, and Giertz 2012; expert-elicitation and optim
 tags = ["tax", "public_finance", "review_ready"]
 
 [[quantity]]
+id = "labor_supply.policy_response.income_elasticity"
+name = "Income elasticity of labor supply in a tax-benefit simulation"
+domain = "labor_supply"
+description = "Response coefficient multiplying the bounded relative change in disposable income in a U.S. tax-benefit simulation. A 1 percent change in disposable income changes labor supply by this fraction."
+population = "Adults in the United States under a current-law tax-benefit simulation"
+unit = "elasticity"
+preferred_interpretation = "Global labor-supply income-response elasticity used in a U.S. microsimulation model"
+lower_support = -2.0
+upper_support = 1.0
+benchmark_summary = "Directly usable as the labor-supply income-response parameter in PolicyEngine US."
+benchmark_source = "PolicyEngine US gov.simulation.labor_supply_responses.elasticities.income; behavioral_response_measurements.py"
+tags = ["labor_supply", "policyengine_us", "simulation_parameter", "us_policy_model", "us_scope", "policy_regime_sensitive"]
+
+[[quantity]]
+id = "labor_supply.policy_response.substitution_elasticity.all"
+name = "Substitution elasticity of labor supply in a tax-benefit simulation"
+domain = "labor_supply"
+description = "Response coefficient multiplying the bounded relative change in the effective marginal wage in a U.S. tax-benefit simulation. A 1 percent change in the effective marginal wage changes labor supply by this fraction. If set, this version applies uniformly across individuals."
+population = "Adults in the United States under a current-law tax-benefit simulation"
+unit = "elasticity"
+preferred_interpretation = "Global labor-supply substitution-response elasticity override used in a U.S. microsimulation model"
+lower_support = 0.0
+upper_support = 5.0
+benchmark_summary = "Directly usable as the global labor-supply substitution-response override in PolicyEngine US."
+benchmark_source = "PolicyEngine US gov.simulation.labor_supply_responses.elasticities.substitution.all; behavioral_response_measurements.py"
+tags = ["labor_supply", "policyengine_us", "simulation_parameter", "us_policy_model", "us_scope", "policy_regime_sensitive"]
+
+[[quantity]]
+id = "labor_supply.policy_response.substitution_elasticity.primary.decile_1"
+name = "Primary-earner substitution elasticity in a tax-benefit simulation, decile 1"
+domain = "labor_supply"
+description = "Response coefficient multiplying the bounded relative change in the effective marginal wage for primary earners in earnings decile 1 in a U.S. tax-benefit simulation."
+population = "Primary earners in earnings decile 1 in the United States under a current-law tax-benefit simulation"
+unit = "elasticity"
+preferred_interpretation = "Primary-earner substitution-response elasticity for earnings decile 1 in a U.S. microsimulation model"
+lower_support = 0.0
+upper_support = 5.0
+benchmark_summary = "Directly usable as the decile-specific primary-earner substitution parameter in PolicyEngine US."
+benchmark_source = "PolicyEngine US gov.simulation.labor_supply_responses.elasticities.substitution.by_position_and_decile.primary.1"
+tags = ["labor_supply", "policyengine_us", "simulation_parameter", "us_policy_model", "us_scope", "policy_regime_sensitive", "heterogeneity", "primary_earner", "decile_specific"]
+
+[[quantity]]
+id = "labor_supply.policy_response.substitution_elasticity.primary.decile_2"
+name = "Primary-earner substitution elasticity in a tax-benefit simulation, decile 2"
+domain = "labor_supply"
+description = "Response coefficient multiplying the bounded relative change in the effective marginal wage for primary earners in earnings decile 2 in a U.S. tax-benefit simulation."
+population = "Primary earners in earnings decile 2 in the United States under a current-law tax-benefit simulation"
+unit = "elasticity"
+preferred_interpretation = "Primary-earner substitution-response elasticity for earnings decile 2 in a U.S. microsimulation model"
+lower_support = 0.0
+upper_support = 5.0
+benchmark_summary = "Directly usable as the decile-specific primary-earner substitution parameter in PolicyEngine US."
+benchmark_source = "PolicyEngine US gov.simulation.labor_supply_responses.elasticities.substitution.by_position_and_decile.primary.2"
+tags = ["labor_supply", "policyengine_us", "simulation_parameter", "us_policy_model", "us_scope", "policy_regime_sensitive", "heterogeneity", "primary_earner", "decile_specific"]
+
+[[quantity]]
+id = "labor_supply.policy_response.substitution_elasticity.primary.decile_3"
+name = "Primary-earner substitution elasticity in a tax-benefit simulation, decile 3"
+domain = "labor_supply"
+description = "Response coefficient multiplying the bounded relative change in the effective marginal wage for primary earners in earnings decile 3 in a U.S. tax-benefit simulation."
+population = "Primary earners in earnings decile 3 in the United States under a current-law tax-benefit simulation"
+unit = "elasticity"
+preferred_interpretation = "Primary-earner substitution-response elasticity for earnings decile 3 in a U.S. microsimulation model"
+lower_support = 0.0
+upper_support = 5.0
+benchmark_summary = "Directly usable as the decile-specific primary-earner substitution parameter in PolicyEngine US."
+benchmark_source = "PolicyEngine US gov.simulation.labor_supply_responses.elasticities.substitution.by_position_and_decile.primary.3"
+tags = ["labor_supply", "policyengine_us", "simulation_parameter", "us_policy_model", "us_scope", "policy_regime_sensitive", "heterogeneity", "primary_earner", "decile_specific"]
+
+[[quantity]]
+id = "labor_supply.policy_response.substitution_elasticity.primary.decile_4"
+name = "Primary-earner substitution elasticity in a tax-benefit simulation, decile 4"
+domain = "labor_supply"
+description = "Response coefficient multiplying the bounded relative change in the effective marginal wage for primary earners in earnings decile 4 in a U.S. tax-benefit simulation."
+population = "Primary earners in earnings decile 4 in the United States under a current-law tax-benefit simulation"
+unit = "elasticity"
+preferred_interpretation = "Primary-earner substitution-response elasticity for earnings decile 4 in a U.S. microsimulation model"
+lower_support = 0.0
+upper_support = 5.0
+benchmark_summary = "Directly usable as the decile-specific primary-earner substitution parameter in PolicyEngine US."
+benchmark_source = "PolicyEngine US gov.simulation.labor_supply_responses.elasticities.substitution.by_position_and_decile.primary.4"
+tags = ["labor_supply", "policyengine_us", "simulation_parameter", "us_policy_model", "us_scope", "policy_regime_sensitive", "heterogeneity", "primary_earner", "decile_specific"]
+
+[[quantity]]
+id = "labor_supply.policy_response.substitution_elasticity.primary.decile_5"
+name = "Primary-earner substitution elasticity in a tax-benefit simulation, decile 5"
+domain = "labor_supply"
+description = "Response coefficient multiplying the bounded relative change in the effective marginal wage for primary earners in earnings decile 5 in a U.S. tax-benefit simulation."
+population = "Primary earners in earnings decile 5 in the United States under a current-law tax-benefit simulation"
+unit = "elasticity"
+preferred_interpretation = "Primary-earner substitution-response elasticity for earnings decile 5 in a U.S. microsimulation model"
+lower_support = 0.0
+upper_support = 5.0
+benchmark_summary = "Directly usable as the decile-specific primary-earner substitution parameter in PolicyEngine US."
+benchmark_source = "PolicyEngine US gov.simulation.labor_supply_responses.elasticities.substitution.by_position_and_decile.primary.5"
+tags = ["labor_supply", "policyengine_us", "simulation_parameter", "us_policy_model", "us_scope", "policy_regime_sensitive", "heterogeneity", "primary_earner", "decile_specific"]
+
+[[quantity]]
+id = "labor_supply.policy_response.substitution_elasticity.primary.decile_6"
+name = "Primary-earner substitution elasticity in a tax-benefit simulation, decile 6"
+domain = "labor_supply"
+description = "Response coefficient multiplying the bounded relative change in the effective marginal wage for primary earners in earnings decile 6 in a U.S. tax-benefit simulation."
+population = "Primary earners in earnings decile 6 in the United States under a current-law tax-benefit simulation"
+unit = "elasticity"
+preferred_interpretation = "Primary-earner substitution-response elasticity for earnings decile 6 in a U.S. microsimulation model"
+lower_support = 0.0
+upper_support = 5.0
+benchmark_summary = "Directly usable as the decile-specific primary-earner substitution parameter in PolicyEngine US."
+benchmark_source = "PolicyEngine US gov.simulation.labor_supply_responses.elasticities.substitution.by_position_and_decile.primary.6"
+tags = ["labor_supply", "policyengine_us", "simulation_parameter", "us_policy_model", "us_scope", "policy_regime_sensitive", "heterogeneity", "primary_earner", "decile_specific"]
+
+[[quantity]]
+id = "labor_supply.policy_response.substitution_elasticity.primary.decile_7"
+name = "Primary-earner substitution elasticity in a tax-benefit simulation, decile 7"
+domain = "labor_supply"
+description = "Response coefficient multiplying the bounded relative change in the effective marginal wage for primary earners in earnings decile 7 in a U.S. tax-benefit simulation."
+population = "Primary earners in earnings decile 7 in the United States under a current-law tax-benefit simulation"
+unit = "elasticity"
+preferred_interpretation = "Primary-earner substitution-response elasticity for earnings decile 7 in a U.S. microsimulation model"
+lower_support = 0.0
+upper_support = 5.0
+benchmark_summary = "Directly usable as the decile-specific primary-earner substitution parameter in PolicyEngine US."
+benchmark_source = "PolicyEngine US gov.simulation.labor_supply_responses.elasticities.substitution.by_position_and_decile.primary.7"
+tags = ["labor_supply", "policyengine_us", "simulation_parameter", "us_policy_model", "us_scope", "policy_regime_sensitive", "heterogeneity", "primary_earner", "decile_specific"]
+
+[[quantity]]
+id = "labor_supply.policy_response.substitution_elasticity.primary.decile_8"
+name = "Primary-earner substitution elasticity in a tax-benefit simulation, decile 8"
+domain = "labor_supply"
+description = "Response coefficient multiplying the bounded relative change in the effective marginal wage for primary earners in earnings decile 8 in a U.S. tax-benefit simulation."
+population = "Primary earners in earnings decile 8 in the United States under a current-law tax-benefit simulation"
+unit = "elasticity"
+preferred_interpretation = "Primary-earner substitution-response elasticity for earnings decile 8 in a U.S. microsimulation model"
+lower_support = 0.0
+upper_support = 5.0
+benchmark_summary = "Directly usable as the decile-specific primary-earner substitution parameter in PolicyEngine US."
+benchmark_source = "PolicyEngine US gov.simulation.labor_supply_responses.elasticities.substitution.by_position_and_decile.primary.8"
+tags = ["labor_supply", "policyengine_us", "simulation_parameter", "us_policy_model", "us_scope", "policy_regime_sensitive", "heterogeneity", "primary_earner", "decile_specific"]
+
+[[quantity]]
+id = "labor_supply.policy_response.substitution_elasticity.primary.decile_9"
+name = "Primary-earner substitution elasticity in a tax-benefit simulation, decile 9"
+domain = "labor_supply"
+description = "Response coefficient multiplying the bounded relative change in the effective marginal wage for primary earners in earnings decile 9 in a U.S. tax-benefit simulation."
+population = "Primary earners in earnings decile 9 in the United States under a current-law tax-benefit simulation"
+unit = "elasticity"
+preferred_interpretation = "Primary-earner substitution-response elasticity for earnings decile 9 in a U.S. microsimulation model"
+lower_support = 0.0
+upper_support = 5.0
+benchmark_summary = "Directly usable as the decile-specific primary-earner substitution parameter in PolicyEngine US."
+benchmark_source = "PolicyEngine US gov.simulation.labor_supply_responses.elasticities.substitution.by_position_and_decile.primary.9"
+tags = ["labor_supply", "policyengine_us", "simulation_parameter", "us_policy_model", "us_scope", "policy_regime_sensitive", "heterogeneity", "primary_earner", "decile_specific"]
+
+[[quantity]]
+id = "labor_supply.policy_response.substitution_elasticity.primary.decile_10"
+name = "Primary-earner substitution elasticity in a tax-benefit simulation, decile 10"
+domain = "labor_supply"
+description = "Response coefficient multiplying the bounded relative change in the effective marginal wage for primary earners in earnings decile 10 in a U.S. tax-benefit simulation."
+population = "Primary earners in earnings decile 10 in the United States under a current-law tax-benefit simulation"
+unit = "elasticity"
+preferred_interpretation = "Primary-earner substitution-response elasticity for earnings decile 10 in a U.S. microsimulation model"
+lower_support = 0.0
+upper_support = 5.0
+benchmark_summary = "Directly usable as the decile-specific primary-earner substitution parameter in PolicyEngine US."
+benchmark_source = "PolicyEngine US gov.simulation.labor_supply_responses.elasticities.substitution.by_position_and_decile.primary.10"
+tags = ["labor_supply", "policyengine_us", "simulation_parameter", "us_policy_model", "us_scope", "policy_regime_sensitive", "heterogeneity", "primary_earner", "decile_specific"]
+
+[[quantity]]
+id = "labor_supply.policy_response.substitution_elasticity.secondary"
+name = "Secondary-earner substitution elasticity in a tax-benefit simulation"
+domain = "labor_supply"
+description = "Response coefficient multiplying the bounded relative change in the effective marginal wage for secondary earners in a U.S. tax-benefit simulation."
+population = "Secondary earners in the United States under a current-law tax-benefit simulation"
+unit = "elasticity"
+preferred_interpretation = "Secondary-earner substitution-response elasticity used in a U.S. microsimulation model"
+lower_support = 0.0
+upper_support = 5.0
+benchmark_summary = "Directly usable as the secondary-earner substitution parameter in PolicyEngine US."
+benchmark_source = "PolicyEngine US gov.simulation.labor_supply_responses.elasticities.substitution.by_position_and_decile.secondary"
+tags = ["labor_supply", "policyengine_us", "simulation_parameter", "us_policy_model", "us_scope", "policy_regime_sensitive", "heterogeneity", "secondary_earner"]
+
+[[quantity]]
+id = "tax.capital_gains_realizations.elasticity"
+name = "Capital gains realizations elasticity"
+domain = "tax"
+description = "Elasticity of long-term capital gains realizations with respect to the capital gains marginal tax rate in a U.S. tax model. A 1 percent increase in the capital-gains marginal tax rate changes realizations by this elasticity."
+population = "Individuals with long-term capital gains in the United States"
+unit = "elasticity"
+preferred_interpretation = "Medium-run elasticity of long-term capital gains realizations with respect to the capital-gains marginal tax rate"
+lower_support = -10.0
+upper_support = 2.0
+benchmark_summary = "Directly usable as the capital-gains realizations response parameter in PolicyEngine US."
+benchmark_source = "PolicyEngine US gov.simulation.capital_gains_responses.elasticity; capital_gains_responses.py"
+tags = ["tax", "policyengine_us", "simulation_parameter", "us_policy_model", "us_scope", "policy_regime_sensitive", "public_finance"]
+
+[[quantity]]
 id = "macro.tfp_persistence.ar1"
 name = "TFP persistence"
 domain = "macro_dynamics"
@@ -165,4 +361,3 @@ upper_support = 1.0
 benchmark_summary = "A canonical macro-shock persistence parameter."
 benchmark_source = "Business-cycle estimation literature"
 tags = ["macro", "dynamics", "calibration"]
-

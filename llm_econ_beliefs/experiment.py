@@ -21,7 +21,9 @@ from .pricing import estimate_request_cost
 from .providers import (
     OPENAI_CHAT_COMPLETIONS_MAX_N,
     run_claude_prompt,
+    run_litellm_prompt_logged,
     run_openai_prompt_batch_logged,
+    run_openai_response_logged,
 )
 from .registry import get_quantity, list_quantities
 from .runner import build_run_grid, write_run_grid_csv
@@ -34,6 +36,7 @@ def run_claude_experiment(
     output_dir: str | Path,
     model_name: str = "sonnet",
     prompt_version: str = "v2",
+    tool_regime: str = "none",
     invoke: Callable[[str, str], str] | None = None,
 ) -> tuple[list[RunResult], list[dict[str, object]]]:
     """Run a repeated-prompt experiment through the Claude CLI."""
@@ -55,6 +58,7 @@ def run_claude_experiment(
         output_dir=output_dir,
         model_name=model_name,
         prompt_version=prompt_version,
+        tool_regime=tool_regime,
         invoke_batch=invoke_batch,
         batch_size=1,
     )
@@ -67,33 +71,102 @@ def run_openai_experiment(
     output_dir: str | Path,
     model_name: str = "gpt-5.4-mini",
     prompt_version: str = "v2",
+    tool_regime: str = "none",
+    api_mode: str = "chat",
     batch_size: int | None = None,
     temperature: float = 1.0,
     invoke_batch: Callable[[str, str, int], ProviderBatchResult | list[str]] | None = None,
 ) -> tuple[list[RunResult], list[dict[str, object]]]:
     """Run a repeated-prompt experiment through the OpenAI Chat Completions API."""
     if invoke_batch is None:
-        def invoke_batch(
-            prompt: str,
-            current_model_name: str,
-            n: int,
-        ) -> ProviderBatchResult:
-            return run_openai_prompt_batch_logged(
-                prompt,
-                model_name=current_model_name,
-                n=n,
-                temperature=temperature,
-            )
+        if api_mode == "chat":
+            def invoke_batch(
+                prompt: str,
+                current_model_name: str,
+                n: int,
+            ) -> ProviderBatchResult:
+                return run_openai_prompt_batch_logged(
+                    prompt,
+                    model_name=current_model_name,
+                    n=n,
+                    temperature=temperature,
+                )
+        elif api_mode == "responses":
+            def invoke_batch(
+                prompt: str,
+                current_model_name: str,
+                n: int,
+            ) -> ProviderBatchResult:
+                if n != 1:
+                    raise ValueError("Responses API runner expects n=1 per request")
+                return run_openai_response_logged(
+                    prompt,
+                    model_name=current_model_name,
+                    tool_regime=tool_regime,
+                )
+        else:
+            raise ValueError(f"Unsupported api_mode: {api_mode}")
 
     return _run_batched_experiment(
-        provider="openai_chat_completions",
+        provider=(
+            "openai_chat_completions"
+            if api_mode == "chat"
+            else "openai_responses"
+        ),
         quantity_ids=quantity_ids,
         n_runs=n_runs,
         output_dir=output_dir,
         model_name=model_name,
         prompt_version=prompt_version,
+        tool_regime=tool_regime,
         invoke_batch=invoke_batch,
-        batch_size=min(batch_size or n_runs, OPENAI_CHAT_COMPLETIONS_MAX_N),
+        batch_size=(
+            min(batch_size or n_runs, OPENAI_CHAT_COMPLETIONS_MAX_N)
+            if api_mode == "chat"
+            else 1
+        ),
+    )
+
+
+def run_litellm_experiment(
+    *,
+    quantity_ids: Sequence[str],
+    n_runs: int,
+    output_dir: str | Path,
+    model_name: str,
+    prompt_version: str = "v2",
+    tool_regime: str = "none",
+    temperature: float = 1.0,
+    invoke_batch: Callable[[str, str, int], ProviderBatchResult | list[str]] | None = None,
+) -> tuple[list[RunResult], list[dict[str, object]]]:
+    """Run a repeated-prompt experiment through LiteLLM-backed providers."""
+    if tool_regime != "none":
+        raise ValueError("LiteLLM provider path currently supports tool_regime='none' only")
+
+    if invoke_batch is None:
+        def invoke_batch(
+            prompt: str,
+            current_model_name: str,
+            n: int,
+        ) -> ProviderBatchResult:
+            if n != 1:
+                raise ValueError("LiteLLM runner expects n=1 per request")
+            return run_litellm_prompt_logged(
+                prompt,
+                model_name=current_model_name,
+                temperature=temperature,
+            )
+
+    return _run_batched_experiment(
+        provider="litellm_completion",
+        quantity_ids=quantity_ids,
+        n_runs=n_runs,
+        output_dir=output_dir,
+        model_name=model_name,
+        prompt_version=prompt_version,
+        tool_regime=tool_regime,
+        invoke_batch=invoke_batch,
+        batch_size=1,
     )
 
 
@@ -105,6 +178,7 @@ def _run_batched_experiment(
     output_dir: str | Path,
     model_name: str,
     prompt_version: str,
+    tool_regime: str,
     invoke_batch: Callable[[str, str, int], ProviderBatchResult | list[str]],
     batch_size: int,
 ) -> tuple[list[RunResult], list[dict[str, object]]]:
@@ -120,6 +194,7 @@ def _run_batched_experiment(
         quantity_ids=quantity_ids,
         n_runs=n_runs,
         prompt_version=prompt_version,
+        tool_regime=tool_regime,
     )
     write_run_grid_csv(output_dir / "prompt_grid.csv", runs)
 
@@ -150,6 +225,7 @@ def _run_batched_experiment(
                             model_name=batch_runs[0].model_name,
                             quantity_id=quantity_id,
                             prompt_version=batch_runs[0].prompt_version,
+                            tool_regime=batch_runs[0].tool_regime,
                             batch_size=len(batch_runs),
                             request_index=request_index,
                             batch_result=batch_result,
@@ -174,6 +250,7 @@ def _run_batched_experiment(
                             quantity_id=run.quantity_id,
                             run_index=run.run_index,
                             prompt_version=run.prompt_version,
+                            tool_regime=run.tool_regime,
                             prompt=run.prompt,
                             raw_response=None,
                             parsed_ok=False,
@@ -200,7 +277,9 @@ def summarize_run_results(
 ) -> list[dict[str, object]]:
     """Aggregate successful runs by quantity."""
     grouped: dict[tuple[str, str], list[BeliefEstimate]] = {}
+    tool_regimes: dict[tuple[str, str], str] = {}
     for record in records:
+        tool_regimes[(record.model_name, record.quantity_id)] = record.tool_regime
         if not record.parsed_ok or record.point_estimate is None:
             continue
         estimate = BeliefEstimate(
@@ -250,6 +329,7 @@ def summarize_run_results(
                 "model_name": model_name,
                 "quantity_id": quantity_id,
                 "quantity_name": quantity.name,
+                "tool_regime": tool_regimes.get((model_name, quantity_id), "none"),
                 "n_successful_runs": len(estimates),
                 "pooled_point_estimate": aggregated.point_estimate,
                 "pooled_lower_bound": aggregated.lower_bound,
@@ -275,6 +355,9 @@ def summarize_run_results(
                 "usage_estimated_output_cost_usd_total": _sum_or_none(
                     log.estimated_output_cost_usd for log in logs
                 ),
+                "usage_estimated_tool_cost_usd_total": _sum_or_none(
+                    log.estimated_tool_cost_usd for log in logs
+                ),
                 "usage_estimated_total_cost_usd_total": _sum_or_none(
                     log.estimated_total_cost_usd for log in logs
                 ),
@@ -288,6 +371,13 @@ def summarize_run_results(
                     if logs
                     and _sum_or_none(log.estimated_total_cost_usd for log in logs) is not None
                     else None
+                ),
+                "tool_call_count_total": _sum_or_none(log.tool_call_count for log in logs),
+                "web_search_call_count_total": _sum_or_none(
+                    log.web_search_call_count for log in logs
+                ),
+                "code_interpreter_call_count_total": _sum_or_none(
+                    log.code_interpreter_call_count for log in logs
                 ),
                 "pool_transform": random_effects.transform,
                 "reml_latent_location": random_effects.latent_location,
@@ -313,12 +403,14 @@ def summarize_run_results(
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     """Parse CLI arguments for an experiment."""
     parser = argparse.ArgumentParser(description="Run an LLM economic-belief experiment.")
-    parser.add_argument("--provider", choices=["claude", "openai"], default="claude")
+    parser.add_argument("--provider", choices=["claude", "openai", "litellm"], default="claude")
     parser.add_argument("--model", default="sonnet")
     parser.add_argument("--runs", type=int, default=3)
     parser.add_argument("--samples-per-request", type=int, default=1)
     parser.add_argument("--temperature", type=float, default=1.0)
     parser.add_argument("--prompt-version", default="v2")
+    parser.add_argument("--tool-regime", choices=["none", "full"], default="none")
+    parser.add_argument("--openai-api", choices=["chat", "responses"], default="chat")
     parser.add_argument("--quantity", action="append", default=[])
     parser.add_argument("--tag", action="append", default=[])
     parser.add_argument("--output-dir")
@@ -359,15 +451,28 @@ def main(argv: Sequence[str] | None = None) -> int:
             output_dir=output_dir,
             model_name=args.model,
             prompt_version=args.prompt_version,
+            tool_regime=args.tool_regime,
         )
-    else:
+    elif args.provider == "openai":
         _, summaries = run_openai_experiment(
             quantity_ids=quantity_ids,
             n_runs=args.runs,
             output_dir=output_dir,
             model_name=args.model,
             prompt_version=args.prompt_version,
+            tool_regime=args.tool_regime,
+            api_mode=args.openai_api,
             batch_size=args.samples_per_request,
+            temperature=args.temperature,
+        )
+    else:
+        _, summaries = run_litellm_experiment(
+            quantity_ids=quantity_ids,
+            n_runs=args.runs,
+            output_dir=output_dir,
+            model_name=args.model,
+            prompt_version=args.prompt_version,
+            tool_regime=args.tool_regime,
             temperature=args.temperature,
         )
 
@@ -400,6 +505,7 @@ def _record_from_parsed(
         quantity_id=run.quantity_id,
         run_index=run.run_index,
         prompt_version=run.prompt_version,
+        tool_regime=run.tool_regime,
         prompt=run.prompt,
         raw_response=raw_response,
         parsed_ok=True,
@@ -428,26 +534,52 @@ def _request_log_from_batch_result(
     model_name: str,
     quantity_id: str,
     prompt_version: str,
+    tool_regime: str,
     batch_size: int,
     request_index: int,
     batch_result: ProviderBatchResult,
 ) -> RequestLog:
     usage = dict(batch_result.usage)
-    prompt_details = usage.get("prompt_tokens_details", {}) or {}
-    completion_details = usage.get("completion_tokens_details", {}) or {}
+    prompt_details = (
+        usage.get("prompt_tokens_details")
+        or usage.get("input_tokens_details")
+        or {}
+    )
+    completion_details = (
+        usage.get("completion_tokens_details")
+        or usage.get("output_tokens_details")
+        or {}
+    )
+    precomputed_total_cost = usage.get("litellm_cost_usd")
+    if precomputed_total_cost is not None:
+        precomputed_total_cost = float(precomputed_total_cost)
+
     return estimate_request_cost(RequestLog(
         provider=provider,
         model_name=model_name,
         quantity_id=quantity_id,
         request_index=request_index,
         prompt_version=prompt_version,
+        tool_regime=tool_regime,
         batch_size=batch_size,
         request_id=batch_result.request_id,
-        prompt_tokens=usage.get("prompt_tokens"),
-        completion_tokens=usage.get("completion_tokens"),
+        prompt_tokens=usage.get("prompt_tokens", usage.get("input_tokens")),
+        completion_tokens=usage.get("completion_tokens", usage.get("output_tokens")),
         total_tokens=usage.get("total_tokens"),
         cached_prompt_tokens=prompt_details.get("cached_tokens"),
         reasoning_tokens=completion_details.get("reasoning_tokens"),
+        estimated_total_cost_usd=precomputed_total_cost,
+        tool_call_count=len(batch_result.tool_trace) or None,
+        web_search_call_count=sum(
+            1 for item in batch_result.tool_trace if item.get("type") == "web_search_call"
+        ) or None,
+        code_interpreter_call_count=sum(
+            1
+            for item in batch_result.tool_trace
+            if item.get("type") == "code_interpreter_call"
+        ) or None,
+        tool_sources=list(batch_result.tool_sources),
+        tool_trace=list(batch_result.tool_trace),
         usage=usage,
     ))
 
@@ -479,6 +611,7 @@ def _write_runs_csv(path: Path, records: Sequence[RunResult]) -> None:
                 "quantity_id",
                 "run_index",
                 "prompt_version",
+                "tool_regime",
                 "parsed_ok",
                 "point_estimate",
                 "interpretation",
@@ -511,6 +644,7 @@ def _write_requests_csv(path: Path, request_logs: Sequence[RequestLog]) -> None:
                 "quantity_id",
                 "request_index",
                 "prompt_version",
+                "tool_regime",
                 "batch_size",
                 "request_id",
                 "prompt_tokens",
@@ -521,13 +655,21 @@ def _write_requests_csv(path: Path, request_logs: Sequence[RequestLog]) -> None:
                 "estimated_input_cost_usd",
                 "estimated_cached_input_cost_usd",
                 "estimated_output_cost_usd",
+                "estimated_tool_cost_usd",
                 "estimated_total_cost_usd",
+                "tool_call_count",
+                "web_search_call_count",
+                "code_interpreter_call_count",
+                "tool_sources",
+                "tool_trace",
                 "usage",
             ],
         )
         writer.writeheader()
         for request_log in request_logs:
             row = asdict(request_log)
+            row["tool_sources"] = json.dumps(request_log.tool_sources, sort_keys=True)
+            row["tool_trace"] = json.dumps(request_log.tool_trace, sort_keys=True)
             row["usage"] = json.dumps(request_log.usage, sort_keys=True)
             writer.writerow(row)
 

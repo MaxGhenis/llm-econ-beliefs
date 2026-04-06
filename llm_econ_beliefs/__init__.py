@@ -28,12 +28,14 @@ from .models import (
     BayesianBeliefSummary,
     BeliefEstimate,
     EconomicQuantity,
+    ParameterMapping,
     ProviderBatchResult,
     PromptRun,
     RandomEffectsSummary,
     RequestLog,
     RunResult,
 )
+from .mappings import get_parameter_mapping, list_mapping_systems, list_parameter_mappings
 from .parse import parse_belief_response
 from .pricing import (
     OPENAI_MODEL_PRICING,
@@ -46,10 +48,15 @@ from .pricing import (
 from .prompts import create_belief_prompt
 from .providers import (
     build_claude_command,
+    build_litellm_belief_tool,
     build_openai_chat_payload,
+    build_openai_response_payload,
+    resolve_litellm_model_name,
     run_claude_prompt,
+    run_litellm_prompt_logged,
     run_openai_prompt_batch,
     run_openai_prompt_batch_logged,
+    run_openai_response_logged,
 )
 from .registry import get_quantity, list_quantities, list_tags
 from .runner import build_run_grid, write_run_grid_csv
@@ -73,6 +80,12 @@ def run_openai_experiment(*args, **kwargs):
     from .experiment import run_openai_experiment as _run_openai_experiment
 
     return _run_openai_experiment(*args, **kwargs)
+
+
+def run_litellm_experiment(*args, **kwargs):
+    from .experiment import run_litellm_experiment as _run_litellm_experiment
+
+    return _run_litellm_experiment(*args, **kwargs)
 
 
 def summarize_run_results(*args, **kwargs):
@@ -114,6 +127,7 @@ __all__ = [
     "OPENAI_MODEL_PRICING",
     "OPENAI_PRICING_AS_OF",
     "OPENAI_PRICING_SOURCE_URL",
+    "ParameterMapping",
     "PiecewiseDistribution",
     "PromptRun",
     "ProviderBatchResult",
@@ -124,7 +138,9 @@ __all__ = [
     "bayesian_hierarchical_meta_analysis",
     "build_comparison_rows",
     "build_claude_command",
+    "build_litellm_belief_tool",
     "build_openai_chat_payload",
+    "build_openai_response_payload",
     "build_run_grid",
     "create_belief_prompt",
     "distribution_from_belief_estimate",
@@ -133,8 +149,11 @@ __all__ = [
     "estimate_request_cost",
     "evaluate_calibration",
     "fit_pit_calibrator",
+    "get_parameter_mapping",
     "get_quantity",
     "has_full_quantiles",
+    "list_mapping_systems",
+    "list_parameter_mappings",
     "list_quantities",
     "list_tags",
     "lookup_model_pricing",
@@ -142,13 +161,17 @@ __all__ = [
     "parse_belief_response",
     "piecewise_distribution_from_quantiles",
     "resolve_quantity_ids",
+    "resolve_litellm_model_name",
     "random_effects_meta_analysis",
     "read_summary_rows",
     "run_claude_experiment",
     "run_claude_prompt",
+    "run_litellm_experiment",
+    "run_litellm_prompt_logged",
     "run_openai_experiment",
     "run_openai_prompt_batch",
     "run_openai_prompt_batch_logged",
+    "run_openai_response_logged",
     "summarize_run_results",
     "write_comparison_csv",
     "write_run_grid_csv",
