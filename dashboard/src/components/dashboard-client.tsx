@@ -9,6 +9,12 @@ import {
 } from "react";
 
 import { IntervalPlot } from "@/components/interval-plot";
+import { ProviderMark } from "@/components/provider-mark";
+import {
+  compareModelNames,
+  getModelLabel,
+  getProviderForModel,
+} from "@/lib/model-meta";
 import type {
   DashboardSummaryData,
   IntervalMethodDefinition,
@@ -30,6 +36,7 @@ export function DashboardClient({ data }: DashboardClientProps) {
   );
   const [selectedMethodId, setSelectedMethodId] =
     useState<IntervalMethodId>("pooled");
+  const [sortMode, setSortMode] = useState<"model" | "pointEstimate">("model");
 
   /* Inspector drawer state */
   const [inspectorOpen, setInspectorOpen] = useState(false);
@@ -60,6 +67,16 @@ export function DashboardClient({ data }: DashboardClientProps) {
   const selectedMethod =
     data.methods.find((method) => method.id === selectedMethodId) ??
     data.methods[0];
+  const sortedModelSummaries = selectedQuantity
+    ? [...selectedQuantity.modelSummaries].sort((left, right) =>
+        sortMode === "pointEstimate"
+          ? compareModelSummariesByCenter(left, right, selectedMethod.id)
+          : compareModelNames(left.modelName, right.modelName),
+      )
+    : [];
+  const quantityNote = selectedQuantity
+    ? getQuantityNote(selectedQuantity.quantityId)
+    : null;
 
   /* Close drawer on outside click */
   useEffect(() => {
@@ -339,33 +356,78 @@ export function DashboardClient({ data }: DashboardClientProps) {
               generators to see how pooled, REML, and Bayesian uncertainty bands
               shift.
             </p>
+            {quantityNote && (
+              <div
+                className="mt-4 max-w-3xl rounded-lg border px-4 py-3 text-sm leading-relaxed"
+                style={{
+                  background: "var(--bg-surface)",
+                  borderColor: "var(--border-active)",
+                  color: "var(--text-secondary)",
+                }}
+              >
+                <div
+                  className="mb-1 font-mono text-[10px] font-semibold uppercase tracking-[0.18em]"
+                  style={{ color: "var(--gold)" }}
+                >
+                  Prompt note
+                </div>
+                {quantityNote}
+              </div>
+            )}
           </div>
 
-          {/* Method tabs */}
+          {/* Method and sort controls */}
           <div
-            className="mb-6 flex flex-wrap items-center gap-2 rounded-lg border p-1"
+            className="mb-6 rounded-lg border p-3"
             style={{ background: "var(--bg-surface)", borderColor: "var(--border)" }}
           >
-            {data.methods.map((method) => {
-              const isActive = method.id === selectedMethod.id;
-              return (
-                <button
-                  key={method.id}
-                  type="button"
-                  onClick={() => setSelectedMethodId(method.id)}
-                  className="rounded-md px-3 py-2 text-xs font-medium transition-all"
+            <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+              <div className="flex flex-wrap items-center gap-2">
+                {data.methods.map((method) => {
+                  const isActive = method.id === selectedMethod.id;
+                  return (
+                    <button
+                      key={method.id}
+                      type="button"
+                      onClick={() => setSelectedMethodId(method.id)}
+                      className="rounded-md px-3 py-2 text-xs font-medium transition-all"
+                      style={{
+                        background: isActive ? "var(--bg-raised)" : "transparent",
+                        color: isActive ? "var(--text-primary)" : "var(--text-secondary)",
+                        boxShadow: isActive
+                          ? "0 1px 3px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04)"
+                          : "none",
+                      }}
+                    >
+                      {method.shortLabel}
+                    </button>
+                  );
+                })}
+              </div>
+              <label className="flex items-center gap-3 text-xs">
+                <span
+                  className="font-mono uppercase tracking-[0.15em]"
+                  style={{ color: "var(--text-tertiary)" }}
+                >
+                  Sort
+                </span>
+                <select
+                  value={sortMode}
+                  onChange={(event) =>
+                    setSortMode(event.target.value as "model" | "pointEstimate")
+                  }
+                  className="rounded-md border px-3 py-2 outline-none transition"
                   style={{
-                    background: isActive ? "var(--bg-raised)" : "transparent",
-                    color: isActive ? "var(--text-primary)" : "var(--text-secondary)",
-                    boxShadow: isActive
-                      ? "0 1px 3px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04)"
-                      : "none",
+                    background: "var(--bg-raised)",
+                    borderColor: "var(--border)",
+                    color: "var(--text-primary)",
                   }}
                 >
-                  {method.shortLabel}
-                </button>
-              );
-            })}
+                  <option value="model">Canonical model order</option>
+                  <option value="pointEstimate">Point estimate, low to high</option>
+                </select>
+              </label>
+            </div>
           </div>
           <p className="mb-5 text-xs leading-relaxed" style={{ color: "var(--text-tertiary)" }}>
             {selectedMethod.description}
@@ -373,13 +435,13 @@ export function DashboardClient({ data }: DashboardClientProps) {
 
           {/* Interval plot */}
           <IntervalPlot
-            models={selectedQuantity.modelSummaries}
+            models={sortedModelSummaries}
             method={selectedMethod}
           />
 
           {/* Model cards grid — scales with model count */}
           <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            {selectedQuantity.modelSummaries.map((summary) => (
+            {sortedModelSummaries.map((summary) => (
               <ModelPanel
                 key={`${selectedQuantity.quantityId}-${summary.modelName}`}
                 model={summary}
@@ -414,9 +476,17 @@ export function DashboardClient({ data }: DashboardClientProps) {
                   <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em]" style={{ color: "var(--text-tertiary)" }}>
                     Response inspector
                   </div>
-                  <h3 className="mt-1 font-serif text-xl font-semibold" style={{ color: "var(--text-primary)" }}>
-                    {inspectedModelSummary?.modelName ?? "—"}
-                  </h3>
+                  <div className="mt-1 flex items-center gap-2">
+                    <ProviderMark
+                      provider={getProviderForModel(inspectedModelSummary?.modelName ?? "")}
+                      size={16}
+                    />
+                    <h3 className="font-serif text-xl font-semibold" style={{ color: "var(--text-primary)" }}>
+                      {inspectedModelSummary
+                        ? getModelLabel(inspectedModelSummary.modelName)
+                        : "—"}
+                    </h3>
+                  </div>
                 </div>
                 <button
                   type="button"
@@ -434,7 +504,8 @@ export function DashboardClient({ data }: DashboardClientProps) {
 
               {/* Model tabs in drawer */}
               <div className="mt-3 flex flex-wrap gap-1.5">
-                {selectedQuantity.availableModels.map((modelName) => {
+                {sortedModelSummaries.map((summary) => {
+                  const modelName = summary.modelName;
                   const isActive = modelName === inspectedModelName;
                   return (
                     <button
@@ -446,14 +517,18 @@ export function DashboardClient({ data }: DashboardClientProps) {
                           setSelectedRunIndex(null);
                         })
                       }
-                      className="rounded-md px-2.5 py-1.5 font-mono text-[11px] font-medium transition-all"
+                      className="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 font-mono text-[11px] font-medium transition-all"
                       style={{
                         background: isActive ? "var(--gold-dim)" : "var(--bg-surface)",
                         color: isActive ? "var(--gold)" : "var(--text-secondary)",
                         border: isActive ? "1px solid var(--border-active)" : "1px solid var(--border)",
                       }}
                     >
-                      {modelName}
+                      <ProviderMark
+                        provider={getProviderForModel(modelName)}
+                        size={12}
+                      />
+                      <span>{getModelLabel(modelName)}</span>
                     </button>
                   );
                 })}
@@ -555,9 +630,15 @@ function ModelPanel({
     >
       <div className="flex items-start justify-between gap-3">
         <div>
-          <h3 className="font-serif text-lg font-semibold" style={{ color: "var(--text-primary)" }}>
-            {model.modelName}
-          </h3>
+          <div className="flex items-center gap-2">
+            <ProviderMark
+              provider={getProviderForModel(model.modelName)}
+              size={16}
+            />
+            <h3 className="font-serif text-lg font-semibold" style={{ color: "var(--text-primary)" }}>
+              {getModelLabel(model.modelName)}
+            </h3>
+          </div>
           <p className="mt-1 font-mono text-[10px]" style={{ color: "var(--text-tertiary)" }}>
             {model.experimentDir}
           </p>
@@ -672,7 +753,7 @@ function PromptSection({
           Elicitation prompt
         </div>
         <span className="font-mono text-[10px]" style={{ color: "var(--text-tertiary)" }}>
-          (v{selectedRun?.promptVersion ?? runs[0]?.promptVersion ?? "?"})
+          ({formatPromptVersion(selectedRun?.promptVersion ?? runs[0]?.promptVersion ?? "?")})
         </span>
       </div>
       <pre
@@ -718,9 +799,15 @@ function ResponseDetail({
           <div className="font-mono text-[10px] uppercase tracking-[0.15em]" style={{ color: "var(--text-tertiary)" }}>
             Run {run.runIndex}
           </div>
-          <h4 className="mt-1 font-serif text-base font-semibold" style={{ color: "var(--text-primary)" }}>
-            {model.modelName}
-          </h4>
+          <div className="mt-1 flex items-center gap-2">
+            <ProviderMark
+              provider={getProviderForModel(model.modelName)}
+              size={14}
+            />
+            <h4 className="font-serif text-base font-semibold" style={{ color: "var(--text-primary)" }}>
+              {getModelLabel(model.modelName)}
+            </h4>
+          </div>
         </div>
         <span className="rounded-md px-2 py-1 font-mono text-[10px]" style={{ background: "var(--bg-raised)", color: "var(--text-secondary)" }}>
           {formatInterval(run.lowerBound, run.upperBound)}
@@ -729,7 +816,7 @@ function ResponseDetail({
 
       <div className="mt-4 grid grid-cols-3 gap-2">
         <MetricTile label="Point" value={formatMaybeNumber(run.pointEstimate)} />
-        <MetricTile label="Prompt" value={run.promptVersion || "?"} />
+        <MetricTile label="Prompt" value={formatPromptVersion(run.promptVersion || "?")} />
         <MetricTile label="p50" value={formatMaybeNumber(run.quantiles.p50)} />
       </div>
 
@@ -840,4 +927,37 @@ function formatNumber(value: number): string {
     minimumFractionDigits: fractionDigits,
     maximumFractionDigits: fractionDigits,
   }).format(value);
+}
+
+function formatPromptVersion(value: string): string {
+  if (!value) return "?";
+  return value;
+}
+
+function compareModelSummariesByCenter(
+  left: ModelSummary,
+  right: ModelSummary,
+  methodId: IntervalMethodId,
+): number {
+  const leftCenter = left.intervals[methodId].center;
+  const rightCenter = right.intervals[methodId].center;
+  if (leftCenter === null && rightCenter === null) {
+    return compareModelNames(left.modelName, right.modelName);
+  }
+  if (leftCenter === null) return 1;
+  if (rightCenter === null) return -1;
+  return (
+    leftCenter - rightCenter ||
+    compareModelNames(left.modelName, right.modelName)
+  );
+}
+
+function getQuantityNote(quantityId: string): string | null {
+  if (quantityId === "labor_supply.income_elasticity.prime_age") {
+    return "This quantity uses the later sign-clarified rerun. The explicit note that positive values mean people work more when they have more resources eliminated the earlier sign confusion in some models.";
+  }
+  if (quantityId === "labor_supply.policy_response.income_elasticity") {
+    return "Legacy panel entry retained for reference. This quantity has since been merged into the canonical prime-age income elasticity and was not rerun under the latest sign-clarified prompt.";
+  }
+  return null;
 }

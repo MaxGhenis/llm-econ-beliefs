@@ -1,5 +1,6 @@
 "use client";
 
+import { getModelLabel } from "@/lib/model-meta";
 import type {
   IntervalMethodDefinition,
   IntervalSnapshot,
@@ -11,11 +12,11 @@ interface IntervalPlotProps {
   method: IntervalMethodDefinition;
 }
 
-const LEFT_GUTTER = 160;
-const RIGHT_GUTTER = 100;
+const LEFT_GUTTER = 192;
+const RIGHT_GUTTER = 72;
 const TOP_GUTTER = 32;
 const ROW_HEIGHT = 64;
-const CHART_WIDTH = 920;
+const CHART_WIDTH = 960;
 
 export function IntervalPlot({ models, method }: IntervalPlotProps) {
   const rows = models
@@ -50,14 +51,17 @@ export function IntervalPlot({ models, method }: IntervalPlotProps) {
       (value): value is number => value !== null,
     ),
   );
-  const minValue = Math.min(...allValues);
-  const maxValue = Math.max(...allValues);
-  const span = Math.max(maxValue - minValue, 0.1);
-  const domainMin = minValue - span * 0.1;
-  const domainMax = maxValue + span * 0.1;
   const plotWidth = CHART_WIDTH - LEFT_GUTTER - RIGHT_GUTTER;
   const chartHeight = TOP_GUTTER + rows.length * ROW_HEIGHT + 8;
-  const ticks = buildTicks(domainMin, domainMax, 5);
+  const ticks = buildNiceTicks(
+    Math.min(...allValues, 0),
+    Math.max(...allValues, 0),
+    6,
+  );
+  const domainMin = ticks[0] ?? Math.min(...allValues, 0);
+  const domainMax = ticks[ticks.length - 1] ?? Math.max(...allValues, 0);
+  const zeroX =
+    scaleValue(0, domainMin, domainMax, plotWidth) + LEFT_GUTTER;
 
   return (
     <div
@@ -94,10 +98,22 @@ export function IntervalPlot({ models, method }: IntervalPlotProps) {
           </filter>
         </defs>
 
+        {/* Zero reference line */}
+        <line
+          x1={zeroX}
+          x2={zeroX}
+          y1={TOP_GUTTER - 4}
+          y2={chartHeight - 4}
+          stroke="var(--blue)"
+          strokeOpacity="0.6"
+          strokeWidth="1.5"
+        />
+
         {/* Tick lines and labels */}
         {ticks.map((tick) => {
           const x =
             scaleValue(tick, domainMin, domainMax, plotWidth) + LEFT_GUTTER;
+          const isZero = Math.abs(tick) < 1e-10;
           return (
             <g key={tick}>
               <line
@@ -105,18 +121,18 @@ export function IntervalPlot({ models, method }: IntervalPlotProps) {
                 x2={x}
                 y1={TOP_GUTTER - 4}
                 y2={chartHeight - 4}
-                stroke="var(--border)"
+                stroke={isZero ? "transparent" : "var(--border)"}
                 strokeDasharray="2 8"
               />
               <text
                 x={x}
                 y={16}
                 textAnchor="middle"
-                fill="var(--text-tertiary)"
+                fill={isZero ? "var(--blue)" : "var(--text-tertiary)"}
                 fontSize="10"
                 fontFamily="var(--font-jetbrains), monospace"
               >
-                {formatNumber(tick)}
+                {formatTickNumber(tick)}
               </text>
             </g>
           );
@@ -164,7 +180,7 @@ export function IntervalPlot({ models, method }: IntervalPlotProps) {
                 fontFamily="var(--font-fraunces), serif"
                 fontWeight="600"
               >
-                {model.modelName}
+                {getModelLabel(model.modelName)}
               </text>
               <text
                 x={14}
@@ -282,9 +298,21 @@ export function IntervalPlot({ models, method }: IntervalPlotProps) {
   );
 }
 
-function buildTicks(min: number, max: number, count: number): number[] {
-  const step = (max - min) / (count - 1);
-  return Array.from({ length: count }, (_, index) => min + index * step);
+function buildNiceTicks(min: number, max: number, targetCount: number): number[] {
+  if (!Number.isFinite(min) || !Number.isFinite(max)) return [0];
+  if (min === max) return [min];
+
+  const roughStep = Math.abs(max - min) / Math.max(targetCount - 1, 1);
+  const step = snap125(roughStep);
+  const start = Math.floor(min / step) * step;
+  const stop = Math.ceil(max / step) * step;
+  const ticks: number[] = [];
+
+  for (let value = start; value <= stop + step * 0.5; value += step) {
+    ticks.push(Number(value.toFixed(12)));
+  }
+
+  return ticks;
 }
 
 function scaleValue(
@@ -314,4 +342,22 @@ function formatNumber(value: number): string {
     minimumFractionDigits: fractionDigits,
     maximumFractionDigits: fractionDigits,
   }).format(value);
+}
+
+function formatTickNumber(value: number): string {
+  if (Math.abs(value) < 1e-10) return "0";
+  return new Intl.NumberFormat("en-US", {
+    maximumFractionDigits: 3,
+  }).format(value);
+}
+
+function snap125(value: number): number {
+  if (value <= 0 || !Number.isFinite(value)) return 1;
+  const exponent = Math.floor(Math.log10(value));
+  const scale = 10 ** exponent;
+  const normalized = value / scale;
+  if (normalized <= 1) return scale;
+  if (normalized <= 2) return 2 * scale;
+  if (normalized <= 5) return 5 * scale;
+  return 10 * scale;
 }

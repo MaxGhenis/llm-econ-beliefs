@@ -3,6 +3,7 @@ import path from "node:path";
 
 import { parse as parseCsv } from "csv-parse/sync";
 
+import { compareModelNames } from "@/lib/model-meta";
 import type {
   DashboardSummaryData,
   IntervalMethodDefinition,
@@ -61,20 +62,6 @@ interface StoredRunRecord {
   reasoning_summary: string | null;
   error: string | null;
 }
-
-const MODEL_ORDER = [
-  "gpt-5.4",
-  "gpt-5.4-mini",
-  "gpt-5.4-nano",
-  "claude-opus-4.6",
-  "claude-sonnet-4.6",
-  "claude-haiku-4.5",
-  "gemini-3.1-pro-preview",
-  "gemini-3-flash-preview",
-  "gemini-3.1-flash-lite-preview",
-  "grok-4.20",
-  "grok-4.1-fast",
-];
 
 const METHOD_DEFINITIONS: IntervalMethodDefinition[] = [
   {
@@ -349,6 +336,11 @@ function loadSummaryRows(resultsDir: string): SummaryRecord[] {
   const rows: SummaryRecord[] = [];
 
   for (const experimentDir of experimentDirs) {
+    const experimentName = path.basename(experimentDir);
+    if (!experimentName.includes("elasticities")) {
+      continue;
+    }
+
     const summaryPath = path.join(experimentDir, "summary.csv");
     if (!fs.existsSync(summaryPath)) {
       continue;
@@ -364,10 +356,6 @@ function loadSummaryRows(resultsDir: string): SummaryRecord[] {
 
     for (const row of parsed) {
       const quantityId = row.quantity_id;
-      if (!quantityId.includes("elasticity")) {
-        continue;
-      }
-
       rows.push({
         modelName: row.model_name,
         quantityId,
@@ -451,23 +439,6 @@ function sumNullable(values: Array<number | null>): number | null {
     return null;
   }
   return observed.reduce((sum, value) => sum + value, 0);
-}
-
-function compareModelNames(left: string, right: string): number {
-  const leftIndex = MODEL_ORDER.indexOf(left);
-  const rightIndex = MODEL_ORDER.indexOf(right);
-
-  if (leftIndex >= 0 || rightIndex >= 0) {
-    if (leftIndex === -1) {
-      return 1;
-    }
-    if (rightIndex === -1) {
-      return -1;
-    }
-    return leftIndex - rightIndex;
-  }
-
-  return left.localeCompare(right);
 }
 
 export function getMethodDefinition(
