@@ -23,3 +23,22 @@ def test_tool_enabled_prompt_allows_tools():
 
     assert "You may use any available tools" in prompt
     assert "Do not use tools" not in prompt
+
+
+def test_income_elasticity_prompt_clarifies_sign_convention():
+    quantity = get_quantity("labor_supply.income_elasticity.prime_age")
+    prompt = create_belief_prompt(quantity)
+
+    assert "Sign convention for this quantity:" in prompt
+    assert "A positive elasticity means individuals work more when they have more resources." in prompt
+    assert "if additional non-labor income reduces annual hours worked, the elasticity should be negative." in prompt
+
+
+def test_ies_clarification_prompt_targets_macro_calibration_object():
+    quantity = get_quantity("household.intertemporal_elasticity_of_substitution")
+    prompt = create_belief_prompt(quantity, prompt_version="ies-clarify")
+
+    assert "Clarification for this quantity:" in prompt
+    assert "representative-household annual macro-calibration setting" in prompt
+    assert "Do not answer with the inverse of CRRA" in prompt
+    assert "Do not switch to an asset-pricing or recursive-preferences interpretation." in prompt

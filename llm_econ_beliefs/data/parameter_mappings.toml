@@ -1,9 +1,9 @@
 [[mapping]]
 system = "policyengine_us"
 parameter_path = "gov.simulation.labor_supply_responses.elasticities.income"
-quantity_id = "labor_supply.policy_response.income_elasticity"
+quantity_id = "labor_supply.income_elasticity.prime_age"
 label = "income elasticity of labor supply"
-notes = "Direct mapping to the global PolicyEngine US income-response parameter."
+notes = "Use the canonical prime-age income elasticity as the income-effect input for the global PolicyEngine US income-response parameter."
 
 [[mapping]]
 system = "policyengine_us"

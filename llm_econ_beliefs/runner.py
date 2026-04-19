@@ -33,6 +33,7 @@ def build_run_grid(
                 quantity,
                 include_uncertainty=include_uncertainty,
                 tool_regime=tool_regime,
+                prompt_version=prompt_version,
             )
             for run_index in range(1, n_runs + 1):
                 runs.append(

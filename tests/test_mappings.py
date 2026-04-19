@@ -16,10 +16,10 @@ def test_can_list_policyengine_mappings():
 def test_get_parameter_mapping_returns_expected_entry():
     mapping = get_parameter_mapping(
         "policyengine_us",
-        "gov.simulation.capital_gains_responses.elasticity",
+        "gov.simulation.labor_supply_responses.elasticities.income",
     )
 
-    assert mapping.quantity_id == "tax.capital_gains_realizations.elasticity"
+    assert mapping.quantity_id == "labor_supply.income_elasticity.prime_age"
 
 
 def test_all_policyengine_mapping_targets_exist_in_registry():

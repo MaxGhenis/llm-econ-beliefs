@@ -11,6 +11,7 @@ def create_belief_prompt(
     include_uncertainty: bool = True,
     ask_for_citations: bool = True,
     tool_regime: str = "none",
+    prompt_version: str = "v3",
 ) -> str:
     """Create a JSON-first elicitation prompt for one quantity."""
 
@@ -45,6 +46,44 @@ def create_belief_prompt(
         lines.append(f"- Population/context: {quantity.population}")
     if quantity.unit:
         lines.append(f"- Units: {quantity.unit}")
+    if quantity.id == "labor_supply.income_elasticity.prime_age":
+        lines.extend(
+            [
+                "",
+                "Sign convention for this quantity:",
+                "- A positive elasticity means individuals work more when they have more resources.",
+                "- A negative elasticity means individuals work less when they have more resources.",
+                "- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.",
+            ]
+        )
+    if (
+        quantity.id == "trade.armington_elasticity.import_domestic"
+        and prompt_version == "armington-clarify"
+    ):
+        lines.extend(
+            [
+                "",
+                "Clarification for this quantity:",
+                "- This is the top-level elasticity between the aggregate import composite and domestically produced goods.",
+                "- It is not the elasticity across different foreign source countries.",
+                "- It is not a sector-level or product-level import-demand elasticity.",
+                "- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.",
+            ]
+        )
+    if (
+        quantity.id == "household.intertemporal_elasticity_of_substitution"
+        and prompt_version == "ies-clarify"
+    ):
+        lines.extend(
+            [
+                "",
+                "Clarification for this quantity:",
+                "- This is the elasticity of intertemporal substitution for nondurable consumption in a representative-household annual macro-calibration setting.",
+                "- Treat it as a consumption-growth response to the intertemporal price of consumption, not as a generic willingness-to-take-risk parameter.",
+                "- Do not answer with the inverse of CRRA unless you independently think that is the right value for this calibration target.",
+                "- Do not switch to an asset-pricing or recursive-preferences interpretation.",
+            ]
+        )
 
     lines.extend(
         [

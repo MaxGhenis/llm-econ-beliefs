@@ -153,20 +153,6 @@ benchmark_source = "Saez, Slemrod, and Giertz 2012; expert-elicitation and optim
 tags = ["tax", "public_finance", "review_ready"]
 
 [[quantity]]
-id = "labor_supply.policy_response.income_elasticity"
-name = "Income elasticity of labor supply in a tax-benefit simulation"
-domain = "labor_supply"
-description = "Response coefficient multiplying the bounded relative change in disposable income in a U.S. tax-benefit simulation. A 1 percent change in disposable income changes labor supply by this fraction."
-population = "Adults in the United States under a current-law tax-benefit simulation"
-unit = "elasticity"
-preferred_interpretation = "Global labor-supply income-response elasticity used in a U.S. microsimulation model"
-lower_support = -2.0
-upper_support = 1.0
-benchmark_summary = "Directly usable as the labor-supply income-response parameter in PolicyEngine US."
-benchmark_source = "PolicyEngine US gov.simulation.labor_supply_responses.elasticities.income; behavioral_response_measurements.py"
-tags = ["labor_supply", "policyengine_us", "simulation_parameter", "us_policy_model", "us_scope", "policy_regime_sensitive"]
-
-[[quantity]]
 id = "labor_supply.policy_response.substitution_elasticity.all"
 name = "Substitution elasticity of labor supply in a tax-benefit simulation"
 domain = "labor_supply"
