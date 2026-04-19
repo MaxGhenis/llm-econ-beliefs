@@ -1,0 +1,601 @@
+model_name,quantity_id,run_index,prompt_version,tool_regime,prompt
+gpt-5.4-mini,trade.armington_elasticity.import_domestic,1,armington-clarify,none,"Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+gpt-5.4-mini,trade.armington_elasticity.import_domestic,2,armington-clarify,none,"Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+gpt-5.4-mini,trade.armington_elasticity.import_domestic,3,armington-clarify,none,"Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+gpt-5.4-mini,trade.armington_elasticity.import_domestic,4,armington-clarify,none,"Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+gpt-5.4-mini,trade.armington_elasticity.import_domestic,5,armington-clarify,none,"Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+gpt-5.4-mini,trade.armington_elasticity.import_domestic,6,armington-clarify,none,"Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+gpt-5.4-mini,trade.armington_elasticity.import_domestic,7,armington-clarify,none,"Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+gpt-5.4-mini,trade.armington_elasticity.import_domestic,8,armington-clarify,none,"Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+gpt-5.4-mini,trade.armington_elasticity.import_domestic,9,armington-clarify,none,"Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+gpt-5.4-mini,trade.armington_elasticity.import_domestic,10,armington-clarify,none,"Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+gpt-5.4-mini,trade.armington_elasticity.import_domestic,11,armington-clarify,none,"Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+gpt-5.4-mini,trade.armington_elasticity.import_domestic,12,armington-clarify,none,"Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+gpt-5.4-mini,trade.armington_elasticity.import_domestic,13,armington-clarify,none,"Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+gpt-5.4-mini,trade.armington_elasticity.import_domestic,14,armington-clarify,none,"Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+gpt-5.4-mini,trade.armington_elasticity.import_domestic,15,armington-clarify,none,"Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"

@@ -1,0 +1,71 @@
+provider,model_name,quantity_id,run_index,prompt_version,tool_regime,parsed_ok,point_estimate,interpretation,lower_bound,upper_bound,confidence_level,quantiles,citations,reasoning_summary,error,raw_response,prompt
+litellm_completion,gemini-3-flash-preview,trade.armington_elasticity.import_domestic,1,armington-clarify,none,True,1.5,,0.6,3.8,0.9,"{""p05"": 0.6, ""p25"": 1.0, ""p50"": 1.5, ""p75"": 2.2, ""p95"": 3.8}",,"{
+  ""interpretation"": ""The top-level elasticity of substitution between the aggregate bundle of imports and domestically produced goods for the United States, typically used in macro-level CGE or trade model calibration."",
+  ""point_estimate"": 1.5,
+  ""quantiles"": {
+    ""p05"": 0.6,
+    ""p25"": 1.0,
+    ""p50"": 1.5,
+    ""p75"": 2.2,
+    ""p95"": 3.8
+  },
+  ""citations"": [
+    ""Armington (1969) - A Theory of Demand for Products Distinguished by Place of Production"",
+    ""Feenstra et al. (2018) - The Elasticity of Substitution in Real Business Cycle Models with Trade"",
+    ""Ruhl (2008) - The International Elasticity Puzzle""
+  ],
+  ""reasoning_summary"": ""Estimates for the aggregate Armington elasticity are notoriously varied, leading to the 'international elasticity puzzle.' Macroeconomic and time-series approaches typically yield low values (near 1.0 or",,"{
+  ""interpretation"": ""The top-level elasticity of substitution between the aggregate bundle of imports and domestically produced goods for the United States, typically used in macro-level CGE or trade model calibration."",
+  ""point_estimate"": 1.5,
+  ""quantiles"": {
+    ""p05"": 0.6,
+    ""p25"": 1.0,
+    ""p50"": 1.5,
+    ""p75"": 2.2,
+    ""p95"": 3.8
+  },
+  ""citations"": [
+    ""Armington (1969) - A Theory of Demand for Products Distinguished by Place of Production"",
+    ""Feenstra et al. (2018) - The Elasticity of Substitution in Real Business Cycle Models with Trade"",
+    ""Ruhl (2008) - The International Elasticity Puzzle""
+  ],
+  ""reasoning_summary"": ""Estimates for the aggregate Armington elasticity are notoriously varied, leading to the 'international elasticity puzzle.' Macroeconomic and time-series approaches typically yield low values (near 1.0 or","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"

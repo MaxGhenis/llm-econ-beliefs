@@ -1,0 +1,586 @@
+provider,model_name,quantity_id,run_index,prompt_version,tool_regime,parsed_ok,point_estimate,interpretation,lower_bound,upper_bound,confidence_level,quantiles,citations,reasoning_summary,error,raw_response,prompt
+litellm_completion,claude-sonnet-4.6,labor_supply.income_elasticity.prime_age,1,income-signfix,none,True,-0.1,"Intensive-margin annual-hours elasticity conditional on employment: percent change in annual hours worked by already-employed prime-age U.S. workers for a 1 percent increase in non-labor income, holding the net-of-tax wage fixed.",-0.35,0.02,0.9,"{""p05"": -0.35, ""p25"": -0.18, ""p50"": -0.1, ""p75"": -0.04, ""p95"": 0.02}","Imbens, Rubin & Sacerdote (2001) – lottery-winner study estimating income effect on hours; found negative but modest income elasticity around -0.1 to -0.2 | Pencavel (1986) – handbook chapter surveying male labor supply; income elasticities typically small and negative, roughly -0.1 | Blundell & MaCurdy (1999) – labor supply handbook chapter; intensive-margin income elasticities generally small and negative for prime-age workers","The standard theoretical prediction is a negative income effect on hours: leisure is a normal good, so higher non-labor income reduces labor supply. Empirical estimates for prime-age employed workers in the U.S. are consistently small and negative. Lottery and inheritance studies (e.g., Imbens et al. 2001) find income elasticities around -0.1 to -0.2. Structural labor supply literature (Pencavel, Blundell & MaCurdy) similarly finds modest negative intensive-margin income effects, often in the -0.05 to -0.20 range. There is some heterogeneity across subgroups and methods, and a small number of studies find near-zero or slightly positive estimates, so I place modest probability on values near zero or slightly positive at the upper tail. My median is -0.10, with the 90% credible interval spanning roughly -0.35 to +0.02.",,"{""interpretation"": ""Intensive-margin annual-hours elasticity conditional on employment: percent change in annual hours worked by already-employed prime-age U.S. workers for a 1 percent increase in non-labor income, holding the net-of-tax wage fixed."", ""point_estimate"": -0.1, ""quantiles"": {""p05"": -0.35, ""p25"": -0.18, ""p50"": -0.1, ""p75"": -0.04, ""p95"": 0.02}, ""citations"": [""Imbens, Rubin & Sacerdote (2001) \u2013 lottery-winner study estimating income effect on hours; found negative but modest income elasticity around -0.1 to -0.2"", ""Pencavel (1986) \u2013 handbook chapter surveying male labor supply; income elasticities typically small and negative, roughly -0.1"", ""Blundell & MaCurdy (1999) \u2013 labor supply handbook chapter; intensive-margin income elasticities generally small and negative for prime-age workers""], ""reasoning_summary"": ""The standard theoretical prediction is a negative income effect on hours: leisure is a normal good, so higher non-labor income reduces labor supply. Empirical estimates for prime-age employed workers in the U.S. are consistently small and negative. Lottery and inheritance studies (e.g., Imbens et al. 2001) find income elasticities around -0.1 to -0.2. Structural labor supply literature (Pencavel, Blundell & MaCurdy) similarly finds modest negative intensive-margin income effects, often in the -0.05 to -0.20 range. There is some heterogeneity across subgroups and methods, and a small number of studies find near-zero or slightly positive estimates, so I place modest probability on values near zero or slightly positive at the upper tail. My median is -0.10, with the 90% credible interval spanning roughly -0.35 to +0.02.""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,labor_supply.income_elasticity.prime_age,2,income-signfix,none,True,-0.1,"Intensive-margin annual-hours elasticity conditional on employment: percent change in annual hours worked by already-employed prime-age U.S. workers for a 1% increase in non-labor income, holding the net-of-tax wage fixed.",-0.3,0.02,0.9,"{""p05"": -0.3, ""p25"": -0.15, ""p50"": -0.1, ""p75"": -0.05, ""p95"": 0.02}","Imbens, Rubin & Sacerdote (2001) - lottery winners study finding small negative income effects on hours | MaCurdy (1981) - lifecycle labor supply model estimating income effect parameters | Blundell & MaCurdy (1999) - survey of labor supply elasticities noting income effects tend to be small and negative","The income effect on hours worked (intensive margin) for employed prime-age workers is theoretically negative under standard preferences (leisure is a normal good). Empirical estimates from quasi-experimental studies (e.g., lottery windfalls, inheritances) and structural lifecycle models consistently find small negative income elasticities on the intensive margin, typically in the range of -0.05 to -0.20. The effect is generally modest because employed workers face constraints (standard hours norms, employer-set schedules) that limit their ability to reduce hours in response to income gains. I center my belief around -0.10, with uncertainty skewed slightly toward zero and with a small positive tail reflecting the possibility of near-zero or slightly positive estimates from some studies.",,"{""interpretation"": ""Intensive-margin annual-hours elasticity conditional on employment: percent change in annual hours worked by already-employed prime-age U.S. workers for a 1% increase in non-labor income, holding the net-of-tax wage fixed."", ""point_estimate"": -0.1, ""quantiles"": {""p05"": -0.3, ""p25"": -0.15, ""p50"": -0.1, ""p75"": -0.05, ""p95"": 0.02}, ""citations"": [""Imbens, Rubin & Sacerdote (2001) - lottery winners study finding small negative income effects on hours"", ""MaCurdy (1981) - lifecycle labor supply model estimating income effect parameters"", ""Blundell & MaCurdy (1999) - survey of labor supply elasticities noting income effects tend to be small and negative""], ""reasoning_summary"": ""The income effect on hours worked (intensive margin) for employed prime-age workers is theoretically negative under standard preferences (leisure is a normal good). Empirical estimates from quasi-experimental studies (e.g., lottery windfalls, inheritances) and structural lifecycle models consistently find small negative income elasticities on the intensive margin, typically in the range of -0.05 to -0.20. The effect is generally modest because employed workers face constraints (standard hours norms, employer-set schedules) that limit their ability to reduce hours in response to income gains. I center my belief around -0.10, with uncertainty skewed slightly toward zero and with a small positive tail reflecting the possibility of near-zero or slightly positive estimates from some studies.""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,labor_supply.income_elasticity.prime_age,3,income-signfix,none,True,-0.1,"Intensive-margin annual-hours elasticity conditional on employment: percent change in hours worked per year for prime-age U.S. workers already employed, given a 1% increase in non-labor income, holding the net-of-tax wage fixed.",-0.35,0.02,0.9,"{""p05"": -0.35, ""p25"": -0.18, ""p50"": -0.1, ""p75"": -0.04, ""p95"": 0.02}","MaCurdy (1981) – structural lifecycle labor supply estimates suggest small negative income effects on hours, roughly -0.1 to -0.2 | Blundell & MaCurdy (1999, Handbook of Labor Economics) – survey noting income elasticity of hours typically in range -0.1 to -0.3 for men, smaller in magnitude for women on intensive margin | Imbens, Rubin & Sacerdote (2001, AER) – lottery-winner study finds negative but modest income effect on hours worked","The income effect on hours worked (intensive margin) is theoretically negative under standard preferences—more non-labor income raises the demand for leisure (a normal good), reducing hours. Empirical estimates for prime-age U.S. workers cluster around -0.05 to -0.20, with most structural estimates for men near -0.1 and somewhat similar or smaller in magnitude for women on the intensive margin. Lottery/windfall studies (e.g., Imbens et al. 2001) tend to find effects in a similar small-negative range. A small positive value is not impossible if estimates are near zero with measurement error, but the central tendency is clearly negative and small. I place the median at -0.10, with most of the distribution between -0.18 and -0.04.",,"{""interpretation"": ""Intensive-margin annual-hours elasticity conditional on employment: percent change in hours worked per year for prime-age U.S. workers already employed, given a 1% increase in non-labor income, holding the net-of-tax wage fixed."", ""point_estimate"": -0.1, ""quantiles"": {""p05"": -0.35, ""p25"": -0.18, ""p50"": -0.1, ""p75"": -0.04, ""p95"": 0.02}, ""citations"": [""MaCurdy (1981) \u2013 structural lifecycle labor supply estimates suggest small negative income effects on hours, roughly -0.1 to -0.2"", ""Blundell & MaCurdy (1999, Handbook of Labor Economics) \u2013 survey noting income elasticity of hours typically in range -0.1 to -0.3 for men, smaller in magnitude for women on intensive margin"", ""Imbens, Rubin & Sacerdote (2001, AER) \u2013 lottery-winner study finds negative but modest income effect on hours worked""], ""reasoning_summary"": ""The income effect on hours worked (intensive margin) is theoretically negative under standard preferences\u2014more non-labor income raises the demand for leisure (a normal good), reducing hours. Empirical estimates for prime-age U.S. workers cluster around -0.05 to -0.20, with most structural estimates for men near -0.1 and somewhat similar or smaller in magnitude for women on the intensive margin. Lottery/windfall studies (e.g., Imbens et al. 2001) tend to find effects in a similar small-negative range. A small positive value is not impossible if estimates are near zero with measurement error, but the central tendency is clearly negative and small. I place the median at -0.10, with most of the distribution between -0.18 and -0.04.""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,labor_supply.income_elasticity.prime_age,4,income-signfix,none,True,-0.1,"Intensive-margin annual-hours elasticity conditional on employment: percent change in annual hours worked for prime-age U.S. workers already employed, given a 1% increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.",-0.35,0.02,0.9,"{""p05"": -0.35, ""p25"": -0.18, ""p50"": -0.1, ""p75"": -0.04, ""p95"": 0.02}","MaCurdy (1981) - estimated income and substitution effects in life-cycle labor supply models for prime-age men, finding small negative income effects on hours | Blundell & MaCurdy (1999) - survey of labor supply elasticities, reporting income elasticities for hours typically in the range of -0.1 to -0.3 for men, smaller in magnitude for women | Imbens, Rubin & Sacerdote (2001) - lottery winner study finding negative but modest income effects on hours worked, consistent with income elasticity around -0.1","The income elasticity of labor supply on the intensive margin is theoretically negative (leisure is a normal good), meaning higher non-labor income reduces hours worked. The empirical literature for prime-age employed U.S. workers consistently finds small negative values. Studies of lottery winners and tax-based variation tend to produce income elasticities in the range of -0.05 to -0.20 for hours conditional on working. Male estimates cluster near -0.05 to -0.15; female estimates are sometimes slightly more negative but with participation confounded. My central estimate is -0.10, with uncertainty spanning roughly -0.35 (more negative, some studies) to near zero or slightly positive (measurement error, some recent quasi-experimental estimates).",,"{""interpretation"": ""Intensive-margin annual-hours elasticity conditional on employment: percent change in annual hours worked for prime-age U.S. workers already employed, given a 1% increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses."", ""point_estimate"": -0.1, ""quantiles"": {""p05"": -0.35, ""p25"": -0.18, ""p50"": -0.1, ""p75"": -0.04, ""p95"": 0.02}, ""citations"": [""MaCurdy (1981) - estimated income and substitution effects in life-cycle labor supply models for prime-age men, finding small negative income effects on hours"", ""Blundell & MaCurdy (1999) - survey of labor supply elasticities, reporting income elasticities for hours typically in the range of -0.1 to -0.3 for men, smaller in magnitude for women"", ""Imbens, Rubin & Sacerdote (2001) - lottery winner study finding negative but modest income effects on hours worked, consistent with income elasticity around -0.1""], ""reasoning_summary"": ""The income elasticity of labor supply on the intensive margin is theoretically negative (leisure is a normal good), meaning higher non-labor income reduces hours worked. The empirical literature for prime-age employed U.S. workers consistently finds small negative values. Studies of lottery winners and tax-based variation tend to produce income elasticities in the range of -0.05 to -0.20 for hours conditional on working. Male estimates cluster near -0.05 to -0.15; female estimates are sometimes slightly more negative but with participation confounded. My central estimate is -0.10, with uncertainty spanning roughly -0.35 (more negative, some studies) to near zero or slightly positive (measurement error, some recent quasi-experimental estimates).""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,labor_supply.income_elasticity.prime_age,5,income-signfix,none,True,-0.1,"Intensive-margin annual-hours elasticity conditional on employment: percent change in annual hours worked per 1 percent increase in non-labor income, holding the net-of-tax wage fixed, for prime-age U.S. workers already employed.",-0.35,0.02,0.9,"{""p05"": -0.35, ""p25"": -0.18, ""p50"": -0.1, ""p75"": -0.04, ""p95"": 0.02}","Imbens, Rubin & Sacerdote (2001) – lottery-winner study finding small negative income effects on hours, roughly −0.1 to −0.2 | MaCurdy (1981) – life-cycle labor supply model estimating small negative income elasticity for hours, often cited near −0.1 | Keane (2011) – survey of male labor supply elasticities noting income effects on hours are small and negative, typically −0.05 to −0.15","Economic theory (leisure as a normal good) predicts a negative income elasticity for hours worked. Empirical literature on intensive-margin hours for already-employed prime-age U.S. workers consistently finds small negative values. Lottery and dividend studies (e.g., Imbens et al. 2001) suggest modest reductions in hours. Structural life-cycle estimates (MaCurdy 1981, Keane 2011) typically place the income effect on hours in the −0.05 to −0.20 range. I center my median at −0.10, with meaningful uncertainty toward zero and a small probability of a near-zero or marginally positive estimate reflecting measurement noise or heterogeneous samples.",,"{""interpretation"": ""Intensive-margin annual-hours elasticity conditional on employment: percent change in annual hours worked per 1 percent increase in non-labor income, holding the net-of-tax wage fixed, for prime-age U.S. workers already employed."", ""point_estimate"": -0.1, ""quantiles"": {""p05"": -0.35, ""p25"": -0.18, ""p50"": -0.1, ""p75"": -0.04, ""p95"": 0.02}, ""citations"": [""Imbens, Rubin & Sacerdote (2001) \u2013 lottery-winner study finding small negative income effects on hours, roughly \u22120.1 to \u22120.2"", ""MaCurdy (1981) \u2013 life-cycle labor supply model estimating small negative income elasticity for hours, often cited near \u22120.1"", ""Keane (2011) \u2013 survey of male labor supply elasticities noting income effects on hours are small and negative, typically \u22120.05 to \u22120.15""], ""reasoning_summary"": ""Economic theory (leisure as a normal good) predicts a negative income elasticity for hours worked. Empirical literature on intensive-margin hours for already-employed prime-age U.S. workers consistently finds small negative values. Lottery and dividend studies (e.g., Imbens et al. 2001) suggest modest reductions in hours. Structural life-cycle estimates (MaCurdy 1981, Keane 2011) typically place the income effect on hours in the \u22120.05 to \u22120.20 range. I center my median at \u22120.10, with meaningful uncertainty toward zero and a small probability of a near-zero or marginally positive estimate reflecting measurement noise or heterogeneous samples.""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,labor_supply.income_elasticity.prime_age,6,income-signfix,none,True,-0.1,"Intensive-margin annual-hours elasticity conditional on employment: percent change in annual hours worked for prime-age U.S. workers already employed, given a 1% increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.",-0.35,0.02,0.9,"{""p05"": -0.35, ""p25"": -0.18, ""p50"": -0.1, ""p75"": -0.04, ""p95"": 0.02}","MaCurdy (1981) – estimates income and substitution elasticities of labor supply for prime-age men, finding a small negative income effect on hours around -0.1 to -0.2 | Blundell & MaCurdy (1999) – handbook survey synthesizing labor supply literature, reporting income elasticities for men typically in the range of -0.1 to -0.3 and smaller in absolute value for women on the intensive margin | Imbens, Rubin & Sacerdote (2001) – lottery winner study finding negative income effect on hours worked, consistent with income elasticity of roughly -0.1 to -0.2","The theoretical prediction under a standard neoclassical model is a negative income effect on hours worked (leisure is a normal good). Empirical estimates for prime-age employed U.S. workers on the intensive margin consistently find small negative income elasticities. Male workers typically show estimates around -0.1 to -0.2; female workers sometimes show slightly larger negative values but the intensive-margin conditional estimate is also modest. Natural experiment studies (lottery winners, dividend income shocks) corroborate small negative effects. I center my median at -0.1, with meaningful uncertainty extending toward -0.35 on the negative side and allowing for near-zero or very slightly positive estimates at the upper tail (measurement error, wealth effects on hours through effort).",,"{""interpretation"": ""Intensive-margin annual-hours elasticity conditional on employment: percent change in annual hours worked for prime-age U.S. workers already employed, given a 1% increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses."", ""point_estimate"": -0.1, ""quantiles"": {""p05"": -0.35, ""p25"": -0.18, ""p50"": -0.1, ""p75"": -0.04, ""p95"": 0.02}, ""citations"": [""MaCurdy (1981) \u2013 estimates income and substitution elasticities of labor supply for prime-age men, finding a small negative income effect on hours around -0.1 to -0.2"", ""Blundell & MaCurdy (1999) \u2013 handbook survey synthesizing labor supply literature, reporting income elasticities for men typically in the range of -0.1 to -0.3 and smaller in absolute value for women on the intensive margin"", ""Imbens, Rubin & Sacerdote (2001) \u2013 lottery winner study finding negative income effect on hours worked, consistent with income elasticity of roughly -0.1 to -0.2""], ""reasoning_summary"": ""The theoretical prediction under a standard neoclassical model is a negative income effect on hours worked (leisure is a normal good). Empirical estimates for prime-age employed U.S. workers on the intensive margin consistently find small negative income elasticities. Male workers typically show estimates around -0.1 to -0.2; female workers sometimes show slightly larger negative values but the intensive-margin conditional estimate is also modest. Natural experiment studies (lottery winners, dividend income shocks) corroborate small negative effects. I center my median at -0.1, with meaningful uncertainty extending toward -0.35 on the negative side and allowing for near-zero or very slightly positive estimates at the upper tail (measurement error, wealth effects on hours through effort).""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,labor_supply.income_elasticity.prime_age,7,income-signfix,none,True,-0.1,"Intensive-margin annual-hours elasticity conditional on employment: percent change in annual hours worked by already-employed prime-age U.S. workers for a 1 percent increase in non-labor income, holding the net-of-tax wage fixed.",-0.35,0.05,0.9,"{""p05"": -0.35, ""p25"": -0.2, ""p50"": -0.1, ""p75"": -0.03, ""p95"": 0.05}","Imbens, Rubin & Sacerdote (2001) - lottery-winner study estimating income effects on hours, finding small negative intensive-margin responses | MaCurdy (1981) - life-cycle labor supply model estimating income and substitution effects separately, income effect on hours negative but small | Pencavel (1986) - handbook chapter surveying male labor supply elasticities, summarizing income elasticities typically in the range of -0.1 to -0.2","The theoretical prediction under standard preferences is a negative income effect on hours (leisure is a normal good). Empirical estimates for the intensive margin among employed prime-age workers are consistently small in magnitude. Lottery and windfall studies (e.g., Imbens et al. 2001) tend to find modest negative effects on hours among those who remain working. Structural estimates from life-cycle models (MaCurdy 1981) and handbook surveys (Pencavel 1986) place the income elasticity of hours worked in roughly the -0.05 to -0.2 range. I center my belief around -0.10, with meaningful uncertainty because estimates vary across identification strategies, samples, and definitions. The distribution is slightly left-skewed since values near zero or mildly positive are possible but the theoretical sign is negative.",,"{""interpretation"": ""Intensive-margin annual-hours elasticity conditional on employment: percent change in annual hours worked by already-employed prime-age U.S. workers for a 1 percent increase in non-labor income, holding the net-of-tax wage fixed."", ""point_estimate"": -0.1, ""quantiles"": {""p05"": -0.35, ""p25"": -0.2, ""p50"": -0.1, ""p75"": -0.03, ""p95"": 0.05}, ""citations"": [""Imbens, Rubin & Sacerdote (2001) - lottery-winner study estimating income effects on hours, finding small negative intensive-margin responses"", ""MaCurdy (1981) - life-cycle labor supply model estimating income and substitution effects separately, income effect on hours negative but small"", ""Pencavel (1986) - handbook chapter surveying male labor supply elasticities, summarizing income elasticities typically in the range of -0.1 to -0.2""], ""reasoning_summary"": ""The theoretical prediction under standard preferences is a negative income effect on hours (leisure is a normal good). Empirical estimates for the intensive margin among employed prime-age workers are consistently small in magnitude. Lottery and windfall studies (e.g., Imbens et al. 2001) tend to find modest negative effects on hours among those who remain working. Structural estimates from life-cycle models (MaCurdy 1981) and handbook surveys (Pencavel 1986) place the income elasticity of hours worked in roughly the -0.05 to -0.2 range. I center my belief around -0.10, with meaningful uncertainty because estimates vary across identification strategies, samples, and definitions. The distribution is slightly left-skewed since values near zero or mildly positive are possible but the theoretical sign is negative.""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,labor_supply.income_elasticity.prime_age,8,income-signfix,none,True,-0.1,"Intensive-margin annual-hours elasticity with respect to non-labor income, conditional on employment, for prime-age U.S. workers, holding the net-of-tax wage fixed.",-0.3,0.0,0.9,"{""p05"": -0.3, ""p25"": -0.15, ""p50"": -0.1, ""p75"": -0.05, ""p95"": 0.0}","Blundell & MaCurdy (1999) – survey of labor supply elasticities noting small negative income effects on hours for workers already employed | Imbens, Rubin & Sacerdote (2001) – lottery-winner study finding modest negative income effects on hours worked | Pencavel (1986) – handbook chapter on male labor supply with income elasticity estimates in the -0.1 to -0.2 range","The theoretical prediction from standard utility theory is that leisure is a normal good, so higher non-labor income should reduce hours worked (negative elasticity). Empirical estimates for the intensive margin—changes in hours among those already working—tend to be small in magnitude. Lottery and dividend studies (e.g., Imbens et al. 2001) suggest modest negative effects. Handbook surveys (Blundell & MaCurdy 1999; Pencavel 1986) place intensive-margin income elasticities roughly between -0.05 and -0.2 for prime-age workers. I center my belief around -0.1, with substantial uncertainty given heterogeneity across studies and identification strategies, but I keep the distribution almost entirely in negative territory consistent with theory and the bulk of evidence.",,"{""interpretation"": ""Intensive-margin annual-hours elasticity with respect to non-labor income, conditional on employment, for prime-age U.S. workers, holding the net-of-tax wage fixed."", ""point_estimate"": -0.1, ""quantiles"": {""p05"": -0.3, ""p25"": -0.15, ""p50"": -0.1, ""p75"": -0.05, ""p95"": 0.0}, ""citations"": [""Blundell & MaCurdy (1999) \u2013 survey of labor supply elasticities noting small negative income effects on hours for workers already employed"", ""Imbens, Rubin & Sacerdote (2001) \u2013 lottery-winner study finding modest negative income effects on hours worked"", ""Pencavel (1986) \u2013 handbook chapter on male labor supply with income elasticity estimates in the -0.1 to -0.2 range""], ""reasoning_summary"": ""The theoretical prediction from standard utility theory is that leisure is a normal good, so higher non-labor income should reduce hours worked (negative elasticity). Empirical estimates for the intensive margin\u2014changes in hours among those already working\u2014tend to be small in magnitude. Lottery and dividend studies (e.g., Imbens et al. 2001) suggest modest negative effects. Handbook surveys (Blundell & MaCurdy 1999; Pencavel 1986) place intensive-margin income elasticities roughly between -0.05 and -0.2 for prime-age workers. I center my belief around -0.1, with substantial uncertainty given heterogeneity across studies and identification strategies, but I keep the distribution almost entirely in negative territory consistent with theory and the bulk of evidence.""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,labor_supply.income_elasticity.prime_age,9,income-signfix,none,True,-0.1,"Intensive-margin annual-hours elasticity with respect to non-labor income, conditional on employment, for prime-age U.S. workers — holding the net-of-tax wage fixed.",-0.35,0.02,0.9,"{""p05"": -0.35, ""p25"": -0.18, ""p50"": -0.1, ""p75"": -0.04, ""p95"": 0.02}","Imbens, Rubin & Sacerdote (2001) — lottery-winner study finding modest negative income effects on hours worked, roughly -0.1 to -0.2 | Pencavel (1986) — handbook chapter surveying male labor supply, reporting income elasticities in the range of -0.1 to -0.2 | Blundell & MaCurdy (1999) — handbook chapter on labor supply noting that income elasticities for the intensive margin are typically small and negative, often between -0.05 and -0.20","The theoretical prediction under standard preferences is a negative income effect: higher non-labor income reduces hours worked (leisure is a normal good). Empirical estimates for prime-age employed workers in the U.S. consistently find small negative intensive-margin income elasticities. Lottery and windfall studies (e.g., Imbens et al. 2001) suggest values around -0.1 to -0.2. Structural labor-supply estimates (Pencavel, Blundell & MaCurdy) cluster in a similar range, often -0.05 to -0.20. Very few credible estimates are positive or larger in magnitude than -0.3. I center my median at -0.10, with uncertainty spanning roughly -0.35 to +0.02 at the 5th and 95th percentiles.",,"{""interpretation"": ""Intensive-margin annual-hours elasticity with respect to non-labor income, conditional on employment, for prime-age U.S. workers \u2014 holding the net-of-tax wage fixed."", ""point_estimate"": -0.1, ""quantiles"": {""p05"": -0.35, ""p25"": -0.18, ""p50"": -0.1, ""p75"": -0.04, ""p95"": 0.02}, ""citations"": [""Imbens, Rubin & Sacerdote (2001) \u2014 lottery-winner study finding modest negative income effects on hours worked, roughly -0.1 to -0.2"", ""Pencavel (1986) \u2014 handbook chapter surveying male labor supply, reporting income elasticities in the range of -0.1 to -0.2"", ""Blundell & MaCurdy (1999) \u2014 handbook chapter on labor supply noting that income elasticities for the intensive margin are typically small and negative, often between -0.05 and -0.20""], ""reasoning_summary"": ""The theoretical prediction under standard preferences is a negative income effect: higher non-labor income reduces hours worked (leisure is a normal good). Empirical estimates for prime-age employed workers in the U.S. consistently find small negative intensive-margin income elasticities. Lottery and windfall studies (e.g., Imbens et al. 2001) suggest values around -0.1 to -0.2. Structural labor-supply estimates (Pencavel, Blundell & MaCurdy) cluster in a similar range, often -0.05 to -0.20. Very few credible estimates are positive or larger in magnitude than -0.3. I center my median at -0.10, with uncertainty spanning roughly -0.35 to +0.02 at the 5th and 95th percentiles.""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,labor_supply.income_elasticity.prime_age,10,income-signfix,none,True,-0.1,"Intensive-margin annual-hours elasticity conditional on employment: the percent change in annual hours worked by already-employed prime-age U.S. workers for a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.",-0.35,0.02,0.9,"{""p05"": -0.35, ""p25"": -0.18, ""p50"": -0.1, ""p75"": -0.04, ""p95"": 0.02}","Imbens, Rubin, and Sacerdote (2001) – lottery winners study finding negative but modest income effects on hours worked | MaCurdy (1981) – life-cycle labor supply model estimating small negative income effects on intensive margin | Blundell and MaCurdy (1999) – survey of labor supply elasticities noting income effects on hours typically small and negative, around -0.1 to -0.2","The income elasticity of labor supply on the intensive margin for employed prime-age U.S. workers is generally estimated to be small and negative, consistent with leisure being a normal good. Lottery and windfall studies (e.g., Imbens et al. 2001) find modest reductions in hours from unearned income. Structural estimates from life-cycle models (MaCurdy 1981, Blundell and MaCurdy 1999) typically place this elasticity in the range of roughly -0.05 to -0.20. There is some uncertainty—a handful of studies find near-zero effects, and a few quasi-experimental designs yield slightly more negative estimates—but the central tendency is around -0.10. The distribution is skewed toward negative values, with very little probability mass on positive values (which would imply hours rise with non-labor income, contrary to standard theory and most evidence).",,"{""interpretation"": ""Intensive-margin annual-hours elasticity conditional on employment: the percent change in annual hours worked by already-employed prime-age U.S. workers for a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses."", ""point_estimate"": -0.1, ""quantiles"": {""p05"": -0.35, ""p25"": -0.18, ""p50"": -0.1, ""p75"": -0.04, ""p95"": 0.02}, ""citations"": [""Imbens, Rubin, and Sacerdote (2001) \u2013 lottery winners study finding negative but modest income effects on hours worked"", ""MaCurdy (1981) \u2013 life-cycle labor supply model estimating small negative income effects on intensive margin"", ""Blundell and MaCurdy (1999) \u2013 survey of labor supply elasticities noting income effects on hours typically small and negative, around -0.1 to -0.2""], ""reasoning_summary"": ""The income elasticity of labor supply on the intensive margin for employed prime-age U.S. workers is generally estimated to be small and negative, consistent with leisure being a normal good. Lottery and windfall studies (e.g., Imbens et al. 2001) find modest reductions in hours from unearned income. Structural estimates from life-cycle models (MaCurdy 1981, Blundell and MaCurdy 1999) typically place this elasticity in the range of roughly -0.05 to -0.20. There is some uncertainty\u2014a handful of studies find near-zero effects, and a few quasi-experimental designs yield slightly more negative estimates\u2014but the central tendency is around -0.10. The distribution is skewed toward negative values, with very little probability mass on positive values (which would imply hours rise with non-labor income, contrary to standard theory and most evidence).""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,labor_supply.income_elasticity.prime_age,11,income-signfix,none,True,-0.1,"Intensive-margin annual-hours elasticity conditional on employment: percent change in annual hours worked by already-employed prime-age U.S. workers for a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.",-0.35,0.05,0.9,"{""p05"": -0.35, ""p25"": -0.2, ""p50"": -0.1, ""p75"": -0.03, ""p95"": 0.05}","Blundell, R. & MaCurdy, T. (1999). Labor supply: A review of alternative approaches. Handbook of Labor Economics, Vol. 3A. — Classic review summarizing income elasticity estimates typically in the range of −0.1 to −0.3 for hours conditional on work. | MaCurdy, T. (1981). An empirical model of labor supply in a life-cycle setting. Journal of Political Economy, 89(6). — Structural life-cycle model; income elasticity estimated close to zero or modestly negative. | Keane, M. (2011). Labor supply and taxes: A survey. Journal of Economic Literature, 49(4). — Surveys indicate intensive-margin income elasticities are small and negative, generally between 0 and −0.2.","The income elasticity of labor supply on the intensive margin is theoretically expected to be negative (leisure is a normal good), but empirical estimates for prime-age workers are typically small in magnitude. The Blundell-MaCurdy handbook survey and Keane's JEL survey both place intensive-margin income elasticities in a narrow range around −0.1 to −0.2 for men, with some studies closer to zero. Women tend to show somewhat larger magnitudes but still modest. Given the target population (prime-age, already employed, U.S.), I center my belief at −0.10, with meaningful probability of values between −0.20 and near zero, and small but nonzero probability of a positive estimate (reflecting noisy empirical estimates or special subgroups).",,"{""interpretation"": ""Intensive-margin annual-hours elasticity conditional on employment: percent change in annual hours worked by already-employed prime-age U.S. workers for a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses."", ""point_estimate"": -0.1, ""quantiles"": {""p05"": -0.35, ""p25"": -0.2, ""p50"": -0.1, ""p75"": -0.03, ""p95"": 0.05}, ""citations"": [""Blundell, R. & MaCurdy, T. (1999). Labor supply: A review of alternative approaches. Handbook of Labor Economics, Vol. 3A. \u2014 Classic review summarizing income elasticity estimates typically in the range of \u22120.1 to \u22120.3 for hours conditional on work."", ""MaCurdy, T. (1981). An empirical model of labor supply in a life-cycle setting. Journal of Political Economy, 89(6). \u2014 Structural life-cycle model; income elasticity estimated close to zero or modestly negative."", ""Keane, M. (2011). Labor supply and taxes: A survey. Journal of Economic Literature, 49(4). \u2014 Surveys indicate intensive-margin income elasticities are small and negative, generally between 0 and \u22120.2.""], ""reasoning_summary"": ""The income elasticity of labor supply on the intensive margin is theoretically expected to be negative (leisure is a normal good), but empirical estimates for prime-age workers are typically small in magnitude. The Blundell-MaCurdy handbook survey and Keane's JEL survey both place intensive-margin income elasticities in a narrow range around \u22120.1 to \u22120.2 for men, with some studies closer to zero. Women tend to show somewhat larger magnitudes but still modest. Given the target population (prime-age, already employed, U.S.), I center my belief at \u22120.10, with meaningful probability of values between \u22120.20 and near zero, and small but nonzero probability of a positive estimate (reflecting noisy empirical estimates or special subgroups).""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,labor_supply.income_elasticity.prime_age,12,income-signfix,none,True,-0.1,"Intensive-margin elasticity of annual hours worked with respect to non-labor income, conditional on employment, for prime-age U.S. workers, holding the net-of-tax wage fixed.",-0.35,0.02,0.9,"{""p05"": -0.35, ""p25"": -0.18, ""p50"": -0.1, ""p75"": -0.04, ""p95"": 0.02}","Imbens, Rubin & Sacerdote (2001) – lottery-winner study finds modest negative income effects on hours, roughly -0.1 to -0.2 | Pencavel (1986) – survey of male labor supply finds income elasticities in the range of -0.1 to -0.2 | Keane (2011) – review of structural labor supply models reporting income elasticities close to zero or slightly negative for intensive margin","Theory (leisure is a normal good) predicts a negative income elasticity on the intensive margin. Empirical estimates from lottery studies, IV approaches using unearned income, and structural models consistently find small negative values, typically in the range of -0.05 to -0.20, centered near -0.10. The distribution is skewed toward negative values but with a small right tail allowing near-zero or trivially positive estimates from some studies with noisy identification. I anchor my median at -0.10, reflecting the weight of evidence from lottery-winner studies and labor supply surveys.",,"{""interpretation"": ""Intensive-margin elasticity of annual hours worked with respect to non-labor income, conditional on employment, for prime-age U.S. workers, holding the net-of-tax wage fixed."", ""point_estimate"": -0.1, ""quantiles"": {""p05"": -0.35, ""p25"": -0.18, ""p50"": -0.1, ""p75"": -0.04, ""p95"": 0.02}, ""citations"": [""Imbens, Rubin & Sacerdote (2001) \u2013 lottery-winner study finds modest negative income effects on hours, roughly -0.1 to -0.2"", ""Pencavel (1986) \u2013 survey of male labor supply finds income elasticities in the range of -0.1 to -0.2"", ""Keane (2011) \u2013 review of structural labor supply models reporting income elasticities close to zero or slightly negative for intensive margin""], ""reasoning_summary"": ""Theory (leisure is a normal good) predicts a negative income elasticity on the intensive margin. Empirical estimates from lottery studies, IV approaches using unearned income, and structural models consistently find small negative values, typically in the range of -0.05 to -0.20, centered near -0.10. The distribution is skewed toward negative values but with a small right tail allowing near-zero or trivially positive estimates from some studies with noisy identification. I anchor my median at -0.10, reflecting the weight of evidence from lottery-winner studies and labor supply surveys.""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,labor_supply.income_elasticity.prime_age,13,income-signfix,none,True,-0.1,"Intensive-margin annual-hours elasticity with respect to non-labor income, conditional on employment, for prime-age U.S. workers, holding the net-of-tax wage fixed.",-0.35,0.02,0.9,"{""p05"": -0.35, ""p25"": -0.18, ""p50"": -0.1, ""p75"": -0.04, ""p95"": 0.02}","Imbens, Rubin & Sacerdote (2001) – lottery-winner study finds small negative income effects on hours, roughly -0.1 to -0.2 | Blundell & MaCurdy (1999) – handbook survey places income elasticity of hours near zero to slightly negative for prime-age workers | Cesarini et al. (2017) – Swedish lottery study estimates income elasticity of hours around -0.1 for employed workers","The income elasticity of labor supply on the intensive margin is theoretically negative (leisure is a normal good), but empirically small in magnitude for prime-age employed workers. Lottery studies (Imbens et al. 2001; Cesarini et al. 2017) and structural labor-supply surveys (Blundell & MaCurdy 1999) consistently find elasticities in the range of roughly -0.05 to -0.20. I center my median at -0.10, reflecting near-consensus that the effect is negative but modest. The distribution is skewed toward negative values, with only a small tail allowing for near-zero or slightly positive estimates (e.g., if measurement or heterogeneity issues are at play).",,"{""interpretation"": ""Intensive-margin annual-hours elasticity with respect to non-labor income, conditional on employment, for prime-age U.S. workers, holding the net-of-tax wage fixed."", ""point_estimate"": -0.1, ""quantiles"": {""p05"": -0.35, ""p25"": -0.18, ""p50"": -0.1, ""p75"": -0.04, ""p95"": 0.02}, ""citations"": [""Imbens, Rubin & Sacerdote (2001) \u2013 lottery-winner study finds small negative income effects on hours, roughly -0.1 to -0.2"", ""Blundell & MaCurdy (1999) \u2013 handbook survey places income elasticity of hours near zero to slightly negative for prime-age workers"", ""Cesarini et al. (2017) \u2013 Swedish lottery study estimates income elasticity of hours around -0.1 for employed workers""], ""reasoning_summary"": ""The income elasticity of labor supply on the intensive margin is theoretically negative (leisure is a normal good), but empirically small in magnitude for prime-age employed workers. Lottery studies (Imbens et al. 2001; Cesarini et al. 2017) and structural labor-supply surveys (Blundell & MaCurdy 1999) consistently find elasticities in the range of roughly -0.05 to -0.20. I center my median at -0.10, reflecting near-consensus that the effect is negative but modest. The distribution is skewed toward negative values, with only a small tail allowing for near-zero or slightly positive estimates (e.g., if measurement or heterogeneity issues are at play).""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,labor_supply.income_elasticity.prime_age,14,income-signfix,none,True,-0.1,"Intensive-margin annual-hours elasticity with respect to non-labor income, conditional on employment, for prime-age U.S. workers — i.e., the percent change in hours worked per year for a 1% increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.",-0.35,0.02,0.9,"{""p05"": -0.35, ""p25"": -0.18, ""p50"": -0.1, ""p75"": -0.04, ""p95"": 0.02}","MaCurdy (1981) — structural lifecycle labor supply model estimates small negative income effects on hours for prime-age men | Blundell & MaCurdy (1999) — survey of labor supply elasticities, income effects on hours generally small and negative, often in range -0.1 to -0.3 for men | Imbens, Rubin & Sacerdote (2001) — lottery-winner study finds negative but modest income effects on hours worked","The income elasticity of labor supply on the intensive margin is theoretically negative under standard preferences (leisure is a normal good): higher non-labor income raises the demand for leisure and reduces hours worked. Empirical estimates for prime-age U.S. workers are consistently small in magnitude. Male workers show income elasticities close to zero to modestly negative (roughly -0.05 to -0.20 in many structural estimates). Female workers tend to show larger negative income effects but the target population is prime-age workers broadly. Lottery and transfer studies (e.g., Imbens et al.) suggest small reductions in hours. I center my belief at about -0.10, with substantial uncertainty spanning roughly -0.35 to near zero, and a small tail probability of a slightly positive estimate (consistent with some specifications finding near-zero or ambiguous results).",,"{""interpretation"": ""Intensive-margin annual-hours elasticity with respect to non-labor income, conditional on employment, for prime-age U.S. workers \u2014 i.e., the percent change in hours worked per year for a 1% increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses."", ""point_estimate"": -0.1, ""quantiles"": {""p05"": -0.35, ""p25"": -0.18, ""p50"": -0.1, ""p75"": -0.04, ""p95"": 0.02}, ""citations"": [""MaCurdy (1981) \u2014 structural lifecycle labor supply model estimates small negative income effects on hours for prime-age men"", ""Blundell & MaCurdy (1999) \u2014 survey of labor supply elasticities, income effects on hours generally small and negative, often in range -0.1 to -0.3 for men"", ""Imbens, Rubin & Sacerdote (2001) \u2014 lottery-winner study finds negative but modest income effects on hours worked""], ""reasoning_summary"": ""The income elasticity of labor supply on the intensive margin is theoretically negative under standard preferences (leisure is a normal good): higher non-labor income raises the demand for leisure and reduces hours worked. Empirical estimates for prime-age U.S. workers are consistently small in magnitude. Male workers show income elasticities close to zero to modestly negative (roughly -0.05 to -0.20 in many structural estimates). Female workers tend to show larger negative income effects but the target population is prime-age workers broadly. Lottery and transfer studies (e.g., Imbens et al.) suggest small reductions in hours. I center my belief at about -0.10, with substantial uncertainty spanning roughly -0.35 to near zero, and a small tail probability of a slightly positive estimate (consistent with some specifications finding near-zero or ambiguous results).""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,labor_supply.income_elasticity.prime_age,15,income-signfix,none,True,-0.1,"Intensive-margin annual-hours elasticity with respect to non-labor income, conditional on employment, for prime-age U.S. workers, holding the net-of-tax wage fixed.",-0.35,0.02,0.9,"{""p05"": -0.35, ""p25"": -0.18, ""p50"": -0.1, ""p75"": -0.04, ""p95"": 0.02}","Imbens, Rubin & Sacerdote (2001) — lottery-winner study finding small negative income effects on hours worked among employed individuals | Pencavel (1986) — handbook chapter surveying male labor supply, reporting income elasticities generally between -0.1 and -0.3 | Blundell & MaCurdy (1999) — handbook chapter on labor supply, summarizing intensive-margin income elasticities clustering near zero to slightly negative","The income effect on intensive-margin hours worked is theoretically negative (leisure is a normal good), but empirically small in magnitude for prime-age employed workers. Lottery and windfall studies (e.g., Imbens et al. 2001) find small negative effects on hours, and structural labor-supply surveys (Pencavel 1986; Blundell & MaCurdy 1999) place the intensive-margin income elasticity in roughly the -0.05 to -0.20 range for this population. The distribution is centered around -0.10, with meaningful uncertainty toward more negative values and a small probability of near-zero or trivially positive estimates from noisy identification.",,"{""interpretation"": ""Intensive-margin annual-hours elasticity with respect to non-labor income, conditional on employment, for prime-age U.S. workers, holding the net-of-tax wage fixed."", ""point_estimate"": -0.1, ""quantiles"": {""p05"": -0.35, ""p25"": -0.18, ""p50"": -0.1, ""p75"": -0.04, ""p95"": 0.02}, ""citations"": [""Imbens, Rubin & Sacerdote (2001) \u2014 lottery-winner study finding small negative income effects on hours worked among employed individuals"", ""Pencavel (1986) \u2014 handbook chapter surveying male labor supply, reporting income elasticities generally between -0.1 and -0.3"", ""Blundell & MaCurdy (1999) \u2014 handbook chapter on labor supply, summarizing intensive-margin income elasticities clustering near zero to slightly negative""], ""reasoning_summary"": ""The income effect on intensive-margin hours worked is theoretically negative (leisure is a normal good), but empirically small in magnitude for prime-age employed workers. Lottery and windfall studies (e.g., Imbens et al. 2001) find small negative effects on hours, and structural labor-supply surveys (Pencavel 1986; Blundell & MaCurdy 1999) place the intensive-margin income elasticity in roughly the -0.05 to -0.20 range for this population. The distribution is centered around -0.10, with meaningful uncertainty toward more negative values and a small probability of near-zero or trivially positive estimates from noisy identification.""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"

@@ -1,0 +1,826 @@
+provider,model_name,quantity_id,run_index,prompt_version,tool_regime,parsed_ok,point_estimate,interpretation,lower_bound,upper_bound,confidence_level,quantiles,citations,reasoning_summary,error,raw_response,prompt
+litellm_completion,gemini-3-flash-preview,labor_supply.income_elasticity.prime_age,1,income-signfix,none,True,-0.1,"The percentage change in annual hours worked for a one percent increase in non-labor income, for prime-age US workers conditional on employment.",-0.25,-0.01,0.9,"{""p05"": -0.25, ""p25"": -0.15, ""p50"": -0.1, ""p75"": -0.05, ""p95"": -0.01}","Imbens, Rubin, and Sacerdote (2001) | Pencavel (1986) | Chetty et al. (2011)","Empirical literature, including lottery studies and negative income tax experiments, consistently finds that leisure is a normal good, leading to a negative income elasticity. Most estimates for the intensive margin among prime-age workers are small in magnitude, typically ranging between -0.05 and -0.20.",,"{
+  ""interpretation"": ""The percentage change in annual hours worked for a one percent increase in non-labor income, for prime-age US workers conditional on employment."",
+  ""point_estimate"": -0.1,
+  ""quantiles"": {
+    ""p05"": -0.25,
+    ""p25"": -0.15,
+    ""p50"": -0.1,
+    ""p75"": -0.05,
+    ""p95"": -0.01
+  },
+  ""citations"": [
+    ""Imbens, Rubin, and Sacerdote (2001)"",
+    ""Pencavel (1986)"",
+    ""Chetty et al. (2011)""
+  ],
+  ""reasoning_summary"": ""Empirical literature, including lottery studies and negative income tax experiments, consistently finds that leisure is a normal good, leading to a negative income elasticity. Most estimates for the intensive margin among prime-age workers are small in magnitude, typically ranging between -0.05 and -0.20.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,gemini-3-flash-preview,labor_supply.income_elasticity.prime_age,2,income-signfix,none,True,-0.05,"Intensive-margin annual-hours elasticity for prime-age US workers conditional on employment, representing the percent change in hours worked for a 1 percent increase in non-labor income.",-0.15,0.0,0.9,"{""p05"": -0.15, ""p25"": -0.08, ""p50"": -0.05, ""p75"": -0.02, ""p95"": 0.0}","Imbens, Rubin, and Sacerdote (2001) - lottery study | Chetty (2012) - meta-analysis of elasticities | Blundell and MaCurdy (1999) - Handbook of Labor Economics","Empirical evidence from lottery winnings and tax changes consistently suggests that leisure is a normal good, implying a negative income elasticity. For prime-age workers already in the labor force, these effects are typically found to be small but statistically significant, concentrated at the intensive margin.",,"{
+  ""interpretation"": ""Intensive-margin annual-hours elasticity for prime-age US workers conditional on employment, representing the percent change in hours worked for a 1 percent increase in non-labor income."",
+  ""point_estimate"": -0.05,
+  ""quantiles"": {
+    ""p05"": -0.15,
+    ""p25"": -0.08,
+    ""p50"": -0.05,
+    ""p75"": -0.02,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Imbens, Rubin, and Sacerdote (2001) - lottery study"",
+    ""Chetty (2012) - meta-analysis of elasticities"",
+    ""Blundell and MaCurdy (1999) - Handbook of Labor Economics""
+  ],
+  ""reasoning_summary"": ""Empirical evidence from lottery winnings and tax changes consistently suggests that leisure is a normal good, implying a negative income elasticity. For prime-age workers already in the labor force, these effects are typically found to be small but statistically significant, concentrated at the intensive margin.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,gemini-3-flash-preview,labor_supply.income_elasticity.prime_age,3,income-signfix,none,True,-0.05,"Intensive-margin annual hours elasticity for prime-age US workers relative to non-labor income, holding the net wage fixed.",-0.15,0.0,0.9,"{""p05"": -0.15, ""p25"": -0.08, ""p50"": -0.05, ""p75"": -0.02, ""p95"": 0.0}","Imbens, Rubin, and Sacerdote (2001) | Pencavel (1986) | Blundell and MaCurdy (1999)","Empirical evidence from lottery studies and observational data consistently indicates that leisure is a normal good, though the income effect on the intensive margin for those already employed is typically estimated to be small and negative.",,"{
+  ""interpretation"": ""Intensive-margin annual hours elasticity for prime-age US workers relative to non-labor income, holding the net wage fixed."",
+  ""point_estimate"": -0.05,
+  ""quantiles"": {
+    ""p05"": -0.15,
+    ""p25"": -0.08,
+    ""p50"": -0.05,
+    ""p75"": -0.02,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Imbens, Rubin, and Sacerdote (2001)"",
+    ""Pencavel (1986)"",
+    ""Blundell and MaCurdy (1999)""
+  ],
+  ""reasoning_summary"": ""Empirical evidence from lottery studies and observational data consistently indicates that leisure is a normal good, though the income effect on the intensive margin for those already employed is typically estimated to be small and negative.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,gemini-3-flash-preview,labor_supply.income_elasticity.prime_age,4,income-signfix,none,True,-0.05,"Intensive-margin annual hours elasticity for US prime-age workers conditional on employment, representing the percent change in hours for a 1 percent change in non-labor income with wages held constant.",-0.15,0.0,0.9,"{""p05"": -0.15, ""p25"": -0.08, ""p50"": -0.05, ""p75"": -0.02, ""p95"": 0.0}","Imbens, Rubin, and Sacerdote (2001) - Lottery study | Chetty (2012) - Meta-analysis of micro-elasticities | Blundell and MaCurdy (1999) - Handbook of Labor Economics","Empirical evidence from lottery winnings and tax-transfer studies consistently indicates that leisure is a normal good, implying a negative income elasticity. For prime-age workers already in the labor force, the intensive margin response is typically found to be small but statistically significant and negative.",,"{
+  ""interpretation"": ""Intensive-margin annual hours elasticity for US prime-age workers conditional on employment, representing the percent change in hours for a 1 percent change in non-labor income with wages held constant."",
+  ""point_estimate"": -0.05,
+  ""quantiles"": {
+    ""p05"": -0.15,
+    ""p25"": -0.08,
+    ""p50"": -0.05,
+    ""p75"": -0.02,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Imbens, Rubin, and Sacerdote (2001) - Lottery study"",
+    ""Chetty (2012) - Meta-analysis of micro-elasticities"",
+    ""Blundell and MaCurdy (1999) - Handbook of Labor Economics""
+  ],
+  ""reasoning_summary"": ""Empirical evidence from lottery winnings and tax-transfer studies consistently indicates that leisure is a normal good, implying a negative income elasticity. For prime-age workers already in the labor force, the intensive margin response is typically found to be small but statistically significant and negative.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,gemini-3-flash-preview,labor_supply.income_elasticity.prime_age,5,income-signfix,none,True,-0.05,"The percentage change in annual hours worked for prime-age US workers already in the labor force in response to a 1 percent increase in non-labor income, holding the net wage constant.",-0.15,0.0,0.9,"{""p05"": -0.15, ""p25"": -0.08, ""p50"": -0.05, ""p75"": -0.02, ""p95"": 0.0}","Imbens, Rubin, and Sacerdote (2001) - lottery study | Pencavel (1986) - Handbook of Labor Economics survey | Chetty et al. (2011) - meta-analysis of micro elasticities","Empirical literature on intensive margin responses, including lottery studies and tax reforms, consistently suggests that leisure is a normal good. The income effect is generally found to be negative but small in magnitude for workers already employed, often estimated between -0.1 and 0.0.",,"{
+  ""interpretation"": ""The percentage change in annual hours worked for prime-age US workers already in the labor force in response to a 1 percent increase in non-labor income, holding the net wage constant."",
+  ""point_estimate"": -0.05,
+  ""quantiles"": {
+    ""p05"": -0.15,
+    ""p25"": -0.08,
+    ""p50"": -0.05,
+    ""p75"": -0.02,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Imbens, Rubin, and Sacerdote (2001) - lottery study"",
+    ""Pencavel (1986) - Handbook of Labor Economics survey"",
+    ""Chetty et al. (2011) - meta-analysis of micro elasticities""
+  ],
+  ""reasoning_summary"": ""Empirical literature on intensive margin responses, including lottery studies and tax reforms, consistently suggests that leisure is a normal good. The income effect is generally found to be negative but small in magnitude for workers already employed, often estimated between -0.1 and 0.0.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,gemini-3-flash-preview,labor_supply.income_elasticity.prime_age,6,income-signfix,none,True,-0.05,"Intensive-margin annual-hours elasticity for prime-age US workers conditional on employment, representing the percent change in hours worked for a 1 percent change in non-labor income.",-0.15,0.0,0.9,"{""p05"": -0.15, ""p25"": -0.1, ""p50"": -0.05, ""p75"": -0.02, ""p95"": 0.0}","Imbens, Rubin, and Sacerdote (2001) | Pencavel (1986) | Blundell and MaCurdy (1999)","Empirical evidence from lottery studies and labor supply literature generally shows a small, negative income effect. For prime-age workers already in the labor force, leisure is typically a normal good, meaning increased wealth leads to slightly fewer hours worked, though the magnitude is constrained by workplace rigidities and low marginal responses.",,"{
+  ""interpretation"": ""Intensive-margin annual-hours elasticity for prime-age US workers conditional on employment, representing the percent change in hours worked for a 1 percent change in non-labor income."",
+  ""point_estimate"": -0.05,
+  ""quantiles"": {
+    ""p05"": -0.15,
+    ""p25"": -0.10,
+    ""p50"": -0.05,
+    ""p75"": -0.02,
+    ""p95"": 0.00
+  },
+  ""citations"": [
+    ""Imbens, Rubin, and Sacerdote (2001)"",
+    ""Pencavel (1986)"",
+    ""Blundell and MaCurdy (1999)""
+  ],
+  ""reasoning_summary"": ""Empirical evidence from lottery studies and labor supply literature generally shows a small, negative income effect. For prime-age workers already in the labor force, leisure is typically a normal good, meaning increased wealth leads to slightly fewer hours worked, though the magnitude is constrained by workplace rigidities and low marginal responses.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,gemini-3-flash-preview,labor_supply.income_elasticity.prime_age,7,income-signfix,none,True,-0.1,"Intensive-margin annual-hours elasticity for employed prime-age US workers in response to non-labor income increases, keeping wages constant.",-0.3,0.0,0.9,"{""p05"": -0.3, ""p25"": -0.15, ""p50"": -0.1, ""p75"": -0.05, ""p95"": 0.0}","Imbens, Rubin, and Sacerdote (2001) lottery study | Pencavel (1986) labor supply handbook chapter | Blundell and MaCurdy (1999)","Empirical evidence from lottery winnings and tax-and-transfer experiments generally indicates a small, negative income effect for prime-age workers. While leisure is considered a normal good, the magnitude of the intensive-margin response is typically found to be inelastic and smaller than substitution effects.",,"{
+  ""interpretation"": ""Intensive-margin annual-hours elasticity for employed prime-age US workers in response to non-labor income increases, keeping wages constant."",
+  ""point_estimate"": -0.1,
+  ""quantiles"": {
+    ""p05"": -0.3,
+    ""p25"": -0.15,
+    ""p50"": -0.1,
+    ""p75"": -0.05,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Imbens, Rubin, and Sacerdote (2001) lottery study"",
+    ""Pencavel (1986) labor supply handbook chapter"",
+    ""Blundell and MaCurdy (1999)""
+  ],
+  ""reasoning_summary"": ""Empirical evidence from lottery winnings and tax-and-transfer experiments generally indicates a small, negative income effect for prime-age workers. While leisure is considered a normal good, the magnitude of the intensive-margin response is typically found to be inelastic and smaller than substitution effects.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,gemini-3-flash-preview,labor_supply.income_elasticity.prime_age,8,income-signfix,none,True,-0.05,"Intensive-margin annual-hours elasticity for prime-age US workers relative to non-labor income change, excluding participation.",-0.15,0.0,0.9,"{""p05"": -0.15, ""p25"": -0.08, ""p50"": -0.05, ""p75"": -0.02, ""p95"": 0.0}","Imbens, Rubin, and Sacerdote (2001) lottery study | Pencavel (1986) Handbook of Labor Economics | Blundell and MaCurdy (1999)","Empirical estimates of the income elasticity of labor supply for prime-age workers are consistently negative but small in magnitude. Most literature suggests that leisure is a normal good, meaning hours worked decrease as non-labor income increases, though institutional constraints on hours often keep the observed intensive-margin response near zero.",,"{
+  ""interpretation"": ""Intensive-margin annual-hours elasticity for prime-age US workers relative to non-labor income change, excluding participation."",
+  ""point_estimate"": -0.05,
+  ""quantiles"": {
+    ""p05"": -0.15,
+    ""p25"": -0.08,
+    ""p50"": -0.05,
+    ""p75"": -0.02,
+    ""p95"": 0.00
+  },
+  ""citations"": [
+    ""Imbens, Rubin, and Sacerdote (2001) lottery study"",
+    ""Pencavel (1986) Handbook of Labor Economics"",
+    ""Blundell and MaCurdy (1999)""
+  ],
+  ""reasoning_summary"": ""Empirical estimates of the income elasticity of labor supply for prime-age workers are consistently negative but small in magnitude. Most literature suggests that leisure is a normal good, meaning hours worked decrease as non-labor income increases, though institutional constraints on hours often keep the observed intensive-margin response near zero.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,gemini-3-flash-preview,labor_supply.income_elasticity.prime_age,9,income-signfix,none,True,-0.1,"Intensive-margin annual hours worked elasticity for prime-age US workers conditional on employment, representing the percent change in hours for a 1 percent increase in non-labor income.",-0.25,0.0,0.9,"{""p05"": -0.25, ""p25"": -0.15, ""p50"": -0.1, ""p75"": -0.05, ""p95"": 0.0}","Imbens, Rubin, and Sacerdote (2001) lottery study | Chetty (2012) bounds and meta-analysis | Blundell and MaCurdy (1999) labor supply review","Empirical evidence, particularly from lottery studies and quasi-experimental shocks to wealth, consistently shows that leisure is a normal good. For prime-age workers already in the labor force, the intensive-margin response is negative but typically small in magnitude, often estimated between -0.05 and -0.15.",,"{
+  ""interpretation"": ""Intensive-margin annual hours worked elasticity for prime-age US workers conditional on employment, representing the percent change in hours for a 1 percent increase in non-labor income."",
+  ""point_estimate"": -0.1,
+  ""quantiles"": {
+    ""p05"": -0.25,
+    ""p25"": -0.15,
+    ""p50"": -0.1,
+    ""p75"": -0.05,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Imbens, Rubin, and Sacerdote (2001) lottery study"",
+    ""Chetty (2012) bounds and meta-analysis"",
+    ""Blundell and MaCurdy (1999) labor supply review""
+  ],
+  ""reasoning_summary"": ""Empirical evidence, particularly from lottery studies and quasi-experimental shocks to wealth, consistently shows that leisure is a normal good. For prime-age workers already in the labor force, the intensive-margin response is negative but typically small in magnitude, often estimated between -0.05 and -0.15.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,gemini-3-flash-preview,labor_supply.income_elasticity.prime_age,10,income-signfix,none,True,-0.05,"Intensive-margin elasticity of annual hours worked by employed prime-age US workers with respect to non-labor income, holding the net wage constant.",-0.15,0.0,0.9,"{""p05"": -0.15, ""p25"": -0.08, ""p50"": -0.05, ""p75"": -0.02, ""p95"": 0.0}","Imbens, Rubin, and Sacerdote (2001) - lottery study | Chetty (2008) | Pencavel (1986)","Empirical literature, particularly lottery and inheritance studies, consistently finds a small negative income effect on hours worked. The effect is typically smaller in magnitude than substitution effects and often close to zero for primary earners, though non-zero for the population at large.",,"{
+  ""interpretation"": ""Intensive-margin elasticity of annual hours worked by employed prime-age US workers with respect to non-labor income, holding the net wage constant."",
+  ""point_estimate"": -0.05,
+  ""quantiles"": {
+    ""p05"": -0.15,
+    ""p25"": -0.08,
+    ""p50"": -0.05,
+    ""p75"": -0.02,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Imbens, Rubin, and Sacerdote (2001) - lottery study"",
+    ""Chetty (2008)"",
+    ""Pencavel (1986)""
+  ],
+  ""reasoning_summary"": ""Empirical literature, particularly lottery and inheritance studies, consistently finds a small negative income effect on hours worked. The effect is typically smaller in magnitude than substitution effects and often close to zero for primary earners, though non-zero for the population at large.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,gemini-3-flash-preview,labor_supply.income_elasticity.prime_age,11,income-signfix,none,True,-0.05,"Intensive-margin elasticity of annual hours worked for prime-age US workers relative to non-labor income, holding the net-of-tax wage constant.",-0.15,0.0,0.9,"{""p05"": -0.15, ""p25"": -0.08, ""p50"": -0.05, ""p75"": -0.02, ""p95"": 0.0}","Imbens, Rubin, and Sacerdote (2001) | Blundell and MaCurdy (1999) | Chetty et al. (2011)","Empirical evidence from lottery studies and tax-transfer literature generally indicates that leisure is a normal good, implying a negative income elasticity. For prime-age workers already in the labor force, these effects are typically found to be small but consistently negative.",,"{
+  ""interpretation"": ""Intensive-margin elasticity of annual hours worked for prime-age US workers relative to non-labor income, holding the net-of-tax wage constant."",
+  ""point_estimate"": -0.05,
+  ""quantiles"": {
+    ""p05"": -0.15,
+    ""p25"": -0.08,
+    ""p50"": -0.05,
+    ""p75"": -0.02,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Imbens, Rubin, and Sacerdote (2001)"",
+    ""Blundell and MaCurdy (1999)"",
+    ""Chetty et al. (2011)""
+  ],
+  ""reasoning_summary"": ""Empirical evidence from lottery studies and tax-transfer literature generally indicates that leisure is a normal good, implying a negative income elasticity. For prime-age workers already in the labor force, these effects are typically found to be small but consistently negative.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,gemini-3-flash-preview,labor_supply.income_elasticity.prime_age,12,income-signfix,none,True,-0.05,"Intensive-margin annual-hours elasticity for employed prime-age US workers in response to non-labor income, holding wages constant.",-0.15,0.0,0.9,"{""p05"": -0.15, ""p25"": -0.1, ""p50"": -0.05, ""p75"": -0.01, ""p95"": 0.0}","Imbens, Rubin, and Sacerdote (2001) | Pencavel (1986) | Blundell and MaCurdy (1999)","Income effects on the intensive margin for prime-age workers are generally estimated to be small and negative. While lottery studies suggest some responsiveness, the standard hours-of-work model for those already employed shows relatively low sensitivity to non-labor wealth compared to participation decisions.",,"{
+  ""interpretation"": ""Intensive-margin annual-hours elasticity for employed prime-age US workers in response to non-labor income, holding wages constant."",
+  ""point_estimate"": -0.05,
+  ""quantiles"": {
+    ""p05"": -0.15,
+    ""p25"": -0.1,
+    ""p50"": -0.05,
+    ""p75"": -0.01,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Imbens, Rubin, and Sacerdote (2001)"",
+    ""Pencavel (1986)"",
+    ""Blundell and MaCurdy (1999)""
+  ],
+  ""reasoning_summary"": ""Income effects on the intensive margin for prime-age workers are generally estimated to be small and negative. While lottery studies suggest some responsiveness, the standard hours-of-work model for those already employed shows relatively low sensitivity to non-labor wealth compared to participation decisions.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,gemini-3-flash-preview,labor_supply.income_elasticity.prime_age,13,income-signfix,none,True,-0.05,"Intensive-margin annual-hours elasticity for prime-age US workers conditional on employment, representing the percent change in hours worked for a 1 percent increase in non-labor income.",-0.15,0.0,0.9,"{""p05"": -0.15, ""p25"": -0.1, ""p50"": -0.05, ""p75"": -0.02, ""p95"": 0.0}","Imbens, Rubin, and Sacerdote (2001) - lottery study | Chetty (2012) - bounds on elasticities | Blundell and MaCurdy (1999) - Handbook of Labor Economics review","Empirical evidence from lottery winnings and tax reforms suggests that the income effect on labor supply for prime-age workers is negative but small in magnitude at the intensive margin. While leisure is a normal good, institutional constraints on hours (like the 40-hour work week) tend to dampen the observed responsiveness of hours to changes in non-labor income.",,"{
+  ""interpretation"": ""Intensive-margin annual-hours elasticity for prime-age US workers conditional on employment, representing the percent change in hours worked for a 1 percent increase in non-labor income."",
+  ""point_estimate"": -0.05,
+  ""quantiles"": {
+    ""p05"": -0.15,
+    ""p25"": -0.10,
+    ""p50"": -0.05,
+    ""p75"": -0.02,
+    ""p95"": 0.00
+  },
+  ""citations"": [
+    ""Imbens, Rubin, and Sacerdote (2001) - lottery study"",
+    ""Chetty (2012) - bounds on elasticities"",
+    ""Blundell and MaCurdy (1999) - Handbook of Labor Economics review""
+  ],
+  ""reasoning_summary"": ""Empirical evidence from lottery winnings and tax reforms suggests that the income effect on labor supply for prime-age workers is negative but small in magnitude at the intensive margin. While leisure is a normal good, institutional constraints on hours (like the 40-hour work week) tend to dampen the observed responsiveness of hours to changes in non-labor income.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,gemini-3-flash-preview,labor_supply.income_elasticity.prime_age,14,income-signfix,none,True,-0.05,"The percentage change in annual hours worked for prime-age US workers already in the labor force in response to a 1 percent increase in non-labor income, holding the wage constant.",-0.15,0.0,0.9,"{""p05"": -0.15, ""p25"": -0.08, ""p50"": -0.05, ""p75"": -0.02, ""p95"": 0.0}","Imbens, Rubin, and Sacerdote (2001) lottery study | Chetty (2012) Bounds approach | Blundell and MaCurdy (1999)","Empirical evidence from lottery winnings and tax changes suggests that leisure is a normal good, implying a negative income elasticity. For prime-age workers already employed (intensive margin), the response is typically estimated to be very small but consistently negative, as most adjustments occur at the extensive margin or through long-run career shifts rather than immediate annual hour reductions.",,"{
+  ""interpretation"": ""The percentage change in annual hours worked for prime-age US workers already in the labor force in response to a 1 percent increase in non-labor income, holding the wage constant."",
+  ""point_estimate"": -0.05,
+  ""quantiles"": {
+    ""p05"": -0.15,
+    ""p25"": -0.08,
+    ""p50"": -0.05,
+    ""p75"": -0.02,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Imbens, Rubin, and Sacerdote (2001) lottery study"",
+    ""Chetty (2012) Bounds approach"",
+    ""Blundell and MaCurdy (1999)""
+  ],
+  ""reasoning_summary"": ""Empirical evidence from lottery winnings and tax changes suggests that leisure is a normal good, implying a negative income elasticity. For prime-age workers already employed (intensive margin), the response is typically estimated to be very small but consistently negative, as most adjustments occur at the extensive margin or through long-run career shifts rather than immediate annual hour reductions.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,gemini-3-flash-preview,labor_supply.income_elasticity.prime_age,15,income-signfix,none,True,-0.05,"Intensive-margin annual hours elasticity for prime-age US workers relative to non-labor income, holding wages constant.",-0.15,0.0,0.9,"{""p05"": -0.15, ""p25"": -0.08, ""p50"": -0.05, ""p75"": -0.02, ""p95"": 0.0}","Imbens, Rubin, and Sacerdote (2001) lottery study | Chetty (2008) Bound on income effects | Blundell and MaCurdy (1999) Handbook chapter","Empirical evidence from lottery winnings and tax reforms suggests that leisure is a normal good, though the intensive-margin response for prime-age workers already in the labor force is typically small. Most estimates cluster between -0.1 and 0.0.",,"{
+  ""interpretation"": ""Intensive-margin annual hours elasticity for prime-age US workers relative to non-labor income, holding wages constant."",
+  ""point_estimate"": -0.05,
+  ""quantiles"": {
+    ""p05"": -0.15,
+    ""p25"": -0.08,
+    ""p50"": -0.05,
+    ""p75"": -0.02,
+    ""p95"": 0.0
+  },
+  ""citations"": [
+    ""Imbens, Rubin, and Sacerdote (2001) lottery study"",
+    ""Chetty (2008) Bound on income effects"",
+    ""Blundell and MaCurdy (1999) Handbook chapter""
+  ],
+  ""reasoning_summary"": ""Empirical evidence from lottery winnings and tax reforms suggests that leisure is a normal good, though the intensive-margin response for prime-age workers already in the labor force is typically small. Most estimates cluster between -0.1 and 0.0.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Income elasticity of labor supply
+- Definition: Percent change in annual hours worked from a 1 percent increase in non-labor income, holding the net-of-tax wage fixed and excluding participation responses.
+- Target interpretation: Intensive-margin annual-hours elasticity conditional on employment
+- Population/context: Prime-age workers in the United States who are already working
+- Units: elasticity
+
+Sign convention for this quantity:
+- A positive elasticity means individuals work more when they have more resources.
+- A negative elasticity means individuals work less when they have more resources.
+- Under the definition above, if additional non-labor income reduces annual hours worked, the elasticity should be negative.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
