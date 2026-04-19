@@ -1,0 +1,15 @@
+Note: Change in the Armington elasticity after clarifying that the target is the top-level import-versus-domestic elasticity, not source-country or sector-level substitution.
+
+| Model | Old center | Clarified center | Change | Old pooled 90% interval | Clarified pooled 90% interval |
+| --- | --- | --- | --- | --- | --- |
+| Claude Haiku 4.5 | 1.5 | 1.453 | -0.047 | [0.7007, 3.341] | [0.6208, 2.788] |
+| Claude Opus 4.6 | 1.5 | 1.5 | 0 | [0.5, 4] | [0.5, 4] |
+| Claude Sonnet 4.6 | 2.333 | 1.833 | -0.5 | [0.8519, 5.749] | [0.7826, 4.295] |
+| GPT-5.4 | 2.5 | 2.2 | -0.3 | [1.119, 5.985] | [0.8543, 5.632] |
+| GPT-5.4 mini | 2.4 | 2.12 | -0.28 | [0.8719, 7.603] | [0.8191, 7.402] |
+| GPT-5.4 nano | 2.173 | 2.213 | 0.04 | [0.82, 6.68] | [0.8838, 5.696] |
+| Gemini 3 Flash | 1.6 | 1.573 | -0.027 | [0.5461, 6.245] | [0, 5.903] |
+| Gemini 3.1 Flash-Lite | 2.167 | 1.6 | -0.567 | [0.5568, 7.207] | [0.5283, 4.856] |
+| Gemini 3.1 Pro | 1.667 | 1.444 | -0.222 | [0.5361, 4.949] | [0, 5.592] |
+| Grok 4.1 Fast | 1.5 | 1.5 | 0 | [0.5113, 3] | [0.7059, 3] |
+| Grok 4.20 | 2.067 | 1.967 | -0.1 | [0.5208, 7.925] | [0.5084, 7.252] |

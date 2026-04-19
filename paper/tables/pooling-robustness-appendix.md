@@ -1,0 +1,15 @@
+Note: Canonical nine-quantity subpanel only. Average predictive-uncertainty ranks are computed under the headline pooled mixture interval, the REML predictive interval, and the Bayesian predictive interval.
+
+| Model | Avg pooled rank | Avg REML rank | Avg Bayes rank | Max rank spread |
+| --- | --- | --- | --- | --- |
+| Gemini 3.1 Pro | 3.33 | 3.67 | 3.44 | 0.33 |
+| Claude Haiku 4.5 | 3.67 | 3.22 | 3.33 | 0.44 |
+| Gemini 3.1 Flash-Lite | 3.78 | 3.89 | 3.89 | 0.11 |
+| Claude Opus 4.6 | 4.33 | 6 | 5.89 | 1.67 |
+| GPT-5.4 | 5.44 | 6.11 | 6 | 0.67 |
+| Gemini 3 Flash | 5.56 | 5.22 | 5.22 | 0.33 |
+| Claude Sonnet 4.6 | 6.11 | 6.89 | 6.78 | 0.78 |
+| Grok 4.1 Fast | 7.78 | 7.33 | 6.67 | 1.11 |
+| GPT-5.4 mini | 7.89 | 7.56 | 7.67 | 0.33 |
+| GPT-5.4 nano | 8.56 | 7.22 | 8.22 | 1.33 |
+| Grok 4.20 | 9.56 | 8.89 | 8.89 | 0.67 |

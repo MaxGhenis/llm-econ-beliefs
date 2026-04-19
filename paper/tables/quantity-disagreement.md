@@ -1,0 +1,13 @@
+Note: Canonical elasticity subpanel only, sorted by cross-model spread in pooled point estimates. Simulation-facing PolicyEngine coefficients are broken out in separate appendix-style tables.
+
+| Quantity | Lowest model | Lowest center | Highest model | Highest center | Spread | Mean pooled 90% width | Spread / mean width |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Capital gains realizations elasticity | GPT-5.4 | -0.8 | Claude Haiku 4.5 | 0.793 | 1.593 | 2.073 | 0.768 |
+| Armington elasticity | Claude Haiku 4.5 | 1.5 | GPT-5.4 | 2.5 | 1 | 5.014 | 0.199 |
+| Intertemporal elasticity of substitution | Claude Haiku 4.5 | 0.5 | Gemini 3.1 Pro | 1.467 | 0.967 | 1.763 | 0.548 |
+| Employment participation elasticity of single mothers | GPT-5.4 nano | 0.251 | Claude Sonnet 4.6 | 0.707 | 0.456 | 1.257 | 0.363 |
+| Frisch elasticity of labor supply | Claude Haiku 4.5 | 0.273 | GPT-5.4 nano | 0.7 | 0.427 | 1.25 | 0.341 |
+| Elasticity of substitution between capital and labor | Gemini 3.1 Flash-Lite | 0.617 | GPT-5.4 nano | 0.847 | 0.23 | 1.083 | 0.212 |
+| Income elasticity of labor supply | Claude Haiku 4.5 | -0.111 | Grok 4.1 Fast | 0.09 | 0.201 | 0.395 | 0.508 |
+| Elasticity of taxable income | Gemini 3.1 Pro | 0.36 | Grok 4.20 | 0.507 | 0.147 | 1.024 | 0.143 |
+| Uncompensated wage elasticity of labor supply | Gemini 3.1 Pro | 0.041 | GPT-5.4 nano | 0.141 | 0.1 | 0.651 | 0.154 |

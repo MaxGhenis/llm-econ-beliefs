@@ -1,0 +1,22 @@
+project:
+  type: default
+
+execute:
+  echo: false
+  warning: false
+  message: false
+  freeze: auto
+
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    df-print: paged
+
+bibliography: references.bib
+link-citations: true
+
+crossref:
+  tbl-title: Table
+  fig-title: Figure

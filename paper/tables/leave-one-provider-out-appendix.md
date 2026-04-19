@@ -1,0 +1,12 @@
+Note: Leave-one-provider-out sensitivity of the average absolute-elasticity ranking on the labor-and-tax and macro-and-trade canonical subpanels.
+
+| Subpanel | Omitted provider | Spearman rho | Top retained model, full panel | Top retained model, leave-out | Max avg-rank shift |
+| --- | --- | --- | --- | --- | --- |
+| Labor/tax | Anthropic | 0.997 | Grok 4.20 | GPT-5.4 | 2.5 |
+| Labor/tax | Google | 0.921 | Claude Sonnet 4.6 | Grok 4.20 | 1.333 |
+| Labor/tax | OpenAI | 0.987 | Claude Sonnet 4.6 | Claude Sonnet 4.6 | 2.5 |
+| Labor/tax | xAI | 0.996 | Claude Sonnet 4.6 | Claude Opus 4.6 | 1.333 |
+| Macro/trade | Anthropic | 0.984 | GPT-5.4 mini | GPT-5.4 nano | 1.833 |
+| Macro/trade | Google | 0.998 | GPT-5.4 mini | GPT-5.4 mini | 2.5 |
+| Macro/trade | OpenAI | 0.992 | Grok 4.20 | Grok 4.20 | 2.833 |
+| Macro/trade | xAI | 0.997 | GPT-5.4 mini | GPT-5.4 mini | 1.667 |
