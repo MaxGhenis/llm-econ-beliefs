@@ -122,6 +122,7 @@ def run_litellm_prompt_logged(
         "max_tokens": max_completion_tokens,
         "temperature": temperature,
         "timeout": timeout_seconds,
+        "num_retries": 0,
     }
     if output_mode == "json_object":
         request_kwargs["response_format"] = {"type": "json_object"}

@@ -10,10 +10,23 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import json
 import os
+import signal
 import sys
 import time
 from pathlib import Path
+
+
+CELL_TIMEOUT_SECONDS = 2700  # 45 min — any single cell stuck past this is aborted
+
+
+class CellTimeout(Exception):
+    pass
+
+
+def _timeout_handler(signum, frame):
+    raise CellTimeout()
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT))
@@ -75,14 +88,41 @@ def run_cell(
         prompt_version=prompt_version,
         tool_regime="none",
     )
-    if provider == "openai":
-        kwargs["batch_size"] = 5
-        records, _ = run_openai_experiment(**kwargs)
-    else:
-        records, _ = run_litellm_experiment(**kwargs)
+    signal.signal(signal.SIGALRM, _timeout_handler)
+    signal.alarm(CELL_TIMEOUT_SECONDS)
+    try:
+        if provider == "openai":
+            kwargs["batch_size"] = 5
+            records, _ = run_openai_experiment(**kwargs)
+        else:
+            records, _ = run_litellm_experiment(**kwargs)
+    finally:
+        signal.alarm(0)
 
     n_ok = sum(1 for r in records if r.parsed_ok)
     return n_ok, len(records)
+
+
+def cell_already_complete(
+    output_dir: Path, expected_version: str, expected_runs: int
+) -> bool:
+    runs_path = output_dir / "runs.jsonl"
+    if not runs_path.exists():
+        return False
+    count = 0
+    with runs_path.open() as handle:
+        for line in handle:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                record = json.loads(line)
+            except json.JSONDecodeError:
+                return False
+            if record.get("prompt_version") != expected_version:
+                return False
+            count += 1
+    return count >= expected_runs
 
 
 def main() -> int:
@@ -94,6 +134,11 @@ def main() -> int:
         "--only-batch",
         choices=list(BATCHES.keys()),
         help="run a single batch type",
+    )
+    parser.add_argument(
+        "--skip-complete",
+        action="store_true",
+        help="skip cells whose runs.jsonl already has the expected number of v=<prompt_version> records",
     )
     args = parser.parse_args()
 
@@ -128,6 +173,16 @@ def main() -> int:
                 continue
 
             output_dir = results_root / f"{model_name}-{batch_key}"
+            expected_runs = len(quantity_ids) * 15
+            if args.skip_complete and cell_already_complete(
+                output_dir, batch_spec["prompt_version"], expected_runs
+            ):
+                print(
+                    f"\n[{time.strftime('%H:%M:%S')}] {model_name} / {batch_key} "
+                    f"SKIP (already complete under v={batch_spec['prompt_version']})"
+                )
+                continue
+
             print(
                 f"\n[{time.strftime('%H:%M:%S')}] {model_name} / {batch_key} "
                 f"({len(quantity_ids)} quantities, v={batch_spec['prompt_version']})"
@@ -151,6 +206,12 @@ def main() -> int:
                         f"  {n_ok}/{n_total} parsed ({rate:.1f}%), "
                         f"elapsed {elapsed:.0f}s"
                     )
+            except CellTimeout:
+                print(
+                    f"  TIMEOUT after {CELL_TIMEOUT_SECONDS}s — aborting cell, "
+                    f"moving to next"
+                )
+                continue
             except Exception as exc:  # noqa: BLE001
                 print(f"  FAILED: {type(exc).__name__}: {exc}")
                 continue
