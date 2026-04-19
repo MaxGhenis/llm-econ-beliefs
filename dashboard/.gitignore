@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# results staged from parent repo for local dashboard build
+/results
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
