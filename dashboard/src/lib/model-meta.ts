@@ -4,7 +4,7 @@ export const MODEL_ORDER = [
   "gpt-5.4",
   "gpt-5.4-mini",
   "gpt-5.4-nano",
-  "claude-opus-4.6",
+  "claude-opus-4.7",
   "claude-sonnet-4.6",
   "claude-haiku-4.5",
   "gemini-3.1-pro-preview",
@@ -15,7 +15,7 @@ export const MODEL_ORDER = [
 ] as const;
 
 export const MODEL_LABELS: Record<string, string> = {
-  "claude-opus-4.6": "Claude Opus 4.6",
+  "claude-opus-4.7": "Claude Opus 4.7",
   "claude-sonnet-4.6": "Claude Sonnet 4.6",
   "claude-haiku-4.5": "Claude Haiku 4.5",
   "grok-4.20": "Grok 4.20",

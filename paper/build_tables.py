@@ -47,7 +47,7 @@ from llm_econ_beliefs.registry import get_quantity  # noqa: E402
 
 
 MODEL_LABELS = {
-    "claude-opus-4.6": "Claude Opus 4.6",
+    "claude-opus-4.7": "Claude Opus 4.7",
     "claude-sonnet-4.6": "Claude Sonnet 4.6",
     "claude-haiku-4.5": "Claude Haiku 4.5",
     "grok-4.20": "Grok 4.20",

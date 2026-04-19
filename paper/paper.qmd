@@ -112,7 +112,7 @@ The current main panel includes 11 models:
 - `gpt-5.4`
 - `gpt-5.4-mini`
 - `gpt-5.4-nano`
-- `claude-opus-4.6`
+- `claude-opus-4.7`
 - `claude-sonnet-4.6`
 - `claude-haiku-4.5`
 - `gemini-3.1-pro-preview`

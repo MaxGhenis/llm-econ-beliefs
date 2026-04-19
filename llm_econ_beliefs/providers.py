@@ -16,7 +16,7 @@ from .models import ProviderBatchResult
 OPENAI_CHAT_COMPLETIONS_MAX_N = 8
 
 POLICYBENCH_LITELLM_MODEL_ALIASES: dict[str, str] = {
-    "claude-opus-4.6": "claude-opus-4-6",
+    "claude-opus-4.7": "claude-opus-4-7",
     "claude-sonnet-4.6": "claude-sonnet-4-6",
     "claude-haiku-4.5": "claude-haiku-4-5-20251001",
     "grok-4.20": "xai/grok-4.20-reasoning",
