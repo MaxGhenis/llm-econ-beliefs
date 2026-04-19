@@ -18,7 +18,7 @@ export function ProviderMark({
       <span
         aria-hidden="true"
         className={`block rounded-full bg-current ${className}`}
-        style={{ width: size, height: size, color: "var(--text-tertiary)" }}
+        style={{ width: size, height: size, color: "var(--muted-foreground)" }}
       />
     );
   }
@@ -34,7 +34,7 @@ export function ProviderMark({
       {provider === "anthropic" && (
         <Anthropic
           size={size}
-          style={{ color: "var(--text-primary)" }}
+          style={{ color: "var(--foreground)" }}
           aria-hidden="true"
         />
       )}
@@ -42,14 +42,14 @@ export function ProviderMark({
       {provider === "openai" && (
         <OpenAI
           size={size}
-          style={{ color: "var(--text-primary)" }}
+          style={{ color: "var(--foreground)" }}
           aria-hidden="true"
         />
       )}
       {provider === "xai" && (
         <XAI
           size={size}
-          style={{ color: "var(--text-primary)" }}
+          style={{ color: "var(--foreground)" }}
           aria-hidden="true"
         />
       )}

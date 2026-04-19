@@ -1,53 +1,18 @@
 @import "tailwindcss";
-
-:root {
-  /* Deep dark backgrounds */
-  --bg-deep: #080b11;
-  --bg-surface: #0f1219;
-  --bg-raised: #161b25;
-  --bg-hover: #1c2231;
-
-  /* Borders */
-  --border: rgba(255, 255, 255, 0.06);
-  --border-hover: rgba(255, 255, 255, 0.12);
-  --border-active: rgba(212, 168, 83, 0.3);
-
-  /* Text */
-  --text-primary: #f0ece4;
-  --text-secondary: #8b919e;
-  --text-tertiary: #505662;
-
-  /* Accents */
-  --gold: #d4a853;
-  --gold-dim: rgba(212, 168, 83, 0.12);
-  --gold-glow: rgba(212, 168, 83, 0.25);
-  --blue: #5b8cef;
-  --blue-dim: rgba(91, 140, 239, 0.1);
-  --blue-glow: rgba(91, 140, 239, 0.2);
-  --teal: #4fd1c5;
-  --teal-dim: rgba(79, 209, 197, 0.1);
-}
-
-@theme inline {
-  --color-background: var(--bg-deep);
-  --color-foreground: var(--text-primary);
-  --font-sans: var(--font-outfit);
-  --font-serif: var(--font-fraunces);
-  --font-mono: var(--font-jetbrains);
-}
+@import "@policyengine/ui-kit/theme.css";
 
 * {
   box-sizing: border-box;
 }
 
-html {
-  background: var(--bg-deep);
+html,
+body {
+  background: var(--background);
+  color: var(--foreground);
 }
 
 body {
-  background: var(--bg-deep);
-  color: var(--text-primary);
-  font-family: var(--font-outfit), system-ui, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
 }
 
 button,
@@ -58,74 +23,33 @@ summary {
 }
 
 ::selection {
-  background: rgba(212, 168, 83, 0.28);
-  color: #fff;
+  background: color-mix(in oklab, var(--primary) 28%, transparent);
+  color: var(--primary-foreground);
 }
 
-/* Scrollbar styling */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--border-medium);
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.14);
+  background: var(--border-dark);
 }
 
-/* Background grain texture via SVG noise */
-.grain::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 256px 256px;
-}
-
-/* Ambient glow orbs */
-.atmosphere {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background:
-    radial-gradient(ellipse 600px 400px at 15% 20%, rgba(212, 168, 83, 0.04), transparent),
-    radial-gradient(ellipse 500px 500px at 85% 75%, rgba(91, 140, 239, 0.03), transparent),
-    radial-gradient(ellipse 800px 300px at 50% 0%, rgba(255, 255, 255, 0.015), transparent);
-}
-
-/* Contour line decoration */
-.contours {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.018;
-  background-image:
-    radial-gradient(ellipse 450px 350px at 25% 35%, var(--text-primary) 0%, var(--text-primary) 1px, transparent 1px),
-    radial-gradient(ellipse 500px 400px at 25% 35%, var(--text-primary) 0%, var(--text-primary) 1px, transparent 1px),
-    radial-gradient(ellipse 550px 450px at 25% 35%, var(--text-primary) 0%, var(--text-primary) 1px, transparent 1px),
-    radial-gradient(ellipse 320px 280px at 72% 68%, var(--text-primary) 0%, var(--text-primary) 1px, transparent 1px),
-    radial-gradient(ellipse 380px 330px at 72% 68%, var(--text-primary) 0%, var(--text-primary) 1px, transparent 1px);
-}
-
-/* Entry animations */
 .reveal {
-  animation: reveal 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: reveal 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes reveal {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -134,13 +58,13 @@ summary {
 }
 
 .reveal-scale {
-  animation: reveal-scale 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: reveal-scale 300ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes reveal-scale {
   from {
     opacity: 0;
-    transform: scale(0.97) translateY(6px);
+    transform: scale(0.98) translateY(4px);
   }
   to {
     opacity: 1;
@@ -148,24 +72,21 @@ summary {
   }
 }
 
-/* Glow pulse for active elements */
-@keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 0 1px var(--border-active), 0 0 12px rgba(212, 168, 83, 0.06); }
-  50% { box-shadow: 0 0 0 1px var(--border-active), 0 0 20px rgba(212, 168, 83, 0.1); }
-}
-
-/* Shimmer for loading states */
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 .shimmer {
   background: linear-gradient(
     90deg,
-    var(--bg-raised) 0%,
-    var(--bg-hover) 50%,
-    var(--bg-raised) 100%
+    var(--muted) 0%,
+    color-mix(in oklab, var(--muted) 70%, var(--background) 30%) 50%,
+    var(--muted) 100%
   );
   background-size: 200% 100%;
   animation: shimmer 2s ease-in-out infinite;

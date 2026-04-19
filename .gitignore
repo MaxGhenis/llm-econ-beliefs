@@ -10,6 +10,6 @@ build/
 dashboard/.next/
 dashboard/node_modules/
 dashboard/.claude/
-dashboard/bun.lock
+dashboard/package-lock.json
 
 .vercel

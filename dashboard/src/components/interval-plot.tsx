@@ -36,9 +36,9 @@ export function IntervalPlot({ models, method }: IntervalPlotProps) {
       <div
         className="rounded-lg border px-6 py-8 text-center text-xs"
         style={{
-          background: "var(--bg-surface)",
+          background: "var(--card)",
           borderColor: "var(--border)",
-          color: "var(--text-tertiary)",
+          color: "var(--muted-foreground)",
         }}
       >
         No interval data available for this method.
@@ -67,7 +67,7 @@ export function IntervalPlot({ models, method }: IntervalPlotProps) {
     <div
       className="rounded-lg border"
       style={{
-        background: "var(--bg-surface)",
+        background: "var(--card)",
         borderColor: "var(--border)",
       }}
     >
@@ -80,9 +80,9 @@ export function IntervalPlot({ models, method }: IntervalPlotProps) {
         <defs>
           {/* Interval gradient: gold to blue */}
           <linearGradient id="interval-bar" x1="0%" x2="100%">
-            <stop offset="0%" stopColor="var(--gold)" stopOpacity="0.6" />
-            <stop offset="50%" stopColor="var(--gold)" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="var(--gold)" stopOpacity="0.6" />
+            <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.6" />
+            <stop offset="50%" stopColor="var(--primary)" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="var(--primary)" stopOpacity="0.6" />
           </linearGradient>
 
           {/* Glow filter for center dot */}
@@ -104,7 +104,7 @@ export function IntervalPlot({ models, method }: IntervalPlotProps) {
           x2={zeroX}
           y1={TOP_GUTTER - 4}
           y2={chartHeight - 4}
-          stroke="var(--blue)"
+          stroke="var(--chart-2)"
           strokeOpacity="0.6"
           strokeWidth="1.5"
         />
@@ -128,9 +128,9 @@ export function IntervalPlot({ models, method }: IntervalPlotProps) {
                 x={x}
                 y={16}
                 textAnchor="middle"
-                fill={isZero ? "var(--blue)" : "var(--text-tertiary)"}
+                fill={isZero ? "var(--chart-2)" : "var(--muted-foreground)"}
                 fontSize="10"
-                fontFamily="var(--font-jetbrains), monospace"
+                fontFamily="var(--font-mono), monospace"
               >
                 {formatTickNumber(tick)}
               </text>
@@ -175,9 +175,9 @@ export function IntervalPlot({ models, method }: IntervalPlotProps) {
               <text
                 x={14}
                 y={y - 4}
-                fill="var(--text-primary)"
+                fill="var(--foreground)"
                 fontSize="13"
-                fontFamily="var(--font-fraunces), serif"
+                fontFamily="var(--font-sans), serif"
                 fontWeight="600"
               >
                 {getModelLabel(model.modelName)}
@@ -185,9 +185,9 @@ export function IntervalPlot({ models, method }: IntervalPlotProps) {
               <text
                 x={14}
                 y={y + 12}
-                fill="var(--text-tertiary)"
+                fill="var(--muted-foreground)"
                 fontSize="10"
-                fontFamily="var(--font-jetbrains), monospace"
+                fontFamily="var(--font-mono), monospace"
               >
                 {model.nSuccessfulRuns} runs
               </text>
@@ -211,7 +211,7 @@ export function IntervalPlot({ models, method }: IntervalPlotProps) {
                     x2={upper}
                     y1={y}
                     y2={y}
-                    stroke="var(--gold)"
+                    stroke="var(--primary)"
                     strokeOpacity="0.15"
                     strokeLinecap="round"
                     strokeWidth="20"
@@ -233,7 +233,7 @@ export function IntervalPlot({ models, method }: IntervalPlotProps) {
                     x2={lower}
                     y1={y - 10}
                     y2={y + 10}
-                    stroke="var(--gold)"
+                    stroke="var(--primary)"
                     strokeWidth="1.5"
                     strokeOpacity="0.7"
                   />
@@ -242,7 +242,7 @@ export function IntervalPlot({ models, method }: IntervalPlotProps) {
                     x2={upper}
                     y1={y - 10}
                     y2={y + 10}
-                    stroke="var(--gold)"
+                    stroke="var(--primary)"
                     strokeWidth="1.5"
                     strokeOpacity="0.7"
                   />
@@ -257,7 +257,7 @@ export function IntervalPlot({ models, method }: IntervalPlotProps) {
                     cx={center}
                     cy={y}
                     r={10}
-                    fill="var(--gold)"
+                    fill="var(--primary)"
                     opacity="0.08"
                   />
                   {/* Core */}
@@ -265,7 +265,7 @@ export function IntervalPlot({ models, method }: IntervalPlotProps) {
                     cx={center}
                     cy={y}
                     r={5}
-                    fill="var(--gold)"
+                    fill="var(--primary)"
                     filter="url(#dot-glow)"
                   />
                   {/* Inner bright core */}
@@ -273,7 +273,7 @@ export function IntervalPlot({ models, method }: IntervalPlotProps) {
                     cx={center}
                     cy={y}
                     r={2}
-                    fill="#fff"
+                    fill="var(--primary-foreground)"
                     opacity="0.6"
                   />
                 </>
@@ -284,9 +284,9 @@ export function IntervalPlot({ models, method }: IntervalPlotProps) {
                 x={CHART_WIDTH - 8}
                 y={y + 4}
                 textAnchor="end"
-                fill="var(--text-secondary)"
+                fill="var(--muted-foreground)"
                 fontSize="11"
-                fontFamily="var(--font-jetbrains), monospace"
+                fontFamily="var(--font-mono), monospace"
               >
                 {formatIntervalLabel(interval)}
               </text>

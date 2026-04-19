@@ -1,30 +1,25 @@
 import type { Metadata } from "next";
-import { Fraunces, Outfit, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const outfit = Outfit({
-  variable: "--font-outfit",
+const inter = Inter({
+  variable: "--font-sans",
   subsets: ["latin"],
   display: "swap",
 });
 
 const jetbrains = JetBrains_Mono({
-  variable: "--font-jetbrains",
+  variable: "--font-mono",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Elasticity Beliefs Atlas",
+  title: "Elasticity beliefs atlas",
   description:
     "Inspect how elicited economic-parameter beliefs vary across LLMs, interval methods, and specific runs.",
+  icons: { icon: "/favicon.svg" },
 };
 
 export default function RootLayout({
@@ -35,13 +30,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${outfit.variable} ${jetbrains.variable} h-full antialiased`}
+      className={`${inter.variable} ${jetbrains.variable} h-full antialiased`}
     >
-      <body className="grain min-h-full flex flex-col">
-        <div className="atmosphere" />
-        <div className="contours" />
-        {children}
-      </body>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }
