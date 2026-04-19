@@ -1,7 +1,7 @@
 """Drive the v4 full-panel rerun across all 11 models.
 
-Batches run sequentially so we can watch for cost explosions and kill early.
-Each model-batch writes to its own results dir, overwriting previous runs.
+Each model-batch runs in its own subprocess so a hung LiteLLM call
+can be killed at the OS level without wedging the whole run.
 
 Usage:
     python3 scripts/run_v4_full_panel.py [--dry-run] [--smoke]
@@ -12,21 +12,13 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import signal
+import subprocess
 import sys
 import time
 from pathlib import Path
 
 
-CELL_TIMEOUT_SECONDS = 2700  # 45 min — any single cell stuck past this is aborted
-
-
-class CellTimeout(Exception):
-    pass
-
-
-def _timeout_handler(signum, frame):
-    raise CellTimeout()
+CELL_TIMEOUT_SECONDS = 2700  # 45 min — any single cell past this is SIGKILLed
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT))
@@ -67,19 +59,14 @@ BATCHES = {
 }
 
 
-def run_cell(
+def exec_cell(
     provider: str,
     model_name: str,
     quantity_ids: list[str],
     prompt_version: str,
     output_dir: Path,
-    dry_run: bool,
-) -> tuple[int, int]:
-    """Run one model-batch cell. Returns (n_successful, n_total)."""
-    if dry_run:
-        print(f"  DRY RUN: would run {len(quantity_ids)} quantities x 15 runs")
-        return 0, 0
-
+) -> int:
+    """Run one cell in-process. This is invoked as the child in --exec-cell mode."""
     kwargs = dict(
         quantity_ids=quantity_ids,
         n_runs=15,
@@ -88,28 +75,64 @@ def run_cell(
         prompt_version=prompt_version,
         tool_regime="none",
     )
-    signal.signal(signal.SIGALRM, _timeout_handler)
-    signal.alarm(CELL_TIMEOUT_SECONDS)
-    try:
-        if provider == "openai":
-            kwargs["batch_size"] = 5
-            records, _ = run_openai_experiment(**kwargs)
-        else:
-            records, _ = run_litellm_experiment(**kwargs)
-    finally:
-        signal.alarm(0)
+    if provider == "openai":
+        kwargs["batch_size"] = 5
+        records, _ = run_openai_experiment(**kwargs)
+    else:
+        records, _ = run_litellm_experiment(**kwargs)
 
     n_ok = sum(1 for r in records if r.parsed_ok)
-    return n_ok, len(records)
+    print(f"  {n_ok}/{len(records)} parsed")
+    return 0
 
 
-def cell_already_complete(
-    output_dir: Path, expected_version: str, expected_runs: int
-) -> bool:
+def run_cell_in_subprocess(
+    provider: str,
+    model_name: str,
+    quantity_ids: list[str],
+    prompt_version: str,
+    output_dir: Path,
+) -> tuple[int, int]:
+    """Spawn the driver as a child in --exec-cell mode and enforce CELL_TIMEOUT_SECONDS."""
+    cmd = [
+        sys.executable,
+        "-u",
+        str(Path(__file__).resolve()),
+        "--exec-cell",
+        "--provider",
+        provider,
+        "--model",
+        model_name,
+        "--prompt-version",
+        prompt_version,
+        "--output-dir",
+        str(output_dir),
+        "--quantity-ids",
+        ",".join(quantity_ids),
+    ]
+    try:
+        proc = subprocess.run(
+            cmd,
+            timeout=CELL_TIMEOUT_SECONDS,
+            capture_output=False,
+            text=True,
+            env={**os.environ, "PYTHONUNBUFFERED": "1"},
+        )
+        if proc.returncode != 0:
+            return 0, 0
+    except subprocess.TimeoutExpired:
+        print(f"  TIMEOUT after {CELL_TIMEOUT_SECONDS}s — child SIGKILLed, moving to next")
+        return 0, 0
+
+    return count_records(output_dir, prompt_version)
+
+
+def count_records(output_dir: Path, expected_version: str) -> tuple[int, int]:
     runs_path = output_dir / "runs.jsonl"
     if not runs_path.exists():
-        return False
-    count = 0
+        return 0, 0
+    total = 0
+    ok = 0
     with runs_path.open() as handle:
         for line in handle:
             line = line.strip()
@@ -118,11 +141,20 @@ def cell_already_complete(
             try:
                 record = json.loads(line)
             except json.JSONDecodeError:
-                return False
+                continue
             if record.get("prompt_version") != expected_version:
-                return False
-            count += 1
-    return count >= expected_runs
+                continue
+            total += 1
+            if record.get("parsed_ok"):
+                ok += 1
+    return ok, total
+
+
+def cell_already_complete(
+    output_dir: Path, expected_version: str, expected_runs: int
+) -> bool:
+    ok, total = count_records(output_dir, expected_version)
+    return total >= expected_runs
 
 
 def main() -> int:
@@ -135,12 +167,26 @@ def main() -> int:
         choices=list(BATCHES.keys()),
         help="run a single batch type",
     )
-    parser.add_argument(
-        "--skip-complete",
-        action="store_true",
-        help="skip cells whose runs.jsonl already has the expected number of v=<prompt_version> records",
-    )
+    parser.add_argument("--skip-complete", action="store_true")
+
+    # Child-mode arguments — used when this script is re-invoked as a subprocess
+    parser.add_argument("--exec-cell", action="store_true")
+    parser.add_argument("--provider")
+    parser.add_argument("--model")
+    parser.add_argument("--prompt-version")
+    parser.add_argument("--output-dir")
+    parser.add_argument("--quantity-ids")
+
     args = parser.parse_args()
+
+    if args.exec_cell:
+        return exec_cell(
+            provider=args.provider,
+            model_name=args.model,
+            quantity_ids=args.quantity_ids.split(","),
+            prompt_version=args.prompt_version,
+            output_dir=Path(args.output_dir),
+        )
 
     results_root = REPO_ROOT / "results"
     results_root.mkdir(exist_ok=True)
@@ -188,33 +234,26 @@ def main() -> int:
                 f"({len(quantity_ids)} quantities, v={batch_spec['prompt_version']})"
             )
 
-            try:
-                n_ok, n_total = run_cell(
-                    provider=provider,
-                    model_name=model_name,
-                    quantity_ids=quantity_ids,
-                    prompt_version=batch_spec["prompt_version"],
-                    output_dir=output_dir,
-                    dry_run=args.dry_run,
-                )
-                total_ok += n_ok
-                total_runs += n_total
-                if n_total:
-                    rate = 100.0 * n_ok / n_total
-                    elapsed = time.time() - start
-                    print(
-                        f"  {n_ok}/{n_total} parsed ({rate:.1f}%), "
-                        f"elapsed {elapsed:.0f}s"
-                    )
-            except CellTimeout:
+            if args.dry_run:
+                print(f"  DRY RUN: would run {len(quantity_ids)} quantities x 15 runs")
+                continue
+
+            n_ok, n_total = run_cell_in_subprocess(
+                provider=provider,
+                model_name=model_name,
+                quantity_ids=quantity_ids,
+                prompt_version=batch_spec["prompt_version"],
+                output_dir=output_dir,
+            )
+            total_ok += n_ok
+            total_runs += n_total
+            if n_total:
+                rate = 100.0 * n_ok / n_total
+                elapsed = time.time() - start
                 print(
-                    f"  TIMEOUT after {CELL_TIMEOUT_SECONDS}s — aborting cell, "
-                    f"moving to next"
+                    f"  {n_ok}/{n_total} parsed ({rate:.1f}%), "
+                    f"elapsed {elapsed:.0f}s"
                 )
-                continue
-            except Exception as exc:  # noqa: BLE001
-                print(f"  FAILED: {type(exc).__name__}: {exc}")
-                continue
 
     if total_runs:
         print(
