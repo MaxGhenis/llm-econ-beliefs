@@ -352,6 +352,20 @@ def main() -> int:
             ),
         )
 
+    cap_gains_convention = build_cap_gains_convention_audit_table(comparison_rows)
+    if cap_gains_convention:
+        write_table_bundle(
+            stem="cap-gains-convention-audit",
+            rows=cap_gains_convention,
+            note=(
+                "Both capital-gains-realizations conventions elicited independently under prompt v4. "
+                "Under the identity epsilon_netoftax = -(1 - tau)/tau * epsilon_taxrate, a model that "
+                "answers consistently across conventions implies a positive epsilon_netoftax paired with "
+                "a negative epsilon_taxrate. Positive entries in both columns (or negative in both) "
+                "indicate the model mixed up one of the sign conventions despite the in-prompt clarifiers."
+            ),
+        )
+
     print(f"Wrote tables to {TABLES_DIR}")
     return 0
 
@@ -958,6 +972,60 @@ def format_interval_from_summary_row(row: dict[str, str]) -> str:
     return f"[{lower:.4g}, {upper:.4g}]"
 
 
+def build_cap_gains_convention_audit_table(
+    comparison_rows: list[ComparisonRow],
+) -> list[dict[str, object]]:
+    """One row per model showing both cap-gains parameterizations plus a consistency flag."""
+    tax_rate_rows = {
+        row.model_name: row
+        for row in comparison_rows
+        if row.quantity_id == CAP_GAINS_TAX_RATE_ID
+    }
+    net_rows = {
+        row.model_name: row
+        for row in comparison_rows
+        if row.quantity_id == CAP_GAINS_NET_OF_TAX_RATE_ID
+    }
+
+    both = sorted(set(tax_rate_rows) & set(net_rows))
+    if not both:
+        return []
+
+    table_rows: list[dict[str, object]] = []
+    for model_name in both:
+        eps_tax = tax_rate_rows[model_name].pooled_point_estimate
+        eps_net = net_rows[model_name].pooled_point_estimate
+        if eps_tax >= 0 and eps_net >= 0:
+            consistency = "both positive"
+        elif eps_tax <= 0 and eps_net <= 0:
+            consistency = "both negative"
+        elif eps_tax <= 0 and eps_net >= 0:
+            consistency = "as expected (tax<0, net>0)"
+        else:
+            consistency = "reversed (tax>0, net<0)"
+
+        if eps_net != 0:
+            ratio = eps_tax / eps_net
+        else:
+            ratio = float("nan")
+
+        table_rows.append(
+            {
+                "Model": model_label(model_name),
+                "Provider": provider_label(model_name),
+                "epsilon w.r.t. tax rate": round(eps_tax, 3),
+                "epsilon w.r.t. net-of-tax rate": round(eps_net, 3),
+                "Ratio epsilon_tax / epsilon_net": (
+                    round(ratio, 3) if math.isfinite(ratio) else "—"
+                ),
+                "Consistency": consistency,
+            }
+        )
+
+    table_rows.sort(key=lambda row: (row["Consistency"], str(row["Model"])))
+    return table_rows
+
+
 def build_grok_failure_table() -> list[dict[str, object]]:
     path = RESULTS_DIR / "grok-4.20-elasticities-batch15" / "runs.csv"
     if not path.exists():
@@ -1433,11 +1501,17 @@ def quantity_label(quantity_id: str) -> str:
         return quantity_id
 
 
+CAP_GAINS_TAX_RATE_ID = "tax.capital_gains_realizations.elasticity"
+CAP_GAINS_NET_OF_TAX_RATE_ID = "tax.capital_gains_realizations.elasticity.net_of_tax_rate"
+
+
 def quantity_panel(quantity_id: str) -> str:
     if quantity_id in LEGACY_QUANTITY_LABELS:
         return "legacy"
     if quantity_id.startswith(SIMULATION_QUANTITY_PREFIX):
         return "simulation"
+    if quantity_id == CAP_GAINS_NET_OF_TAX_RATE_ID:
+        return "convention_sibling"
     return "canonical"
 
 

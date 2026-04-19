@@ -60,6 +60,8 @@ The main prompt is a memory-only elicitation prompt. It tells the model to answe
 
 Prompt versions are recorded in the run artifacts and are not pooled across materially different prompt families. The current results therefore combine a main memory-only panel with separately labeled robustness reruns when a quantity needed a targeted clarification.
 
+Two quantities in the registry have well-documented convention ambiguity — the prime-age income elasticity (whether an increase in non-labor income raises or reduces hours is a sign, not a magnitude, question) and the capital-gains realizations elasticity (whether the elasticity is taken w.r.t. the tax rate or the net-of-tax rate flips the sign). For both of these, the v4 main prompt embeds a neutral direction-first sign clarifier: it states what a positive $\varepsilon$ and a negative $\varepsilon$ each imply about the underlying behavioral response, in either direction, without naming which direction is "typical" or "correct." The clarifier does not inject a literature prior; it only resolves the convention. Other object-definition clarifications — the Armington top-nest clarification and the IES nondurable-consumption clarification — are kept out of the main prompt and reported separately as appendix robustness probes because those clarify object definition rather than sign.
+
 An archived GPT-only robustness arm also allowed web search and code interpreter access on an earlier eight-quantity subset. In realized behavior, tool uptake in that arm was negligible: only `9 / 360` requests used web search, and `0 / 360` used code interpreter. I therefore treat the main design as memory-based elicitation and report the tool-access arm only in the appendix.
 
 ### Quantities
@@ -81,6 +83,8 @@ The nine canonical quantities are:
 The panel also includes 12 simulation-facing labor-supply response coefficients used in PolicyEngine-style microsimulation, including a global substitution elasticity override, 10 primary-earner substitution elasticities by decile, and a secondary-earner substitution elasticity. These are implementation-facing response parameters rather than textbook elasticity objects, so the paper reports them in separate appendix-style tables rather than mixing them into the headline cross-model rankings.
 
 One additional row in the current full panel, `labor_supply.policy_response.income_elasticity`, is now treated as a labeled legacy quantity rather than an active registry object. It remains in the full comparison data because it was part of the earlier full-panel run, but it is not the preferred canonical income-elasticity measure going forward and it is excluded from the headline tables.
+
+The registry also carries a capital-gains convention sibling: `tax.capital_gains_realizations.elasticity.net_of_tax_rate` elicits the same economic object as the canonical capital-gains realizations elasticity, but defined w.r.t. the net-of-tax rate $(1 - \tau)$ rather than w.r.t. the tax rate $\tau$. The two conventions are related by $\varepsilon_\tau = -\frac{\tau}{1 - \tau}\, \varepsilon_{1-\tau}$, so a model that answers consistently across both conventions should report a negative $\varepsilon_\tau$ paired with a positive $\varepsilon_{1-\tau}$. The sibling is not counted as part of the canonical nine-quantity headline panel; it appears only in the dedicated convention-audit appendix table. The canonical capital-gains cell in the headline panel continues to use the w.r.t.-tax-rate convention so it stays consistent with the downstream PolicyEngine-US consumer parameter.
 
 ### Repeated elicitation and pooling
 
@@ -121,7 +125,7 @@ The current main panel includes 11 models:
 - `grok-4.20`
 - `grok-4.1-fast`
 
-The design is intentionally symmetric across providers: same quantities, same prompt family, same number of repeated runs.
+The design is intentionally symmetric across providers: same quantities, same prompt family, same number of repeated runs. Anthropic's current main-tier model is Claude Opus 4.7; Sonnet and Haiku have not yet shipped 4.7 releases, so the 4.6 and 4.5 versions stand in for their respective tiers. The other three providers are at their current frontier across all tiers represented.
 
 ### Generation protocol and exclusions
 
@@ -219,7 +223,7 @@ $$
 
 This is still intentionally stylized. It uses only the ETI and therefore does not absorb the rest of the labor-supply block, but it provides a common public-finance object that can be compared across models. The microdata enter only through the top-tail calibration, not through a full reform simulation. For this policy mapping, I truncate ETI below at zero so the standard sufficient-statistics interpretation remains well defined.
 
-Appendix Table A12 shows why I do not replace this benchmark with a static flat-tax-plus-demogrant microsimulation. Absent behavioral responses or leisure in the objective, that kind of exercise is better read as a distributional frontier than as a meaningful optimal-tax calculation.
+Appendix Table A13 shows why I do not replace this benchmark with a static flat-tax-plus-demogrant microsimulation. Absent behavioral responses or leisure in the objective, that kind of exercise is better read as a distributional frontier than as a meaningful optimal-tax calculation.
 
 The richer point is not just the spread in medians but the propagated uncertainty. Under this utilitarian-log mapping with a microdata-calibrated Pareto tail, the implied optimal top-rate median ranges from `35.6%` for `Grok 4.20` to `44.0%` for `Gemini 3.1 Pro`, with `GPT-5.4` at `40.4%`. That is still an `8.4` percentage-point cross-model spread in medians. But the within-model uncertainty bands are much wider: top-rate 90 percent intervals are roughly `43` to `54` percentage points wide across models. So the exercise cuts both ways. It shows that elicited ETI differences do map into meaningfully different central policy conclusions, but it also shows that any single model’s implied optimal-tax recommendation remains very noisy under the paper’s own uncertainty object.
 
@@ -344,24 +348,32 @@ Appendix Table A9 reports a third prompt-sensitivity probe on the intertemporal 
 
 {{< include tables/ies-clarify-delta.md >}}
 
+### Capital-gains convention audit
+
+Appendix Table A10 elicits both parameterizations of the capital-gains realizations elasticity under the v4 main prompt: the headline panel's w.r.t.-tax-rate convention and a sibling quantity defined w.r.t. the net-of-tax rate. The identity $\varepsilon_\tau = -\frac{\tau}{1-\tau}\, \varepsilon_{1-\tau}$ predicts that a model answering consistently should report a negative $\varepsilon_\tau$ paired with a positive $\varepsilon_{1-\tau}$; the magnitude ratio $\varepsilon_\tau / \varepsilon_{1-\tau}$ should fall in a narrow negative band implied by plausible top-bracket capital-gains tax rates. Cells where both conventions come back with the same sign (or where the ratio is positive) indicate the model mixed up one convention despite the in-prompt sign clarifiers. This is the most direct internal-consistency check the design supports, since the sibling probes the exact same economic object from the other side.
+
+**Appendix Table A10. Capital-gains convention audit.**
+
+{{< include tables/cap-gains-convention-audit.md >}}
+
 ## Appendix: Simulation-Facing Coefficients
 
 The simulation-facing substitution-response coefficients are substantively useful, but they are implementation-facing response parameters rather than textbook elasticity objects. I therefore keep them out of the headline rankings and report them separately here.
 
-**Appendix Table A10. Simulation-facing model overview.**
+**Appendix Table A11. Simulation-facing model overview.**
 
 {{< include tables/model-overview-simulation.md >}}
 
-**Appendix Table A11. Simulation-facing disagreement.**
+**Appendix Table A12. Simulation-facing disagreement.**
 
 {{< include tables/quantity-disagreement-simulation.md >}}
 
 ### Static flat-tax plus demogrant frontier
 
-Appendix Table A12 reports a static blank-slate flat-tax benchmark on the same Enhanced CPS 2024 microdata [@policyengine-enhanced-cps-2024]. Each row applies a flat tax to PolicyEngine's current positive-AGI base and rebates the resulting revenue as an equal per-person demogrant using tax-unit size. This is the modernized analogue of a blank-slate UBI-style exercise in the current PolicyEngine stack.
+Appendix Table A13 reports a static blank-slate flat-tax benchmark on the same Enhanced CPS 2024 microdata [@policyengine-enhanced-cps-2024]. Each row applies a flat tax to PolicyEngine's current positive-AGI base and rebates the resulting revenue as an equal per-person demogrant using tax-unit size. This is the modernized analogue of a blank-slate UBI-style exercise in the current PolicyEngine stack.
 
 I do not present it as an optimal-tax result. The benchmark holds behavior fixed, omits leisure, and therefore turns into a pure distributional comparison. Mean per-person resources are mechanically constant across rows, so the informative objects are the demogrant, the distributional quantiles, and the Gini of per-person post-tax positive-AGI resources.
 
-**Appendix Table A12. Static flat positive-AGI tax plus demogrant frontier.**
+**Appendix Table A13. Static flat positive-AGI tax plus demogrant frontier.**
 
 {{< include tables/flat-tax-demogrant-appendix.md >}}
