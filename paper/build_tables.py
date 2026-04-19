@@ -296,7 +296,7 @@ def main() -> int:
             stem="ies-clarify-delta",
             rows=ies_delta,
             note=(
-                "Partial follow-up on 5 models. Change in the intertemporal elasticity of substitution after clarifying that the target is the annual macro-calibration IES for nondurable consumption, not a generic inverse-CRRA or asset-pricing object."
+                "Full-panel follow-up across all 11 models. Change in the intertemporal elasticity of substitution after clarifying that the target is the annual macro-calibration IES for nondurable consumption, not a generic inverse-CRRA or asset-pricing object."
             ),
         )
     if tool_use:

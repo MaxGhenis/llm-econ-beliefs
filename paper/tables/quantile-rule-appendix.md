@@ -2,14 +2,14 @@ Note: Canonical nine-quantity subpanel only. The alternative rule approximates e
 
 | Model | Avg piecewise-uniform rank | Avg transformed-normal rank | Rank shift |
 | --- | --- | --- | --- |
-| Gemini 3.1 Pro | 3.33 | 3.44 | 0.11 |
-| Claude Haiku 4.5 | 3.67 | 3.44 | -0.22 |
-| Gemini 3.1 Flash-Lite | 3.78 | 4.11 | 0.33 |
-| Claude Opus 4.6 | 4.33 | 5.78 | 1.44 |
-| GPT-5.4 | 5.44 | 5.89 | 0.44 |
-| Gemini 3 Flash | 5.56 | 5.44 | -0.11 |
-| Claude Sonnet 4.6 | 6.11 | 6.89 | 0.78 |
-| Grok 4.1 Fast | 7.78 | 7.11 | -0.67 |
-| GPT-5.4 mini | 7.89 | 7.44 | -0.44 |
-| GPT-5.4 nano | 8.56 | 7.67 | -0.89 |
-| Grok 4.20 | 9.56 | 8.78 | -0.78 |
+| Claude Haiku 4.5 | 3.85 | 3.31 | -0.54 |
+| Claude Opus 4.7 | 3.92 | 5.46 | 1.54 |
+| Gemini 3.1 Pro | 4.38 | 4 | -0.38 |
+| Gemini 3 Flash | 5.08 | 4.92 | -0.15 |
+| Claude Sonnet 4.6 | 5.19 | 6.62 | 1.42 |
+| Gemini 3.1 Flash-Lite | 5.69 | 5.77 | 0.08 |
+| GPT-5.4 | 6.15 | 6.54 | 0.38 |
+| Grok 4.1 Fast | 6.62 | 6 | -0.62 |
+| GPT-5.4 nano | 7.38 | 6.92 | -0.46 |
+| GPT-5.4 mini | 8.42 | 8 | -0.42 |
+| Grok 4.20 | 9.31 | 8.46 | -0.85 |

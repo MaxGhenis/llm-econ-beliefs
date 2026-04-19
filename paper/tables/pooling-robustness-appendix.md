@@ -2,14 +2,14 @@ Note: Canonical nine-quantity subpanel only. Average predictive-uncertainty rank
 
 | Model | Avg pooled rank | Avg REML rank | Avg Bayes rank | Max rank spread |
 | --- | --- | --- | --- | --- |
-| Gemini 3.1 Pro | 3.33 | 3.67 | 3.44 | 0.33 |
-| Claude Haiku 4.5 | 3.67 | 3.22 | 3.33 | 0.44 |
-| Gemini 3.1 Flash-Lite | 3.78 | 3.89 | 3.89 | 0.11 |
-| Claude Opus 4.6 | 4.33 | 6 | 5.89 | 1.67 |
-| GPT-5.4 | 5.44 | 6.11 | 6 | 0.67 |
-| Gemini 3 Flash | 5.56 | 5.22 | 5.22 | 0.33 |
-| Claude Sonnet 4.6 | 6.11 | 6.89 | 6.78 | 0.78 |
-| Grok 4.1 Fast | 7.78 | 7.33 | 6.67 | 1.11 |
-| GPT-5.4 mini | 7.89 | 7.56 | 7.67 | 0.33 |
-| GPT-5.4 nano | 8.56 | 7.22 | 8.22 | 1.33 |
-| Grok 4.20 | 9.56 | 8.89 | 8.89 | 0.67 |
+| Claude Haiku 4.5 | 3.85 | 3.08 | 3.23 | 0.77 |
+| Claude Opus 4.7 | 3.92 | 5.31 | 5.15 | 1.38 |
+| Gemini 3.1 Pro | 4.38 | 4.38 | 4.23 | 0.15 |
+| Gemini 3 Flash | 5.08 | 5.15 | 4.85 | 0.31 |
+| Claude Sonnet 4.6 | 5.19 | 6.62 | 6.38 | 1.42 |
+| Gemini 3.1 Flash-Lite | 5.69 | 5.92 | 5.85 | 0.23 |
+| GPT-5.4 | 6.15 | 6.85 | 6.77 | 0.69 |
+| Grok 4.1 Fast | 6.62 | 6.46 | 6.15 | 0.46 |
+| GPT-5.4 nano | 7.38 | 6 | 7.23 | 1.38 |
+| GPT-5.4 mini | 8.42 | 7.77 | 8 | 0.65 |
+| Grok 4.20 | 9.31 | 8.46 | 8.15 | 1.15 |

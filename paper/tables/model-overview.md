@@ -2,14 +2,14 @@ Note: Canonical elasticity subpanel only: 9 quantities x 11 models x 15 runs. Th
 
 | Model | Provider | Avg abs-elasticity rank (1=highest) | Avg predictive-uncertainty rank (1=narrowest) | Mean absolute pooled center | Mean pooled 90% width | Success rate | Cost / successful run |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| GPT-5.4 mini | OpenAI | 4.39 | 7.89 | 0.671 | 2.304 | 100.0% | $0.0009 |
-| Grok 4.20 | xAI | 4.56 | 9.56 | 0.674 | 2.19 | 90.4% | $0.0104 |
-| GPT-5.4 | OpenAI | 4.61 | 5.44 | 0.693 | 1.495 | 100.0% | $0.0034 |
-| Claude Sonnet 4.6 | Anthropic | 5 | 6.11 | 0.669 | 1.503 | 100.0% | $0.0111 |
-| GPT-5.4 nano | OpenAI | 5.11 | 8.56 | 0.606 | 1.946 | 100.0% | $0.0003 |
-| Claude Opus 4.6 | Anthropic | 6.06 | 4.33 | 0.585 | 1.257 | 100.0% | $0.0177 |
-| Gemini 3 Flash | Google | 6.28 | 5.56 | 0.589 | 1.581 | 100.0% | $0.0011 |
-| Claude Haiku 4.5 | Anthropic | 6.5 | 3.67 | 0.539 | 1.087 | 100.0% | $0.0031 |
-| Gemini 3.1 Pro | Google | 7.56 | 3.33 | 0.658 | 1.338 | 100.0% | $0.0093 |
-| Grok 4.1 Fast | xAI | 7.67 | 7.78 | 0.514 | 1.472 | 100.0% | $0.0003 |
-| Gemini 3.1 Flash-Lite | Google | 8.28 | 3.78 | 0.605 | 1.562 | 100.0% | $0.0007 |
+| GPT-5.4 mini | OpenAI | 4.31 | 8.42 | 0.8 | 2.244 | 100.0% | $0.0009 |
+| GPT-5.4 | OpenAI | 4.73 | 6.15 | 0.808 | 1.838 | 100.0% | $0.0033 |
+| Grok 4.20 | xAI | 4.92 | 9.31 | 0.783 | 2.257 | 100.0% | $0.0000 |
+| Claude Sonnet 4.6 | Anthropic | 5 | 5.19 | 0.791 | 1.644 | 100.0% | $0.0000 |
+| Gemini 3 Flash | Google | 5.73 | 5.08 | 0.719 | 1.777 | 100.0% | $0.0009 |
+| GPT-5.4 nano | OpenAI | 6.38 | 7.38 | 0.742 | 1.543 | 100.0% | $0.0003 |
+| Gemini 3.1 Pro | Google | 6.58 | 4.38 | 0.772 | 1.662 | 100.0% | $0.0000 |
+| Gemini 3.1 Flash-Lite | Google | 6.69 | 5.69 | 0.764 | 1.922 | 100.0% | $0.0007 |
+| Claude Opus 4.7 | Anthropic | 6.96 | 3.92 | 0.707 | 1.254 | 100.0% | $0.0000 |
+| Grok 4.1 Fast | xAI | 7.04 | 6.62 | 0.685 | 1.786 | 100.0% | $0.0001 |
+| Claude Haiku 4.5 | Anthropic | 7.65 | 3.85 | 0.66 | 1.108 | 100.0% | $0.0030 |

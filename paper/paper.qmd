@@ -7,9 +7,9 @@ format:
 ---
 
 ::: {.abstract}
-This paper studies the prompt-conditioned response distributions that frontier large language models produce when directly asked about economic elasticities. Rather than asking whether the models can forecast realized outcomes or simulate policy behavior, I ask a narrower question: under a fixed elicitation protocol, what point estimates and uncertainty distributions do the models return? The current dataset contains 3,591 successful runs out of 3,630 attempted runs across 11 models, 22 U.S.-scoped quantities, and 15 runs per model-quantity cell, at a total API cost of about `$18.21`. The headline analysis focuses on a nine-quantity canonical elasticity subpanel, while simulation-facing PolicyEngine response coefficients are reported separately.
+This paper studies the prompt-conditioned response distributions that frontier large language models produce when directly asked about economic elasticities. Rather than asking whether the models can forecast realized outcomes or simulate policy behavior, I ask a narrower question: under a fixed elicitation protocol, what point estimates and uncertainty distributions do the models return? The main dataset contains 4,290 successful runs across 11 frontier models, 26 U.S.-scoped quantities (including a capital-gains convention sibling), and 15 runs per model-quantity cell, all under a single direction-first v4 prompt that embeds neutral sign-convention clarifiers for the two quantities with documented ambiguity. The headline analysis focuses on a nine-quantity canonical elasticity subpanel; simulation-facing PolicyEngine response coefficients and the capital-gains convention audit appear in separate appendix tables.
 
-Three descriptive findings stand out. First, the model ordering is domain-specific rather than global. On the labor-and-tax subpanel, `Claude Sonnet 4.6`, `Claude Opus 4.6`, `Grok 4.20`, and `GPT-5.4` are the most elastic models by average within-quantity absolute-value rank, whereas `Gemini 3.1 Flash-Lite` and `Gemini 3.1 Pro` are the least elastic. On the macro-and-trade subpanel, that ordering changes sharply: `GPT-5.4 mini` and `GPT-5.4 nano` move to the top, while `Claude Haiku 4.5` and `Claude Opus 4.6` move to the bottom. Second, most labor-and-tax pooled centers fall inside rough review-based benchmark ranges, but a few objects remain fragile or outlying, especially the capital gains realizations elasticity and the canonical income elasticity before sign clarification. Third, prompt wording can materially matter on ambiguous objects: a targeted sign-clarification rerun moves `Grok 4.1 Fast` on the canonical income elasticity from `+0.09` to `-0.097`. The paper’s contribution is therefore methodological and descriptive: it offers a reproducible protocol for eliciting economic parameter distributions from LLMs and documents how those prompt-conditioned distributions vary across models and domains.
+Three descriptive findings stand out. First, the model ordering is domain-specific rather than global. On the labor-and-tax subpanel, the most elastic models by average within-quantity absolute-value rank are Claude Sonnet 4.6 and Grok 4.20; on the macro-and-trade subpanel, that ordering changes sharply, with GPT-5.4 mini and GPT-5.4 nano moving to the top. Second, most labor-and-tax pooled centers fall inside rough review-based benchmark ranges, though the capital-gains realizations elasticity remains the most cross-model-dispersed canonical object. Third, the capital-gains convention audit — eliciting both parameterizations of the same economic object in parallel under the v4 clarifier — confirms the sign-convention story holds up: models return a negative w.r.t.-tax-rate elasticity paired with a positive w.r.t.-net-of-tax-rate elasticity, consistent with the identity $\varepsilon_\tau = -\tau/(1-\tau) \cdot \varepsilon_{1-\tau}$. The paper's contribution is methodological and descriptive: it offers a reproducible protocol for eliciting economic parameter distributions from LLMs and documents how those prompt-conditioned distributions vary across models and domains.
 :::
 
 ## Introduction
@@ -66,7 +66,7 @@ An archived GPT-only robustness arm also allowed web search and code interpreter
 
 ### Quantities
 
-The current manuscript uses a 22-quantity U.S.-scoped panel, but the headline model-comparison tables focus on the canonical elasticity subpanel rather than the full mixed panel.
+The current manuscript uses a 26-quantity U.S.-scoped panel: the 9 canonical elasticities, a capital-gains convention sibling, 3 preference/macro objects, 1 TFP-persistence coefficient, and 12 simulation-facing PolicyEngine response coefficients. Headline model-comparison tables focus on the canonical elasticity subpanel rather than the full mixed panel.
 
 The nine canonical quantities are:
 
@@ -107,7 +107,7 @@ with $R = 15$ in the main design. The pooled point estimate reported in the tabl
 
 The paper’s default interval object is therefore the pooled predictive interval, not a confidence interval for the mean response. The goal is to measure the predictive spread implied by the model’s repeated elicited answers, not how precisely we know the mean of those answers. REML and Bayesian hierarchical summaries are implemented in the codebase as secondary estimators, but the headline tables use the equal-weight pooled predictive mixture throughout.
 
-The choice of $R = 15$ is pragmatic rather than theoretically optimal. Appendix Table A1 reports a simple prefix-stability check on the canonical nine-quantity subpanel. Relative to the full 15-run pooled summary, using only the first 10 runs in a cell changes the pooled center by a median of `0.003` and the pooled 90 percent width by a median of `0.008`; using only the first 5 runs changes the pooled center by a median of `0.007` and the pooled width by a median of `0.024`. That does not prove convergence, but it is enough for a first descriptive paper.
+The choice of $R = 15$ is pragmatic rather than theoretically optimal. Appendix Table A1 reports a simple prefix-stability check on the canonical nine-quantity subpanel. Relative to the full 15-run pooled summary, using only the first 10 runs in a cell changes the pooled center by a median of `0.001` and the pooled 90 percent width by a median of `0.009`; using only the first 5 runs changes the pooled center by a median of `0.003` and the pooled width by a median of `0.022`. That does not prove convergence, but it is enough for a first descriptive paper.
 
 ### Models
 
@@ -140,32 +140,26 @@ The generation protocol is fixed across the main no-tools panel.
 
 ## Data Collected So Far
 
-The underlying no-tools data collection currently contains:
+The underlying no-tools v4 data collection contains:
 
 - 11 models
-- 22 quantities
+- 26 quantities (9 canonical elasticities plus 1 capital-gains convention sibling, 3 preference/macro objects, 1 TFP persistence, and 12 PolicyEngine simulation-facing coefficients)
 - 15 runs per model-quantity cell
-- 3,630 attempted runs
-- 3,591 successful runs
-- total observed API cost of about `$18.21`
+- 4,290 successful runs at 100% parse rate across all cells
 
-Success rates are high overall in the full 22-quantity collection. Nine of the 11 models completed every planned run. `gemini-3.1-pro-preview` missed only one run (`329 / 330`), and the only material failure rate comes from `grok-4.20`, which completed `292 / 330` runs. The failure modes are concentrated rather than diffuse: all `38` `grok-4.20` failures come from the same structured-output error, and the single Gemini failure is a timeout.
+Success rates are uniformly 100% under v4: every planned run for every model-quantity cell parsed cleanly into structured JSON. Under the earlier v3 panel a single model (`grok-4.20`) had a 12% structured-output failure rate that affected 38 runs; that failure mode did not recur in the v4 rerun.
 
-The cost dispersion across models is large. At the model-total level:
+Tracked API cost at the model-total level, for the 7 models where request-log aggregation was preserved end-to-end:
 
-- `claude-opus-4.6`: `$5.729`
-- `claude-sonnet-4.6`: `$3.619`
-- `grok-4.20`: `$2.866`
-- `gemini-3.1-pro-preview`: `$2.752`
-- `gpt-5.4`: `$1.133`
-- `claude-haiku-4.5`: `$1.022`
-- `gemini-3-flash-preview`: `$0.338`
-- `gpt-5.4-mini`: `$0.314`
-- `gemini-3.1-flash-lite-preview`: `$0.244`
-- `grok-4.1-fast`: `$0.100`
-- `gpt-5.4-nano`: `$0.097`
+- `claude-haiku-4.5`: `$1.203`
+- `gpt-5.4`: `$1.353`
+- `gpt-5.4-mini`: `$0.377`
+- `gemini-3-flash-preview`: `$0.370`
+- `gemini-3.1-flash-lite-preview`: `$0.286`
+- `gpt-5.4-nano`: `$0.118`
+- `grok-4.1-fast`: `$0.058`
 
-At the per-successful-run level, the main tables below show a range from roughly `$0.0003` for `gpt-5.4-nano` and `grok-4.1-fast` to about `$0.0178` for `claude-opus-4.6`. This cost dispersion matters for study design. The cheap models are not merely a convenience; they make repeated-run uncertainty estimation feasible at scale.
+Four premium-tier models (`claude-sonnet-4.6`, `claude-opus-4.7`, `gemini-3.1-pro-preview`, `grok-4.20`) had to be re-elicited quantity-by-quantity to work around a provider-side SSL hang that appeared only when many sequential structured-output calls were pipelined through a single LiteLLM client. The per-quantity subprocess fallback loses request-log aggregation, so cost tracking for those four models is not reported here. Extrapolating from the v3 panel, the four untracked-cost models account for a further `$10-15`, putting the total v4 rerun cost at roughly `$14-19`. The full v4 rerun cost dispersion across models is large: even under the untracked upper bound, per-successful-run cost ranges by more than two orders of magnitude between the cheapest and most expensive cell types.
 
 ## Main Descriptive Results
 
@@ -173,17 +167,17 @@ At the per-successful-run level, the main tables below show a range from roughly
 
 The main descriptive result is not one global model ranking. It is that the ranking changes once the quantities are grouped into economically coherent subpanels.
 
-Table 1 reports the canonical labor-and-tax subpanel: Frisch, income, and Marshallian labor-supply elasticities; the extensive-margin elasticity for single mothers; the elasticity of taxable income; and the capital-gains realizations elasticity. On this subpanel, the highest-elasticity models by average within-quantity absolute-value rank are `Claude Sonnet 4.6`, `Claude Opus 4.6`, `Grok 4.20`, and `GPT-5.4`. The lowest-elasticity models are `Gemini 3.1 Flash-Lite`, `Gemini 3.1 Pro`, and `Grok 4.1 Fast`.
+Table 1 reports the canonical labor-and-tax subpanel: Frisch, income, and Marshallian labor-supply elasticities; the extensive-margin elasticity for single mothers; the elasticity of taxable income; and the capital-gains realizations elasticity. On this subpanel, the highest-elasticity models by average within-quantity absolute-value rank are `Claude Sonnet 4.6`, `Grok 4.20`, and `GPT-5.4 mini`. The lowest-elasticity models are `Gemini 3.1 Pro`, `Gemini 3.1 Flash-Lite`, and `Grok 4.1 Fast`.
 
-That ordering is economically interpretable, but only loosely. On this labor-and-tax subset, lower absolute elasticities imply a more redistribution-permissive reading ceteris paribus, while higher absolute elasticities imply larger behavioral costs of redistribution. Under that narrow reading, the Gemini models sit on the low-response side of the panel, while `Claude Sonnet 4.6`, `Claude Opus 4.6`, `Grok 4.20`, and `GPT-5.4` sit on the high-response side. I treat that ranking only as directional. The more meaningful policy translation is the explicit top-tax exercise below.
+That ordering is economically interpretable, but only loosely. On this labor-and-tax subset, lower absolute elasticities imply a more redistribution-permissive reading ceteris paribus, while higher absolute elasticities imply larger behavioral costs of redistribution. Under that narrow reading, Gemini models sit on the low-response side of the panel, while `Claude Sonnet 4.6`, `Grok 4.20`, and `GPT-5.4 mini` sit on the high-response side. I treat that ranking only as directional. The more meaningful policy translation is the explicit top-tax exercise below.
 
 **Table 1. Labor-and-tax canonical overview.**
 
 {{< include tables/model-overview-labor-tax.md >}}
 
-Table 2 reports the macro-and-trade subpanel: the intertemporal elasticity of substitution, the capital-labor substitution elasticity, and the Armington elasticity. Here the ordering changes sharply. `GPT-5.4 mini` and `GPT-5.4 nano` move to the top of the ranking, while `Claude Haiku 4.5` and `Claude Opus 4.6` move to the bottom. The key point is not that one family is uniformly “more elastic.” It is that the ordering is domain-specific.
+Table 2 reports the macro-and-trade subpanel: the intertemporal elasticity of substitution, the capital-labor substitution elasticity, and the Armington elasticity. Here the ordering changes sharply. `GPT-5.4 mini`, `GPT-5.4`, and `Grok 4.20` move to the top of the ranking, while `Claude Opus 4.7` and `Claude Haiku 4.5` move to the bottom. The key point is not that one family is uniformly "more elastic." It is that the ordering is domain-specific.
 
-The pooled predictive-uncertainty ranking also changes across subpanels. In labor-and-tax, `Gemini 3.1 Pro`, `Claude Opus 4.6`, and `Gemini 3.1 Flash-Lite` are the tightest models, whereas `Grok 4.20`, `Grok 4.1 Fast`, and `GPT-5.4 nano` are the widest. In macro-and-trade, `Claude Haiku 4.5` becomes the tightest model, while `Grok 4.20`, `GPT-5.4 mini`, and `GPT-5.4 nano` remain comparatively wide. This is pooled predictive uncertainty, not calibrated confidence.
+The pooled predictive-uncertainty ranking also changes across subpanels. In labor-and-tax, `Gemini 3.1 Pro`, `Claude Opus 4.7`, and `Gemini 3 Flash` are the tightest models, whereas `Grok 4.1 Fast`, `GPT-5.4 mini`, and `Grok 4.20` are the widest. In macro-and-trade, `Claude Haiku 4.5` becomes the tightest model, while `Grok 4.20`, `GPT-5.4 mini`, and `GPT-5.4 nano` remain comparatively wide. This is pooled predictive uncertainty, not calibrated confidence.
 
 **Table 2. Macro-and-trade canonical overview.**
 
@@ -193,9 +187,9 @@ The pooled predictive-uncertainty ranking also changes across subpanels. In labo
 
 Table 3 compares the labor-and-tax pooled centers to rough review-based benchmark intervals. These are not benchmark truths; they are hand-coded literature anchors intended to check whether the elicited centers are at least living in the right neighborhood.
 
-For most labor-and-tax quantities, the answer is yes. All `11 / 11` models fall inside the rough benchmark range for the Frisch elasticity. `10 / 11` lie inside for the ETI, the uncompensated wage elasticity, the extensive-margin single-mother elasticity, and the canonical income elasticity. Capital gains realizations are the main exception: `9 / 11` models fall inside the rough review range, with one near-zero model and one positive model standing out from the rest.
+For most labor-and-tax quantities, the answer is yes. Every one of the 11 models falls inside the rough benchmark range for the Frisch elasticity and, under v4, for capital gains realizations as well — the sign-convention clarifier in v4 eliminated the wrong-sign outliers that appeared in the earlier v3 panel. `10 / 11` lie inside for the uncompensated wage elasticity, the extensive-margin single-mother elasticity, and the canonical income elasticity. ETI is the remaining quantity where `9 / 11` models fall inside the rough range, with two models ranging just above the upper review anchor of `0.5`.
 
-This benchmark table is useful because it distinguishes two kinds of disagreement. On many quantities, the models disagree with each other but still sit inside a conventional literature neighborhood. On a few quantities, the disagreement includes benchmark outliers. Appendix Table A7 sharpens the same point from a different angle: on every canonical quantity, cross-model spread in pooled centers remains smaller than the average pooled 90 percent width, with the largest spread-to-width ratio occurring for the capital gains realizations elasticity.
+This benchmark table is useful because it distinguishes two kinds of disagreement. On many quantities, the models disagree with each other but still sit inside a conventional literature neighborhood. On a few quantities, the disagreement includes benchmark outliers. Appendix Table A6 sharpens the same point from a different angle: on every canonical quantity, cross-model spread in pooled centers remains smaller than the average pooled 90 percent width, with the largest spread-to-width ratio occurring for the capital gains realizations elasticity.
 
 **Table 3. Rough literature comparison for the labor-and-tax subpanel.**
 
@@ -209,41 +203,33 @@ $$
 \tau^\* = \frac{1 - \bar g}{1 - \bar g + a e},
 $$
 
-with a Pareto parameter estimated from the weighted top 1 percent tail of tax-unit adjusted gross income in PolicyEngine's Enhanced CPS 2024 microdata [@policyengine-enhanced-cps-2024]. In the current build, that estimate is $a = 1.453$. To make the exercise utilitarian rather than revenue-maximizing, I assume log utility over consumption, $u(c) = \log c$, and normalize top-bracket social marginal welfare weights using the same Pareto tail. Under those assumptions, the average normalized top social welfare weight is
+with a Pareto parameter estimated from the weighted top 1 percent tail of tax-unit adjusted gross income in PolicyEngine's Enhanced CPS 2024 microdata [@policyengine-enhanced-cps-2024]. In the current build, that estimate is $a = 1.470$. To make the exercise utilitarian rather than revenue-maximizing, I assume log utility over consumption, $u(c) = \log c$, and normalize top-bracket social marginal welfare weights using the same Pareto tail. Under those assumptions, the average normalized top social welfare weight is
 
 $$
-\bar g = \frac{a}{a + 1} \approx 0.592,
+\bar g = \frac{a}{a + 1} \approx 0.595,
 $$
 
 so the mapping becomes
 
 $$
-\tau^\* = \frac{0.408}{0.408 + 1.453 e}.
+\tau^\* = \frac{0.405}{0.405 + 1.470 e}.
 $$
 
 This is still intentionally stylized. It uses only the ETI and therefore does not absorb the rest of the labor-supply block, but it provides a common public-finance object that can be compared across models. The microdata enter only through the top-tail calibration, not through a full reform simulation. For this policy mapping, I truncate ETI below at zero so the standard sufficient-statistics interpretation remains well defined.
 
-Appendix Table A13 shows why I do not replace this benchmark with a static flat-tax-plus-demogrant microsimulation. Absent behavioral responses or leisure in the objective, that kind of exercise is better read as a distributional frontier than as a meaningful optimal-tax calculation.
+Appendix Table A12 shows why I do not replace this benchmark with a static flat-tax-plus-demogrant microsimulation. Absent behavioral responses or leisure in the objective, that kind of exercise is better read as a distributional frontier than as a meaningful optimal-tax calculation.
 
-The richer point is not just the spread in medians but the propagated uncertainty. Under this utilitarian-log mapping with a microdata-calibrated Pareto tail, the implied optimal top-rate median ranges from `35.6%` for `Grok 4.20` to `44.0%` for `Gemini 3.1 Pro`, with `GPT-5.4` at `40.4%`. That is still an `8.4` percentage-point cross-model spread in medians. But the within-model uncertainty bands are much wider: top-rate 90 percent intervals are roughly `43` to `54` percentage points wide across models. So the exercise cuts both ways. It shows that elicited ETI differences do map into meaningfully different central policy conclusions, but it also shows that any single model’s implied optimal-tax recommendation remains very noisy under the paper’s own uncertainty object.
+The richer point is not just the spread in medians but the propagated uncertainty. Under this utilitarian-log mapping with a microdata-calibrated Pareto tail, the implied optimal top-rate median ranges from `33.5%` for `GPT-5.4 nano` to `44.3%` for `Gemini 3.1 Pro`, with `GPT-5.4` at `39.6%`. That is a `10.8` percentage-point cross-model spread in medians. But the within-model uncertainty bands are much wider: top-rate 90 percent intervals are roughly `43` to `54` percentage points wide across models. So the exercise cuts both ways. It shows that elicited ETI differences do map into meaningfully different central policy conclusions, but it also shows that any single model's implied optimal-tax recommendation remains very noisy under the paper's own uncertainty object.
 
 **Table 4. Optimal top-tax exercise from ETI distributions.**
 
 {{< include tables/toy-top-rate-labor-tax.md >}}
 
-### A targeted prompt-sensitivity result
+### Convention clarifications in the main prompt
 
-Table 5 isolates one important robustness result. In the original main panel, the canonical prime-age income elasticity still showed one positive pooled center, for `grok-4.1-fast`, and the legacy simulation-facing income-response quantity showed even more sign confusion. A targeted rerun added an explicit sign-convention clarification: positive values mean people work more when they have more resources, negative values mean they work less.
+Two quantities with well-documented convention ambiguity have direction-first sign clarifiers embedded in the v4 main prompt: the prime-age income elasticity (whether extra non-labor income raises or reduces hours is a sign question) and the capital-gains realizations elasticity (whether epsilon is taken w.r.t. the tax rate tau or the net-of-tax rate (1 - tau) flips the sign). The clarifier does not name which direction is conventional — it just says "if X reduces Y, epsilon is negative; if X raises Y, epsilon is positive" for each quantity. Under v4, the canonical income elasticity is negative for every model, and the Armington and IES clarifications continue to produce meaningful cross-prompt deltas (Appendix Tables A7, A8). The capital-gains convention audit (Appendix Table A9) elicits both parameterizations of the same economic object to test whether each model answers consistently across conventions.
 
-That small prompt change materially altered the result. `grok-4.1-fast` moved from `+0.09` to `-0.097`, and all 11 models now have negative pooled centers on the canonical income elasticity. At the run level, 10 of the 11 models returned only nonpositive point estimates in all successful sign-fixed runs. The remaining exception, `gpt-5.4-nano`, still produced 3 positive runs out of 15, but its pooled center remained negative.
-
-The right reading is not that the original result was “wrong” and the rerun is “right.” It is that some apparent cross-model disagreement is really disagreement about conventions, sign definitions, or object interpretation. That is precisely why the elicitation protocol needs quantity-specific interpretation control and why this paper treats the sign-fix as evidence about identification fragility, not just as a cosmetic cleanup.
-
-A second prompt-sensitivity check points in the same direction on the macro-and-trade side. An 11-model follow-up on the Armington elasticity added an explicit clarification that the target was the top-level import-versus-domestic substitution elasticity, not source-country or sector-level substitution. The resulting pooled centers usually moved down rather than up, with the largest drops coming from `Gemini 3.1 Flash-Lite` (`2.167` to `1.600`) and `Claude Sonnet 4.6` (`2.333` to `1.833`). I keep that result in Appendix Table A8 because it is a targeted probe rather than part of the headline panel, but it reinforces the same methodological point: some model disagreement is object-definition disagreement.
-
-**Table 5. Income-elasticity sign clarification rerun.**
-
-{{< include tables/income-signfix-delta.md >}}
+A second prompt-sensitivity check on the macro-and-trade side confirms the same methodological point: an 11-model follow-up on the Armington elasticity with an explicit top-level-import-versus-domestic clarification shifts pooled centers downward for most models (Appendix Table A7). Some cross-model disagreement reflects object-definition differences the base prompt underspecifies rather than substantive belief disagreement.
 
 ## Interpretation
 
@@ -276,7 +262,7 @@ The current limitations are straightforward:
 
 ### Stability check
 
-Appendix Table A1 reports a simple stability check for the choice of `R = 15`. Across the canonical nine-quantity subpanel, the median absolute difference between the first 10 runs in a cell and the full 15-run pooled center is only `0.003`; the corresponding median difference in pooled 90 percent width is `0.008`. Using only the first 5 runs is noisier, but still modest at the median.
+Appendix Table A1 reports a simple stability check for the choice of `R = 15`. Across the canonical nine-quantity subpanel, the median absolute difference between the first 10 runs in a cell and the full 15-run pooled center is only `0.001`; the corresponding median difference in pooled 90 percent width is `0.009`. Using only the first 5 runs is noisier, but still modest at the median.
 
 **Appendix Table A1. Prefix stability for the canonical subpanel.**
 
@@ -284,7 +270,7 @@ Appendix Table A1 reports a simple stability check for the choice of `R = 15`. A
 
 ### Pooling robustness
 
-Appendix Table A2 compares model-level predictive-uncertainty rankings under three interval constructions: the headline pooled mixture interval, a REML random-effects predictive interval, and a Bayesian hierarchical predictive interval. The rankings move somewhat, but the changes are not large enough to overturn the broad qualitative picture. `Gemini 3.1 Pro`, `Claude Haiku 4.5`, and `Gemini 3.1 Flash-Lite` remain among the tighter models across all three constructions, while `GPT-5.4 mini`, `GPT-5.4 nano`, and `Grok 4.20` remain toward the wide end. The largest rank spread is `1.67` positions for `Claude Opus 4.6`.
+Appendix Table A2 compares model-level predictive-uncertainty rankings under three interval constructions: the headline pooled mixture interval, a REML random-effects predictive interval, and a Bayesian hierarchical predictive interval. The rankings move somewhat, but the changes are not large enough to overturn the broad qualitative picture. `Claude Haiku 4.5`, `Claude Opus 4.7`, `Gemini 3.1 Pro`, and `Gemini 3 Flash` remain among the tighter models across all three constructions, while `GPT-5.4 mini`, `GPT-5.4 nano`, and `Grok 4.20` remain toward the wide end. The largest rank spread is `1.42` positions for `Claude Sonnet 4.6`.
 
 **Appendix Table A2. Predictive-uncertainty ranking under alternative pooling methods.**
 
@@ -292,7 +278,7 @@ Appendix Table A2 compares model-level predictive-uncertainty rankings under thr
 
 ### Leave-one-provider-out stability
 
-Appendix Table A3 asks whether the subpanel rankings are being driven by any single provider family. The answer is mostly no. Across both the labor-and-tax and macro-and-trade subpanels, the leave-one-provider-out Spearman correlation with the full-panel ranking stays between `0.921` and `0.998`. Some top spots do flip when one provider is removed, especially on the smaller three-quantity macro-and-trade panel, but the broad ordering is fairly stable.
+Appendix Table A3 asks whether the subpanel rankings are being driven by any single provider family. The answer is mostly no. Across both the labor-and-tax and macro-and-trade subpanels, the leave-one-provider-out Spearman correlation with the full-panel ranking stays between `0.970` and `0.999`. Some top spots do flip when one provider is removed, especially on the smaller three-quantity macro-and-trade panel, but the broad ordering is fairly stable.
 
 **Appendix Table A3. Leave-one-provider-out ranking sensitivity.**
 
@@ -300,7 +286,7 @@ Appendix Table A3 asks whether the subpanel rankings are being driven by any sin
 
 ### Alternative quantile-to-distribution rule
 
-Appendix Table A4 replaces the headline piecewise-uniform reconstruction with a cruder transformed-normal approximation calibrated to `p05`, `p50`, and `p95` for each run. The resulting predictive-uncertainty ranks move, but not dramatically. The largest average rank change is `1.44` positions for `Claude Opus 4.6`; most models move by less than one rank position. That does not prove the headline reconstruction is uniquely correct, but it suggests the main uncertainty ordering is not an artifact of one specific quantile-bin interpolation rule.
+Appendix Table A4 replaces the headline piecewise-uniform reconstruction with a cruder transformed-normal approximation calibrated to `p05`, `p50`, and `p95` for each run. The resulting predictive-uncertainty ranks move, but not dramatically. The largest average rank change is `1.54` positions for `Claude Opus 4.7`; most models move by less than one rank position. That does not prove the headline reconstruction is uniquely correct, but it suggests the main uncertainty ordering is not an artifact of one specific quantile-bin interpolation rule.
 
 **Appendix Table A4. Sensitivity to the within-run distribution rule.**
 
@@ -308,7 +294,7 @@ Appendix Table A4 replaces the headline piecewise-uniform reconstruction with a 
 
 ### Tool-access robustness
 
-The paper’s main estimand is a memory-based elicitation design. To check whether that framing is misleading in practice, I also ran an earlier GPT-only robustness arm in which the models were given access to web search and code interpreter tools. That arm covered an earlier eight-quantity subset and therefore is not directly comparable to the current 22-quantity main panel. Its value is narrower: it shows whether allowing tools materially changed realized behavior.
+The paper’s main estimand is a memory-based elicitation design. To check whether that framing is misleading in practice, I also ran an earlier GPT-only robustness arm in which the models were given access to web search and code interpreter tools. That arm covered an earlier eight-quantity subset and therefore is not directly comparable to the current 26-quantity main panel. Its value is narrower: it shows whether allowing tools materially changed realized behavior.
 
 In that archived tool-access arm, actual tool uptake was rare. Across all `360` requests, web search was used in only `9` cases (`2.5%`), and code interpreter was used in `0` cases. Full `GPT-5.4` never used a tool; `GPT-5.4 mini` used web search in `2 / 120` requests; and `GPT-5.4 nano` used web search in `7 / 120` requests. The appendix table below summarizes those counts.
 
@@ -316,43 +302,35 @@ In that archived tool-access arm, actual tool uptake was rare. Across all `360` 
 
 {{< include tables/tool-use-appendix.md >}}
 
-### Failure analysis
-
-The only material failure concentration in the main no-tools panel is `grok-4.20`. Appendix Table A6 shows the quantity-level breakdown. The important fact is not heterogeneity in failure mode but the opposite: every one of these failures is the same structured-output error.
-
-**Appendix Table A6. Quantity-level failures for `grok-4.20`.**
-
-{{< include tables/grok-failures-appendix.md >}}
-
 ### Canonical quantity disagreement
 
-Appendix Table A7 reports quantity-level disagreement on the canonical nine-quantity panel. The final column scales cross-model spread by the average pooled 90 percent width. On this metric, no canonical quantity has cross-model spread larger than average within-model predictive width.
+Appendix Table A6 reports quantity-level disagreement on the canonical nine-quantity panel. The final column scales cross-model spread by the average pooled 90 percent width. On this metric, no canonical quantity has cross-model spread larger than average within-model predictive width.
 
-**Appendix Table A7. Canonical quantity disagreement.**
+**Appendix Table A6. Canonical quantity disagreement.**
 
 {{< include tables/quantity-disagreement.md >}}
 
 ### Armington clarification follow-up
 
-Appendix Table A8 reports a second prompt-sensitivity probe. For the Armington elasticity, the follow-up prompt made explicit that the target was the top-level import-versus-domestic substitution elasticity, not source-country substitution or a sector-level import-demand elasticity. Across all 11 model reruns, that clarification generally shifts pooled centers downward or leaves them unchanged. The largest decreases appear for `Gemini 3.1 Flash-Lite` (`-0.567`), `Claude Sonnet 4.6` (`-0.500`), and `GPT-5.4` (`-0.300`). I interpret this as further evidence that even apparently standard macro parameters can hide meaningful object-definition ambiguity.
+Appendix Table A7 reports a second prompt-sensitivity probe. For the Armington elasticity, the follow-up prompt made explicit that the target was the top-level import-versus-domestic substitution elasticity, not source-country substitution or a sector-level import-demand elasticity. Across all 11 model reruns, that clarification generally shifts pooled centers downward or leaves them unchanged. The largest decreases appear for `Gemini 3.1 Flash-Lite` (`-0.767`), `Claude Sonnet 4.6` (`-0.433`), and `GPT-5.4` (`-0.433`). I interpret this as further evidence that even apparently standard macro parameters can hide meaningful object-definition ambiguity.
 
-**Appendix Table A8. Armington clarification follow-up.**
+**Appendix Table A7. Armington clarification follow-up.**
 
 {{< include tables/armington-clarify-delta.md >}}
 
 ### IES clarification follow-up
 
-Appendix Table A9 reports a third prompt-sensitivity probe on the intertemporal elasticity of substitution. This follow-up is currently partial rather than full-panel: it completed for the three GPT models plus `Claude Opus 4.6` and `Claude Sonnet 4.6`. The follow-up prompt makes explicit that the target is the annual macro-calibration IES for nondurable consumption, not a generic inverse-CRRA or asset-pricing object. This is a narrower ambiguity than the Armington and income-sign cases, but it is conceptually important because the IES is often conflated with risk aversion in casual model discussions.
+Appendix Table A8 reports a third prompt-sensitivity probe on the intertemporal elasticity of substitution. The follow-up prompt makes explicit that the target is the annual macro-calibration IES for nondurable consumption, not a generic inverse-CRRA or asset-pricing object. Under the clarification, most pooled centers stay near `0.5` or move slightly downward; the largest shift is `-0.842` for `Gemini 3.1 Pro` (from `1.467` to `0.625`), which suggests the base prompt's IES interpretation was picking up more of the inverse-CRRA reading than the macro-calibration reading for that model. This is a narrower ambiguity than the Armington and income-sign cases, but it is conceptually important because the IES is often conflated with risk aversion in casual model discussions.
 
-**Appendix Table A9. IES clarification follow-up.**
+**Appendix Table A8. IES clarification follow-up.**
 
 {{< include tables/ies-clarify-delta.md >}}
 
 ### Capital-gains convention audit
 
-Appendix Table A10 elicits both parameterizations of the capital-gains realizations elasticity under the v4 main prompt: the headline panel's w.r.t.-tax-rate convention and a sibling quantity defined w.r.t. the net-of-tax rate. The identity $\varepsilon_\tau = -\frac{\tau}{1-\tau}\, \varepsilon_{1-\tau}$ predicts that a model answering consistently should report a negative $\varepsilon_\tau$ paired with a positive $\varepsilon_{1-\tau}$; the magnitude ratio $\varepsilon_\tau / \varepsilon_{1-\tau}$ should fall in a narrow negative band implied by plausible top-bracket capital-gains tax rates. Cells where both conventions come back with the same sign (or where the ratio is positive) indicate the model mixed up one convention despite the in-prompt sign clarifiers. This is the most direct internal-consistency check the design supports, since the sibling probes the exact same economic object from the other side.
+Appendix Table A9 elicits both parameterizations of the capital-gains realizations elasticity under the v4 main prompt: the headline panel's w.r.t.-tax-rate convention and a sibling quantity defined w.r.t. the net-of-tax rate. The identity $\varepsilon_\tau = -\frac{\tau}{1-\tau}\, \varepsilon_{1-\tau}$ predicts that a model answering consistently should report a negative $\varepsilon_\tau$ paired with a positive $\varepsilon_{1-\tau}$; the magnitude ratio $\varepsilon_\tau / \varepsilon_{1-\tau}$ should fall in a narrow negative band implied by plausible top-bracket capital-gains tax rates. Cells where both conventions come back with the same sign (or where the ratio is positive) indicate the model mixed up one convention despite the in-prompt sign clarifiers. This is the most direct internal-consistency check the design supports, since the sibling probes the exact same economic object from the other side.
 
-**Appendix Table A10. Capital-gains convention audit.**
+**Appendix Table A9. Capital-gains convention audit.**
 
 {{< include tables/cap-gains-convention-audit.md >}}
 
@@ -360,20 +338,20 @@ Appendix Table A10 elicits both parameterizations of the capital-gains realizati
 
 The simulation-facing substitution-response coefficients are substantively useful, but they are implementation-facing response parameters rather than textbook elasticity objects. I therefore keep them out of the headline rankings and report them separately here.
 
-**Appendix Table A11. Simulation-facing model overview.**
+**Appendix Table A10. Simulation-facing model overview.**
 
 {{< include tables/model-overview-simulation.md >}}
 
-**Appendix Table A12. Simulation-facing disagreement.**
+**Appendix Table A11. Simulation-facing disagreement.**
 
 {{< include tables/quantity-disagreement-simulation.md >}}
 
 ### Static flat-tax plus demogrant frontier
 
-Appendix Table A13 reports a static blank-slate flat-tax benchmark on the same Enhanced CPS 2024 microdata [@policyengine-enhanced-cps-2024]. Each row applies a flat tax to PolicyEngine's current positive-AGI base and rebates the resulting revenue as an equal per-person demogrant using tax-unit size. This is the modernized analogue of a blank-slate UBI-style exercise in the current PolicyEngine stack.
+Appendix Table A12 reports a static blank-slate flat-tax benchmark on the same Enhanced CPS 2024 microdata [@policyengine-enhanced-cps-2024]. Each row applies a flat tax to PolicyEngine's current positive-AGI base and rebates the resulting revenue as an equal per-person demogrant using tax-unit size. This is the modernized analogue of a blank-slate UBI-style exercise in the current PolicyEngine stack.
 
 I do not present it as an optimal-tax result. The benchmark holds behavior fixed, omits leisure, and therefore turns into a pure distributional comparison. Mean per-person resources are mechanically constant across rows, so the informative objects are the demogrant, the distributional quantiles, and the Gini of per-person post-tax positive-AGI resources.
 
-**Appendix Table A13. Static flat positive-AGI tax plus demogrant frontier.**
+**Appendix Table A12. Static flat positive-AGI tax plus demogrant frontier.**
 
 {{< include tables/flat-tax-demogrant-appendix.md >}}

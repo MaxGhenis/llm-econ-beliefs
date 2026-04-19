@@ -2,14 +2,14 @@ Note: Simulation-facing subpanel only: 12 PolicyEngine-style substitution-respon
 
 | Model | Provider | Avg abs-elasticity rank (1=highest) | Avg predictive-uncertainty rank (1=narrowest) | Mean absolute pooled center | Mean pooled 90% width | Success rate | Cost / successful run |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| GPT-5.4 nano | OpenAI | 1.67 | 10.58 | 0.519 | 1.371 | 100.0% | $0.0003 |
-| Grok 4.20 | xAI | 3 | 8.33 | 0.283 | 0.771 | 87.2% | $0.0093 |
-| Grok 4.1 Fast | xAI | 3.46 | 10.33 | 0.294 | 1.298 | 100.0% | $0.0003 |
-| Claude Haiku 4.5 | Anthropic | 4.71 | 7.08 | 0.253 | 0.669 | 100.0% | $0.0031 |
-| Claude Sonnet 4.6 | Anthropic | 5.04 | 5.42 | 0.247 | 0.535 | 100.0% | $0.0109 |
-| GPT-5.4 mini | OpenAI | 6.75 | 7.92 | 0.215 | 0.733 | 100.0% | $0.0010 |
-| Gemini 3.1 Pro | Google | 6.79 | 3.08 | 0.213 | 0.453 | 99.4% | $0.0077 |
-| Claude Opus 4.6 | Anthropic | 6.83 | 2.17 | 0.208 | 0.423 | 100.0% | $0.0171 |
-| GPT-5.4 | OpenAI | 8.5 | 4.58 | 0.181 | 0.486 | 100.0% | $0.0035 |
-| Gemini 3 Flash | Google | 9.08 | 3.92 | 0.164 | 0.503 | 100.0% | $0.0010 |
-| Gemini 3.1 Flash-Lite | Google | 10.17 | 2.58 | 0.132 | 0.461 | 100.0% | $0.0008 |
+| GPT-5.4 nano | OpenAI | 1.08 | 10.67 | 0.507 | 1.319 | 100.0% | $0.0003 |
+| Grok 4.1 Fast | xAI | 3.38 | 10.25 | 0.295 | 1.219 | 100.0% | $0.0002 |
+| Grok 4.20 | xAI | 3.92 | 7.92 | 0.271 | 0.747 | 100.0% | $0.0000 |
+| Claude Opus 4.7 | Anthropic | 4.21 | 5.88 | 0.266 | 0.621 | 100.0% | $0.0000 |
+| Claude Haiku 4.5 | Anthropic | 5.58 | 7.17 | 0.247 | 0.678 | 100.0% | $0.0031 |
+| Claude Sonnet 4.6 | Anthropic | 5.71 | 4.42 | 0.239 | 0.52 | 100.0% | $0.0000 |
+| GPT-5.4 mini | OpenAI | 6.83 | 8 | 0.218 | 0.78 | 100.0% | $0.0010 |
+| Gemini 3.1 Pro | Google | 7.5 | 2.5 | 0.209 | 0.454 | 100.0% | $0.0000 |
+| GPT-5.4 | OpenAI | 8.38 | 3.46 | 0.18 | 0.484 | 100.0% | $0.0036 |
+| Gemini 3 Flash | Google | 9.17 | 3.5 | 0.163 | 0.503 | 100.0% | $0.0010 |
+| Gemini 3.1 Flash-Lite | Google | 10.25 | 2.25 | 0.13 | 0.456 | 100.0% | $0.0008 |
