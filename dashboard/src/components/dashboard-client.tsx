@@ -11,9 +11,12 @@ import {
 import { IntervalPlot } from "@/components/interval-plot";
 import { ProviderMark } from "@/components/provider-mark";
 import {
+  PROVIDER_LABELS,
   compareModelNames,
   getModelLabel,
   getProviderForModel,
+  isFlagshipModel,
+  type ProviderKey,
 } from "@/lib/model-meta";
 import type {
   DashboardSummaryData,
@@ -37,6 +40,10 @@ export function DashboardClient({ data }: DashboardClientProps) {
   const [selectedMethodId, setSelectedMethodId] =
     useState<IntervalMethodId>("pooled");
   const [sortMode, setSortMode] = useState<"model" | "pointEstimate">("model");
+  const [selectedProviders, setSelectedProviders] = useState<Set<ProviderKey>>(
+    () => new Set<ProviderKey>(["anthropic", "google", "openai", "xai"]),
+  );
+  const [flagshipOnly, setFlagshipOnly] = useState(false);
 
   /* Inspector drawer state */
   const [inspectorOpen, setInspectorOpen] = useState(false);
@@ -68,12 +75,32 @@ export function DashboardClient({ data }: DashboardClientProps) {
     data.methods.find((method) => method.id === selectedMethodId) ??
     data.methods[0];
   const sortedModelSummaries = selectedQuantity
-    ? [...selectedQuantity.modelSummaries].sort((left, right) =>
-        sortMode === "pointEstimate"
-          ? compareModelSummariesByCenter(left, right, selectedMethod.id)
-          : compareModelNames(left.modelName, right.modelName),
-      )
+    ? [...selectedQuantity.modelSummaries]
+        .filter((summary) => {
+          const provider = getProviderForModel(summary.modelName);
+          if (!provider || !selectedProviders.has(provider)) return false;
+          if (flagshipOnly && !isFlagshipModel(summary.modelName)) return false;
+          return true;
+        })
+        .sort((left, right) =>
+          sortMode === "pointEstimate"
+            ? compareModelSummariesByCenter(left, right, selectedMethod.id)
+            : compareModelNames(left.modelName, right.modelName),
+        )
     : [];
+
+  function toggleProvider(provider: ProviderKey) {
+    setSelectedProviders((current) => {
+      const next = new Set(current);
+      if (next.has(provider)) {
+        if (next.size === 1) return current;
+        next.delete(provider);
+      } else {
+        next.add(provider);
+      }
+      return next;
+    });
+  }
   const quantityNote = selectedQuantity
     ? getQuantityNote(selectedQuantity.quantityId)
     : null;
@@ -100,19 +127,18 @@ export function DashboardClient({ data }: DashboardClientProps) {
     return () => document.removeEventListener("keydown", handleKey);
   }, [inspectorOpen]);
 
-  /* Reset model when quantity changes */
+  /* Reset model when quantity or filter changes and current inspected model drops out */
   useEffect(() => {
     if (!selectedQuantity) return;
-    if (
-      inspectedModelName &&
-      !selectedQuantity.availableModels.includes(inspectedModelName)
-    ) {
+    const visibleNames = sortedModelSummaries.map((summary) => summary.modelName);
+    if (visibleNames.length === 0) return;
+    if (!visibleNames.includes(inspectedModelName)) {
       startTransition(() => {
-        setInspectedModelName(selectedQuantity.availableModels[0] ?? "");
+        setInspectedModelName(visibleNames[0]);
         setSelectedRunIndex(null);
       });
     }
-  }, [inspectedModelName, selectedQuantity]);
+  }, [inspectedModelName, selectedQuantity, sortedModelSummaries]);
 
   /* Lazy-load run data */
   useEffect(() => {
@@ -378,7 +404,7 @@ export function DashboardClient({ data }: DashboardClientProps) {
 
           {/* Method and sort controls */}
           <div
-            className="mb-6 rounded-lg border p-3"
+            className="mb-3 rounded-lg border p-3"
             style={{ background: "var(--card)", borderColor: "var(--border)" }}
           >
             <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
@@ -426,6 +452,66 @@ export function DashboardClient({ data }: DashboardClientProps) {
                   <option value="model">Canonical model order</option>
                   <option value="pointEstimate">Point estimate, low to high</option>
                 </select>
+              </label>
+            </div>
+          </div>
+
+          {/* Provider filter + flagship-only toggle */}
+          <div
+            className="mb-6 rounded-lg border p-3"
+            style={{ background: "var(--card)", borderColor: "var(--border)" }}
+          >
+            <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+              <div className="flex flex-wrap items-center gap-2">
+                <span
+                  className="font-mono text-[10px] uppercase tracking-[0.15em]"
+                  style={{ color: "var(--muted-foreground)" }}
+                >
+                  Provider
+                </span>
+                {(["openai", "anthropic", "google", "xai"] as ProviderKey[]).map(
+                  (provider) => {
+                    const isActive = selectedProviders.has(provider);
+                    return (
+                      <button
+                        key={provider}
+                        type="button"
+                        onClick={() => toggleProvider(provider)}
+                        aria-pressed={isActive}
+                        className="flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-xs font-medium transition-all"
+                        style={{
+                          background: isActive ? "var(--muted)" : "transparent",
+                          borderColor: isActive ? "var(--primary)" : "var(--border)",
+                          color: isActive ? "var(--foreground)" : "var(--muted-foreground)",
+                          opacity: isActive ? 1 : 0.55,
+                        }}
+                      >
+                        <ProviderMark provider={provider} size={14} />
+                        <span>{PROVIDER_LABELS[provider]}</span>
+                      </button>
+                    );
+                  },
+                )}
+              </div>
+              <label
+                className="flex items-center gap-2 text-xs"
+                style={{ color: "var(--muted-foreground)" }}
+              >
+                <input
+                  type="checkbox"
+                  checked={flagshipOnly}
+                  onChange={(event) => setFlagshipOnly(event.target.checked)}
+                  className="h-4 w-4 cursor-pointer accent-[color:var(--primary)]"
+                />
+                <span
+                  className="font-mono uppercase tracking-[0.15em]"
+                  style={{ color: flagshipOnly ? "var(--foreground)" : "var(--muted-foreground)" }}
+                >
+                  Flagship only
+                </span>
+                <span style={{ color: "var(--muted-foreground)" }}>
+                  (Opus 4.7, GPT-5.4, Gemini 3.1 Pro, Grok 4.20)
+                </span>
               </label>
             </div>
           </div>

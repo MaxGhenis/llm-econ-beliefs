@@ -35,6 +35,18 @@ export const PROVIDER_LABELS: Record<ProviderKey, string> = {
   xai: "xAI",
 };
 
+export const FLAGSHIP_MODEL_BY_PROVIDER: Record<ProviderKey, string> = {
+  anthropic: "claude-opus-4.7",
+  google: "gemini-3.1-pro-preview",
+  openai: "gpt-5.4",
+  xai: "grok-4.20",
+};
+
+export function isFlagshipModel(model: string): boolean {
+  const provider = getProviderForModel(model);
+  return provider !== null && FLAGSHIP_MODEL_BY_PROVIDER[provider] === model;
+}
+
 export function getProviderForModel(model: string): ProviderKey | null {
   if (model.startsWith("claude-")) return "anthropic";
   if (model.startsWith("gemini-")) return "google";
