@@ -106,3 +106,32 @@ def test_parse_quantile_labels_from_free_text():
     }
     assert parsed.lower_bound == 0.5
     assert parsed.upper_bound == 8.0
+
+
+def test_monotone_quantiles_leave_repair_flag_false():
+    parsed = parse_belief_response(
+        """
+        {
+          "point_estimate": 0.5,
+          "quantiles": {"p05": 0.1, "p25": 0.3, "p50": 0.5, "p75": 0.7, "p95": 0.9},
+          "citations": [],
+          "reasoning_summary": ""
+        }
+        """
+    )
+    assert parsed.quantiles_repaired is False
+
+
+def test_disordered_quantiles_trigger_running_max_repair():
+    parsed = parse_belief_response(
+        """
+        {
+          "point_estimate": 0.5,
+          "quantiles": {"p05": 0.1, "p25": 0.3, "p50": 0.5, "p75": 0.4, "p95": 0.9},
+          "citations": [],
+          "reasoning_summary": ""
+        }
+        """
+    )
+    assert parsed.quantiles_repaired is True
+    assert parsed.quantiles["p75"] == 0.5

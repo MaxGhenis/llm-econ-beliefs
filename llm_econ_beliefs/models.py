@@ -61,6 +61,7 @@ class BeliefEstimate:
     citations: list[str] = field(default_factory=list)
     reasoning_summary: str | None = None
     raw_response: str | None = None
+    quantiles_repaired: bool = False
 
 
 @dataclass
@@ -133,6 +134,7 @@ class RunResult:
     citations: list[str] = field(default_factory=list)
     reasoning_summary: str | None = None
     error: str | None = None
+    quantiles_repaired: bool = False
 
 
 @dataclass

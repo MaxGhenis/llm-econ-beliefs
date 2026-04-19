@@ -51,7 +51,7 @@ def parse_belief_response(
             quantity_id=quantity_id,
         )
 
-    quantiles = _extract_quantiles_from_text(response_text)
+    quantiles, quantiles_repaired = _extract_quantiles_from_text(response_text)
     point_estimate = _extract_point_estimate_from_text(response_text, quantiles=quantiles)
     if point_estimate is None:
         raise ValueError("Could not parse a point estimate from the response")
@@ -70,6 +70,7 @@ def parse_belief_response(
         quantiles=quantiles,
         reasoning_summary=response_text.strip(),
         raw_response=response_text,
+        quantiles_repaired=quantiles_repaired,
     )
 
 
@@ -102,7 +103,7 @@ def _parse_structured_payload(
     raw_response: str,
     quantity_id: str | None,
 ) -> BeliefEstimate:
-    quantiles = _lookup_quantiles(payload)
+    quantiles, quantiles_repaired = _lookup_quantiles(payload)
     point_estimate = _lookup_numeric(payload, POINT_KEYS)
     if "p50" in quantiles:
         point_estimate = quantiles["p50"]
@@ -133,10 +134,11 @@ def _parse_structured_payload(
         citations=_lookup_string_list(payload, CITATION_KEYS),
         reasoning_summary=_lookup_string(payload, REASONING_KEYS),
         raw_response=raw_response,
+        quantiles_repaired=quantiles_repaired,
     )
 
 
-def _lookup_quantiles(payload: dict[str, Any]) -> dict[str, float]:
+def _lookup_quantiles(payload: dict[str, Any]) -> tuple[dict[str, float], bool]:
     quantiles: dict[str, float] = {}
     candidate = payload.get("quantiles")
     if isinstance(candidate, dict):
@@ -245,7 +247,7 @@ def _extract_point_estimate_from_text(
     return _extract_first_number(response_text)
 
 
-def _extract_quantiles_from_text(response_text: str) -> dict[str, float]:
+def _extract_quantiles_from_text(response_text: str) -> tuple[dict[str, float], bool]:
     quantiles: dict[str, float] = {}
     for key, aliases in QUANTILE_ALIASES.items():
         patterns = [
@@ -300,12 +302,13 @@ def _first_braced_block(text: str) -> str | None:
     return None
 
 
-def _sorted_quantiles(quantiles: dict[str, float]) -> dict[str, float]:
+def _sorted_quantiles(quantiles: dict[str, float]) -> tuple[dict[str, float], bool]:
     if not quantiles:
-        return {}
+        return {}, False
 
     sorted_values = []
     running_max = None
+    repaired = False
     for key in QUANTILE_ORDER:
         if key not in quantiles:
             continue
@@ -313,7 +316,9 @@ def _sorted_quantiles(quantiles: dict[str, float]) -> dict[str, float]:
         if running_max is None:
             running_max = value
         else:
+            if value < running_max:
+                repaired = True
             running_max = max(running_max, value)
         sorted_values.append((key, running_max))
 
-    return dict(sorted_values)
+    return dict(sorted_values), repaired

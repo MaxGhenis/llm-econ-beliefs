@@ -278,10 +278,14 @@ def summarize_run_results(
     """Aggregate successful runs by quantity."""
     grouped: dict[tuple[str, str], list[BeliefEstimate]] = {}
     tool_regimes: dict[tuple[str, str], str] = {}
+    repair_counts: dict[tuple[str, str], int] = {}
     for record in records:
         tool_regimes[(record.model_name, record.quantity_id)] = record.tool_regime
         if not record.parsed_ok or record.point_estimate is None:
             continue
+        if record.quantiles_repaired:
+            key = (record.model_name, record.quantity_id)
+            repair_counts[key] = repair_counts.get(key, 0) + 1
         estimate = BeliefEstimate(
             point_estimate=record.point_estimate,
             quantity_id=record.quantity_id,
@@ -293,6 +297,7 @@ def summarize_run_results(
             citations=list(record.citations),
             reasoning_summary=record.reasoning_summary,
             raw_response=record.raw_response,
+            quantiles_repaired=record.quantiles_repaired,
         )
         grouped.setdefault((record.model_name, record.quantity_id), []).append(estimate)
 
@@ -331,6 +336,9 @@ def summarize_run_results(
                 "quantity_name": quantity.name,
                 "tool_regime": tool_regimes.get((model_name, quantity_id), "none"),
                 "n_successful_runs": len(estimates),
+                "n_quantile_repaired_runs": repair_counts.get(
+                    (model_name, quantity_id), 0
+                ),
                 "pooled_point_estimate": aggregated.point_estimate,
                 "pooled_lower_bound": aggregated.lower_bound,
                 "pooled_upper_bound": aggregated.upper_bound,
@@ -517,6 +525,7 @@ def _record_from_parsed(
         quantiles=dict(parsed.quantiles),
         citations=list(parsed.citations),
         reasoning_summary=parsed.reasoning_summary,
+        quantiles_repaired=parsed.quantiles_repaired,
     )
 
 
@@ -619,6 +628,7 @@ def _write_runs_csv(path: Path, records: Sequence[RunResult]) -> None:
                 "upper_bound",
                 "confidence_level",
                 "quantiles",
+                "quantiles_repaired",
                 "citations",
                 "reasoning_summary",
                 "error",
