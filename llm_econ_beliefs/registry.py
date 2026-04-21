@@ -5,7 +5,7 @@ from __future__ import annotations
 import tomllib
 from importlib.resources import files
 
-from .models import EconomicQuantity
+from .models import CONVENTION_LITERALS, EconomicQuantity
 
 
 def _load_registry_text() -> str:
@@ -40,6 +40,12 @@ def list_tags() -> list[str]:
 
 
 def _to_quantity(payload: dict) -> EconomicQuantity:
+    convention = payload.get("convention")
+    if convention is not None and convention not in CONVENTION_LITERALS:
+        raise ValueError(
+            f"Unknown convention {convention!r} for quantity {payload.get('id')!r}; "
+            f"expected one of {CONVENTION_LITERALS} or None"
+        )
     return EconomicQuantity(
         id=payload["id"],
         name=payload["name"],
@@ -53,7 +59,7 @@ def _to_quantity(payload: dict) -> EconomicQuantity:
         benchmark_summary=payload.get("benchmark_summary"),
         benchmark_source=payload.get("benchmark_source"),
         tags=tuple(payload.get("tags", [])),
-        convention=payload.get("convention"),
+        convention=convention,
         convention_sibling_id=payload.get("convention_sibling_id"),
     )
 

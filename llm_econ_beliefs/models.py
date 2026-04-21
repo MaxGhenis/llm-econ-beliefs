@@ -6,6 +6,14 @@ from typing import Any
 from dataclasses import dataclass, field
 
 
+CONVENTION_LITERALS: tuple[str, ...] = (
+    "tax_rate",
+    "net_of_tax_rate",
+    "gross_wage",
+    "net_of_tax_wage",
+)
+
+
 @dataclass(frozen=True)
 class EconomicQuantity:
     """A named economic quantity to elicit from a model."""

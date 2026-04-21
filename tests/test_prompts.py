@@ -31,11 +31,15 @@ def test_income_elasticity_prompt_clarifies_sign_convention():
 
     assert "Sign convention for this quantity:" in prompt
     assert (
-        "\u03b5 > 0 iff additional non-labor income raises annual hours worked"
+        "\u03b5 > 0 if and only if additional non-labor income raises annual hours worked"
         in prompt
     )
     assert (
-        "\u03b5 < 0 iff additional non-labor income reduces annual hours worked"
+        "\u03b5 < 0 if and only if additional non-labor income reduces annual hours worked"
+        in prompt
+    )
+    assert (
+        "if \u03b5 = 0.5, a 1 percent increase in non-labor income changes annual hours worked by 0.5 percent (not 50 percent)"
         in prompt
     )
 
@@ -45,9 +49,13 @@ def test_capital_gains_prompt_clarifies_sign_convention_against_tax_rate():
     prompt = create_belief_prompt(quantity)
 
     assert "Sign convention for this quantity:" in prompt
-    assert "\u03b5 > 0 iff a higher capital-gains tax rate raises realizations" in prompt
-    assert "\u03b5 < 0 iff a higher capital-gains tax rate reduces realizations" in prompt
+    assert "\u03b5 > 0 if and only if a higher capital-gains tax rate raises realizations" in prompt
+    assert "\u03b5 < 0 if and only if a higher capital-gains tax rate reduces realizations" in prompt
     assert "not with respect to the net-of-tax rate" in prompt
+    assert (
+        "if \u03b5 = 0.5, a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by 0.5 percent (not 50 percent)"
+        in prompt
+    )
 
 
 def test_capital_gains_net_of_tax_rate_prompt_clarifies_sign_convention():
@@ -57,9 +65,13 @@ def test_capital_gains_net_of_tax_rate_prompt_clarifies_sign_convention():
     prompt = create_belief_prompt(quantity)
 
     assert "Sign convention for this quantity:" in prompt
-    assert "\u03b5 > 0 iff a higher net-of-tax rate raises realizations" in prompt
-    assert "\u03b5 < 0 iff a higher net-of-tax rate reduces realizations" in prompt
+    assert "\u03b5 > 0 if and only if a higher net-of-tax rate raises realizations" in prompt
+    assert "\u03b5 < 0 if and only if a higher net-of-tax rate reduces realizations" in prompt
     assert "not with respect to the tax rate" in prompt
+    assert (
+        "if \u03b5 = 0.5, a 1 percent increase in the net-of-tax rate changes long-term realizations by 0.5 percent (not 50 percent)"
+        in prompt
+    )
 
 
 def test_ies_clarification_prompt_targets_macro_calibration_object():

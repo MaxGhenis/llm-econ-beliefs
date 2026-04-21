@@ -1,4 +1,8 @@
+import pytest
+
 from llm_econ_beliefs import get_quantity, list_quantities, list_tags
+from llm_econ_beliefs.models import CONVENTION_LITERALS
+from llm_econ_beliefs.registry import _to_quantity
 
 
 def test_registry_loads_quantities():
@@ -44,3 +48,39 @@ def test_list_tags_contains_expected_values():
     assert "labor_supply" in tags
     assert "og_usa" in tags
     assert "policyengine_us" in tags
+
+
+def test_convention_sibling_is_bidirectional_for_capital_gains():
+    canonical = get_quantity("tax.capital_gains_realizations.elasticity")
+    sibling = get_quantity(
+        "tax.capital_gains_realizations.elasticity.net_of_tax_rate"
+    )
+
+    assert canonical.convention == "tax_rate"
+    assert sibling.convention == "net_of_tax_rate"
+    assert (
+        canonical.convention_sibling_id
+        == "tax.capital_gains_realizations.elasticity.net_of_tax_rate"
+    )
+    assert (
+        sibling.convention_sibling_id
+        == "tax.capital_gains_realizations.elasticity"
+    )
+
+
+def test_registry_known_conventions_are_all_in_literal_set():
+    for quantity in list_quantities():
+        if quantity.convention is not None:
+            assert quantity.convention in CONVENTION_LITERALS
+
+
+def test_unknown_convention_raises_value_error():
+    payload = {
+        "id": "dummy.quantity",
+        "name": "Dummy",
+        "domain": "dummy",
+        "description": "Dummy description.",
+        "convention": "not_a_real_convention",
+    }
+    with pytest.raises(ValueError, match="Unknown convention"):
+        _to_quantity(payload)

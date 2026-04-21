@@ -1,15 +1,15 @@
-Note: Both capital-gains-realizations conventions elicited independently under prompt v4. Under the identity epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax, the observed ratio epsilon_taxrate / epsilon_netoftax pins down an implied tau; a model that answers consistently across conventions implies a positive epsilon_netoftax, a negative epsilon_taxrate, and an implied tau in the plausible U.S. top-bracket long-term-capital-gains range. The last column flags each cell as 'in band' (implied tau between 0.15 and 0.30), 'plausible sign, outside band' (implied tau in (0, 1) but outside that window), or 'out of band' (implied tau non-positive or > 1).
+Note: Both capital-gains-realizations conventions elicited independently under prompt v4. Under the identity epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax, any model whose two answers are jointly consistent with a single tau prior implies one specific tau. The implied-tau column reports the median and 90 percent interval of 1000 bootstrap draws that independently sample one tax-rate run and one net-of-tax-rate run from the 15 runs of each; this is not the plug-in ratio of medians, which differs from the bootstrap median because tau = -rho / (1 - rho) is nonlinear in rho (Jensen's inequality). The band flag is computed against the bootstrap median. 'LTCG-rate consistent' marks an implied median tau in [0.15, 0.37] (U.S. top-bracket long-term-capital-gains envelope, federal LTCG plus NIIT plus high state); 'ordinary-income-rate consistent' marks (0.37, 0.55] (federal ordinary-income top plus high state); 'plausible sign, outside bands' marks (0, 1) outside both windows; and 'out of band' marks a non-positive or > 1 median tau. The shared-tau coherence column flags the joint sign pattern of the two pooled medians: a model with (tax < 0, net > 0) is sign-consistent with the identity, whereas (both positive, both negative, or reversed) indicates that the two answers are not jointly consistent with a single tau prior — either because the model holds two independent literature anchors, or because one convention was answered with the opposite sign.
 
-| Model | Provider | epsilon w.r.t. tax rate | epsilon w.r.t. net-of-tax rate | Implied tau | Consistency | In plausible tau band [0.15, 0.30] |
+| Model | Provider | epsilon w.r.t. tax rate (median) | epsilon w.r.t. net-of-tax rate (median) | Implied tau median [90%] | Shared-tau coherence | Band (LTCG [0.15, 0.37], ordinary-income [0.37, 0.55]) |
 | --- | --- | --- | --- | --- | --- | --- |
-| Claude Haiku 4.5 | Anthropic | -0.783 | 0.893 | 0.467 | as expected (tax<0, net>0) | plausible sign, outside band |
-| Claude Opus 4.7 | Anthropic | -0.7 | 0.7 | 0.5 | as expected (tax<0, net>0) | plausible sign, outside band |
-| Claude Sonnet 4.6 | Anthropic | -0.7 | 4.6 | 0.132 | as expected (tax<0, net>0) | plausible sign, outside band |
-| GPT-5.4 | OpenAI | -0.787 | 0.913 | 0.463 | as expected (tax<0, net>0) | plausible sign, outside band |
-| GPT-5.4 mini | OpenAI | -0.93 | 1.04 | 0.472 | as expected (tax<0, net>0) | plausible sign, outside band |
-| Gemini 3 Flash | Google | -0.793 | 0.807 | 0.496 | as expected (tax<0, net>0) | plausible sign, outside band |
-| Gemini 3.1 Flash-Lite | Google | -0.747 | 0.88 | 0.459 | as expected (tax<0, net>0) | plausible sign, outside band |
-| Gemini 3.1 Pro | Google | -0.67 | 0.373 | 0.642 | as expected (tax<0, net>0) | plausible sign, outside band |
-| Grok 4.1 Fast | xAI | -0.767 | 1.527 | 0.334 | as expected (tax<0, net>0) | plausible sign, outside band |
-| Grok 4.20 | xAI | -0.553 | 0.67 | 0.452 | as expected (tax<0, net>0) | plausible sign, outside band |
-| GPT-5.4 nano | OpenAI | -0.373 | -0.167 | 1.806 | both negative | out of band |
+| GPT-5.4 nano | OpenAI | -0.35 | -0.2 | 0.857 [-3.592, 5.000] | both negative | plausible sign, outside bands |
+| Claude Haiku 4.5 | Anthropic | -0.8 | 0.8 | 0.500 [0.348, 0.552] | sign-consistent (tax<0, net>0) | ordinary-income-rate consistent |
+| Claude Opus 4.7 | Anthropic | -0.7 | 0.7 | 0.500 [0.500, 0.500] | sign-consistent (tax<0, net>0) | ordinary-income-rate consistent |
+| Claude Sonnet 4.6 | Anthropic | -0.7 | 5 | 0.123 [0.123, 0.167] | sign-consistent (tax<0, net>0) | plausible sign, outside bands |
+| GPT-5.4 | OpenAI | -0.7 | 0.9 | 0.450 [0.389, 0.571] | sign-consistent (tax<0, net>0) | ordinary-income-rate consistent |
+| GPT-5.4 mini | OpenAI | -0.8 | 1.2 | 0.500 [0.333, 0.636] | sign-consistent (tax<0, net>0) | ordinary-income-rate consistent |
+| Gemini 3 Flash | Google | -0.8 | 0.8 | 0.500 [0.467, 0.515] | sign-consistent (tax<0, net>0) | ordinary-income-rate consistent |
+| Gemini 3.1 Flash-Lite | Google | -0.75 | 0.8 | 0.484 [0.318, 0.538] | sign-consistent (tax<0, net>0) | ordinary-income-rate consistent |
+| Gemini 3.1 Pro | Google | -0.7 | 0.3 | 0.545 [0.375, 3.500] | sign-consistent (tax<0, net>0) | ordinary-income-rate consistent |
+| Grok 4.1 Fast | xAI | -0.7 | 1.2 | 0.368 [0.149, 0.500] | sign-consistent (tax<0, net>0) | LTCG-rate consistent |
+| Grok 4.20 | xAI | -0.5 | 0.7 | 0.455 [0.400, 0.500] | sign-consistent (tax<0, net>0) | ordinary-income-rate consistent |

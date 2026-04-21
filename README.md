@@ -153,6 +153,49 @@ print(metrics)
 print(calibrated_distribution.quantile(0.5))
 ```
 
+## Reproducing the v4 panel
+
+Two reproduction paths are supported.
+
+### (a) From cached results
+
+Use the artifacts already committed under `results/` to rebuild all
+paper tables and verify the test suite. This incurs no provider API
+cost and runs in seconds.
+
+```bash
+python3 -m pytest
+cd paper && PYTHONPATH=$(pwd)/.. python3 build_tables.py
+```
+
+### (b) Re-elicit from scratch
+
+Run the full v4 panel from scratch. This calls out to every provider
+and takes roughly 1–2 hours of wall time. Total API cost is
+approximately $25–$30 across the 11 models × 26 quantities × 15 runs
+design (4,290 model runs). Set provider API keys in your environment
+first.
+
+```bash
+python3 scripts/run_v4_full_panel.py
+```
+
+Four premium models (`claude-sonnet-4.6`, `claude-opus-4.7`,
+`gemini-3.1-pro-preview`, and `grok-4.20`) may need the per-quantity
+fallback when multi-quantity cells hang under the main driver. Re-run
+those four explicitly with:
+
+```bash
+python3 scripts/run_v4_per_quantity.py --model claude-sonnet-4.6
+python3 scripts/run_v4_per_quantity.py --model claude-opus-4.7
+python3 scripts/run_v4_per_quantity.py --model gemini-3.1-pro-preview
+python3 scripts/run_v4_per_quantity.py --model grok-4.20
+```
+
+See `results/README.md` for the result-directory naming convention and
+a note on how the per-quantity fallback affects `summary.csv` cost
+aggregation.
+
 ## Initial Quantity Set
 
 The first registry is intentionally broad enough to support a paper that starts with labor-supply review parameters but can expand to model-calibration inputs used in OG-USA-style work.

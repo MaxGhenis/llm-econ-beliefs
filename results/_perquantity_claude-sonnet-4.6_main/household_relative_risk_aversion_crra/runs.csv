@@ -1,0 +1,511 @@
+provider,model_name,quantity_id,run_index,prompt_version,tool_regime,parsed_ok,point_estimate,interpretation,lower_bound,upper_bound,confidence_level,quantiles,quantiles_repaired,citations,reasoning_summary,error,raw_response,prompt
+litellm_completion,claude-sonnet-4.6,household.relative_risk_aversion.crra,1,v4,none,True,2.0,"CRRA coefficient (sigma) in household utility over consumption, as typically calibrated for a representative household.",0.5,5.0,0.9,"{""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 5.0}",False,"Mehra & Prescott (1985) – equity premium puzzle paper surveys CRRA values roughly 1–10, noting plausible range near 1–2 | Macro calibration literature (e.g., Cooley & Prescott 1995 RBC handbook) commonly sets sigma=1 (log utility) or sigma=2 | Microeconomic estimates (e.g., Blundell, Browning & Meghir 1994; survey by Chetty 2006) suggest sigma closer to 0.5–2 from consumption data","The CRRA coefficient sigma is one of the most widely discussed parameters in macroeconomics and finance. Log utility (sigma=1) is a common benchmark. RBC and DSGE macro models frequently calibrate sigma between 1 and 3, with 2 being a very common choice. Asset-pricing work sometimes requires higher values (5–10) to match the equity premium, but those are generally viewed as implausibly high from a micro standpoint. Micro-based estimates from consumption data tend to cluster below 2. My median is 2, reflecting the modal macro calibration choice, with a 90% interval of roughly 0.5 to 5.",,"{""interpretation"": ""CRRA coefficient (sigma) in household utility over consumption, as typically calibrated for a representative household."", ""point_estimate"": 2, ""quantiles"": {""p05"": 0.5, ""p25"": 1, ""p50"": 2, ""p75"": 3, ""p95"": 5}, ""citations"": [""Mehra & Prescott (1985) \u2013 equity premium puzzle paper surveys CRRA values roughly 1\u201310, noting plausible range near 1\u20132"", ""Macro calibration literature (e.g., Cooley & Prescott 1995 RBC handbook) commonly sets sigma=1 (log utility) or sigma=2"", ""Microeconomic estimates (e.g., Blundell, Browning & Meghir 1994; survey by Chetty 2006) suggest sigma closer to 0.5\u20132 from consumption data""], ""reasoning_summary"": ""The CRRA coefficient sigma is one of the most widely discussed parameters in macroeconomics and finance. Log utility (sigma=1) is a common benchmark. RBC and DSGE macro models frequently calibrate sigma between 1 and 3, with 2 being a very common choice. Asset-pricing work sometimes requires higher values (5\u201310) to match the equity premium, but those are generally viewed as implausibly high from a micro standpoint. Micro-based estimates from consumption data tend to cluster below 2. My median is 2, reflecting the modal macro calibration choice, with a 90% interval of roughly 0.5 to 5.""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Coefficient of relative risk aversion
+- Definition: CRRA coefficient in household utility over consumption.
+- Target interpretation: CRRA coefficient, often denoted sigma
+- Population/context: Representative household or calibrated household block
+- Units: coefficient
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,household.relative_risk_aversion.crra,2,v4,none,True,2.0,"CRRA coefficient (sigma) in household utility over consumption, as calibrated in representative-agent or household-block macroeconomic models.",0.5,6.0,0.9,"{""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 6.0}",False,"Mehra & Prescott (1985) – equity premium puzzle paper, which highlighted that low CRRA (~1) is insufficient to match asset pricing moments, prompting higher values | Smets & Wouters (2007) – estimated DSGE model for the US, calibrates/estimates sigma around 1.5–2 | King, Plosser & Rebelo (1988) – RBC framework commonly uses sigma = 1 (log utility) as a baseline","The literature spans a wide range. Log utility (sigma=1) is a classic baseline in RBC models (King-Plosser-Rebelo). Estimated DSGE models (Smets-Wouters) tend to find sigma near 1.5–2. Asset-pricing and macro-finance work often uses sigma in the range 2–5 to match equity premium moments. Micro studies frequently find values closer to 1–2. The most commonly cited calibration in mainstream macro is sigma=2, which I use as the median. The 5th percentile reflects near-risk-neutrality approaches, while the 95th reflects high values used in asset-pricing contexts.",,"{""interpretation"": ""CRRA coefficient (sigma) in household utility over consumption, as calibrated in representative-agent or household-block macroeconomic models."", ""point_estimate"": 2, ""quantiles"": {""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 6.0}, ""citations"": [""Mehra & Prescott (1985) \u2013 equity premium puzzle paper, which highlighted that low CRRA (~1) is insufficient to match asset pricing moments, prompting higher values"", ""Smets & Wouters (2007) \u2013 estimated DSGE model for the US, calibrates/estimates sigma around 1.5\u20132"", ""King, Plosser & Rebelo (1988) \u2013 RBC framework commonly uses sigma = 1 (log utility) as a baseline""], ""reasoning_summary"": ""The literature spans a wide range. Log utility (sigma=1) is a classic baseline in RBC models (King-Plosser-Rebelo). Estimated DSGE models (Smets-Wouters) tend to find sigma near 1.5\u20132. Asset-pricing and macro-finance work often uses sigma in the range 2\u20135 to match equity premium moments. Micro studies frequently find values closer to 1\u20132. The most commonly cited calibration in mainstream macro is sigma=2, which I use as the median. The 5th percentile reflects near-risk-neutrality approaches, while the 95th reflects high values used in asset-pricing contexts.""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Coefficient of relative risk aversion
+- Definition: CRRA coefficient in household utility over consumption.
+- Target interpretation: CRRA coefficient, often denoted sigma
+- Population/context: Representative household or calibrated household block
+- Units: coefficient
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,household.relative_risk_aversion.crra,3,v4,none,True,2.0,"CRRA coefficient (sigma) in household utility over consumption, as typically calibrated for a representative household.",0.5,5.0,0.9,"{""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 5.0}",False,"Mehra & Prescott (1985) – equity premium puzzle paper discusses plausible CRRA range, noting values above ~10 are implausible | Ljungqvist & Sargent 'Recursive Macroeconomic Theory' – standard RBC/DSGE calibrations commonly use σ ∈ {1, 2, 5} | Attanasio & Weber (1995, REStud) – micro estimates of intertemporal substitution imply σ roughly 1–3","The CRRA coefficient σ is one of the most-discussed parameters in macroeconomics. Log utility (σ = 1) is a common benchmark; real-business-cycle and DSGE models routinely calibrate σ between 1 and 5, with 2 being a very common central choice. Micro-econometric estimates (e.g., Attanasio & Weber) tend to cluster in the 1–3 range. Values below 0.5 or above 10 are rarely used in serious calibrations. I set p50 = 2 as the modal calibration value, with the 5th–95th range spanning roughly 0.5–5 to cover the spread across the literature.",,"{""interpretation"": ""CRRA coefficient (sigma) in household utility over consumption, as typically calibrated for a representative household."", ""point_estimate"": 2, ""quantiles"": {""p05"": 0.5, ""p25"": 1, ""p50"": 2, ""p75"": 3, ""p95"": 5}, ""citations"": [""Mehra & Prescott (1985) \u2013 equity premium puzzle paper discusses plausible CRRA range, noting values above ~10 are implausible"", ""Ljungqvist & Sargent 'Recursive Macroeconomic Theory' \u2013 standard RBC/DSGE calibrations commonly use \u03c3 \u2208 {1, 2, 5}"", ""Attanasio & Weber (1995, REStud) \u2013 micro estimates of intertemporal substitution imply \u03c3 roughly 1\u20133""], ""reasoning_summary"": ""The CRRA coefficient \u03c3 is one of the most-discussed parameters in macroeconomics. Log utility (\u03c3 = 1) is a common benchmark; real-business-cycle and DSGE models routinely calibrate \u03c3 between 1 and 5, with 2 being a very common central choice. Micro-econometric estimates (e.g., Attanasio & Weber) tend to cluster in the 1\u20133 range. Values below 0.5 or above 10 are rarely used in serious calibrations. I set p50 = 2 as the modal calibration value, with the 5th\u201395th range spanning roughly 0.5\u20135 to cover the spread across the literature.""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Coefficient of relative risk aversion
+- Definition: CRRA coefficient in household utility over consumption.
+- Target interpretation: CRRA coefficient, often denoted sigma
+- Population/context: Representative household or calibrated household block
+- Units: coefficient
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,household.relative_risk_aversion.crra,4,v4,none,True,2.0,"CRRA coefficient (sigma) in household utility over consumption, as typically calibrated for a representative household in macroeconomic models.",0.5,5.0,0.9,"{""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 5.0}",False,"Mehra & Prescott (1985) – equity premium puzzle paper surveys plausible CRRA range, suggesting values around 1–10 but noting values above ~10 are hard to defend | Ljungqvist & Sargent 'Recursive Macroeconomic Theory' – common calibration benchmark of sigma=1 (log utility) or sigma=2 | Attanasio & Weber (1995) – micro-based estimates of intertemporal elasticity of substitution implying sigma in range 1–4","The CRRA coefficient sigma is one of the most widely discussed parameters in macroeconomics. Log utility (sigma=1) is a common benchmark; many RBC and DSGE models use sigma between 1 and 3, with 2 being perhaps the single most popular calibration value. Micro-econometric estimates vary widely (roughly 0.5–5), and asset-pricing considerations push toward higher values (sometimes 5–10), but the mainstream macro calibration literature concentrates around 1–3. I place the median at 2, with the 5th–95th percentile range spanning roughly 0.5–5 to capture both log-utility benchmarks and higher-risk-aversion calibrations.",,"{""interpretation"": ""CRRA coefficient (sigma) in household utility over consumption, as typically calibrated for a representative household in macroeconomic models."", ""point_estimate"": 2, ""quantiles"": {""p05"": 0.5, ""p25"": 1, ""p50"": 2, ""p75"": 3, ""p95"": 5}, ""citations"": [""Mehra & Prescott (1985) \u2013 equity premium puzzle paper surveys plausible CRRA range, suggesting values around 1\u201310 but noting values above ~10 are hard to defend"", ""Ljungqvist & Sargent 'Recursive Macroeconomic Theory' \u2013 common calibration benchmark of sigma=1 (log utility) or sigma=2"", ""Attanasio & Weber (1995) \u2013 micro-based estimates of intertemporal elasticity of substitution implying sigma in range 1\u20134""], ""reasoning_summary"": ""The CRRA coefficient sigma is one of the most widely discussed parameters in macroeconomics. Log utility (sigma=1) is a common benchmark; many RBC and DSGE models use sigma between 1 and 3, with 2 being perhaps the single most popular calibration value. Micro-econometric estimates vary widely (roughly 0.5\u20135), and asset-pricing considerations push toward higher values (sometimes 5\u201310), but the mainstream macro calibration literature concentrates around 1\u20133. I place the median at 2, with the 5th\u201395th percentile range spanning roughly 0.5\u20135 to capture both log-utility benchmarks and higher-risk-aversion calibrations.""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Coefficient of relative risk aversion
+- Definition: CRRA coefficient in household utility over consumption.
+- Target interpretation: CRRA coefficient, often denoted sigma
+- Population/context: Representative household or calibrated household block
+- Units: coefficient
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,household.relative_risk_aversion.crra,5,v4,none,True,2.0,"CRRA coefficient (sigma) in household utility over consumption, as used in representative-agent or calibrated household-block macroeconomic models.",0.5,6.0,0.9,"{""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 6.0}",False,"Mehra & Prescott (1985) – equity premium puzzle paper notes σ ≈ 1 is standard but puzzle requires σ >> 10; motivates debate over plausible range. | Kaplan, Moll & Violante (2018, Econometrica) – heterogeneous-agent NK model calibrates σ = 2. | Smets & Wouters (2007, AER) – estimated DSGE model finds σ around 1–2 for the U.S.","The CRRA coefficient σ is one of the most commonly calibrated parameters in macro models. Log utility (σ = 1) is a classic benchmark. Many modern DSGE and heterogeneous-agent models use σ = 1 or 2. Empirical estimates from consumption data tend to be low (0.5–2), while asset-pricing arguments push toward higher values (3–10). The bulk of macro calibrations cluster between 1 and 3, with 2 being a widely used middle ground. Values below 0.5 or above 6–8 are rare in the mainstream calibration literature, though not theoretically excluded.",,"{""interpretation"": ""CRRA coefficient (sigma) in household utility over consumption, as used in representative-agent or calibrated household-block macroeconomic models."", ""point_estimate"": 2, ""quantiles"": {""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 6.0}, ""citations"": [""Mehra & Prescott (1985) \u2013 equity premium puzzle paper notes \u03c3 \u2248 1 is standard but puzzle requires \u03c3 >> 10; motivates debate over plausible range."", ""Kaplan, Moll & Violante (2018, Econometrica) \u2013 heterogeneous-agent NK model calibrates \u03c3 = 2."", ""Smets & Wouters (2007, AER) \u2013 estimated DSGE model finds \u03c3 around 1\u20132 for the U.S.""], ""reasoning_summary"": ""The CRRA coefficient \u03c3 is one of the most commonly calibrated parameters in macro models. Log utility (\u03c3 = 1) is a classic benchmark. Many modern DSGE and heterogeneous-agent models use \u03c3 = 1 or 2. Empirical estimates from consumption data tend to be low (0.5\u20132), while asset-pricing arguments push toward higher values (3\u201310). The bulk of macro calibrations cluster between 1 and 3, with 2 being a widely used middle ground. Values below 0.5 or above 6\u20138 are rare in the mainstream calibration literature, though not theoretically excluded.""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Coefficient of relative risk aversion
+- Definition: CRRA coefficient in household utility over consumption.
+- Target interpretation: CRRA coefficient, often denoted sigma
+- Population/context: Representative household or calibrated household block
+- Units: coefficient
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,household.relative_risk_aversion.crra,6,v4,none,True,2.0,"CRRA coefficient (sigma) in household utility over consumption, as commonly calibrated for a representative household.",0.5,6.0,0.9,"{""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 6.0}",False,"Mehra and Prescott (1985) – equity premium puzzle paper surveys plausible CRRA range, suggesting values around 1–10 to reconcile asset pricing facts. | Ljungqvist and Sargent 'Recursive Macroeconomic Theory' – commonly calibrates sigma = 1 (log utility) or sigma = 2 as benchmark values. | Havranek et al. (2015, Journal of Economic Surveys) – meta-analysis of intertemporal elasticity of substitution estimates, implying median CRRA near 1–2.","The CRRA coefficient sigma is one of the most frequently calibrated parameters in macroeconomics. Log utility (sigma=1) is a theoretical benchmark due to its clean properties. Empirical calibrations in RBC and DSGE models typically use sigma between 1 and 3, with 2 being a very common choice. Asset-pricing work sometimes requires higher values (5–10) to match the equity premium, but micro-data estimates tend to be lower (0.5–2). The distribution I report centers on 2, with meaningful probability mass between 1 and 3, and a fat right tail reflecting the asset-pricing literature's higher estimates.",,"{""interpretation"": ""CRRA coefficient (sigma) in household utility over consumption, as commonly calibrated for a representative household."", ""point_estimate"": 2, ""quantiles"": {""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 6.0}, ""citations"": [""Mehra and Prescott (1985) \u2013 equity premium puzzle paper surveys plausible CRRA range, suggesting values around 1\u201310 to reconcile asset pricing facts."", ""Ljungqvist and Sargent 'Recursive Macroeconomic Theory' \u2013 commonly calibrates sigma = 1 (log utility) or sigma = 2 as benchmark values."", ""Havranek et al. (2015, Journal of Economic Surveys) \u2013 meta-analysis of intertemporal elasticity of substitution estimates, implying median CRRA near 1\u20132.""], ""reasoning_summary"": ""The CRRA coefficient sigma is one of the most frequently calibrated parameters in macroeconomics. Log utility (sigma=1) is a theoretical benchmark due to its clean properties. Empirical calibrations in RBC and DSGE models typically use sigma between 1 and 3, with 2 being a very common choice. Asset-pricing work sometimes requires higher values (5\u201310) to match the equity premium, but micro-data estimates tend to be lower (0.5\u20132). The distribution I report centers on 2, with meaningful probability mass between 1 and 3, and a fat right tail reflecting the asset-pricing literature's higher estimates.""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Coefficient of relative risk aversion
+- Definition: CRRA coefficient in household utility over consumption.
+- Target interpretation: CRRA coefficient, often denoted sigma
+- Population/context: Representative household or calibrated household block
+- Units: coefficient
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,household.relative_risk_aversion.crra,7,v4,none,True,2.0,"CRRA coefficient (sigma) in household utility over consumption, representing the degree of relative risk aversion for a representative or calibrated household.",0.5,5.0,0.9,"{""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 5.0}",False,"Mehra and Prescott (1985) – equity premium puzzle paper, noting conventional CRRA values around 1–2 and arguing higher values needed to match data | Gourinchas and Parker (2002) – structural estimation of buffer-stock model, estimating sigma around 0.5–1.4 | Smets and Wouters (2003/2007) – estimated DSGE model for euro area and US, typically calibrating or estimating sigma near 1–2","The CRRA coefficient is one of the most debated parameters in macroeconomics and finance. Log utility (sigma=1) is a common benchmark (e.g., real business cycle tradition). Many DSGE models (Smets-Wouters style) estimate or calibrate sigma between 1 and 2. Consumption-based asset pricing requires much higher values (10+) to match the equity premium, but structural micro estimates (Gourinchas-Parker, Attanasio-Weber) tend to cluster in the 0.5–2 range. The bulk of calibrated macro models use sigma in [1, 3], with 2 being a very common choice. Extreme values below 0.5 or above 5 are rare in mainstream calibrations, giving my 5th and 95th percentiles.",,"{""interpretation"": ""CRRA coefficient (sigma) in household utility over consumption, representing the degree of relative risk aversion for a representative or calibrated household."", ""point_estimate"": 2, ""quantiles"": {""p05"": 0.5, ""p25"": 1, ""p50"": 2, ""p75"": 3, ""p95"": 5}, ""citations"": [""Mehra and Prescott (1985) \u2013 equity premium puzzle paper, noting conventional CRRA values around 1\u20132 and arguing higher values needed to match data"", ""Gourinchas and Parker (2002) \u2013 structural estimation of buffer-stock model, estimating sigma around 0.5\u20131.4"", ""Smets and Wouters (2003/2007) \u2013 estimated DSGE model for euro area and US, typically calibrating or estimating sigma near 1\u20132""], ""reasoning_summary"": ""The CRRA coefficient is one of the most debated parameters in macroeconomics and finance. Log utility (sigma=1) is a common benchmark (e.g., real business cycle tradition). Many DSGE models (Smets-Wouters style) estimate or calibrate sigma between 1 and 2. Consumption-based asset pricing requires much higher values (10+) to match the equity premium, but structural micro estimates (Gourinchas-Parker, Attanasio-Weber) tend to cluster in the 0.5\u20132 range. The bulk of calibrated macro models use sigma in [1, 3], with 2 being a very common choice. Extreme values below 0.5 or above 5 are rare in mainstream calibrations, giving my 5th and 95th percentiles.""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Coefficient of relative risk aversion
+- Definition: CRRA coefficient in household utility over consumption.
+- Target interpretation: CRRA coefficient, often denoted sigma
+- Population/context: Representative household or calibrated household block
+- Units: coefficient
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,household.relative_risk_aversion.crra,8,v4,none,True,2.0,"CRRA coefficient (sigma) in household utility over consumption, as calibrated for a representative household.",0.5,6.0,0.9,"{""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 6.0}",False,"Mehra & Prescott (1985) – equity premium puzzle paper notes plausible CRRA values of 1–10, with benchmark around 1–2 | Smets & Wouters (2007) – estimated DSGE model for the euro area, calibrates/estimates sigma near 1.5 | Ljungqvist & Sargent 'Recursive Macroeconomic Theory' – commonly uses sigma = 1 (log utility) or sigma = 2 as baseline calibrations","The CRRA coefficient sigma is one of the most-discussed parameters in macroeconomics and finance. Log utility (sigma = 1) is a natural benchmark and widely used. RBC and DSGE literature commonly calibrates sigma between 1 and 3, with 1 or 2 being the most frequent point choices. Asset-pricing work sometimes pushes sigma higher (5–10) to address the equity premium, but those values are less standard in household macro calibrations. Survey and experimental estimates of risk aversion tend to cluster between 1 and 4. Given this, my median is 2, with the interquartile range spanning 1–3, and the 5th–95th percentile spanning roughly 0.5–6 to accommodate log utility at the low end and higher risk-aversion calibrations at the high end.",,"{""interpretation"": ""CRRA coefficient (sigma) in household utility over consumption, as calibrated for a representative household."", ""point_estimate"": 2, ""quantiles"": {""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 6.0}, ""citations"": [""Mehra & Prescott (1985) \u2013 equity premium puzzle paper notes plausible CRRA values of 1\u201310, with benchmark around 1\u20132"", ""Smets & Wouters (2007) \u2013 estimated DSGE model for the euro area, calibrates/estimates sigma near 1.5"", ""Ljungqvist & Sargent 'Recursive Macroeconomic Theory' \u2013 commonly uses sigma = 1 (log utility) or sigma = 2 as baseline calibrations""], ""reasoning_summary"": ""The CRRA coefficient sigma is one of the most-discussed parameters in macroeconomics and finance. Log utility (sigma = 1) is a natural benchmark and widely used. RBC and DSGE literature commonly calibrates sigma between 1 and 3, with 1 or 2 being the most frequent point choices. Asset-pricing work sometimes pushes sigma higher (5\u201310) to address the equity premium, but those values are less standard in household macro calibrations. Survey and experimental estimates of risk aversion tend to cluster between 1 and 4. Given this, my median is 2, with the interquartile range spanning 1\u20133, and the 5th\u201395th percentile spanning roughly 0.5\u20136 to accommodate log utility at the low end and higher risk-aversion calibrations at the high end.""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Coefficient of relative risk aversion
+- Definition: CRRA coefficient in household utility over consumption.
+- Target interpretation: CRRA coefficient, often denoted sigma
+- Population/context: Representative household or calibrated household block
+- Units: coefficient
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,household.relative_risk_aversion.crra,9,v4,none,True,2.0,CRRA coefficient (sigma) in household utility over consumption for a representative or calibrated household.,0.5,5.0,0.9,"{""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 5.0}",False,"Mehra & Prescott (1985) – equity premium puzzle paper surveys plausible range σ ≈ 1–10, with σ = 1 (log utility) as a benchmark. | Attanasio & Weber (1995, RES) – micro-econometric estimates of CRRA from consumption Euler equations cluster around 1–3. | Macro/DSGE calibration literature (e.g., Smets & Wouters 2007) – typically calibrates or estimates σ ≈ 1–2 for the representative household.","The CRRA coefficient is one of the most commonly calibrated parameters in macroeconomics and finance. Log utility (σ = 1) is a longstanding benchmark. DSGE models (e.g., Smets-Wouters) often use σ ≈ 1–2. Micro-econometric studies tend to find somewhat higher values (1–3), while asset-pricing calibrations sometimes push σ toward 3–5 to match risk premia. Values below 0.5 or above 6 are used but uncommon. I center my median at 2, reflecting the slight upward drift from log utility in modern calibrations, with the 5th–95th percentile range covering the bulk of published practice.",,"{""interpretation"": ""CRRA coefficient (sigma) in household utility over consumption for a representative or calibrated household."", ""point_estimate"": 2, ""quantiles"": {""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 5.0}, ""citations"": [""Mehra & Prescott (1985) \u2013 equity premium puzzle paper surveys plausible range \u03c3 \u2248 1\u201310, with \u03c3 = 1 (log utility) as a benchmark."", ""Attanasio & Weber (1995, RES) \u2013 micro-econometric estimates of CRRA from consumption Euler equations cluster around 1\u20133."", ""Macro/DSGE calibration literature (e.g., Smets & Wouters 2007) \u2013 typically calibrates or estimates \u03c3 \u2248 1\u20132 for the representative household.""], ""reasoning_summary"": ""The CRRA coefficient is one of the most commonly calibrated parameters in macroeconomics and finance. Log utility (\u03c3 = 1) is a longstanding benchmark. DSGE models (e.g., Smets-Wouters) often use \u03c3 \u2248 1\u20132. Micro-econometric studies tend to find somewhat higher values (1\u20133), while asset-pricing calibrations sometimes push \u03c3 toward 3\u20135 to match risk premia. Values below 0.5 or above 6 are used but uncommon. I center my median at 2, reflecting the slight upward drift from log utility in modern calibrations, with the 5th\u201395th percentile range covering the bulk of published practice.""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Coefficient of relative risk aversion
+- Definition: CRRA coefficient in household utility over consumption.
+- Target interpretation: CRRA coefficient, often denoted sigma
+- Population/context: Representative household or calibrated household block
+- Units: coefficient
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,household.relative_risk_aversion.crra,10,v4,none,True,2.0,"CRRA coefficient (sigma) in household utility over consumption, as used in representative-agent or calibrated household-block macroeconomic models.",0.5,5.0,0.9,"{""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 5.0}",False,"Mehra & Prescott (1985) — equity premium puzzle paper notes that low CRRA (~1) cannot match equity premium, motivating higher values. | Cooley & Prescott (1995, Frontiers of Business Cycle Research) — standard RBC calibration often uses sigma = 1 (log utility) or sigma = 2. | Attanasio & Weber (1995, JPE) — micro-based estimates of CRRA from consumption Euler equations tend to cluster between 1 and 3.","The literature on CRRA is wide-ranging. Log utility (sigma = 1) is a common benchmark in RBC/growth models. Many macro calibrations use sigma = 2 as a baseline (e.g., Cooley-Prescott tradition). Asset-pricing work (equity premium) often requires sigma well above 1, sometimes 5–10 under standard expected utility, but micro estimates from Euler equations (Attanasio-Weber, Hall) typically fall in the 1–3 range. Survey-based and experimental estimates sometimes go below 1. The modal practice in calibrated macro models is sigma ∈ [1, 3], with 2 being a very common central choice. I set p50 = 2, with a 90% credible range of roughly 0.5–5 to reflect genuine dispersion across contexts and estimation methods.",,"{""interpretation"": ""CRRA coefficient (sigma) in household utility over consumption, as used in representative-agent or calibrated household-block macroeconomic models."", ""point_estimate"": 2, ""quantiles"": {""p05"": 0.5, ""p25"": 1, ""p50"": 2, ""p75"": 3, ""p95"": 5}, ""citations"": [""Mehra & Prescott (1985) \u2014 equity premium puzzle paper notes that low CRRA (~1) cannot match equity premium, motivating higher values."", ""Cooley & Prescott (1995, Frontiers of Business Cycle Research) \u2014 standard RBC calibration often uses sigma = 1 (log utility) or sigma = 2."", ""Attanasio & Weber (1995, JPE) \u2014 micro-based estimates of CRRA from consumption Euler equations tend to cluster between 1 and 3.""], ""reasoning_summary"": ""The literature on CRRA is wide-ranging. Log utility (sigma = 1) is a common benchmark in RBC/growth models. Many macro calibrations use sigma = 2 as a baseline (e.g., Cooley-Prescott tradition). Asset-pricing work (equity premium) often requires sigma well above 1, sometimes 5\u201310 under standard expected utility, but micro estimates from Euler equations (Attanasio-Weber, Hall) typically fall in the 1\u20133 range. Survey-based and experimental estimates sometimes go below 1. The modal practice in calibrated macro models is sigma \u2208 [1, 3], with 2 being a very common central choice. I set p50 = 2, with a 90% credible range of roughly 0.5\u20135 to reflect genuine dispersion across contexts and estimation methods.""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Coefficient of relative risk aversion
+- Definition: CRRA coefficient in household utility over consumption.
+- Target interpretation: CRRA coefficient, often denoted sigma
+- Population/context: Representative household or calibrated household block
+- Units: coefficient
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,household.relative_risk_aversion.crra,11,v4,none,True,2.0,"CRRA coefficient (sigma) in household utility over consumption, as calibrated for a representative household.",0.5,5.0,0.9,"{""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 5.0}",False,"Mehra & Prescott (1985) — equity premium puzzle paper discusses sigma ~ 1 being too low, motivating higher values | Ljungqvist & Sargent 'Recursive Macroeconomic Theory' — common calibration of sigma = 1 (log) to 2–3 in macro models | Attanasio & Weber (1995, RESTUD) — micro-estimated CRRA in range 1–3 for household consumption","The CRRA coefficient sigma is one of the most widely discussed parameters in macroeconomics. Log utility (sigma = 1) is a common benchmark. Most DSGE and RBC calibrations use sigma in the range 1–3, with values near 2 being a frequent choice (e.g., Prescott's RBC calibrations). Micro-econometric estimates vary widely, sometimes below 1 and sometimes above 5, but the modal calibration in the macro literature clusters around 1–3. The equity premium and asset pricing literature pushes toward higher values (even >5 in some habit or Epstein-Zin contexts), but for a plain CRRA representative-agent calibration, sigma = 2 is a reasonable central estimate. The 5th percentile reflects the lower bound where log utility or near-linear utility is plausible; the 95th percentile captures high-risk-aversion calibrations sometimes used in finance-oriented macro models.",,"{""interpretation"": ""CRRA coefficient (sigma) in household utility over consumption, as calibrated for a representative household."", ""point_estimate"": 2, ""quantiles"": {""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 5.0}, ""citations"": [""Mehra & Prescott (1985) \u2014 equity premium puzzle paper discusses sigma ~ 1 being too low, motivating higher values"", ""Ljungqvist & Sargent 'Recursive Macroeconomic Theory' \u2014 common calibration of sigma = 1 (log) to 2\u20133 in macro models"", ""Attanasio & Weber (1995, RESTUD) \u2014 micro-estimated CRRA in range 1\u20133 for household consumption""], ""reasoning_summary"": ""The CRRA coefficient sigma is one of the most widely discussed parameters in macroeconomics. Log utility (sigma = 1) is a common benchmark. Most DSGE and RBC calibrations use sigma in the range 1\u20133, with values near 2 being a frequent choice (e.g., Prescott's RBC calibrations). Micro-econometric estimates vary widely, sometimes below 1 and sometimes above 5, but the modal calibration in the macro literature clusters around 1\u20133. The equity premium and asset pricing literature pushes toward higher values (even >5 in some habit or Epstein-Zin contexts), but for a plain CRRA representative-agent calibration, sigma = 2 is a reasonable central estimate. The 5th percentile reflects the lower bound where log utility or near-linear utility is plausible; the 95th percentile captures high-risk-aversion calibrations sometimes used in finance-oriented macro models.""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Coefficient of relative risk aversion
+- Definition: CRRA coefficient in household utility over consumption.
+- Target interpretation: CRRA coefficient, often denoted sigma
+- Population/context: Representative household or calibrated household block
+- Units: coefficient
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,household.relative_risk_aversion.crra,12,v4,none,True,2.0,"CRRA coefficient (sigma) in household utility over consumption, representing the curvature of the utility function and degree of relative risk aversion.",0.5,6.0,0.9,"{""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 6.0}",False,"Mehra & Prescott (1985) – equity premium puzzle paper uses sigma~1, noting that higher values are needed to match equity premium | Gourinchas & Parker (2002) – structural life-cycle estimation finds sigma around 0.5–1.4 | Macro/DSGE literature (e.g., Smets & Wouters 2007) – commonly calibrates sigma in range 1–2","The CRRA coefficient is one of the most extensively discussed parameters in macroeconomics and finance. Log utility (sigma=1) is a common benchmark and theoretically convenient. DSGE models (e.g., Smets & Wouters) often use sigma around 1–2. The equity premium literature argues sigma needs to be much higher (5–10) to match asset prices, but micro-evidence and structural consumption estimates tend to favor lower values (0.5–2). Survey-based and experimental estimates span a wide range. The central tendency in calibrated macro models clusters around 1–2, with 2 being a common workhorse value, so I place p50=2. The distribution is right-skewed given occasional high-sigma calibrations.",,"{""interpretation"": ""CRRA coefficient (sigma) in household utility over consumption, representing the curvature of the utility function and degree of relative risk aversion."", ""point_estimate"": 2, ""quantiles"": {""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 6.0}, ""citations"": [""Mehra & Prescott (1985) \u2013 equity premium puzzle paper uses sigma~1, noting that higher values are needed to match equity premium"", ""Gourinchas & Parker (2002) \u2013 structural life-cycle estimation finds sigma around 0.5\u20131.4"", ""Macro/DSGE literature (e.g., Smets & Wouters 2007) \u2013 commonly calibrates sigma in range 1\u20132""], ""reasoning_summary"": ""The CRRA coefficient is one of the most extensively discussed parameters in macroeconomics and finance. Log utility (sigma=1) is a common benchmark and theoretically convenient. DSGE models (e.g., Smets & Wouters) often use sigma around 1\u20132. The equity premium literature argues sigma needs to be much higher (5\u201310) to match asset prices, but micro-evidence and structural consumption estimates tend to favor lower values (0.5\u20132). Survey-based and experimental estimates span a wide range. The central tendency in calibrated macro models clusters around 1\u20132, with 2 being a common workhorse value, so I place p50=2. The distribution is right-skewed given occasional high-sigma calibrations.""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Coefficient of relative risk aversion
+- Definition: CRRA coefficient in household utility over consumption.
+- Target interpretation: CRRA coefficient, often denoted sigma
+- Population/context: Representative household or calibrated household block
+- Units: coefficient
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,household.relative_risk_aversion.crra,13,v4,none,True,2.0,"CRRA coefficient (sigma) in household utility over consumption, as calibrated for a representative household.",0.5,5.0,0.9,"{""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 5.0}",False,"Mehra & Prescott (1985) – equity premium puzzle paper surveys plausible CRRA range roughly 1–10, with low values (≈1) implied by smooth consumption but higher values needed to match equity premia. | Gourinchas & Parker (2002) – structural estimation of buffer-stock saving implies CRRA around 0.5–1.4 for median households. | Smets & Wouters (2007) – estimated DSGE model for the euro area calibrates/estimates CRRA (inverse of intertemporal elasticity) in the range of 1–2.","The CRRA coefficient is one of the most debated parameters in macro/finance. Log utility (sigma=1) is a common benchmark and theoretical workhorse. Many calibrated RBC/DSGE models use sigma=1–2. Structural micro-estimates from consumption Euler equations often find values between 0.5 and 2. Asset-pricing literature (equity premium) pushes toward higher values (3–10), but those are often viewed as implausibly high. The mainstream calibration range in macro is roughly 1–3, with 2 being a common choice in textbooks and medium-scale DSGE models. I set the median at 2, with the 5th percentile at 0.5 (log or near-log utility advocates) and the 95th at 5 (high values sometimes used in asset pricing or robustness checks).",,"{""interpretation"": ""CRRA coefficient (sigma) in household utility over consumption, as calibrated for a representative household."", ""point_estimate"": 2, ""quantiles"": {""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 5.0}, ""citations"": [""Mehra & Prescott (1985) \u2013 equity premium puzzle paper surveys plausible CRRA range roughly 1\u201310, with low values (\u22481) implied by smooth consumption but higher values needed to match equity premia."", ""Gourinchas & Parker (2002) \u2013 structural estimation of buffer-stock saving implies CRRA around 0.5\u20131.4 for median households."", ""Smets & Wouters (2007) \u2013 estimated DSGE model for the euro area calibrates/estimates CRRA (inverse of intertemporal elasticity) in the range of 1\u20132.""], ""reasoning_summary"": ""The CRRA coefficient is one of the most debated parameters in macro/finance. Log utility (sigma=1) is a common benchmark and theoretical workhorse. Many calibrated RBC/DSGE models use sigma=1\u20132. Structural micro-estimates from consumption Euler equations often find values between 0.5 and 2. Asset-pricing literature (equity premium) pushes toward higher values (3\u201310), but those are often viewed as implausibly high. The mainstream calibration range in macro is roughly 1\u20133, with 2 being a common choice in textbooks and medium-scale DSGE models. I set the median at 2, with the 5th percentile at 0.5 (log or near-log utility advocates) and the 95th at 5 (high values sometimes used in asset pricing or robustness checks).""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Coefficient of relative risk aversion
+- Definition: CRRA coefficient in household utility over consumption.
+- Target interpretation: CRRA coefficient, often denoted sigma
+- Population/context: Representative household or calibrated household block
+- Units: coefficient
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,household.relative_risk_aversion.crra,14,v4,none,True,2.0,CRRA coefficient (sigma) in household utility over consumption for a representative or calibrated household.,0.5,6.0,0.9,"{""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 6.0}",False,"Mehra & Prescott (1985) - equity premium puzzle paper uses sigma ~1, notes values up to 10 are implausible | Havranek et al. (2015, Journal of Economic Surveys) - meta-analysis finds mean EIS ~0.5, implying sigma ~2 | Macro/DSGE calibration literature (e.g., Smets & Wouters 2007) commonly sets sigma in range 1–3","The CRRA coefficient is among the most widely calibrated parameters in macroeconomics and finance. Log utility (sigma = 1) is a common benchmark and lower bound in many models. Mainstream macro/DSGE models (e.g., Smets-Wouters) often calibrate sigma around 1–2. Finance models sometimes push sigma higher (2–5) to address the equity premium. Experimental and micro-econometric estimates tend to cluster near 1–3. Values below 0.5 or above 6–8 are used but are minority positions. I center my median at 2, reflecting the slight upward tilt from log utility seen in much applied work, with substantial spread given genuine disagreement across literatures.",,"{""interpretation"": ""CRRA coefficient (sigma) in household utility over consumption for a representative or calibrated household."", ""point_estimate"": 2, ""quantiles"": {""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 6.0}, ""citations"": [""Mehra & Prescott (1985) - equity premium puzzle paper uses sigma ~1, notes values up to 10 are implausible"", ""Havranek et al. (2015, Journal of Economic Surveys) - meta-analysis finds mean EIS ~0.5, implying sigma ~2"", ""Macro/DSGE calibration literature (e.g., Smets & Wouters 2007) commonly sets sigma in range 1\u20133""], ""reasoning_summary"": ""The CRRA coefficient is among the most widely calibrated parameters in macroeconomics and finance. Log utility (sigma = 1) is a common benchmark and lower bound in many models. Mainstream macro/DSGE models (e.g., Smets-Wouters) often calibrate sigma around 1\u20132. Finance models sometimes push sigma higher (2\u20135) to address the equity premium. Experimental and micro-econometric estimates tend to cluster near 1\u20133. Values below 0.5 or above 6\u20138 are used but are minority positions. I center my median at 2, reflecting the slight upward tilt from log utility seen in much applied work, with substantial spread given genuine disagreement across literatures.""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Coefficient of relative risk aversion
+- Definition: CRRA coefficient in household utility over consumption.
+- Target interpretation: CRRA coefficient, often denoted sigma
+- Population/context: Representative household or calibrated household block
+- Units: coefficient
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,claude-sonnet-4.6,household.relative_risk_aversion.crra,15,v4,none,True,2.0,"CRRA coefficient (sigma) in household utility over consumption, as typically calibrated for a representative household in macro/finance models.",0.5,6.0,0.9,"{""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.5, ""p95"": 6.0}",False,"Mehra & Prescott (1985) – equity premium puzzle paper uses sigma ~1, motivating higher values to match data | Cooley & Prescott (1995) – RBC calibration handbook, commonly uses sigma = 1 (log utility) or sigma = 2 | Smets & Wouters (2007) – estimated DSGE model for the euro area, finds sigma around 1.4–1.6","The CRRA coefficient is one of the most discussed calibration targets in macroeconomics and finance. Log utility (sigma = 1) is a very common benchmark. RBC and DSGE models frequently use values between 1 and 3, with 2 being a widely cited middle ground. Finance-oriented models (attempting to resolve the equity premium puzzle) push sigma toward 5–10, but household-block macro calibrations rarely go that high. Empirical estimates from consumption data cluster between 1 and 4. I place the median at 2, with the 5th–95th range covering 0.5 to 6 to reflect genuine disciplinary disagreement and the range of published calibrations.",,"{""interpretation"": ""CRRA coefficient (sigma) in household utility over consumption, as typically calibrated for a representative household in macro/finance models."", ""point_estimate"": 2, ""quantiles"": {""p05"": 0.5, ""p25"": 1.0, ""p50"": 2.0, ""p75"": 3.5, ""p95"": 6.0}, ""citations"": [""Mehra & Prescott (1985) \u2013 equity premium puzzle paper uses sigma ~1, motivating higher values to match data"", ""Cooley & Prescott (1995) \u2013 RBC calibration handbook, commonly uses sigma = 1 (log utility) or sigma = 2"", ""Smets & Wouters (2007) \u2013 estimated DSGE model for the euro area, finds sigma around 1.4\u20131.6""], ""reasoning_summary"": ""The CRRA coefficient is one of the most discussed calibration targets in macroeconomics and finance. Log utility (sigma = 1) is a very common benchmark. RBC and DSGE models frequently use values between 1 and 3, with 2 being a widely cited middle ground. Finance-oriented models (attempting to resolve the equity premium puzzle) push sigma toward 5\u201310, but household-block macro calibrations rarely go that high. Empirical estimates from consumption data cluster between 1 and 4. I place the median at 2, with the 5th\u201395th range covering 0.5 to 6 to reflect genuine disciplinary disagreement and the range of published calibrations.""}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Coefficient of relative risk aversion
+- Definition: CRRA coefficient in household utility over consumption.
+- Target interpretation: CRRA coefficient, often denoted sigma
+- Population/context: Representative household or calibrated household block
+- Units: coefficient
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"

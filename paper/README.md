@@ -15,10 +15,12 @@ Supporting files:
 Rebuild tables from the current `results/` CSVs:
 
 ```bash
-PYTHONPATH=$(pwd)/.. /opt/homebrew/opt/python@3.14/bin/python3.14 build_tables.py
+PYTHONPATH=$(pwd)/.. python3 build_tables.py
 ```
 
-The flat-tax and optimal-top-rate tables call into the PolicyEngine-US venv at `~/PolicyEngine/policyengine-us/.venv/bin/python`. If that venv is missing the script falls back to stylized Pareto parameters and emits a note.
+(any Python 3.11+ interpreter with the project dependencies installed will work; `/opt/homebrew/opt/python@3.14/bin/python3.14` is an example of a specific interpreter that has been verified locally.)
+
+The flat-tax and optimal-top-rate tables call into a separate PolicyEngine-US venv. By default the script looks for the repo at `~/PolicyEngine/policyengine-us` and the venv Python at `~/PolicyEngine/policyengine-us/.venv/bin/python`. Override either via the `POLICYENGINE_US_REPO` and `POLICYENGINE_US_PYTHON` environment variables. If the venv is missing the script prints a warning to stderr and falls back to stylized Pareto parameters for the affected tables.
 
 Render the manuscript:
 

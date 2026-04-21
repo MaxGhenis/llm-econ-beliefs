@@ -6,6 +6,8 @@ import csv
 import io
 import json
 import math
+import os
+import random
 import re
 import subprocess
 import sys
@@ -32,8 +34,24 @@ TOP_RATE_PARETO_A = 1.5
 TOP_RATE_CRRA_GAMMA = 1.0
 TOP_RATE_PARETO_PERCENTILE = 0.99
 FLAT_TAX_FRONTIER_DISPLAY_RATES = (0.0, 0.2, 0.4, 0.6, 0.8, 0.95)
-POLICYENGINE_US_REPO = Path("/Users/maxghenis/PolicyEngine/policyengine-us")
-POLICYENGINE_US_PYTHON = POLICYENGINE_US_REPO / ".venv" / "bin" / "python"
+_POLICYENGINE_US_REPO_DEFAULT = "/Users/maxghenis/PolicyEngine/policyengine-us"
+POLICYENGINE_US_REPO = Path(
+    os.environ.get("POLICYENGINE_US_REPO", _POLICYENGINE_US_REPO_DEFAULT)
+)
+_POLICYENGINE_US_PYTHON_DEFAULT = str(POLICYENGINE_US_REPO / ".venv" / "bin" / "python")
+POLICYENGINE_US_PYTHON = Path(
+    os.environ.get("POLICYENGINE_US_PYTHON", _POLICYENGINE_US_PYTHON_DEFAULT)
+)
+if not POLICYENGINE_US_PYTHON.exists() or not POLICYENGINE_US_REPO.exists():
+    print(
+        "warning: PolicyEngine-US repo or venv not found at "
+        f"POLICYENGINE_US_REPO={POLICYENGINE_US_REPO} "
+        f"POLICYENGINE_US_PYTHON={POLICYENGINE_US_PYTHON}; "
+        "PolicyEngine-backed tables will use fallback constants and display NaN "
+        "for microdata-derived fields. Set POLICYENGINE_US_REPO and "
+        "POLICYENGINE_US_PYTHON to override.",
+        file=sys.stderr,
+    )
 NORMAL = NormalDist()
 
 sys.path.insert(0, str(REPO_ROOT))
@@ -159,6 +177,10 @@ def main() -> int:
         labor_tax_rows,
         pareto_parameter=top_rate_calibration["a"],
     )
+    top_rate_robustness = build_top_rate_robustness_table(
+        labor_tax_rows,
+        baseline_a=top_rate_calibration["a"],
+    )
     flat_tax_frontier = build_flat_tax_demogrant_table(
         estimate_policyengine_flat_tax_demogrant_frontier()
     )
@@ -245,6 +267,27 @@ def main() -> int:
         rows=top_rate_mapping,
         note=top_rate_note,
     )
+    if top_rate_robustness:
+        baseline_a_display = top_rate_calibration["a"]
+        write_table_bundle(
+            stem="top-rate-robustness",
+            rows=top_rate_robustness,
+            note=(
+                "Robustness of the utilitarian optimal top-rate mapping in Table 4 to the Pareto tail "
+                f"parameter a and the CRRA coefficient gamma. Each cell is the median implied optimal top rate tau* = "
+                "(1 - g_bar) / (1 - g_bar + a e) computed at the model's pooled ETI median under the "
+                f"(a, gamma) pair in the column header, where g_bar = a / (a + gamma). The baseline column "
+                f"(a = {baseline_a_display:.3f}, gamma = 1) reproduces the median column in Table 4. The "
+                "a = 1.3 / 1.5 / 1.7 columns vary only the Pareto tail while keeping log utility (gamma = 1); "
+                f"the final column replaces log utility with CRRA at gamma = 2 while holding a at the "
+                f"microdata estimate. Under log utility the corresponding welfare weights g_bar are "
+                f"1.3/2.3 = 0.565, {baseline_a_display:.3f}/(1 + {baseline_a_display:.3f}) = "
+                f"{baseline_a_display / (1 + baseline_a_display):.3f}, 1.5/2.5 = 0.600, and 1.7/2.7 = 0.630; "
+                f"under gamma = 2 with a = {baseline_a_display:.3f}, g_bar = "
+                f"{baseline_a_display:.3f}/({baseline_a_display:.3f} + 2) = "
+                f"{baseline_a_display / (baseline_a_display + 2):.3f}."
+            ),
+        )
     if flat_tax_frontier:
         write_table_bundle(
             stem="flat-tax-demogrant-appendix",
@@ -359,13 +402,23 @@ def main() -> int:
             rows=cap_gains_convention,
             note=(
                 "Both capital-gains-realizations conventions elicited independently under prompt v4. "
-                "Under the identity epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax, the "
-                "observed ratio epsilon_taxrate / epsilon_netoftax pins down an implied tau; a model "
-                "that answers consistently across conventions implies a positive epsilon_netoftax, a "
-                "negative epsilon_taxrate, and an implied tau in the plausible U.S. top-bracket "
-                "long-term-capital-gains range. The last column flags each cell as 'in band' (implied "
-                "tau between 0.15 and 0.30), 'plausible sign, outside band' (implied tau in (0, 1) but "
-                "outside that window), or 'out of band' (implied tau non-positive or > 1)."
+                "Under the identity epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax, any "
+                "model whose two answers are jointly consistent with a single tau prior implies one "
+                "specific tau. The implied-tau column reports the median and 90 percent interval of "
+                "1000 bootstrap draws that independently sample one tax-rate run and one "
+                "net-of-tax-rate run from the 15 runs of each; this is not the plug-in ratio of "
+                "medians, which differs from the bootstrap median because tau = -rho / (1 - rho) is "
+                "nonlinear in rho (Jensen's inequality). The band flag is computed against the "
+                "bootstrap median. 'LTCG-rate consistent' marks an implied median tau in [0.15, 0.37] "
+                "(U.S. top-bracket long-term-capital-gains envelope, federal LTCG plus NIIT plus high "
+                "state); 'ordinary-income-rate consistent' marks (0.37, 0.55] (federal ordinary-income "
+                "top plus high state); 'plausible sign, outside bands' marks (0, 1) outside both "
+                "windows; and 'out of band' marks a non-positive or > 1 median tau. The shared-tau "
+                "coherence column flags the joint sign pattern of the two pooled medians: a model with "
+                "(tax < 0, net > 0) is sign-consistent with the identity, whereas (both positive, both "
+                "negative, or reversed) indicates that the two answers are not jointly consistent with "
+                "a single tau prior — either because the model holds two independent literature "
+                "anchors, or because one convention was answered with the opposite sign."
             ),
         )
 
@@ -584,6 +637,79 @@ def build_top_rate_table(
                 ),
             }
         )
+    return table_rows
+
+
+def build_top_rate_robustness_table(
+    comparison_rows: list[ComparisonRow],
+    *,
+    baseline_a: float,
+) -> list[dict[str, object]]:
+    """Median implied top rate under alternative (Pareto a, CRRA gamma) pairs.
+
+    Columns cover the baseline (a=baseline_a, gamma=1), three alternative Pareto
+    parameters under log utility, and a CRRA gamma=2 column at baseline_a. The
+    ETI median feeding each row is the same pooled-mixture median used in Table 4,
+    so cross-column differences reflect only the formula's (a, gamma) pair.
+    """
+    eti_quantity = get_quantity("tax.elasticity_of_taxable_income.top_earners")
+    eti_rows = [
+        row
+        for row in comparison_rows
+        if row.quantity_id == "tax.elasticity_of_taxable_income.top_earners"
+    ]
+
+    parameterizations: list[tuple[str, float, float]] = [
+        (f"Baseline top rate (a={baseline_a:.3f}, gamma=1)", baseline_a, 1.0),
+        ("Top rate (a=1.3, gamma=1)", 1.3, 1.0),
+        ("Top rate (a=1.5, gamma=1)", 1.5, 1.0),
+        ("Top rate (a=1.7, gamma=1)", 1.7, 1.0),
+        (f"Top rate (a={baseline_a:.3f}, gamma=2)", baseline_a, 2.0),
+    ]
+
+    table_rows: list[dict[str, object]] = []
+    for row in eti_rows:
+        run_rows = read_csv(Path(row.source_dir) / "runs.csv")
+        estimates = [
+            _belief_estimate_from_row(run_row)
+            for run_row in run_rows
+            if run_row["parsed_ok"] == "True"
+            and run_row["quantity_id"] == "tax.elasticity_of_taxable_income.top_earners"
+        ]
+        run_distributions = [
+            distribution
+            for estimate in estimates
+            if (
+                distribution := distribution_from_belief_estimate(
+                    estimate,
+                    lower_support=0.0,
+                    upper_support=eti_quantity.upper_support,
+                )
+            )
+            is not None
+        ]
+        if not run_distributions:
+            continue
+        eti_mixture = mixture_distribution(run_distributions)
+        eti_q50 = eti_mixture.quantile(0.50)
+
+        out_row: dict[str, object] = {
+            "Model": model_label(row.model_name),
+            "ETI median": round(eti_q50, 3),
+        }
+        for label, a, gamma in parameterizations:
+            tau_star = optimal_top_rate_from_eti(
+                eti_q50,
+                pareto_parameter=a,
+                crra_gamma=gamma,
+            )
+            out_row[label] = round(100 * tau_star, 1)
+        table_rows.append(out_row)
+
+    baseline_column = f"Baseline top rate (a={baseline_a:.3f}, gamma=1)"
+    table_rows.sort(
+        key=lambda entry: (-float(entry[baseline_column]), str(entry["Model"]))
+    )
     return table_rows
 
 
@@ -975,19 +1101,126 @@ def format_interval_from_summary_row(row: dict[str, str]) -> str:
     return f"[{lower:.4g}, {upper:.4g}]"
 
 
-CAP_GAINS_PLAUSIBLE_TAU_RANGE = (0.15, 0.30)
+CAP_GAINS_LTCG_TAU_RANGE = (0.15, 0.37)
+CAP_GAINS_ORDINARY_INCOME_TAU_RANGE = (0.37, 0.55)
+CAP_GAINS_BOOTSTRAP_DRAWS = 1000
+CAP_GAINS_BOOTSTRAP_SEED = 0
+
+
+def _load_cap_gains_run_points(
+    source_dir: str,
+) -> tuple[list[float], list[float]]:
+    """Return per-run point estimates for both cap-gains conventions.
+
+    Reads the model's ``runs.jsonl`` and keeps only rows with
+    ``parsed_ok=True`` and a finite ``point_estimate``.
+    """
+    runs_path = REPO_ROOT / source_dir / "runs.jsonl"
+    tax_rate_points: list[float] = []
+    net_points: list[float] = []
+    if not runs_path.exists():
+        return tax_rate_points, net_points
+    with runs_path.open() as handle:
+        for line in handle:
+            line = line.strip()
+            if not line:
+                continue
+            record = json.loads(line)
+            if not record.get("parsed_ok"):
+                continue
+            qid = record.get("quantity_id")
+            point = record.get("point_estimate")
+            if point is None:
+                continue
+            point_value = float(point)
+            if not math.isfinite(point_value):
+                continue
+            if qid == CAP_GAINS_TAX_RATE_ID:
+                tax_rate_points.append(point_value)
+            elif qid == CAP_GAINS_NET_OF_TAX_RATE_ID:
+                net_points.append(point_value)
+    return tax_rate_points, net_points
+
+
+def _bootstrap_implied_tau_quantiles(
+    tax_rate_points: list[float],
+    net_points: list[float],
+    *,
+    n_draws: int = CAP_GAINS_BOOTSTRAP_DRAWS,
+    seed: int = CAP_GAINS_BOOTSTRAP_SEED,
+) -> tuple[float, float, float]:
+    """Return (p05, p50, p95) of bootstrapped implied-tau draws.
+
+    For each of ``n_draws`` iterations, sample one ``epsilon_taxrate`` and
+    one ``epsilon_netoftax`` independently from the per-run lists, then
+    invert ``epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax`` to
+    ``tau = -rho / (1 - rho)`` where ``rho = epsilon_taxrate / epsilon_netoftax``.
+    Pairs yielding a non-finite ``tau`` (``epsilon_netoftax == 0`` or
+    ``rho == 1``) are dropped. NaN triples are returned if fewer than two
+    finite draws survive.
+    """
+    if not tax_rate_points or not net_points:
+        return float("nan"), float("nan"), float("nan")
+    rng = random.Random(seed)
+    taus: list[float] = []
+    n_tax = len(tax_rate_points)
+    n_net = len(net_points)
+    for _ in range(n_draws):
+        eps_tax = tax_rate_points[rng.randrange(n_tax)]
+        eps_net = net_points[rng.randrange(n_net)]
+        if eps_net == 0:
+            continue
+        rho = eps_tax / eps_net
+        denominator = 1.0 - rho
+        if denominator == 0:
+            continue
+        tau = -rho / denominator
+        if math.isfinite(tau):
+            taus.append(tau)
+    if len(taus) < 2:
+        return float("nan"), float("nan"), float("nan")
+    taus.sort()
+    return (
+        _bootstrap_quantile(taus, 0.05),
+        _bootstrap_quantile(taus, 0.50),
+        _bootstrap_quantile(taus, 0.95),
+    )
+
+
+def _bootstrap_quantile(sorted_values: list[float], probability: float) -> float:
+    if not sorted_values:
+        return float("nan")
+    if len(sorted_values) == 1:
+        return sorted_values[0]
+    position = probability * (len(sorted_values) - 1)
+    lower_index = int(math.floor(position))
+    upper_index = int(math.ceil(position))
+    if lower_index == upper_index:
+        return sorted_values[lower_index]
+    weight = position - lower_index
+    return (
+        (1 - weight) * sorted_values[lower_index]
+        + weight * sorted_values[upper_index]
+    )
 
 
 def build_cap_gains_convention_audit_table(
     comparison_rows: list[ComparisonRow],
 ) -> list[dict[str, object]]:
-    """One row per model showing both cap-gains parameterizations plus a consistency flag.
+    """One row per model showing both cap-gains parameterizations plus a
+    bootstrap implied-tau column with uncertainty and a shared-tau coherence flag.
 
-    Under the identity epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax,
-    the observed ratio epsilon_taxrate / epsilon_netoftax implies a specific tau;
-    we flag the implied tau as "in-band" when it falls inside
-    CAP_GAINS_PLAUSIBLE_TAU_RANGE (a rough envelope for U.S. top-bracket
-    long-term capital-gains marginal rates, federal plus state)."""
+    Under the identity ``epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax``,
+    a model whose two answers are jointly consistent with a single ``tau`` prior
+    implies one specific ``tau``. We bootstrap the implied-tau distribution by
+    drawing 1000 independent ``(epsilon_taxrate_i, epsilon_netoftax_j)`` pairs
+    from each model's 15 tax-rate runs and 15 net-of-tax-rate runs, inverting
+    the identity per pair, and reporting the median and 90 percent interval.
+    The band flag is computed against the median implied ``tau``: ``[0.15, 0.37]``
+    covers the U.S. top-bracket LTCG marginal rate envelope (federal LTCG plus
+    NIIT plus the highest state layer) and ``[0.37, 0.55]`` covers the
+    ordinary-income top-rate envelope (federal ordinary top plus state).
+    """
     tax_rate_rows = {
         row.model_name: row
         for row in comparison_rows
@@ -1003,55 +1236,68 @@ def build_cap_gains_convention_audit_table(
     if not both:
         return []
 
-    tau_lo, tau_hi = CAP_GAINS_PLAUSIBLE_TAU_RANGE
+    ltcg_lo, ltcg_hi = CAP_GAINS_LTCG_TAU_RANGE
+    ord_lo, ord_hi = CAP_GAINS_ORDINARY_INCOME_TAU_RANGE
+    band_column = (
+        f"Band (LTCG [{ltcg_lo:.2f}, {ltcg_hi:.2f}], "
+        f"ordinary-income [{ord_lo:.2f}, {ord_hi:.2f}])"
+    )
     table_rows: list[dict[str, object]] = []
     for model_name in both:
-        eps_tax = tax_rate_rows[model_name].pooled_point_estimate
-        eps_net = net_rows[model_name].pooled_point_estimate
+        source_dir = tax_rate_rows[model_name].source_dir
+        tax_rate_points, net_points = _load_cap_gains_run_points(source_dir)
+        if not tax_rate_points or not net_points:
+            continue
 
-        if eps_net == 0:
-            ratio = float("nan")
-            implied_tau = float("nan")
-        else:
-            ratio = eps_tax / eps_net
-            # From epsilon_taxrate = -(tau/(1-tau)) * epsilon_netoftax,
-            # tau = -ratio / (1 - ratio).
-            denominator = 1.0 - ratio
-            implied_tau = (
-                -ratio / denominator if denominator != 0 else float("nan")
-            )
+        eps_tax_median = median(tax_rate_points)
+        eps_net_median = median(net_points)
 
-        if math.isfinite(implied_tau) and tau_lo <= implied_tau <= tau_hi:
-            band_flag = "in band"
-        elif math.isfinite(implied_tau) and 0.0 < implied_tau < 1.0:
-            band_flag = "plausible sign, outside band"
+        tau_p05, tau_p50, tau_p95 = _bootstrap_implied_tau_quantiles(
+            tax_rate_points, net_points
+        )
+
+        if math.isfinite(tau_p50) and ltcg_lo <= tau_p50 <= ltcg_hi:
+            band_flag = "LTCG-rate consistent"
+        elif math.isfinite(tau_p50) and ord_lo < tau_p50 <= ord_hi:
+            band_flag = "ordinary-income-rate consistent"
+        elif math.isfinite(tau_p50) and 0.0 < tau_p50 < 1.0:
+            band_flag = "plausible sign, outside bands"
         else:
             band_flag = "out of band"
 
-        if eps_tax <= 0 and eps_net >= 0:
-            consistency = "as expected (tax<0, net>0)"
-        elif eps_tax >= 0 and eps_net >= 0:
-            consistency = "both positive"
-        elif eps_tax <= 0 and eps_net <= 0:
-            consistency = "both negative"
+        if eps_tax_median <= 0 and eps_net_median >= 0:
+            coherence = "sign-consistent (tax<0, net>0)"
+        elif eps_tax_median >= 0 and eps_net_median >= 0:
+            coherence = "both positive"
+        elif eps_tax_median <= 0 and eps_net_median <= 0:
+            coherence = "both negative"
         else:
-            consistency = "reversed (tax>0, net<0)"
+            coherence = "reversed (tax>0, net<0)"
+
+        if math.isfinite(tau_p50):
+            implied_tau_cell = (
+                f"{tau_p50:.3f} [{tau_p05:.3f}, {tau_p95:.3f}]"
+            )
+        else:
+            implied_tau_cell = "—"
 
         table_rows.append(
             {
                 "Model": model_label(model_name),
                 "Provider": provider_label(model_name),
-                "epsilon w.r.t. tax rate": round(eps_tax, 3),
-                "epsilon w.r.t. net-of-tax rate": round(eps_net, 3),
-                "Implied tau": (
-                    round(implied_tau, 3) if math.isfinite(implied_tau) else "—"
+                "epsilon w.r.t. tax rate (median)": round(eps_tax_median, 3),
+                "epsilon w.r.t. net-of-tax rate (median)": round(
+                    eps_net_median, 3
                 ),
-                "Consistency": consistency,
-                f"In plausible tau band [{tau_lo:.2f}, {tau_hi:.2f}]": band_flag,
+                "Implied tau median [90%]": implied_tau_cell,
+                "Shared-tau coherence": coherence,
+                band_column: band_flag,
             }
         )
 
-    table_rows.sort(key=lambda row: (row["Consistency"], str(row["Model"])))
+    table_rows.sort(
+        key=lambda row: (row["Shared-tau coherence"], str(row["Model"]))
+    )
     return table_rows
 
 

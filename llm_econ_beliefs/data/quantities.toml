@@ -329,6 +329,7 @@ population = "Individuals with long-term capital gains in the United States"
 unit = "elasticity"
 preferred_interpretation = "Medium-run elasticity of long-term capital gains realizations with respect to the capital-gains marginal tax rate"
 convention = "tax_rate"
+convention_sibling_id = "tax.capital_gains_realizations.elasticity.net_of_tax_rate"
 lower_support = -10.0
 upper_support = 2.0
 benchmark_summary = "Directly usable as the capital-gains realizations response parameter in PolicyEngine US."
