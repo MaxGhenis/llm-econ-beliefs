@@ -1,12 +1,12 @@
 Model,Provider,Avg abs-elasticity rank (1=highest),Avg predictive-uncertainty rank (1=narrowest),Mean absolute pooled center,Mean pooled 90% width,Success rate,Cost / successful run
-Claude Sonnet 4.6,Anthropic,4.08,5.83,0.428,0.977,100.0,0.0
-Grok 4.20,xAI,4.42,8.67,0.373,1.246,100.0,0.0
-GPT-5.4 mini,OpenAI,5.42,8.83,0.406,1.452,100.0,0.001
+Claude Sonnet 4.6,Anthropic,4.25,5.83,0.428,0.978,100.0,0.0112
+Grok 4.20,xAI,4.42,8.17,0.362,1.245,100.0,0.0092
 Claude Haiku 4.5,Anthropic,5.5,4.5,0.369,0.911,100.0,0.0031
-Gemini 3 Flash,Google,5.75,4.17,0.382,0.892,100.0,0.0009
-GPT-5.4,OpenAI,5.75,6.5,0.411,1.243,100.0,0.0036
-GPT-5.4 nano,OpenAI,6.17,7.33,0.313,1.086,100.0,0.0003
-Claude Opus 4.7,Anthropic,6.5,4.33,0.392,0.932,100.0,0.0
-Grok 4.1 Fast,xAI,6.67,9.0,0.327,1.422,100.0,0.0002
-Gemini 3.1 Flash-Lite,Google,7.0,4.67,0.367,1.022,100.0,0.0007
-Gemini 3.1 Pro,Google,8.75,2.17,0.346,0.762,100.0,0.0
+Gemini 3 Flash,Google,5.83,4.17,0.382,0.892,100.0,0.0009
+GPT-5.4 mini,OpenAI,5.83,8.83,0.406,1.452,100.0,0.001
+GPT-5.4,OpenAI,6.0,6.33,0.411,1.243,100.0,0.0036
+GPT-5.4 nano,OpenAI,6.17,7.17,0.313,1.086,100.0,0.0003
+Claude Opus 4.7,Anthropic,6.67,4.0,0.394,0.93,100.0,0.0221
+Grok 4.1 Fast,xAI,6.67,9.17,0.327,1.422,100.0,0.0002
+Gemini 3.1 Pro,Google,7.17,3.17,0.371,0.79,100.0,0.0091
+Gemini 3.1 Flash-Lite,Google,7.5,4.67,0.367,1.022,100.0,0.0007

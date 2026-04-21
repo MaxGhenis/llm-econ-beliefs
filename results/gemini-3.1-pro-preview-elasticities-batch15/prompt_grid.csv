@@ -2562,9 +2562,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent (not ε·100 percent).
-- If additional non-labor income reduces annual hours worked, ε is negative.
-- If additional non-labor income raises annual hours worked, ε is positive.
+- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent; for example, if ε = 0.5, a 1 percent increase in non-labor income changes annual hours worked by 0.5 percent (not 50 percent).
+- ε > 0 if and only if additional non-labor income raises annual hours worked.
+- ε < 0 if and only if additional non-labor income reduces annual hours worked.
 
 Task:
 1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
@@ -2601,9 +2601,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent (not ε·100 percent).
-- If additional non-labor income reduces annual hours worked, ε is negative.
-- If additional non-labor income raises annual hours worked, ε is positive.
+- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent; for example, if ε = 0.5, a 1 percent increase in non-labor income changes annual hours worked by 0.5 percent (not 50 percent).
+- ε > 0 if and only if additional non-labor income raises annual hours worked.
+- ε < 0 if and only if additional non-labor income reduces annual hours worked.
 
 Task:
 1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
@@ -2640,9 +2640,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent (not ε·100 percent).
-- If additional non-labor income reduces annual hours worked, ε is negative.
-- If additional non-labor income raises annual hours worked, ε is positive.
+- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent; for example, if ε = 0.5, a 1 percent increase in non-labor income changes annual hours worked by 0.5 percent (not 50 percent).
+- ε > 0 if and only if additional non-labor income raises annual hours worked.
+- ε < 0 if and only if additional non-labor income reduces annual hours worked.
 
 Task:
 1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
@@ -2679,9 +2679,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent (not ε·100 percent).
-- If additional non-labor income reduces annual hours worked, ε is negative.
-- If additional non-labor income raises annual hours worked, ε is positive.
+- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent; for example, if ε = 0.5, a 1 percent increase in non-labor income changes annual hours worked by 0.5 percent (not 50 percent).
+- ε > 0 if and only if additional non-labor income raises annual hours worked.
+- ε < 0 if and only if additional non-labor income reduces annual hours worked.
 
 Task:
 1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
@@ -2718,9 +2718,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent (not ε·100 percent).
-- If additional non-labor income reduces annual hours worked, ε is negative.
-- If additional non-labor income raises annual hours worked, ε is positive.
+- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent; for example, if ε = 0.5, a 1 percent increase in non-labor income changes annual hours worked by 0.5 percent (not 50 percent).
+- ε > 0 if and only if additional non-labor income raises annual hours worked.
+- ε < 0 if and only if additional non-labor income reduces annual hours worked.
 
 Task:
 1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
@@ -2757,9 +2757,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent (not ε·100 percent).
-- If additional non-labor income reduces annual hours worked, ε is negative.
-- If additional non-labor income raises annual hours worked, ε is positive.
+- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent; for example, if ε = 0.5, a 1 percent increase in non-labor income changes annual hours worked by 0.5 percent (not 50 percent).
+- ε > 0 if and only if additional non-labor income raises annual hours worked.
+- ε < 0 if and only if additional non-labor income reduces annual hours worked.
 
 Task:
 1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
@@ -2796,9 +2796,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent (not ε·100 percent).
-- If additional non-labor income reduces annual hours worked, ε is negative.
-- If additional non-labor income raises annual hours worked, ε is positive.
+- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent; for example, if ε = 0.5, a 1 percent increase in non-labor income changes annual hours worked by 0.5 percent (not 50 percent).
+- ε > 0 if and only if additional non-labor income raises annual hours worked.
+- ε < 0 if and only if additional non-labor income reduces annual hours worked.
 
 Task:
 1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
@@ -2835,9 +2835,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent (not ε·100 percent).
-- If additional non-labor income reduces annual hours worked, ε is negative.
-- If additional non-labor income raises annual hours worked, ε is positive.
+- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent; for example, if ε = 0.5, a 1 percent increase in non-labor income changes annual hours worked by 0.5 percent (not 50 percent).
+- ε > 0 if and only if additional non-labor income raises annual hours worked.
+- ε < 0 if and only if additional non-labor income reduces annual hours worked.
 
 Task:
 1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
@@ -2874,9 +2874,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent (not ε·100 percent).
-- If additional non-labor income reduces annual hours worked, ε is negative.
-- If additional non-labor income raises annual hours worked, ε is positive.
+- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent; for example, if ε = 0.5, a 1 percent increase in non-labor income changes annual hours worked by 0.5 percent (not 50 percent).
+- ε > 0 if and only if additional non-labor income raises annual hours worked.
+- ε < 0 if and only if additional non-labor income reduces annual hours worked.
 
 Task:
 1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
@@ -2913,9 +2913,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent (not ε·100 percent).
-- If additional non-labor income reduces annual hours worked, ε is negative.
-- If additional non-labor income raises annual hours worked, ε is positive.
+- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent; for example, if ε = 0.5, a 1 percent increase in non-labor income changes annual hours worked by 0.5 percent (not 50 percent).
+- ε > 0 if and only if additional non-labor income raises annual hours worked.
+- ε < 0 if and only if additional non-labor income reduces annual hours worked.
 
 Task:
 1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
@@ -2952,9 +2952,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent (not ε·100 percent).
-- If additional non-labor income reduces annual hours worked, ε is negative.
-- If additional non-labor income raises annual hours worked, ε is positive.
+- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent; for example, if ε = 0.5, a 1 percent increase in non-labor income changes annual hours worked by 0.5 percent (not 50 percent).
+- ε > 0 if and only if additional non-labor income raises annual hours worked.
+- ε < 0 if and only if additional non-labor income reduces annual hours worked.
 
 Task:
 1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
@@ -2991,9 +2991,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent (not ε·100 percent).
-- If additional non-labor income reduces annual hours worked, ε is negative.
-- If additional non-labor income raises annual hours worked, ε is positive.
+- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent; for example, if ε = 0.5, a 1 percent increase in non-labor income changes annual hours worked by 0.5 percent (not 50 percent).
+- ε > 0 if and only if additional non-labor income raises annual hours worked.
+- ε < 0 if and only if additional non-labor income reduces annual hours worked.
 
 Task:
 1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
@@ -3030,9 +3030,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent (not ε·100 percent).
-- If additional non-labor income reduces annual hours worked, ε is negative.
-- If additional non-labor income raises annual hours worked, ε is positive.
+- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent; for example, if ε = 0.5, a 1 percent increase in non-labor income changes annual hours worked by 0.5 percent (not 50 percent).
+- ε > 0 if and only if additional non-labor income raises annual hours worked.
+- ε < 0 if and only if additional non-labor income reduces annual hours worked.
 
 Task:
 1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
@@ -3069,9 +3069,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent (not ε·100 percent).
-- If additional non-labor income reduces annual hours worked, ε is negative.
-- If additional non-labor income raises annual hours worked, ε is positive.
+- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent; for example, if ε = 0.5, a 1 percent increase in non-labor income changes annual hours worked by 0.5 percent (not 50 percent).
+- ε > 0 if and only if additional non-labor income raises annual hours worked.
+- ε < 0 if and only if additional non-labor income reduces annual hours worked.
 
 Task:
 1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
@@ -3108,9 +3108,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent (not ε·100 percent).
-- If additional non-labor income reduces annual hours worked, ε is negative.
-- If additional non-labor income raises annual hours worked, ε is positive.
+- An elasticity of ε means that a 1 percent increase in non-labor income changes annual hours worked by ε percent; for example, if ε = 0.5, a 1 percent increase in non-labor income changes annual hours worked by 0.5 percent (not 50 percent).
+- ε > 0 if and only if additional non-labor income raises annual hours worked.
+- ε < 0 if and only if additional non-labor income reduces annual hours worked.
 
 Task:
 1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
@@ -11307,9 +11307,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher capital-gains tax rate reduces realizations, ε is negative.
-- If a higher capital-gains tax rate raises realizations, ε is positive.
+- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher capital-gains tax rate raises realizations.
+- ε < 0 if and only if a higher capital-gains tax rate reduces realizations.
 - This is the elasticity with respect to the tax rate itself, not with respect to the net-of-tax rate (1 - τ).
 
 Task:
@@ -11347,9 +11347,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher capital-gains tax rate reduces realizations, ε is negative.
-- If a higher capital-gains tax rate raises realizations, ε is positive.
+- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher capital-gains tax rate raises realizations.
+- ε < 0 if and only if a higher capital-gains tax rate reduces realizations.
 - This is the elasticity with respect to the tax rate itself, not with respect to the net-of-tax rate (1 - τ).
 
 Task:
@@ -11387,9 +11387,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher capital-gains tax rate reduces realizations, ε is negative.
-- If a higher capital-gains tax rate raises realizations, ε is positive.
+- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher capital-gains tax rate raises realizations.
+- ε < 0 if and only if a higher capital-gains tax rate reduces realizations.
 - This is the elasticity with respect to the tax rate itself, not with respect to the net-of-tax rate (1 - τ).
 
 Task:
@@ -11427,9 +11427,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher capital-gains tax rate reduces realizations, ε is negative.
-- If a higher capital-gains tax rate raises realizations, ε is positive.
+- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher capital-gains tax rate raises realizations.
+- ε < 0 if and only if a higher capital-gains tax rate reduces realizations.
 - This is the elasticity with respect to the tax rate itself, not with respect to the net-of-tax rate (1 - τ).
 
 Task:
@@ -11467,9 +11467,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher capital-gains tax rate reduces realizations, ε is negative.
-- If a higher capital-gains tax rate raises realizations, ε is positive.
+- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher capital-gains tax rate raises realizations.
+- ε < 0 if and only if a higher capital-gains tax rate reduces realizations.
 - This is the elasticity with respect to the tax rate itself, not with respect to the net-of-tax rate (1 - τ).
 
 Task:
@@ -11507,9 +11507,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher capital-gains tax rate reduces realizations, ε is negative.
-- If a higher capital-gains tax rate raises realizations, ε is positive.
+- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher capital-gains tax rate raises realizations.
+- ε < 0 if and only if a higher capital-gains tax rate reduces realizations.
 - This is the elasticity with respect to the tax rate itself, not with respect to the net-of-tax rate (1 - τ).
 
 Task:
@@ -11547,9 +11547,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher capital-gains tax rate reduces realizations, ε is negative.
-- If a higher capital-gains tax rate raises realizations, ε is positive.
+- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher capital-gains tax rate raises realizations.
+- ε < 0 if and only if a higher capital-gains tax rate reduces realizations.
 - This is the elasticity with respect to the tax rate itself, not with respect to the net-of-tax rate (1 - τ).
 
 Task:
@@ -11587,9 +11587,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher capital-gains tax rate reduces realizations, ε is negative.
-- If a higher capital-gains tax rate raises realizations, ε is positive.
+- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher capital-gains tax rate raises realizations.
+- ε < 0 if and only if a higher capital-gains tax rate reduces realizations.
 - This is the elasticity with respect to the tax rate itself, not with respect to the net-of-tax rate (1 - τ).
 
 Task:
@@ -11627,9 +11627,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher capital-gains tax rate reduces realizations, ε is negative.
-- If a higher capital-gains tax rate raises realizations, ε is positive.
+- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher capital-gains tax rate raises realizations.
+- ε < 0 if and only if a higher capital-gains tax rate reduces realizations.
 - This is the elasticity with respect to the tax rate itself, not with respect to the net-of-tax rate (1 - τ).
 
 Task:
@@ -11667,9 +11667,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher capital-gains tax rate reduces realizations, ε is negative.
-- If a higher capital-gains tax rate raises realizations, ε is positive.
+- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher capital-gains tax rate raises realizations.
+- ε < 0 if and only if a higher capital-gains tax rate reduces realizations.
 - This is the elasticity with respect to the tax rate itself, not with respect to the net-of-tax rate (1 - τ).
 
 Task:
@@ -11707,9 +11707,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher capital-gains tax rate reduces realizations, ε is negative.
-- If a higher capital-gains tax rate raises realizations, ε is positive.
+- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher capital-gains tax rate raises realizations.
+- ε < 0 if and only if a higher capital-gains tax rate reduces realizations.
 - This is the elasticity with respect to the tax rate itself, not with respect to the net-of-tax rate (1 - τ).
 
 Task:
@@ -11747,9 +11747,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher capital-gains tax rate reduces realizations, ε is negative.
-- If a higher capital-gains tax rate raises realizations, ε is positive.
+- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher capital-gains tax rate raises realizations.
+- ε < 0 if and only if a higher capital-gains tax rate reduces realizations.
 - This is the elasticity with respect to the tax rate itself, not with respect to the net-of-tax rate (1 - τ).
 
 Task:
@@ -11787,9 +11787,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher capital-gains tax rate reduces realizations, ε is negative.
-- If a higher capital-gains tax rate raises realizations, ε is positive.
+- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher capital-gains tax rate raises realizations.
+- ε < 0 if and only if a higher capital-gains tax rate reduces realizations.
 - This is the elasticity with respect to the tax rate itself, not with respect to the net-of-tax rate (1 - τ).
 
 Task:
@@ -11827,9 +11827,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher capital-gains tax rate reduces realizations, ε is negative.
-- If a higher capital-gains tax rate raises realizations, ε is positive.
+- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher capital-gains tax rate raises realizations.
+- ε < 0 if and only if a higher capital-gains tax rate reduces realizations.
 - This is the elasticity with respect to the tax rate itself, not with respect to the net-of-tax rate (1 - τ).
 
 Task:
@@ -11867,9 +11867,9 @@ Quantity of interest:
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher capital-gains tax rate reduces realizations, ε is negative.
-- If a higher capital-gains tax rate raises realizations, ε is positive.
+- An elasticity of ε means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher capital-gains tax rate raises realizations.
+- ε < 0 if and only if a higher capital-gains tax rate reduces realizations.
 - This is the elasticity with respect to the tax rate itself, not with respect to the net-of-tax rate (1 - τ).
 
 Task:
@@ -11901,15 +11901,15 @@ Report the belief you currently endorse.
 
 Quantity of interest:
 - Name: Capital gains realizations elasticity (net-of-tax-rate convention)
-- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two should satisfy epsilon_netoftax approximately equal to minus epsilon_taxrate times tau / (1 - tau).
+- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two are related by epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax.
 - Target interpretation: Medium-run elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau)
 - Population/context: Individuals with long-term capital gains in the United States
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher net-of-tax rate raises realizations, ε is positive.
-- If a higher net-of-tax rate reduces realizations, ε is negative.
+- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the net-of-tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher net-of-tax rate raises realizations.
+- ε < 0 if and only if a higher net-of-tax rate reduces realizations.
 - This is the elasticity with respect to the net-of-tax rate, not with respect to the tax rate τ itself.
 
 Task:
@@ -11941,15 +11941,15 @@ Report the belief you currently endorse.
 
 Quantity of interest:
 - Name: Capital gains realizations elasticity (net-of-tax-rate convention)
-- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two should satisfy epsilon_netoftax approximately equal to minus epsilon_taxrate times tau / (1 - tau).
+- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two are related by epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax.
 - Target interpretation: Medium-run elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau)
 - Population/context: Individuals with long-term capital gains in the United States
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher net-of-tax rate raises realizations, ε is positive.
-- If a higher net-of-tax rate reduces realizations, ε is negative.
+- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the net-of-tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher net-of-tax rate raises realizations.
+- ε < 0 if and only if a higher net-of-tax rate reduces realizations.
 - This is the elasticity with respect to the net-of-tax rate, not with respect to the tax rate τ itself.
 
 Task:
@@ -11981,15 +11981,15 @@ Report the belief you currently endorse.
 
 Quantity of interest:
 - Name: Capital gains realizations elasticity (net-of-tax-rate convention)
-- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two should satisfy epsilon_netoftax approximately equal to minus epsilon_taxrate times tau / (1 - tau).
+- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two are related by epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax.
 - Target interpretation: Medium-run elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau)
 - Population/context: Individuals with long-term capital gains in the United States
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher net-of-tax rate raises realizations, ε is positive.
-- If a higher net-of-tax rate reduces realizations, ε is negative.
+- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the net-of-tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher net-of-tax rate raises realizations.
+- ε < 0 if and only if a higher net-of-tax rate reduces realizations.
 - This is the elasticity with respect to the net-of-tax rate, not with respect to the tax rate τ itself.
 
 Task:
@@ -12021,15 +12021,15 @@ Report the belief you currently endorse.
 
 Quantity of interest:
 - Name: Capital gains realizations elasticity (net-of-tax-rate convention)
-- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two should satisfy epsilon_netoftax approximately equal to minus epsilon_taxrate times tau / (1 - tau).
+- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two are related by epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax.
 - Target interpretation: Medium-run elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau)
 - Population/context: Individuals with long-term capital gains in the United States
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher net-of-tax rate raises realizations, ε is positive.
-- If a higher net-of-tax rate reduces realizations, ε is negative.
+- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the net-of-tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher net-of-tax rate raises realizations.
+- ε < 0 if and only if a higher net-of-tax rate reduces realizations.
 - This is the elasticity with respect to the net-of-tax rate, not with respect to the tax rate τ itself.
 
 Task:
@@ -12061,15 +12061,15 @@ Report the belief you currently endorse.
 
 Quantity of interest:
 - Name: Capital gains realizations elasticity (net-of-tax-rate convention)
-- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two should satisfy epsilon_netoftax approximately equal to minus epsilon_taxrate times tau / (1 - tau).
+- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two are related by epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax.
 - Target interpretation: Medium-run elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau)
 - Population/context: Individuals with long-term capital gains in the United States
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher net-of-tax rate raises realizations, ε is positive.
-- If a higher net-of-tax rate reduces realizations, ε is negative.
+- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the net-of-tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher net-of-tax rate raises realizations.
+- ε < 0 if and only if a higher net-of-tax rate reduces realizations.
 - This is the elasticity with respect to the net-of-tax rate, not with respect to the tax rate τ itself.
 
 Task:
@@ -12101,15 +12101,15 @@ Report the belief you currently endorse.
 
 Quantity of interest:
 - Name: Capital gains realizations elasticity (net-of-tax-rate convention)
-- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two should satisfy epsilon_netoftax approximately equal to minus epsilon_taxrate times tau / (1 - tau).
+- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two are related by epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax.
 - Target interpretation: Medium-run elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau)
 - Population/context: Individuals with long-term capital gains in the United States
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher net-of-tax rate raises realizations, ε is positive.
-- If a higher net-of-tax rate reduces realizations, ε is negative.
+- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the net-of-tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher net-of-tax rate raises realizations.
+- ε < 0 if and only if a higher net-of-tax rate reduces realizations.
 - This is the elasticity with respect to the net-of-tax rate, not with respect to the tax rate τ itself.
 
 Task:
@@ -12141,15 +12141,15 @@ Report the belief you currently endorse.
 
 Quantity of interest:
 - Name: Capital gains realizations elasticity (net-of-tax-rate convention)
-- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two should satisfy epsilon_netoftax approximately equal to minus epsilon_taxrate times tau / (1 - tau).
+- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two are related by epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax.
 - Target interpretation: Medium-run elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau)
 - Population/context: Individuals with long-term capital gains in the United States
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher net-of-tax rate raises realizations, ε is positive.
-- If a higher net-of-tax rate reduces realizations, ε is negative.
+- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the net-of-tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher net-of-tax rate raises realizations.
+- ε < 0 if and only if a higher net-of-tax rate reduces realizations.
 - This is the elasticity with respect to the net-of-tax rate, not with respect to the tax rate τ itself.
 
 Task:
@@ -12181,15 +12181,15 @@ Report the belief you currently endorse.
 
 Quantity of interest:
 - Name: Capital gains realizations elasticity (net-of-tax-rate convention)
-- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two should satisfy epsilon_netoftax approximately equal to minus epsilon_taxrate times tau / (1 - tau).
+- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two are related by epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax.
 - Target interpretation: Medium-run elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau)
 - Population/context: Individuals with long-term capital gains in the United States
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher net-of-tax rate raises realizations, ε is positive.
-- If a higher net-of-tax rate reduces realizations, ε is negative.
+- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the net-of-tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher net-of-tax rate raises realizations.
+- ε < 0 if and only if a higher net-of-tax rate reduces realizations.
 - This is the elasticity with respect to the net-of-tax rate, not with respect to the tax rate τ itself.
 
 Task:
@@ -12221,15 +12221,15 @@ Report the belief you currently endorse.
 
 Quantity of interest:
 - Name: Capital gains realizations elasticity (net-of-tax-rate convention)
-- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two should satisfy epsilon_netoftax approximately equal to minus epsilon_taxrate times tau / (1 - tau).
+- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two are related by epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax.
 - Target interpretation: Medium-run elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau)
 - Population/context: Individuals with long-term capital gains in the United States
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher net-of-tax rate raises realizations, ε is positive.
-- If a higher net-of-tax rate reduces realizations, ε is negative.
+- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the net-of-tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher net-of-tax rate raises realizations.
+- ε < 0 if and only if a higher net-of-tax rate reduces realizations.
 - This is the elasticity with respect to the net-of-tax rate, not with respect to the tax rate τ itself.
 
 Task:
@@ -12261,15 +12261,15 @@ Report the belief you currently endorse.
 
 Quantity of interest:
 - Name: Capital gains realizations elasticity (net-of-tax-rate convention)
-- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two should satisfy epsilon_netoftax approximately equal to minus epsilon_taxrate times tau / (1 - tau).
+- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two are related by epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax.
 - Target interpretation: Medium-run elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau)
 - Population/context: Individuals with long-term capital gains in the United States
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher net-of-tax rate raises realizations, ε is positive.
-- If a higher net-of-tax rate reduces realizations, ε is negative.
+- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the net-of-tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher net-of-tax rate raises realizations.
+- ε < 0 if and only if a higher net-of-tax rate reduces realizations.
 - This is the elasticity with respect to the net-of-tax rate, not with respect to the tax rate τ itself.
 
 Task:
@@ -12301,15 +12301,15 @@ Report the belief you currently endorse.
 
 Quantity of interest:
 - Name: Capital gains realizations elasticity (net-of-tax-rate convention)
-- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two should satisfy epsilon_netoftax approximately equal to minus epsilon_taxrate times tau / (1 - tau).
+- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two are related by epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax.
 - Target interpretation: Medium-run elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau)
 - Population/context: Individuals with long-term capital gains in the United States
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher net-of-tax rate raises realizations, ε is positive.
-- If a higher net-of-tax rate reduces realizations, ε is negative.
+- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the net-of-tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher net-of-tax rate raises realizations.
+- ε < 0 if and only if a higher net-of-tax rate reduces realizations.
 - This is the elasticity with respect to the net-of-tax rate, not with respect to the tax rate τ itself.
 
 Task:
@@ -12341,15 +12341,15 @@ Report the belief you currently endorse.
 
 Quantity of interest:
 - Name: Capital gains realizations elasticity (net-of-tax-rate convention)
-- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two should satisfy epsilon_netoftax approximately equal to minus epsilon_taxrate times tau / (1 - tau).
+- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two are related by epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax.
 - Target interpretation: Medium-run elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau)
 - Population/context: Individuals with long-term capital gains in the United States
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher net-of-tax rate raises realizations, ε is positive.
-- If a higher net-of-tax rate reduces realizations, ε is negative.
+- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the net-of-tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher net-of-tax rate raises realizations.
+- ε < 0 if and only if a higher net-of-tax rate reduces realizations.
 - This is the elasticity with respect to the net-of-tax rate, not with respect to the tax rate τ itself.
 
 Task:
@@ -12381,15 +12381,15 @@ Report the belief you currently endorse.
 
 Quantity of interest:
 - Name: Capital gains realizations elasticity (net-of-tax-rate convention)
-- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two should satisfy epsilon_netoftax approximately equal to minus epsilon_taxrate times tau / (1 - tau).
+- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two are related by epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax.
 - Target interpretation: Medium-run elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau)
 - Population/context: Individuals with long-term capital gains in the United States
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher net-of-tax rate raises realizations, ε is positive.
-- If a higher net-of-tax rate reduces realizations, ε is negative.
+- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the net-of-tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher net-of-tax rate raises realizations.
+- ε < 0 if and only if a higher net-of-tax rate reduces realizations.
 - This is the elasticity with respect to the net-of-tax rate, not with respect to the tax rate τ itself.
 
 Task:
@@ -12421,15 +12421,15 @@ Report the belief you currently endorse.
 
 Quantity of interest:
 - Name: Capital gains realizations elasticity (net-of-tax-rate convention)
-- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two should satisfy epsilon_netoftax approximately equal to minus epsilon_taxrate times tau / (1 - tau).
+- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two are related by epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax.
 - Target interpretation: Medium-run elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau)
 - Population/context: Individuals with long-term capital gains in the United States
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher net-of-tax rate raises realizations, ε is positive.
-- If a higher net-of-tax rate reduces realizations, ε is negative.
+- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the net-of-tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher net-of-tax rate raises realizations.
+- ε < 0 if and only if a higher net-of-tax rate reduces realizations.
 - This is the elasticity with respect to the net-of-tax rate, not with respect to the tax rate τ itself.
 
 Task:
@@ -12461,15 +12461,15 @@ Report the belief you currently endorse.
 
 Quantity of interest:
 - Name: Capital gains realizations elasticity (net-of-tax-rate convention)
-- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two should satisfy epsilon_netoftax approximately equal to minus epsilon_taxrate times tau / (1 - tau).
+- Definition: Elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau) on capital gains. A 1 percent increase in the net-of-tax rate changes realizations by this elasticity. Sibling of tax.capital_gains_realizations.elasticity, which uses the opposite w.r.t.-tax-rate convention; the two are related by epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax.
 - Target interpretation: Medium-run elasticity of long-term capital gains realizations with respect to the net-of-tax rate (1 - tau)
 - Population/context: Individuals with long-term capital gains in the United States
 - Units: elasticity
 
 Sign convention for this quantity:
-- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent (not ε·100 percent).
-- If a higher net-of-tax rate raises realizations, ε is positive.
-- If a higher net-of-tax rate reduces realizations, ε is negative.
+- An elasticity of ε means that a 1 percent increase in the net-of-tax rate (1 - τ) changes long-term realizations by ε percent; for example, if ε = 0.5, a 1 percent increase in the net-of-tax rate changes long-term realizations by 0.5 percent (not 50 percent).
+- ε > 0 if and only if a higher net-of-tax rate raises realizations.
+- ε < 0 if and only if a higher net-of-tax rate reduces realizations.
 - This is the elasticity with respect to the net-of-tax rate, not with respect to the tax rate τ itself.
 
 Task:

@@ -2,11 +2,11 @@ Model,Provider,epsilon w.r.t. tax rate (median),epsilon w.r.t. net-of-tax rate (
 GPT-5.4 nano,OpenAI,-0.35,-0.2,"0.857 [-3.592, 5.000]",both negative,"plausible sign, outside bands"
 Claude Haiku 4.5,Anthropic,-0.8,0.8,"0.500 [0.348, 0.552]","sign-consistent (tax<0, net>0)",ordinary-income-rate consistent
 Claude Opus 4.7,Anthropic,-0.7,0.7,"0.500 [0.500, 0.500]","sign-consistent (tax<0, net>0)",ordinary-income-rate consistent
-Claude Sonnet 4.6,Anthropic,-0.7,5.0,"0.123 [0.123, 0.167]","sign-consistent (tax<0, net>0)","plausible sign, outside bands"
+Claude Sonnet 4.6,Anthropic,-0.7,3.5,"0.167 [0.167, 0.189]","sign-consistent (tax<0, net>0)",LTCG-rate consistent
 GPT-5.4,OpenAI,-0.7,0.9,"0.450 [0.389, 0.571]","sign-consistent (tax<0, net>0)",ordinary-income-rate consistent
 GPT-5.4 mini,OpenAI,-0.8,1.2,"0.500 [0.333, 0.636]","sign-consistent (tax<0, net>0)",ordinary-income-rate consistent
 Gemini 3 Flash,Google,-0.8,0.8,"0.500 [0.467, 0.515]","sign-consistent (tax<0, net>0)",ordinary-income-rate consistent
 Gemini 3.1 Flash-Lite,Google,-0.75,0.8,"0.484 [0.318, 0.538]","sign-consistent (tax<0, net>0)",ordinary-income-rate consistent
-Gemini 3.1 Pro,Google,-0.7,0.3,"0.545 [0.375, 3.500]","sign-consistent (tax<0, net>0)",ordinary-income-rate consistent
+Gemini 3.1 Pro,Google,-0.7,2.0,"0.259 [0.200, 0.483]","sign-consistent (tax<0, net>0)",LTCG-rate consistent
 Grok 4.1 Fast,xAI,-0.7,1.2,"0.368 [0.149, 0.500]","sign-consistent (tax<0, net>0)",LTCG-rate consistent
-Grok 4.20,xAI,-0.5,0.7,"0.455 [0.400, 0.500]","sign-consistent (tax<0, net>0)",ordinary-income-rate consistent
+Grok 4.20,xAI,-0.5,0.65,"0.417 [0.348, 0.478]","sign-consistent (tax<0, net>0)",ordinary-income-rate consistent

@@ -2,14 +2,14 @@ Note: Simulation-facing subpanel only: 12 PolicyEngine-style substitution-respon
 
 | Model | Provider | Avg abs-elasticity rank (1=highest) | Avg predictive-uncertainty rank (1=narrowest) | Mean absolute pooled center | Mean pooled 90% width | Success rate | Cost / successful run |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| GPT-5.4 nano | OpenAI | 1.08 | 10.67 | 0.507 | 1.319 | 100.0% | $0.0003 |
-| Grok 4.1 Fast | xAI | 3.38 | 10.25 | 0.295 | 1.219 | 100.0% | $0.0002 |
-| Grok 4.20 | xAI | 3.92 | 7.92 | 0.271 | 0.747 | 100.0% | $0.0000 |
-| Claude Opus 4.7 | Anthropic | 4.21 | 5.88 | 0.266 | 0.621 | 100.0% | $0.0000 |
-| Claude Haiku 4.5 | Anthropic | 5.58 | 7.17 | 0.247 | 0.678 | 100.0% | $0.0031 |
-| Claude Sonnet 4.6 | Anthropic | 5.71 | 4.42 | 0.239 | 0.52 | 100.0% | $0.0000 |
-| GPT-5.4 mini | OpenAI | 6.83 | 8 | 0.218 | 0.78 | 100.0% | $0.0010 |
-| Gemini 3.1 Pro | Google | 7.5 | 2.5 | 0.209 | 0.454 | 100.0% | $0.0000 |
-| GPT-5.4 | OpenAI | 8.38 | 3.46 | 0.18 | 0.484 | 100.0% | $0.0036 |
-| Gemini 3 Flash | Google | 9.17 | 3.5 | 0.163 | 0.503 | 100.0% | $0.0010 |
-| Gemini 3.1 Flash-Lite | Google | 10.25 | 2.25 | 0.13 | 0.456 | 100.0% | $0.0008 |
+| GPT-5.4 nano | OpenAI | 1.12 | 10.67 | 0.507 | 1.319 | 100.0% | $0.0003 |
+| Grok 4.20 | xAI | 3.17 | 7.67 | 0.277 | 0.765 | 100.0% | $0.0086 |
+| Grok 4.1 Fast | xAI | 3.67 | 10.17 | 0.295 | 1.219 | 100.0% | $0.0002 |
+| Claude Opus 4.7 | Anthropic | 4.25 | 6.17 | 0.267 | 0.637 | 100.0% | $0.0216 |
+| Claude Haiku 4.5 | Anthropic | 5.62 | 7.17 | 0.247 | 0.678 | 100.0% | $0.0031 |
+| Claude Sonnet 4.6 | Anthropic | 5.92 | 4.5 | 0.241 | 0.522 | 100.0% | $0.0109 |
+| GPT-5.4 mini | OpenAI | 6.96 | 8.17 | 0.218 | 0.78 | 100.0% | $0.0010 |
+| Gemini 3.1 Pro | Google | 7.33 | 2.08 | 0.216 | 0.432 | 100.0% | $0.0078 |
+| GPT-5.4 | OpenAI | 8.5 | 3.25 | 0.18 | 0.484 | 100.0% | $0.0036 |
+| Gemini 3 Flash | Google | 9.21 | 3.75 | 0.163 | 0.503 | 100.0% | $0.0010 |
+| Gemini 3.1 Flash-Lite | Google | 10.25 | 2.42 | 0.13 | 0.456 | 100.0% | $0.0008 |

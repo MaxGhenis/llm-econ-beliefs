@@ -149,17 +149,21 @@ The underlying no-tools v4 data collection contains:
 
 Success rates are uniformly 100% under v4: every planned run for every model-quantity cell parsed cleanly into structured JSON. Under the earlier v3 panel a single model (`grok-4.20`) had a 12% structured-output failure rate that affected 38 runs; that failure mode did not recur in the v4 rerun.
 
-Tracked API cost at the model-total level, for the 7 models where request-log aggregation was preserved end-to-end:
+Tracked API cost at the model-total level, for all 11 models, sorted by decreasing spend:
 
-- `claude-haiku-4.5`: `$1.203`
+- `claude-opus-4.7`: `$8.345`
+- `claude-sonnet-4.6`: `$4.277`
+- `grok-4.20`: `$3.448`
+- `gemini-3.1-pro-preview`: `$3.315`
 - `gpt-5.4`: `$1.353`
+- `claude-haiku-4.5`: `$1.203`
 - `gpt-5.4-mini`: `$0.377`
 - `gemini-3-flash-preview`: `$0.370`
 - `gemini-3.1-flash-lite-preview`: `$0.286`
 - `gpt-5.4-nano`: `$0.118`
 - `grok-4.1-fast`: `$0.058`
 
-Four premium-tier models (`claude-sonnet-4.6`, `claude-opus-4.7`, `gemini-3.1-pro-preview`, `grok-4.20`) had to be re-elicited quantity-by-quantity to work around a provider-side SSL hang that appeared only when many sequential structured-output calls were pipelined through a single LiteLLM client. The per-quantity subprocess fallback loses request-log aggregation, so cost tracking for those four models is not reported here. Extrapolating from the v3 panel, the four untracked-cost models account for a further `$10-15`, putting the total v4 rerun cost at roughly `$14-19`. The full v4 rerun cost dispersion across models is large: even under the untracked upper bound, per-successful-run cost ranges by more than two orders of magnitude between the cheapest and most expensive cell types.
+Total tracked v4 rerun cost: `$23.15` across 4,290 successful runs. Four premium-tier models (`claude-sonnet-4.6`, `claude-opus-4.7`, `gemini-3.1-pro-preview`, `grok-4.20`) were re-elicited quantity-by-quantity to work around a provider-side SSL hang that appeared only when many sequential structured-output calls were pipelined through a single LiteLLM client; the per-quantity subprocess fallback now preserves request-log aggregation, so cost figures for those four models are end-to-end tracked rather than extrapolated. Cost dispersion across models is large: the most expensive model (`claude-opus-4.7`) costs roughly 140x the cheapest (`grok-4.1-fast`), and per-successful-run cost ranges by more than two orders of magnitude between the cheapest and most expensive cells.
 
 ## Main Descriptive Results
 
