@@ -52,8 +52,8 @@ def create_belief_prompt(
                 "",
                 "Sign convention for this quantity:",
                 "- An elasticity of \u03b5 means that a 1 percent increase in non-labor income changes annual hours worked by \u03b5 percent (not \u03b5\u00b7100 percent).",
-                "- If additional non-labor income reduces annual hours worked, \u03b5 is negative.",
-                "- If additional non-labor income raises annual hours worked, \u03b5 is positive.",
+                "- \u03b5 > 0 iff additional non-labor income raises annual hours worked.",
+                "- \u03b5 < 0 iff additional non-labor income reduces annual hours worked.",
             ]
         )
     if quantity.id == "tax.capital_gains_realizations.elasticity":
@@ -62,8 +62,8 @@ def create_belief_prompt(
                 "",
                 "Sign convention for this quantity:",
                 "- An elasticity of \u03b5 means that a 1 percent increase in the marginal capital-gains tax rate changes long-term realizations by \u03b5 percent (not \u03b5\u00b7100 percent).",
-                "- If a higher capital-gains tax rate reduces realizations, \u03b5 is negative.",
-                "- If a higher capital-gains tax rate raises realizations, \u03b5 is positive.",
+                "- \u03b5 > 0 iff a higher capital-gains tax rate raises realizations.",
+                "- \u03b5 < 0 iff a higher capital-gains tax rate reduces realizations.",
                 "- This is the elasticity with respect to the tax rate itself, not with respect to the net-of-tax rate (1 - \u03c4).",
             ]
         )
@@ -73,8 +73,8 @@ def create_belief_prompt(
                 "",
                 "Sign convention for this quantity:",
                 "- An elasticity of \u03b5 means that a 1 percent increase in the net-of-tax rate (1 - \u03c4) changes long-term realizations by \u03b5 percent (not \u03b5\u00b7100 percent).",
-                "- If a higher net-of-tax rate raises realizations, \u03b5 is positive.",
-                "- If a higher net-of-tax rate reduces realizations, \u03b5 is negative.",
+                "- \u03b5 > 0 iff a higher net-of-tax rate raises realizations.",
+                "- \u03b5 < 0 iff a higher net-of-tax rate reduces realizations.",
                 "- This is the elasticity with respect to the net-of-tax rate, not with respect to the tax rate \u03c4 itself.",
             ]
         )

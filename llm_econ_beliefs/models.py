@@ -22,6 +22,8 @@ class EconomicQuantity:
     benchmark_summary: str | None = None
     benchmark_source: str | None = None
     tags: tuple[str, ...] = ()
+    convention: str | None = None
+    convention_sibling_id: str | None = None
 
 
 @dataclass(frozen=True)

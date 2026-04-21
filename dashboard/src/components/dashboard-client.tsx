@@ -11,6 +11,7 @@ import {
 import { IntervalPlot } from "@/components/interval-plot";
 import { ProviderMark } from "@/components/provider-mark";
 import {
+  FLAGSHIP_MODEL_BY_PROVIDER,
   PROVIDER_LABELS,
   compareModelNames,
   getModelLabel,
@@ -131,14 +132,28 @@ export function DashboardClient({ data }: DashboardClientProps) {
   useEffect(() => {
     if (!selectedQuantity) return;
     const visibleNames = sortedModelSummaries.map((summary) => summary.modelName);
-    if (visibleNames.length === 0) return;
+    if (visibleNames.length === 0) {
+      if (inspectorOpen || inspectedModelName !== "") {
+        startTransition(() => {
+          setInspectorOpen(false);
+          setInspectedModelName("");
+          setSelectedRunIndex(null);
+        });
+      }
+      return;
+    }
     if (!visibleNames.includes(inspectedModelName)) {
       startTransition(() => {
         setInspectedModelName(visibleNames[0]);
         setSelectedRunIndex(null);
       });
     }
-  }, [inspectedModelName, selectedQuantity, sortedModelSummaries]);
+  }, [
+    inspectedModelName,
+    inspectorOpen,
+    selectedQuantity,
+    sortedModelSummaries,
+  ]);
 
   /* Lazy-load run data */
   useEffect(() => {
@@ -507,10 +522,14 @@ export function DashboardClient({ data }: DashboardClientProps) {
                   className="font-mono uppercase tracking-[0.15em]"
                   style={{ color: flagshipOnly ? "var(--foreground)" : "var(--muted-foreground)" }}
                 >
-                  Flagship only
+                  Show flagship model per provider
                 </span>
                 <span style={{ color: "var(--muted-foreground)" }}>
-                  (Opus 4.7, GPT-5.4, Gemini 3.1 Pro, Grok 4.20)
+                  (
+                  {(["openai", "anthropic", "google", "xai"] as ProviderKey[])
+                    .map((p) => getModelLabel(FLAGSHIP_MODEL_BY_PROVIDER[p]))
+                    .join(", ")}
+                  )
                 </span>
               </label>
             </div>

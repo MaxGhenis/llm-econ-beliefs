@@ -53,5 +53,7 @@ def _to_quantity(payload: dict) -> EconomicQuantity:
         benchmark_summary=payload.get("benchmark_summary"),
         benchmark_source=payload.get("benchmark_source"),
         tags=tuple(payload.get("tags", [])),
+        convention=payload.get("convention"),
+        convention_sibling_id=payload.get("convention_sibling_id"),
     )
 

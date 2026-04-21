@@ -26,11 +26,12 @@ sys.path.insert(0, str(REPO_ROOT))
 from llm_econ_beliefs import list_quantities
 from llm_econ_beliefs.experiment import (
     _write_jsonl,
+    _write_requests_csv,
     _write_runs_csv,
     _write_summary_csv,
     summarize_run_results,
 )
-from llm_econ_beliefs.models import RunResult
+from llm_econ_beliefs.models import RequestLog, RunResult
 from llm_econ_beliefs.runner import build_run_grid, write_run_grid_csv
 
 PROVIDER_FOR_MODEL = {
@@ -105,18 +106,39 @@ def load_runs(path: Path) -> list[RunResult]:
     return records
 
 
+def load_requests(path: Path) -> list[RequestLog]:
+    if not path.exists():
+        return []
+    records = []
+    with path.open() as handle:
+        for line in handle:
+            line = line.strip()
+            if not line:
+                continue
+            data = json.loads(line)
+            records.append(RequestLog(**data))
+    return records
+
+
 def merge_per_quantity(
     staging_root: Path, target_dir: Path, model_name: str, prompt_version: str
 ) -> None:
     """Gather per-quantity results into target_dir in canonical batch form."""
     target_dir.mkdir(parents=True, exist_ok=True)
     all_records: list[RunResult] = []
+    all_request_logs: list[RequestLog] = []
+    next_request_index = 1
     for sub in sorted(staging_root.iterdir()):
         if not sub.is_dir():
             continue
         runs_path = sub / "runs.jsonl"
         if runs_path.exists():
             all_records.extend(load_runs(runs_path))
+        requests_path = sub / "requests.jsonl"
+        for log in load_requests(requests_path):
+            log.request_index = next_request_index
+            all_request_logs.append(log)
+            next_request_index += 1
 
     if not all_records:
         print("No records to merge.")
@@ -133,9 +155,15 @@ def merge_per_quantity(
     write_run_grid_csv(target_dir / "prompt_grid.csv", runs)
     _write_jsonl(target_dir / "runs.jsonl", all_records)
     _write_runs_csv(target_dir / "runs.csv", all_records)
-    summaries = summarize_run_results(all_records)
+    if all_request_logs:
+        _write_jsonl(target_dir / "requests.jsonl", all_request_logs)
+        _write_requests_csv(target_dir / "requests.csv", all_request_logs)
+    summaries = summarize_run_results(all_records, request_logs=all_request_logs)
     _write_summary_csv(target_dir / "summary.csv", summaries)
-    print(f"Merged {len(all_records)} records into {target_dir}")
+    print(
+        f"Merged {len(all_records)} records and {len(all_request_logs)} "
+        f"request logs into {target_dir}"
+    )
 
 
 def main() -> int:

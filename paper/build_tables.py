@@ -359,10 +359,13 @@ def main() -> int:
             rows=cap_gains_convention,
             note=(
                 "Both capital-gains-realizations conventions elicited independently under prompt v4. "
-                "Under the identity epsilon_netoftax = -(1 - tau)/tau * epsilon_taxrate, a model that "
-                "answers consistently across conventions implies a positive epsilon_netoftax paired with "
-                "a negative epsilon_taxrate. Positive entries in both columns (or negative in both) "
-                "indicate the model mixed up one of the sign conventions despite the in-prompt clarifiers."
+                "Under the identity epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax, the "
+                "observed ratio epsilon_taxrate / epsilon_netoftax pins down an implied tau; a model "
+                "that answers consistently across conventions implies a positive epsilon_netoftax, a "
+                "negative epsilon_taxrate, and an implied tau in the plausible U.S. top-bracket "
+                "long-term-capital-gains range. The last column flags each cell as 'in band' (implied "
+                "tau between 0.15 and 0.30), 'plausible sign, outside band' (implied tau in (0, 1) but "
+                "outside that window), or 'out of band' (implied tau non-positive or > 1)."
             ),
         )
 
@@ -972,10 +975,19 @@ def format_interval_from_summary_row(row: dict[str, str]) -> str:
     return f"[{lower:.4g}, {upper:.4g}]"
 
 
+CAP_GAINS_PLAUSIBLE_TAU_RANGE = (0.15, 0.30)
+
+
 def build_cap_gains_convention_audit_table(
     comparison_rows: list[ComparisonRow],
 ) -> list[dict[str, object]]:
-    """One row per model showing both cap-gains parameterizations plus a consistency flag."""
+    """One row per model showing both cap-gains parameterizations plus a consistency flag.
+
+    Under the identity epsilon_taxrate = -(tau / (1 - tau)) * epsilon_netoftax,
+    the observed ratio epsilon_taxrate / epsilon_netoftax implies a specific tau;
+    we flag the implied tau as "in-band" when it falls inside
+    CAP_GAINS_PLAUSIBLE_TAU_RANGE (a rough envelope for U.S. top-bracket
+    long-term capital-gains marginal rates, federal plus state)."""
     tax_rate_rows = {
         row.model_name: row
         for row in comparison_rows
@@ -991,23 +1003,39 @@ def build_cap_gains_convention_audit_table(
     if not both:
         return []
 
+    tau_lo, tau_hi = CAP_GAINS_PLAUSIBLE_TAU_RANGE
     table_rows: list[dict[str, object]] = []
     for model_name in both:
         eps_tax = tax_rate_rows[model_name].pooled_point_estimate
         eps_net = net_rows[model_name].pooled_point_estimate
-        if eps_tax >= 0 and eps_net >= 0:
+
+        if eps_net == 0:
+            ratio = float("nan")
+            implied_tau = float("nan")
+        else:
+            ratio = eps_tax / eps_net
+            # From epsilon_taxrate = -(tau/(1-tau)) * epsilon_netoftax,
+            # tau = -ratio / (1 - ratio).
+            denominator = 1.0 - ratio
+            implied_tau = (
+                -ratio / denominator if denominator != 0 else float("nan")
+            )
+
+        if math.isfinite(implied_tau) and tau_lo <= implied_tau <= tau_hi:
+            band_flag = "in band"
+        elif math.isfinite(implied_tau) and 0.0 < implied_tau < 1.0:
+            band_flag = "plausible sign, outside band"
+        else:
+            band_flag = "out of band"
+
+        if eps_tax <= 0 and eps_net >= 0:
+            consistency = "as expected (tax<0, net>0)"
+        elif eps_tax >= 0 and eps_net >= 0:
             consistency = "both positive"
         elif eps_tax <= 0 and eps_net <= 0:
             consistency = "both negative"
-        elif eps_tax <= 0 and eps_net >= 0:
-            consistency = "as expected (tax<0, net>0)"
         else:
             consistency = "reversed (tax>0, net<0)"
-
-        if eps_net != 0:
-            ratio = eps_tax / eps_net
-        else:
-            ratio = float("nan")
 
         table_rows.append(
             {
@@ -1015,10 +1043,11 @@ def build_cap_gains_convention_audit_table(
                 "Provider": provider_label(model_name),
                 "epsilon w.r.t. tax rate": round(eps_tax, 3),
                 "epsilon w.r.t. net-of-tax rate": round(eps_net, 3),
-                "Ratio epsilon_tax / epsilon_net": (
-                    round(ratio, 3) if math.isfinite(ratio) else "—"
+                "Implied tau": (
+                    round(implied_tau, 3) if math.isfinite(implied_tau) else "—"
                 ),
                 "Consistency": consistency,
+                f"In plausible tau band [{tau_lo:.2f}, {tau_hi:.2f}]": band_flag,
             }
         )
 
