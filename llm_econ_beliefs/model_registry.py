@@ -295,6 +295,16 @@ MODEL_REGISTRY: tuple[PanelModel, ...] = (
         "gemini",
         "july_2026_late",
     ),
+    # Fable 5 keeps Anthropic's frontier slot: Opus 5 is the Opus-line
+    # successor, not the flagship.
+    PanelModel(
+        "claude-opus-5",
+        "Claude Opus 5",
+        "anthropic",
+        "anthropic_native",
+        "claude",
+        "july_2026_late",
+    ),
 )
 
 ORGANIZATION_DISPLAY_LABELS = {
@@ -346,8 +356,8 @@ FRONTIER_MODEL_IDS = frozenset(
 
 
 def _validate_registry() -> None:
-    if len(MODEL_REGISTRY) != 28:
-        raise ValueError(f"The panel registry must contain 28 models, got {len(MODEL_REGISTRY)}")
+    if len(MODEL_REGISTRY) != 29:
+        raise ValueError(f"The panel registry must contain 29 models, got {len(MODEL_REGISTRY)}")
     if len(MODEL_REGISTRY_BY_ID) != len(MODEL_REGISTRY):
         raise ValueError("Panel model IDs must be unique")
     organizations = {model.organization for model in MODEL_REGISTRY}

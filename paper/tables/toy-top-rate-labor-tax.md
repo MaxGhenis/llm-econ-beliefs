@@ -2,6 +2,7 @@ Note: Toy public-finance mapping from each model's pooled ETI distribution to an
 
 | Model | ETI median [90%] | Top rate median [90%] | Revenue-max median | Top-rate 90% width (pp) |
 | --- | --- | --- | --- | --- |
+| Claude Opus 5 | 0.337 [0.086, 0.961] | 41.2% [19.7%, 73.2%] | 64.7% | 53.5 |
 | Gemini 3.1 Pro | 0.351 [0.103, 0.868] | 40.2% [21.3%, 69.5%] | 63.8% | 48.2 |
 | Gemini 3.5 Flash | 0.357 [0.102, 0.832] | 39.8% [22.0%, 69.8%] | 63.4% | 47.7 |
 | GPT-5.5 | 0.369 [0.122, 0.994] | 39.0% [19.1%, 65.9%] | 62.6% | 46.8 |

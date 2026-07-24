@@ -40,8 +40,8 @@ from scripts.check_panel_grid import GridCheckResult
 
 
 def test_registry_has_exact_taxonomy_and_round_trips_to_csv(tmp_path: Path) -> None:
-    assert len(MODEL_REGISTRY) == 28
-    assert len(PANEL_MODEL_IDS) == len(set(PANEL_MODEL_IDS)) == 28
+    assert len(MODEL_REGISTRY) == 29
+    assert len(PANEL_MODEL_IDS) == len(set(PANEL_MODEL_IDS)) == 29
     assert {model.organization for model in MODEL_REGISTRY} == set(ORGANIZATIONS)
     assert {model.serving_provider_path for model in MODEL_REGISTRY} == set(
         SERVING_PROVIDER_PATHS

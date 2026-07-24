@@ -6,6 +6,7 @@ Note: Split of the pooled predictive variance over the canonical 13-quantity sub
 | Claude Haiku 4.5 | 13 | 0.672 | 0.018 | 0% | 4% |
 | Claude Opus 4.7 | 13 | 0.704 | 0 | 0% | 0% |
 | Claude Opus 4.8 | 13 | 0.72 | 0 | 0% | 1% |
+| Claude Opus 5 | 13 | 0.733 | 0.029 | 0% | 1% |
 | Claude Sonnet 4.6 | 13 | 0.726 | 0 | 0% | 1% |
 | Claude Sonnet 5 | 13 | 0.699 | 0.01 | 0% | 1% |
 | DeepSeek V4 Pro | 13 | 0.738 | 0.054 | 1% | 4% |

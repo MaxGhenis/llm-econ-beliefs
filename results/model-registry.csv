@@ -27,3 +27,4 @@ gpt-5.6-terra,GPT-5.6 Terra,openai,openai_chat_completions,gpt,july_2026_gpt56,O
 grok-4.5,Grok 4.5,xai,litellm_completion,grok,july_2026_late,xAI,July 2026 late,true
 kimi-k3,Kimi K3,moonshot,openrouter_via_litellm,kimi,july_2026_late,Moonshot AI,July 2026 late,true
 gemini-3.6-flash,Gemini 3.6 Flash,google,litellm_completion,gemini,july_2026_late,Google,July 2026 late,true
+claude-opus-5,Claude Opus 5,anthropic,anthropic_native,claude,july_2026_late,Anthropic,July 2026 late,false

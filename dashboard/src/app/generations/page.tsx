@@ -17,6 +17,7 @@ export const metadata = {
  *  Curated to direct product successions only — no cross-tier pairs. */
 const SUCCESSOR_PAIRS: Array<[string, string]> = [
   ["Claude Opus 4.7", "Claude Opus 4.8"],
+  ["Claude Opus 4.8", "Claude Opus 5"],
   ["Claude Sonnet 4.6", "Claude Sonnet 5"],
   ["GPT-5.4", "GPT-5.5"],
   ["GPT-5.5", "GPT-5.6 Sol"],

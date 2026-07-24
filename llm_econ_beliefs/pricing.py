@@ -51,6 +51,15 @@ ANTHROPIC_MODEL_PRICING: dict[str, ModelPricing] = {
         source_url=ANTHROPIC_PRICING_SOURCE_URL,
         as_of_date=ANTHROPIC_PRICING_AS_OF,
     ),
+    # Same sticker as Opus 4.8; added after the Opus 5 elicitation ran, so
+    # its committed request logs carry token counts with null cost fields.
+    "claude-opus-5": ModelPricing(
+        5.00,
+        0.50,
+        25.00,
+        source_url=ANTHROPIC_PRICING_SOURCE_URL,
+        as_of_date=ANTHROPIC_PRICING_AS_OF,
+    ),
     # Introductory Sonnet 5 pricing runs through 2026-08-31; sticker is $3/$15.
     "claude-sonnet-5": ModelPricing(
         2.00,

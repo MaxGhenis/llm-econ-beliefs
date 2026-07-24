@@ -90,6 +90,7 @@ OPENAI_MAX_COMPLETION_TOKENS_BY_MODEL: dict[str, int] = {
 ANTHROPIC_MODEL_ALIASES: dict[str, str] = {
     "claude-fable-5": "claude-fable-5",
     "claude-opus-4.8": "claude-opus-4-8",
+    "claude-opus-5": "claude-opus-5",
     "claude-sonnet-5": "claude-sonnet-5",
     # April-panel model, exposed here for the cross-mechanism ablation
     # (native structured outputs vs the LiteLLM forced-function-call path).
@@ -181,11 +182,11 @@ def run_anthropic_prompt_logged(
     """Run one prompt through the Anthropic API and return one structured output.
 
     Requests carry no sampling or thinking configuration: Claude Fable 5,
-    Opus 4.8, and Sonnet 5 reject non-default `temperature`/`top_p`, and each
-    model keeps its own default thinking behavior (always-on for Fable 5,
-    adaptive-on for Sonnet 5, off for Opus 4.8). Structured output is enforced
-    with `output_config.format`, which mirrors the strict JSON-schema regime
-    used on the OpenAI path.
+    Opus 5, Opus 4.8, and Sonnet 5 reject non-default `temperature`/`top_p`,
+    and each model keeps its own default thinking behavior (always-on for
+    Fable 5, adaptive-on for Opus 5 and Sonnet 5, off for Opus 4.8).
+    Structured output is enforced with `output_config.format`, which mirrors
+    the strict JSON-schema regime used on the OpenAI path.
     """
     if json_schema is None:
         raise ValueError("Anthropic structured output requires a JSON schema")

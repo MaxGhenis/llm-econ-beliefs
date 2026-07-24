@@ -1,11 +1,11 @@
 Predictor,Outcome,Models,Spearman rho,Raw permutation p,Holm-adjusted p,BH-adjusted p,Family size,Derived
 Tax within-$1 (domain-matched),"Mean |center|, labor-and-tax",25,0.054,0.795,1.000,0.932,8,no
-Tax within-$1 (domain-matched),"Mean |center|, macro-and-trade",25,0.169,0.420,1.000,0.692,8,no
-Tax within-$1 (domain-matched),Avg interval-width rank (1 = tightest),25,-0.268,0.190,1.000,0.508,8,no
+Tax within-$1 (domain-matched),"Mean |center|, macro-and-trade",25,0.169,0.420,1.000,0.833,8,no
+Tax within-$1 (domain-matched),Avg interval-width rank (1 = tightest),25,-0.240,0.242,1.000,0.645,8,no
 Tax within-$1 (domain-matched),ETI pooled median,25,-0.513,0.010,0.073,0.042,8,no
 Tax within-$1 (domain-matched),"Implied optimal top rate (%) — derived, monotone transform of ETI — not an additional test",25,0.513,0.010,0.073,0.042,8,yes
 Overall within-$1 (leaderboard headline),"Mean |center|, labor-and-tax",25,-0.011,0.959,1.000,0.959,8,no
 Overall within-$1 (leaderboard headline),"Mean |center|, macro-and-trade",25,0.050,0.816,1.000,0.932,8,no
-Overall within-$1 (leaderboard headline),Avg interval-width rank (1 = tightest),25,-0.162,0.433,1.000,0.692,8,no
+Overall within-$1 (leaderboard headline),Avg interval-width rank (1 = tightest),25,-0.134,0.521,1.000,0.833,8,no
 Overall within-$1 (leaderboard headline),ETI pooled median,25,-0.532,0.006,0.052,0.042,8,no
 Overall within-$1 (leaderboard headline),"Implied optimal top rate (%) — derived, monotone transform of ETI — not an additional test",25,0.532,0.006,0.052,0.042,8,yes

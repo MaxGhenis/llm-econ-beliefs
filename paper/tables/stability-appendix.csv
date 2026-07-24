@@ -1,4 +1,4 @@
 Runs used,Cells compared,Median abs change in pooled center,90th pct abs change in pooled center,Median abs change in pooled width,90th pct abs change in pooled width
-5,364,0.006,0.0467,0.0264,0.2356
-10,364,0.0022,0.0267,0.0101,0.1405
-15,364,0.0,0.0,0.0,0.0
+5,377,0.006,0.0467,0.0271,0.244
+10,377,0.0023,0.0267,0.0101,0.1336
+15,377,0.0,0.0,0.0,0.0

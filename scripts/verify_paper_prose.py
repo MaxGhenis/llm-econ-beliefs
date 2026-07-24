@@ -842,7 +842,11 @@ def verify_prompt_identity() -> None:
     from llm_econ_beliefs.registry import get_quantity  # noqa: E402
 
     dirs = sorted((REPO_ROOT / "results").glob("*-elasticities-batch15"))
-    check("main-panel archive count is 28", len(dirs) == 28, f"got {len(dirs)}")
+    check(
+        f"main-panel archive count is {len(MODEL_REGISTRY)}",
+        len(dirs) == len(MODEL_REGISTRY),
+        f"got {len(dirs)}",
+    )
 
     variants: dict[str, dict[str, set[str]]] = {}
     mixed: list[str] = []
@@ -873,7 +877,7 @@ def verify_prompt_identity() -> None:
         "23 quantities byte-identical across all models",
         len(variants) - len(split) == 23
         and all(
-            len(next(iter(texts.values()))) == 28
+            len(next(iter(texts.values()))) == len(MODEL_REGISTRY)
             for q, texts in variants.items()
             if q not in split
         ),
@@ -893,9 +897,10 @@ def verify_prompt_identity() -> None:
         (majority_text, majority), (minority_text, minority) = sorted(
             texts.items(), key=lambda item: -len(item[1])
         )
+        expected_majority = len(MODEL_REGISTRY) - 7
         check(
-            f"{quantity_id} splits 21/7",
-            (len(majority), len(minority)) == (21, 7),
+            f"{quantity_id} splits {expected_majority}/7",
+            (len(majority), len(minority)) == (expected_majority, 7),
             f"got {len(majority)}/{len(minority)}",
         )
         check(
@@ -935,14 +940,15 @@ def verify_prompt_identity() -> None:
     )
 
     # prose fragments carrying the disclosure numbers
+    majority_count = len(MODEL_REGISTRY) - 7
     check(
-        "abstract discloses the 21/7 wording split",
-        "21 models carry the revised text and seven April models the original" in PAPER,
+        f"abstract discloses the {majority_count}/7 wording split",
+        f"{majority_count} models carry the revised text and seven April models the original" in PAPER,
     )
     check(
         "design discloses the byte-identical census",
-        "23 of the 26 quantities are byte-identical across all 28 models" in PAPER
-        and "split 21/7 on the same seven models" in PAPER,
+        f"23 of the 26 quantities are byte-identical across all {len(MODEL_REGISTRY)} models" in PAPER
+        and f"split {majority_count}/7 on the same seven models" in PAPER,
     )
     sentence = sentence_with("were elicited before the revision and never re-elicited")
     check(
@@ -951,8 +957,8 @@ def verify_prompt_identity() -> None:
         f"sentence: {sentence[:120]!r}",
     )
     check(
-        "results section scopes the iff clarifier to 21 models",
-        "revised wording that 21 of the 28 models received" in PAPER,
+        f"results section scopes the iff clarifier to {majority_count} models",
+        f"revised wording that {majority_count} of the {len(MODEL_REGISTRY)} models received" in PAPER,
     )
     check(
         "A16 prose scopes prompt identity to 23 of 26 quantities",
@@ -977,7 +983,7 @@ def verify_prompt_identity() -> None:
     check(
         "A9 band counts by wording group",
         (revised_ordinary, revised_banded, original_ordinary, original_banded)
-        == (13, 20, 5, 6),
+        == (13, 21, 5, 6),
         f"got revised {revised_ordinary}/{revised_banded}, "
         f"original {original_ordinary}/{original_banded}",
     )
@@ -1108,16 +1114,18 @@ def verify_wording_comparison_prose() -> None:
                 original_ordinary += 1
         elif band == "LTCG-rate consistent":
             ltcg_total += 1
+    worst_ordinary = ordinary_total - original_ordinary
+    worst_ltcg = ltcg_total + original_ordinary
     check(
-        "extreme-flip parity arithmetic (18-5 == 8+5 == 13)",
-        (ordinary_total, ltcg_total, original_ordinary) == (18, 8, 5)
-        and ordinary_total - original_ordinary == ltcg_total + original_ordinary == 13,
+        "extreme-flip split arithmetic",
+        (ordinary_total, ltcg_total, original_ordinary) == (18, 9, 5)
+        and (worst_ordinary, worst_ltcg) == (13, 14),
         f"got {ordinary_total}/{ltcg_total}/{original_ordinary}",
     )
     check(
-        "A9 caveat carries the parity sentence",
-        "eighteen-to-eight ordinary-income majority" in PAPER
-        and "narrow to thirteen-all parity, not reverse" in PAPER,
+        "A9 caveat carries the extreme-flip sentence",
+        f"{NUMBER_WORDS[ordinary_total]}-to-{NUMBER_WORDS[ltcg_total]} ordinary-income majority" in PAPER
+        and f"{NUMBER_WORDS[worst_ordinary]}-to-{NUMBER_WORDS[worst_ltcg]}" in PAPER,
     )
 
     check(
