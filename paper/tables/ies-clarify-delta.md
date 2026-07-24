@@ -6,6 +6,7 @@ Note: Full-panel follow-up across all 11 models. Change in the intertemporal ela
 | Claude Haiku 4.5 | 0.5 | 0.5 | 0 | [0.2058, 1.188] | [0.2115, 1.193] |
 | Claude Opus 4.7 | 0.5 | 0.5 | 0 | [0.092, 1.965] | [0.1, 1.483] |
 | Claude Opus 4.8 | 0.5 | 0.5 | 0 | [0.1, 1.5] | [0.1, 1.455] |
+| Claude Opus 5 | 0.7 | 0.52 | -0.18 | [0.15, 1.994] | [0.1102, 1.533] |
 | Claude Sonnet 4.6 | 0.5 | 0.5 | 0 | [0.1, 1.5] | [0.1, 1.491] |
 | Claude Sonnet 5 | 0.5 | 0.5 | 0 | [0.1024, 1.482] | [0.1024, 1.199] |
 | DeepSeek V4 Pro | 0.527 | 0.5 | -0.027 | [0.06604, 2.054] | [0.07207, 1.918] |

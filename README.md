@@ -130,11 +130,11 @@ For OpenAI Chat Completions, `--samples-per-request` maps to the API's `n` param
   --output-dir results/claude-fable-5-frisch-batch5
 ```
 
-The `anthropic` provider serves Claude Fable 5, Claude Opus 4.8, and Claude
-Sonnet 5 through the official Anthropic SDK with structured outputs
-(`output_config.format`). These models reject sampling parameters, so requests
-carry no temperature; each model keeps its default thinking behavior
-(always-on for Fable 5, adaptive for Sonnet 5, off for Opus 4.8), and
+The `anthropic` provider serves Claude Fable 5, Claude Opus 5, Claude Opus
+4.8, and Claude Sonnet 5 through the official Anthropic SDK with structured
+outputs (`output_config.format`). These models reject sampling parameters, so
+requests carry no temperature; each model keeps its default thinking behavior
+(always-on for Fable 5, adaptive for Opus 5 and Sonnet 5, off for Opus 4.8), and
 `--max-workers` parallelizes repeated draws. Older Claude models
 (Opus 4.7 and earlier) continue to run through the LiteLLM path used for the
 April 2026 panel.
@@ -217,14 +217,15 @@ values.
 
 Run the April v4 panel from scratch. This calls out to every provider
 and takes roughly 1–2 hours of wall time. The full committed panel is
-28 models × 26 quantities × 15 runs (10,920 main-panel runs) elicited
+29 models × 26 quantities × 15 runs (11,310 main-panel runs) elicited
 in five waves: the 11-model April wave via this driver (~$23), the
 6-model July frontier wave (~$38 including clarify probes), the
 5-model Chinese-lab wave through OpenRouter (~$29 at the account
 level, including recovered failures), the 3-model GPT-5.6 wave
-(request-level costs untracked), and the late Grok 4.5, Kimi K3, and
-Gemini 3.6 Flash additions ($2.71 and $2.99 tracked for Grok 4.5 and
-Gemini 3.6 Flash; ~$10.69 estimated from logged tokens for Kimi K3). Set provider API keys in your
+(request-level costs untracked), and the late Grok 4.5, Kimi K3,
+Gemini 3.6 Flash, and Claude Opus 5 additions ($2.71 and $2.99 tracked
+for Grok 4.5 and Gemini 3.6 Flash; ~$10.69 and ~$11.30 estimated from
+logged tokens for Kimi K3 and Claude Opus 5). Set provider API keys in your
 environment first (`OPENROUTER_API_KEY` for the Chinese-lab models).
 If any runs fail on infrastructure errors,
 `scripts/rerun_failed_runs.py` re-elicits the failed slots in place

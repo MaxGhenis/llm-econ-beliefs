@@ -1,7 +1,7 @@
 Quantity,Rough review range,Models in range,Model min center,Model max center,Benchmark sources
-Capital gains realizations elasticity,"[-1, -0.2]",27 / 28,-0.93,0.01,"Dowd, McClelland, and Muthitacharoen 2015; Burman and Randolph 1994; CBO/JCT medium-run convention"
-Elasticity of taxable income,"[0.25, 0.5]",25 / 28,0.35,0.554,"Gruber and Saez 2002 (high-income estimates); Saez, Slemrod, and Giertz 2012 (survey range 0.12-0.40, upper half)"
-Employment participation elasticity of single mothers,"[0.3, 1]",27 / 28,0.213,0.717,"Chetty, Guren, Manoli, and Weber 2013 (elasticity implied by Eissa and Liebman 1996); Meyer and Rosenbaum 2001"
-Frisch elasticity of labor supply,"[0.25, 0.75]",28 / 28,0.283,0.593,CBO 2012; Peterman 2016; lifecycle and macro-calibration literature
-Income elasticity of labor supply,"[-0.15, -0.05]",23 / 28,-0.107,0.011,"CBO 2012; Blundell and MaCurdy 1999; Imbens, Rubin, and Sacerdote 2001 (marginal propensity to earn, converted to an elasticity)"
-Uncompensated wage elasticity of labor supply,"[0.05, 0.3]",27 / 28,0.04,0.168,CBO 2012; Blundell and MaCurdy 1999
+Capital gains realizations elasticity,"[-1, -0.2]",28 / 29,-0.93,0.01,"Dowd, McClelland, and Muthitacharoen 2015; Burman and Randolph 1994; CBO/JCT medium-run convention"
+Elasticity of taxable income,"[0.25, 0.5]",26 / 29,0.335,0.554,"Gruber and Saez 2002 (high-income estimates); Saez, Slemrod, and Giertz 2012 (survey range 0.12-0.40, upper half)"
+Employment participation elasticity of single mothers,"[0.3, 1]",28 / 29,0.213,0.717,"Chetty, Guren, Manoli, and Weber 2013 (elasticity implied by Eissa and Liebman 1996); Meyer and Rosenbaum 2001"
+Frisch elasticity of labor supply,"[0.25, 0.75]",29 / 29,0.283,0.593,CBO 2012; Peterman 2016; lifecycle and macro-calibration literature
+Income elasticity of labor supply,"[-0.15, -0.05]",24 / 29,-0.107,0.011,"CBO 2012; Blundell and MaCurdy 1999; Imbens, Rubin, and Sacerdote 2001 (marginal propensity to earn, converted to an elasticity)"
+Uncompensated wage elasticity of labor supply,"[0.05, 0.3]",28 / 29,0.04,0.168,CBO 2012; Blundell and MaCurdy 1999

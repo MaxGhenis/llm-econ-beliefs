@@ -16,8 +16,8 @@ keywords:
   - taxable income elasticity
   - optimal taxation
 abstract: >-
-  Elicitation harness, 10,920-run dataset, and paper studying the
-  prompt-conditioned response distributions that 28 frontier large
+  Elicitation harness, 11,310-run dataset, and paper studying the
+  prompt-conditioned response distributions that 29 frontier large
   language models from nine organizations produce when asked about 26
   economic elasticities under a fixed structured-output protocol with
   15 repeated runs per model-quantity cell.

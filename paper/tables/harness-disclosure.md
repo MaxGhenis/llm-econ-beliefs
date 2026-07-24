@@ -12,6 +12,7 @@ Note: Per-model generation-harness configuration. The prompt text and repeated-r
 | Claude Fable 5 | native Anthropic API | strict JSON schema | 32000 | none accepted (provider default) | always-on reasoning | claude-fable-5 | alias |
 | Claude Opus 4.8 | native Anthropic API | strict JSON schema | 32000 | none accepted (provider default) | off (provider default) | claude-opus-4-8 | alias |
 | Claude Sonnet 5 | native Anthropic API | strict JSON schema | 32000 | none accepted (provider default) | adaptive (provider default) | claude-sonnet-5 | alias |
+| Claude Opus 5 | native Anthropic API | strict JSON schema | 32000 | none accepted (provider default) | adaptive, on by default (provider default) | claude-opus-5 | alias |
 | Claude Opus 4.7 | LiteLLM | forced function call | 1200 | temperature 1.0 | off (provider default) | claude-opus-4-7 | alias |
 | Claude Sonnet 4.6 | LiteLLM | forced function call | 1200 | temperature 1.0 | off (provider default) | claude-sonnet-4-6 | alias |
 | Claude Haiku 4.5 | LiteLLM | forced function call | 1200 | temperature 1.0 | off (provider default) | claude-haiku-4-5-20251001 | dated snapshot |
