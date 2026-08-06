@@ -286,10 +286,10 @@ def test_sensitivities_cover_each_organization_both_wave_groups_and_clusters(
         cluster["permutation_unit"]
         == "organization_score_block_within_equal_size_strata"
     )
-    # Equal-size strata over the 24-model overlap: openai/anthropic at 6
-    # (2!), xai and moonshot at 2 (2!), google at 4 (1!), four single-model
-    # Chinese labs (4!) -> 2 * 2 * 24 = 96 block assignments.
-    assert cluster["n_permutations"] == 96
+    # Equal-size strata over the 28-model overlap: anthropic at 7, openai
+    # at 6, google at 5 (1! each), xai/alibaba/moonshot at 2 (3!), and
+    # four single-model labs (4!) -> 6 * 24 = 144 block assignments.
+    assert cluster["n_permutations"] == 144
     assert 0 < cluster["permutation_p"] <= 1
 
 

@@ -64,16 +64,17 @@ export default function MethodsPage() {
             hierarchical estimators run alongside as robustness checks.
           </MethodBlock>
           <MethodBlock title="Panel">
-            29 models from nine organizations — Anthropic, OpenAI, Google,
-            xAI, DeepSeek, Alibaba, Moonshot AI, Zhipu AI, and MiniMax —
-            elicited in five waves: 11 in April 2026 and 18 in July 2026
-            (six frontier updates, five Chinese-lab models, the GPT-5.6
-            family, and late Grok 4.5, Kimi K3, Gemini 3.6 Flash, and
-            Claude Opus 5 additions), all under identical
+            31 models from ten organizations — Anthropic, OpenAI, Google,
+            xAI, DeepSeek, Alibaba, Moonshot AI, Zhipu AI, MiniMax, and
+            Thinking Machines — elicited in six waves: 11 in April 2026,
+            18 in July 2026 (six frontier updates, five Chinese-lab
+            models, the GPT-5.6 family, and late Grok 4.5, Kimi K3,
+            Gemini 3.6 Flash, and Claude Opus 5 additions), and 2 in
+            August 2026 (Qwen 3.8 Max and Inkling), all under identical
             prompts. 26 U.S.-scoped quantities: 9 headline elasticities in
             two subpanels, 4 calibration parameters, a capital-gains
             convention sibling, and 12 simulation-facing coefficients.
-            11,310 successful runs at a 100 percent parse rate, with every
+            12,090 successful runs at a 100 percent parse rate, with every
             cell verified against the exact 15-run grid; failed slots re-ran as fresh independent draws,
             each traced in the{" "}
             <a

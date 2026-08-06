@@ -25,6 +25,7 @@ const SUCCESSOR_PAIRS: Array<[string, string]> = [
   ["Gemini 3.5 Flash", "Gemini 3.6 Flash"],
   ["Grok 4.3", "Grok 4.5"],
   ["Kimi K2.6", "Kimi K3"],
+  ["Qwen 3.7 Max", "Qwen 3.8 Max"],
 ];
 
 const WAVE_ORDER: Record<string, number> = {
@@ -33,6 +34,7 @@ const WAVE_ORDER: Record<string, number> = {
   july_2026_independent: 2,
   july_2026_gpt56: 3,
   july_2026_late: 4,
+  august_2026: 5,
 };
 
 interface ModelRanks {

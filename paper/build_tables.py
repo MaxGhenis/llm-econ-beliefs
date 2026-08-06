@@ -2211,6 +2211,8 @@ HARNESS_DISCLOSURE_ROWS: list[dict[str, str]] = [
     {"model": "glm-5.2", "mechanism": "forced JSON object (schema validated locally)", "budget": "16000", "sampling": "temperature 1.0", "reasoning": "provider default", "identifier": "openrouter/z-ai/glm-5.2", "id_type": "alias"},
     {"model": "minimax-m3", "mechanism": "forced JSON object (schema validated locally)", "budget": "8000", "sampling": "temperature 1.0", "reasoning": "provider default", "identifier": "openrouter/minimax/minimax-m3", "id_type": "alias"},
     {"model": "grok-4.1-fast", "mechanism": "forced function call", "budget": "1200", "sampling": "temperature 1.0", "reasoning": "non-reasoning variant", "identifier": "xai/grok-4-1-fast-non-reasoning", "id_type": "alias"},
+    {"model": "qwen3.8-max", "mechanism": "forced JSON object (schema validated locally)", "budget": "32000", "sampling": "temperature 1.0", "reasoning": "provider default", "identifier": "openrouter/qwen/qwen3.8-max", "id_type": "alias"},
+    {"model": "inkling", "mechanism": "forced JSON object (schema validated locally)", "budget": "24000", "sampling": "temperature 1.0", "reasoning": "provider default", "identifier": "openrouter/thinkingmachines/inkling", "id_type": "alias"},
 ]
 
 

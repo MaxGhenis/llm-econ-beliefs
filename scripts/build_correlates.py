@@ -846,8 +846,8 @@ def organization_block_permutation(
     Organization sizes differ in the overlap panel, so a whole block can only
     move to another organization with the same number of models. Within-block
     model order follows registry order inherited by ``summary_rows``. The
-    resulting exact reference set has 2! x 6! = 1,440 assignments for the
-    current 6/6/4/1/1/1/1/1/1 organization-size pattern.
+    resulting exact reference set has 3! x 4! = 144 assignments for the
+    current 7/6/5/2/2/2/1/1/1/1 organization-size pattern.
     """
     by_organization: dict[str, list[dict[str, object]]] = defaultdict(list)
     model_ids: list[str] = []
