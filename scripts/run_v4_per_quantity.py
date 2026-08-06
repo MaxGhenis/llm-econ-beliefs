@@ -70,6 +70,8 @@ PROVIDER_FOR_MODEL = {
     "kimi-k3": "litellm",
     "glm-5.2": "litellm",
     "minimax-m3": "litellm",
+    "qwen3.8-max": "litellm",
+    "inkling": "litellm",
     "gpt-5.6-sol": "openai",
     "gpt-5.6-luna": "openai",
     "gpt-5.6-terra": "openai",

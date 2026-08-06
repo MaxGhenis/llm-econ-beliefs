@@ -46,6 +46,8 @@ POLICYBENCH_LITELLM_MODEL_ALIASES: dict[str, str] = {
     "glm-5.2": "openrouter/z-ai/glm-5.2",
     "minimax-m3": "openrouter/minimax/minimax-m3",
     "kimi-k3": "openrouter/moonshotai/kimi-k3",
+    "qwen3.8-max": "openrouter/qwen/qwen3.8-max",
+    "inkling": "openrouter/thinkingmachines/inkling",
 }
 
 # Reasoning tokens count against the completion cap for these models, so give
@@ -70,6 +72,23 @@ LITELLM_MAX_COMPLETION_TOKENS_BY_MODEL: dict[str, int] = {
     # first 390 runs (empty JSON content), so it gets double headroom.
     "glm-5.2": 16000,
     "minimax-m3": 8000,
+    # Qwen 3.8 Max reasons far harder than 3.7 Max: PolicyBench's model
+    # card records 40,423 completion tokens on a 3-variable probe, so it
+    # gets quadruple the shared reasoner headroom.
+    "qwen3.8-max": 32000,
+    # Inkling's reasoning bills as completion tokens and exceeded a
+    # 16,384 ceiling on PolicyBench's whole-scenario probe; our prompts
+    # are far smaller, but give it triple headroom.
+    "inkling": 24000,
+}
+
+# Per-request timeouts for models whose reasoning runs long at modest
+# tokens per second. PolicyBench's model cards observed ~50 tok/s for
+# Qwen 3.8 Max and ~80 tok/s for Inkling; give each enough wall clock
+# to spend its full completion budget.
+LITELLM_REQUEST_TIMEOUT_SECONDS_BY_MODEL: dict[str, int] = {
+    "qwen3.8-max": 800,
+    "inkling": 600,
 }
 
 # GPT-5.5 reasons far more than the 5.4 family on sign-convention prompts and
@@ -290,7 +309,7 @@ def run_litellm_prompt_logged(
     json_schema: dict[str, Any] | None = DEFAULT_BELIEF_JSON_SCHEMA,
     temperature: float = 1.0,
     max_completion_tokens: int | None = None,
-    timeout_seconds: int = 180,
+    timeout_seconds: int | None = None,
 ) -> ProviderBatchResult:
     """Run one prompt through LiteLLM and return one structured output.
 
@@ -305,6 +324,8 @@ def run_litellm_prompt_logged(
         max_completion_tokens = LITELLM_MAX_COMPLETION_TOKENS_BY_MODEL.get(
             model_name, 1200
         )
+    if timeout_seconds is None:
+        timeout_seconds = LITELLM_REQUEST_TIMEOUT_SECONDS_BY_MODEL.get(model_name, 180)
 
     request_kwargs: dict[str, Any] = {
         "model": resolved_model_name,
