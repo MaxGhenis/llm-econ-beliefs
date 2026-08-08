@@ -27,7 +27,9 @@ Note: Both capital-gains-realizations conventions elicited independently under p
 | Grok 4.20 | xAI | -0.5 | 0.65 | 0.417 [0.348, 0.478] | 100% | sign-consistent (tax<0, net>0) | ordinary-income-rate consistent |
 | Grok 4.3 | xAI | -0.7 | 0.8 | 0.484 [0.411, 0.556] | 100% | sign-consistent (tax<0, net>0) | ordinary-income-rate consistent |
 | Grok 4.5 | xAI | -0.6 | 0.7 | 0.462 [0.368, 0.519] | 100% | sign-consistent (tax<0, net>0) | ordinary-income-rate consistent |
+| Inkling | Thinking Machines | -0.5 | 1 | 0.333 [0.200, 0.500] | 94% | sign-consistent (tax<0, net>0) | LTCG-rate consistent |
 | Kimi K2.6 | Moonshot AI | -0.5 | 0.65 | 0.400 [0.185, 0.560] | 94% | sign-consistent (tax<0, net>0) | ordinary-income-rate consistent |
 | Kimi K3 | Moonshot AI | -0.5 | 0.5 | 0.444 [0.143, 0.545] | 100% | sign-consistent (tax<0, net>0) | ordinary-income-rate consistent |
 | MiniMax M3 | MiniMax | -0.35 | 0.7 | 0.333 [0.059, 0.588] | 100% | sign-consistent (tax<0, net>0) | LTCG-rate consistent |
 | Qwen 3.7 Max | Alibaba | -0.7 | 0.7 | 0.500 [0.412, 0.588] | 100% | sign-consistent (tax<0, net>0) | ordinary-income-rate consistent |
+| Qwen 3.8 Max | Alibaba | -0.45 | 0.6 | 0.444 [0.265, 0.529] | 100% | sign-consistent (tax<0, net>0) | ordinary-income-rate consistent |

@@ -1,33 +1,35 @@
-Note: Per-model summary joining the elicitation panel to the published PolicyBench leaderboard (PolicyEngine/policybench dashboard-data-20260721, US, no-tools, household-weighted within-$1 rate — the leaderboard headline). Width rank averages tie-averaged 90 percent interval-width ranks across the canonical panel (1 = tightest). Implied top rates come from Table 4's threshold-normalized log-utility mapping. Dashes mark models outside the PolicyBench panel.
+Note: Per-model summary joining the elicitation panel to the published PolicyBench leaderboard (PolicyEngine/policybench dashboard-data-20260805, US, no-tools, household-weighted within-$1 rate — the leaderboard headline). Width rank averages tie-averaged 90 percent interval-width ranks across the canonical panel (1 = tightest). Implied top rates come from Table 4's threshold-normalized log-utility mapping. Dashes mark models outside the PolicyBench panel.
 
 | Model | Organization | Wave | PolicyBench within-$1 | ETI median | Implied top rate | Avg width rank |
 | --- | --- | --- | --- | --- | --- | --- |
-| Claude Opus 5 | Anthropic | July 2026 late | — | 0.337 | 41.2% | 12.3 |
-| Gemini 3.1 Pro | Google | April 2026 | 77.9 | 0.351 | 40.2% | 10.3 |
-| Gemini 3.5 Flash | Google | July 2026 frontier | 76.2 | 0.357 | 39.8% | 12.5 |
-| GPT-5.5 | OpenAI | July 2026 frontier | 83.5 | 0.369 | 39.0% | 14.2 |
-| Kimi K3 | Moonshot AI | July 2026 late | 86.2 | 0.371 | 38.8% | 17.8 |
-| GPT-5.6 Luna | OpenAI | July 2026 GPT-5.6 | 84.5 | 0.377 | 38.4% | 24.5 |
-| Claude Opus 4.8 | Anthropic | July 2026 frontier | 72.6 | 0.383 | 38.0% | 10.4 |
-| Gemini 3.1 Flash-Lite | Google | April 2026 | 76.1 | 0.389 | 37.7% | 13.1 |
-| Claude Opus 4.7 | Anthropic | April 2026 | 77.4 | 0.400 | 37.0% | 8.8 |
-| Gemini 3 Flash | Google | April 2026 | 76.9 | 0.400 | 37.0% | 12.2 |
-| Grok 4.1 Fast | xAI | April 2026 | — | 0.400 | 37.0% | 18.0 |
-| Grok 4.5 | xAI | July 2026 late | 80.9 | 0.410 | 36.5% | 17.5 |
-| GPT-5.4 | OpenAI | April 2026 | — | 0.420 | 35.9% | 14.2 |
-| Gemini 3.6 Flash | Google | July 2026 late | 79.0 | 0.423 | 35.8% | 6.8 |
-| GPT-5.6 Sol | OpenAI | July 2026 GPT-5.6 | 88.7 | 0.431 | 35.3% | 16.2 |
-| GPT-5.4 mini | OpenAI | April 2026 | 70.5 | 0.437 | 35.0% | 21.8 |
-| Claude Fable 5 | Anthropic | July 2026 frontier | 79.9 | 0.437 | 35.0% | 6.5 |
-| Grok 4.3 | xAI | July 2026 frontier | 77.2 | 0.439 | 34.9% | 17.5 |
-| MiniMax M3 | MiniMax | July 2026 independent labs | 72.4 | 0.438 | 34.9% | 17.6 |
-| Claude Sonnet 5 | Anthropic | July 2026 frontier | 69.4 | 0.471 | 33.3% | 9.2 |
-| DeepSeek V4 Pro | DeepSeek | July 2026 independent labs | 76.1 | 0.479 | 32.9% | 18.8 |
-| GPT-5.6 Terra | OpenAI | July 2026 GPT-5.6 | 83.4 | 0.492 | 32.4% | 13.1 |
-| GLM-5.2 | Zhipu AI | July 2026 independent labs | 73.1 | 0.495 | 32.2% | 19.5 |
-| Kimi K2.6 | Moonshot AI | July 2026 independent labs | 64.6 | 0.499 | 32.1% | 21.3 |
-| Claude Sonnet 4.6 | Anthropic | April 2026 | 77.1 | 0.500 | 32.0% | 12.8 |
-| Grok 4.20 | xAI | April 2026 | — | 0.500 | 32.0% | 22.3 |
-| Claude Haiku 4.5 | Anthropic | April 2026 | 71.7 | 0.502 | 31.9% | 8.8 |
-| GPT-5.4 nano | OpenAI | April 2026 | 62.3 | 0.546 | 30.1% | 17.7 |
-| Qwen 3.7 Max | Alibaba | July 2026 independent labs | 73.6 | 0.555 | 29.8% | 19.2 |
+| Claude Opus 5 | Anthropic | July 2026 late | 79.8 | 0.337 | 41.2% | 13.0 |
+| Gemini 3.1 Pro | Google | April 2026 | 77.9 | 0.351 | 40.2% | 11.2 |
+| Gemini 3.5 Flash | Google | July 2026 frontier | 76.2 | 0.357 | 39.8% | 13.3 |
+| GPT-5.5 | OpenAI | July 2026 frontier | 83.5 | 0.369 | 39.0% | 15.1 |
+| Kimi K3 | Moonshot AI | July 2026 late | 86.2 | 0.371 | 38.8% | 18.8 |
+| Qwen 3.8 Max | Alibaba | August 2026 | 71.5 | 0.372 | 38.7% | 19.4 |
+| GPT-5.6 Luna | OpenAI | July 2026 GPT-5.6 | 84.5 | 0.377 | 38.4% | 26.2 |
+| Claude Opus 4.8 | Anthropic | July 2026 frontier | 72.6 | 0.383 | 38.0% | 11.0 |
+| Gemini 3.1 Flash-Lite | Google | April 2026 | 76.1 | 0.389 | 37.7% | 13.9 |
+| Claude Opus 4.7 | Anthropic | April 2026 | 77.4 | 0.400 | 37.0% | 9.5 |
+| Gemini 3 Flash | Google | April 2026 | 76.9 | 0.400 | 37.0% | 12.9 |
+| Grok 4.1 Fast | xAI | April 2026 | — | 0.400 | 37.0% | 19.2 |
+| Grok 4.5 | xAI | July 2026 late | 80.9 | 0.410 | 36.5% | 18.8 |
+| GPT-5.4 | OpenAI | April 2026 | — | 0.420 | 35.9% | 15.3 |
+| Gemini 3.6 Flash | Google | July 2026 late | 79.0 | 0.423 | 35.8% | 7.5 |
+| GPT-5.6 Sol | OpenAI | July 2026 GPT-5.6 | 88.7 | 0.431 | 35.3% | 17.4 |
+| GPT-5.4 mini | OpenAI | April 2026 | 70.5 | 0.437 | 35.0% | 23.1 |
+| Claude Fable 5 | Anthropic | July 2026 frontier | 79.9 | 0.437 | 35.0% | 6.8 |
+| Grok 4.3 | xAI | July 2026 frontier | 77.2 | 0.439 | 34.9% | 18.7 |
+| MiniMax M3 | MiniMax | July 2026 independent labs | 72.4 | 0.438 | 34.9% | 18.8 |
+| Inkling | Thinking Machines | August 2026 | 83.8 | 0.443 | 34.7% | 12.7 |
+| Claude Sonnet 5 | Anthropic | July 2026 frontier | 69.4 | 0.471 | 33.3% | 9.8 |
+| DeepSeek V4 Pro | DeepSeek | July 2026 independent labs | 76.1 | 0.479 | 32.9% | 20.4 |
+| GPT-5.6 Terra | OpenAI | July 2026 GPT-5.6 | 83.4 | 0.492 | 32.4% | 13.8 |
+| GLM-5.2 | Zhipu AI | July 2026 independent labs | 73.1 | 0.495 | 32.2% | 20.8 |
+| Kimi K2.6 | Moonshot AI | July 2026 independent labs | 64.6 | 0.499 | 32.1% | 22.7 |
+| Claude Sonnet 4.6 | Anthropic | April 2026 | 77.1 | 0.500 | 32.0% | 13.7 |
+| Grok 4.20 | xAI | April 2026 | — | 0.500 | 32.0% | 23.8 |
+| Claude Haiku 4.5 | Anthropic | April 2026 | 71.7 | 0.502 | 31.9% | 9.3 |
+| GPT-5.4 nano | OpenAI | April 2026 | 62.3 | 0.546 | 30.1% | 18.8 |
+| Qwen 3.7 Max | Alibaba | July 2026 independent labs | 73.6 | 0.555 | 29.8% | 20.3 |

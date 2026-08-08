@@ -55,6 +55,16 @@ def parse_belief_response(
     point_estimate = _extract_point_estimate_from_text(response_text, quantiles=quantiles)
     if point_estimate is None:
         raise ValueError("Could not parse a point estimate from the response")
+    # Same quantile-complete contract as the structured path: the pooled
+    # analysis is a mixture over the five quantiles, so a response without
+    # all five is a failed run, not a parsed one.
+    missing_quantiles = [
+        key for key in ("p05", "p25", "p50", "p75", "p95") if quantiles.get(key) is None
+    ]
+    if missing_quantiles:
+        raise ValueError(
+            "Response text is missing quantiles: " + ", ".join(missing_quantiles)
+        )
 
     interval = _extract_interval_from_text(response_text)
     lower_bound = quantiles.get("p05") if "p05" in quantiles else (interval[0] if interval else None)
@@ -109,6 +119,18 @@ def _parse_structured_payload(
         point_estimate = quantiles["p50"]
     if point_estimate is None:
         raise ValueError("Structured response is missing a point estimate")
+    # The pooled analysis is a mixture over the five elicited quantiles, so
+    # a run without all five contributes nothing valid — the same failure
+    # class as a missing point estimate. Inkling is the only panel model
+    # that ever omitted them (9 runs); every such slot re-ran as a fresh
+    # draw under the standard replacement policy.
+    missing_quantiles = [
+        key for key in ("p05", "p25", "p50", "p75", "p95") if quantiles.get(key) is None
+    ]
+    if missing_quantiles:
+        raise ValueError(
+            "Structured response is missing quantiles: " + ", ".join(missing_quantiles)
+        )
 
     lower_bound = _lookup_numeric(payload, LOWER_KEYS)
     upper_bound = _lookup_numeric(payload, UPPER_KEYS)

@@ -71,7 +71,7 @@ CANONICAL = LABOR_TAX | MACRO_TRADE | {
 }
 ETI_QUANTITY_ID = "tax.elasticity_of_taxable_income.top_earners"
 
-EXPECTED_PANEL_ONLY = {"gpt-5.4", "grok-4.20", "grok-4.1-fast", "claude-opus-5"}
+EXPECTED_PANEL_ONLY = {"gpt-5.4", "grok-4.20", "grok-4.1-fast"}
 EXPECTED_POLICYBENCH_ONLY = {"grok-build-0.1"}
 EXPECTED_POLICYBENCH_CONDITION = "no_tools"
 EXPECTED_POLICYBENCH_COUNTRY = "us"
@@ -846,8 +846,8 @@ def organization_block_permutation(
     Organization sizes differ in the overlap panel, so a whole block can only
     move to another organization with the same number of models. Within-block
     model order follows registry order inherited by ``summary_rows``. The
-    resulting exact reference set has 2! x 6! = 1,440 assignments for the
-    current 6/6/4/1/1/1/1/1/1 organization-size pattern.
+    resulting exact reference set has 3! x 4! = 144 assignments for the
+    current 7/6/5/2/2/2/1/1/1/1 organization-size pattern.
     """
     by_organization: dict[str, list[dict[str, object]]] = defaultdict(list)
     model_ids: list[str] = []
@@ -942,9 +942,9 @@ def country_permutation_p(
     china_values: Sequence[float],
     *,
     seed: int = 20260710,
-    # C(29, 6) = 475,020 — keep the panel's country cut on the
+    # C(31, 7) = 2,629,575 — keep the panel's country cut on the
     # exact-enumeration path (the paper reports it as exact).
-    max_exact: int = 480000,
+    max_exact: int = 2700000,
 ) -> float:
     """Two-sided group-label permutation p for the difference in medians.
 

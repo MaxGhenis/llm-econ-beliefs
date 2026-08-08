@@ -70,6 +70,8 @@ PROVIDER_FOR_MODEL = {
     "kimi-k3": "litellm",
     "glm-5.2": "litellm",
     "minimax-m3": "litellm",
+    "qwen3.8-max": "litellm",
+    "inkling": "litellm",
     "gpt-5.6-sol": "openai",
     "gpt-5.6-luna": "openai",
     "gpt-5.6-terra": "openai",
@@ -364,6 +366,7 @@ def main() -> int:
                     "prompt_version": record.prompt_version,
                     "quantity_id": record.quantity_id,
                     "run_index": record.run_index,
+                    "parsed_ok": record.parsed_ok,
                 }
                 for record in staged_records
             ),
@@ -371,6 +374,9 @@ def main() -> int:
             prompt_version=args.prompt_version,
             quantity_ids=[qid],
             n_runs=15,
+            # A cell full of provider failures (e.g. upstream 429s) must
+            # redo on resume, not skip as staged.
+            require_parsed=True,
         )
         if staged_grid.ok:
             print(

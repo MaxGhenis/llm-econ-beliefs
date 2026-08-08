@@ -149,7 +149,7 @@ export default function Home() {
           <FindingCard
             title="Generations converge on core parameters"
             href={`/quantities/${convergent[0]?.slug ?? ""}`}
-            body="Across five elicitation waves and nine organizations, pooled centers for the core preference parameters sit in tight cross-model ranges."
+            body="Across six elicitation waves and ten organizations, pooled centers for the core preference parameters sit in tight cross-model ranges."
           >
             <ul className="mt-3 space-y-1.5 text-xs">
               {convergent.map((entry) => (

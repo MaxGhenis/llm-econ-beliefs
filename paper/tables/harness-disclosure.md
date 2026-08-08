@@ -31,3 +31,5 @@ Note: Per-model generation-harness configuration. The prompt text and repeated-r
 | GLM-5.2 | LiteLLM via OpenRouter | forced JSON object (schema validated locally) | 16000 | temperature 1.0 | provider default | openrouter/z-ai/glm-5.2 | alias |
 | MiniMax M3 | LiteLLM via OpenRouter | forced JSON object (schema validated locally) | 8000 | temperature 1.0 | provider default | openrouter/minimax/minimax-m3 | alias |
 | Grok 4.1 Fast | LiteLLM | forced function call | 1200 | temperature 1.0 | non-reasoning variant | xai/grok-4-1-fast-non-reasoning | alias |
+| Qwen 3.8 Max | LiteLLM via OpenRouter | forced JSON object (schema validated locally) | 32000 | temperature 1.0 | provider default | openrouter/qwen/qwen3.8-max | alias |
+| Inkling | LiteLLM via OpenRouter | forced JSON object (schema validated locally) | 24000 | temperature 1.0 | provider default | openrouter/thinkingmachines/inkling | alias |

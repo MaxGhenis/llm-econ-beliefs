@@ -31,11 +31,11 @@ from llm_econ_beliefs.model_registry import MODEL_REGISTRY, PANEL_MODEL_IDS
 RUNS_PER_QUANTITY = 15
 # The no-argument invocation verifies exactly the completeness the paper
 # claims: the main elasticities batch for every registry model, plus the
-# clarify batches for the July 2026 waves. Three April models carry
-# documented clarify-batch gaps (claude-opus-4.7's armington runs are
-# tagged v4; two Gemini previews hold unparsed clarify slots), so April
-# clarify cells are only checked when named explicitly via --models.
-JULY_MODEL_IDS = tuple(
+# clarify batches for every wave after April 2026. Three April models
+# carry documented clarify-batch gaps (claude-opus-4.7's armington runs
+# are tagged v4; two Gemini previews hold unparsed clarify slots), so
+# April clarify cells are only checked when named explicitly via --models.
+POST_APRIL_MODEL_IDS = tuple(
     model.model_id for model in MODEL_REGISTRY if model.wave != "april_2026"
 )
 BATCH_PROMPT_VERSIONS = {
@@ -299,7 +299,7 @@ def main() -> int:
         plan = [(model, "elasticities-batch15") for model in PANEL_MODEL_IDS]
         plan += [
             (model, batch)
-            for model in JULY_MODEL_IDS
+            for model in POST_APRIL_MODEL_IDS
             for batch in ("armington-clarify-batch15", "ies-clarify-batch15")
         ]
     else:

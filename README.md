@@ -217,15 +217,18 @@ values.
 
 Run the April v4 panel from scratch. This calls out to every provider
 and takes roughly 1–2 hours of wall time. The full committed panel is
-29 models × 26 quantities × 15 runs (11,310 main-panel runs) elicited
-in five waves: the 11-model April wave via this driver (~$23), the
+31 models × 26 quantities × 15 runs (12,090 main-panel runs) elicited
+in six waves: the 11-model April wave via this driver (~$23), the
 6-model July frontier wave (~$38 including clarify probes), the
 5-model Chinese-lab wave through OpenRouter (~$29 at the account
 level, including recovered failures), the 3-model GPT-5.6 wave
-(request-level costs untracked), and the late Grok 4.5, Kimi K3,
+(request-level costs untracked), the late Grok 4.5, Kimi K3,
 Gemini 3.6 Flash, and Claude Opus 5 additions ($2.71 and $2.99 tracked
 for Grok 4.5 and Gemini 3.6 Flash; ~$10.69 and ~$11.30 estimated from
-logged tokens for Kimi K3 and Claude Opus 5). Set provider API keys in your
+logged tokens for Kimi K3 and Claude Opus 5), and the August Qwen 3.8
+Max and Inkling additions ($10.61 and $7.97 tracked — OpenRouter now
+reports per-request costs, so their logs carry them, including the
+failed attempts their recovery replaced). Set provider API keys in your
 environment first (`OPENROUTER_API_KEY` for the Chinese-lab models).
 If any runs fail on infrastructure errors,
 `scripts/rerun_failed_runs.py` re-elicits the failed slots in place

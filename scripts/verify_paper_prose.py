@@ -304,9 +304,14 @@ def verify_harness_disclosure() -> None:
     model_col = next(iter(rows[0]))
 
     def row_for(model_id: str) -> dict[str, str] | None:
+        # Compare hyphen-insensitively: PolicyBench-style ids drop the
+        # hyphen between family and version (qwen3.8-max), while display
+        # labels space everything (Qwen 3.8 Max).
+        def canon(value: str) -> str:
+            return value.strip("`").lower().replace(" ", "").replace("-", "")
+
         for row in rows:
-            label = row[model_col].strip("`").lower().replace(" ", "-")
-            if label == model_id:
+            if canon(row[model_col]) == canon(model_id):
                 return row
         return None
 
@@ -411,6 +416,13 @@ def verify_correlates() -> None:
         f"expected {min_holm:.3f} and {min_bh:.3f}",
     )
 
+    sys.path.insert(0, str(REPO_ROOT))
+    from llm_econ_beliefs.model_registry import (  # noqa: E402
+        MODEL_REGISTRY,
+        ORGANIZATIONS,
+        ORGANIZATION_COUNTRY,
+    )
+
     with (results / "correlates-sensitivity.csv").open() as handle:
         sensitivity = list(csv.DictReader(handle))
     loo = [
@@ -421,7 +433,7 @@ def verify_correlates() -> None:
     ]
     check(
         "LOO-organization rho range in prose",
-        len(loo) == 9
+        len(loo) == len(ORGANIZATIONS)
         and f"between `{max(loo):.2f}` and `{min(loo):.2f}`" in PAPER,
         f"expected between {max(loo):.2f} and {min(loo):.2f} over {len(loo)}",
     )
@@ -433,11 +445,6 @@ def verify_correlates() -> None:
     tau = country["Implied optimal top rate (%)"]
     eti = country["ETI pooled median"]
     width = country["Avg interval-width rank (1 = tightest)"]
-    sys.path.insert(0, str(REPO_ROOT))
-    from llm_econ_beliefs.model_registry import (  # noqa: E402
-        MODEL_REGISTRY,
-        ORGANIZATION_COUNTRY,
-    )
 
     china_models = sum(
         1
@@ -470,18 +477,26 @@ def verify_correlates() -> None:
     )
 
 
-# Cover 1-30 so panel growth can never KeyError a check mid-run (a crash
-# here hides every later check, which happened at 26 and again at 18).
+# Cover 1-99 so panel growth can never KeyError a check mid-run (a crash
+# here hides every later check, which happened at 26, again at 18, and
+# again at 31 when the cap was 30).
 _ONES = (
     "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
     "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen",
     "seventeen", "eighteen", "nineteen", "twenty",
 )
+_TENS = {
+    20: "twenty", 30: "thirty", 40: "forty", 50: "fifty",
+    60: "sixty", 70: "seventy", 80: "eighty", 90: "ninety",
+}
 NUMBER_WORDS = {i + 1: word for i, word in enumerate(_ONES)}
 NUMBER_WORDS.update(
-    {20 + i: f"twenty-{_ONES[i - 1]}" for i in range(1, 10)}
+    {
+        tens + unit: (f"{word}-{_ONES[unit - 1]}" if unit else word)
+        for tens, word in _TENS.items()
+        for unit in range(10)
+    }
 )
-NUMBER_WORDS[30] = "thirty"
 
 
 def verify_cap_gains_audit() -> None:
@@ -775,8 +790,8 @@ def verify_country_family() -> None:
     )
     check(
         "US model and organization counts in prose",
-        len(us_organizations) == 4
-        and f"{NUMBER_WORDS[us_models]} models from four US organizations" in PAPER,
+        f"{NUMBER_WORDS[us_models]} models from "
+        f"{NUMBER_WORDS[len(us_organizations)]} US organizations" in PAPER,
         f"got {us_models} models across {sorted(us_organizations)}",
     )
 
@@ -983,7 +998,7 @@ def verify_prompt_identity() -> None:
     check(
         "A9 band counts by wording group",
         (revised_ordinary, revised_banded, original_ordinary, original_banded)
-        == (13, 21, 5, 6),
+        == (14, 23, 5, 6),
         f"got revised {revised_ordinary}/{revised_banded}, "
         f"original {original_ordinary}/{original_banded}",
     )
@@ -1118,8 +1133,8 @@ def verify_wording_comparison_prose() -> None:
     worst_ltcg = ltcg_total + original_ordinary
     check(
         "extreme-flip split arithmetic",
-        (ordinary_total, ltcg_total, original_ordinary) == (18, 9, 5)
-        and (worst_ordinary, worst_ltcg) == (13, 14),
+        (ordinary_total, ltcg_total, original_ordinary) == (19, 10, 5)
+        and (worst_ordinary, worst_ltcg) == (14, 15),
         f"got {ordinary_total}/{ltcg_total}/{original_ordinary}",
     )
     check(

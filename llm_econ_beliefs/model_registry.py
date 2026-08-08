@@ -18,6 +18,7 @@ ORGANIZATIONS = (
     "moonshot",
     "zhipu",
     "minimax",
+    "thinkingmachines",
 )
 
 # Lab home country, derived from organization. Every July 2026
@@ -34,6 +35,7 @@ ORGANIZATION_COUNTRY = {
     "moonshot": "china",
     "zhipu": "china",
     "minimax": "china",
+    "thinkingmachines": "us",
 }
 
 
@@ -55,6 +57,7 @@ WAVES = (
     "july_2026_independent",
     "july_2026_gpt56",
     "july_2026_late",
+    "august_2026",
 )
 
 
@@ -305,6 +308,25 @@ MODEL_REGISTRY: tuple[PanelModel, ...] = (
         "claude",
         "july_2026_late",
     ),
+    # August 2026 wave: the two models PolicyBench release
+    # dashboard-data-20260805 scores that the panel lacked.
+    PanelModel(
+        "qwen3.8-max",
+        "Qwen 3.8 Max",
+        "alibaba",
+        "openrouter_via_litellm",
+        "qwen",
+        "august_2026",
+    ),
+    # Thinking Machines' debut model; the panel's tenth organization.
+    PanelModel(
+        "inkling",
+        "Inkling",
+        "thinkingmachines",
+        "openrouter_via_litellm",
+        "inkling",
+        "august_2026",
+    ),
 )
 
 ORGANIZATION_DISPLAY_LABELS = {
@@ -317,6 +339,7 @@ ORGANIZATION_DISPLAY_LABELS = {
     "moonshot": "Moonshot AI",
     "zhipu": "Zhipu AI",
     "minimax": "MiniMax",
+    "thinkingmachines": "Thinking Machines",
 }
 
 SERVING_PROVIDER_DISPLAY_LABELS = {
@@ -332,6 +355,7 @@ WAVE_DISPLAY_LABELS = {
     "july_2026_independent": "July 2026 independent labs",
     "july_2026_gpt56": "July 2026 GPT-5.6",
     "july_2026_late": "July 2026 late",
+    "august_2026": "August 2026",
 }
 
 MODEL_REGISTRY_BY_ID = {model.model_id: model for model in MODEL_REGISTRY}
@@ -347,17 +371,19 @@ FRONTIER_MODEL_IDS = frozenset(
         "gemini-3.6-flash",
         "grok-4.5",
         "deepseek-v4-pro",
-        "qwen-3.7-max",
+        # Qwen 3.8 Max succeeds Qwen 3.7 Max as Alibaba's flagship.
+        "qwen3.8-max",
         "kimi-k3",
         "glm-5.2",
         "minimax-m3",
+        "inkling",
     }
 )
 
 
 def _validate_registry() -> None:
-    if len(MODEL_REGISTRY) != 29:
-        raise ValueError(f"The panel registry must contain 29 models, got {len(MODEL_REGISTRY)}")
+    if len(MODEL_REGISTRY) != 31:
+        raise ValueError(f"The panel registry must contain 31 models, got {len(MODEL_REGISTRY)}")
     if len(MODEL_REGISTRY_BY_ID) != len(MODEL_REGISTRY):
         raise ValueError("Panel model IDs must be unique")
     organizations = {model.organization for model in MODEL_REGISTRY}
