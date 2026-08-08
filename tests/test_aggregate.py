@@ -9,7 +9,8 @@ def test_aggregate_beliefs_combines_uncertainty_layers():
               "point_estimate": 0.4,
               "lower_bound": 0.2,
               "upper_bound": 0.6,
-              "confidence_level": 0.9
+              "confidence_level": 0.9,
+              "quantiles": {"p05": 0.2, "p25": 0.3, "p50": 0.4, "p75": 0.5, "p95": 0.6}
             }
             """
         ),
@@ -19,7 +20,8 @@ def test_aggregate_beliefs_combines_uncertainty_layers():
               "point_estimate": 0.5,
               "lower_bound": 0.3,
               "upper_bound": 0.7,
-              "confidence_level": 0.9
+              "confidence_level": 0.9,
+              "quantiles": {"p05": 0.3, "p25": 0.4, "p50": 0.5, "p75": 0.6, "p95": 0.7}
             }
             """
         ),

@@ -416,6 +416,13 @@ def verify_correlates() -> None:
         f"expected {min_holm:.3f} and {min_bh:.3f}",
     )
 
+    sys.path.insert(0, str(REPO_ROOT))
+    from llm_econ_beliefs.model_registry import (  # noqa: E402
+        MODEL_REGISTRY,
+        ORGANIZATIONS,
+        ORGANIZATION_COUNTRY,
+    )
+
     with (results / "correlates-sensitivity.csv").open() as handle:
         sensitivity = list(csv.DictReader(handle))
     loo = [
@@ -426,7 +433,7 @@ def verify_correlates() -> None:
     ]
     check(
         "LOO-organization rho range in prose",
-        len(loo) == 9
+        len(loo) == len(ORGANIZATIONS)
         and f"between `{max(loo):.2f}` and `{min(loo):.2f}`" in PAPER,
         f"expected between {max(loo):.2f} and {min(loo):.2f} over {len(loo)}",
     )
@@ -438,11 +445,6 @@ def verify_correlates() -> None:
     tau = country["Implied optimal top rate (%)"]
     eti = country["ETI pooled median"]
     width = country["Avg interval-width rank (1 = tightest)"]
-    sys.path.insert(0, str(REPO_ROOT))
-    from llm_econ_beliefs.model_registry import (  # noqa: E402
-        MODEL_REGISTRY,
-        ORGANIZATION_COUNTRY,
-    )
 
     china_models = sum(
         1
@@ -788,8 +790,8 @@ def verify_country_family() -> None:
     )
     check(
         "US model and organization counts in prose",
-        len(us_organizations) == 4
-        and f"{NUMBER_WORDS[us_models]} models from four US organizations" in PAPER,
+        f"{NUMBER_WORDS[us_models]} models from "
+        f"{NUMBER_WORDS[len(us_organizations)]} US organizations" in PAPER,
         f"got {us_models} models across {sorted(us_organizations)}",
     )
 
@@ -996,7 +998,7 @@ def verify_prompt_identity() -> None:
     check(
         "A9 band counts by wording group",
         (revised_ordinary, revised_banded, original_ordinary, original_banded)
-        == (13, 21, 5, 6),
+        == (14, 23, 5, 6),
         f"got revised {revised_ordinary}/{revised_banded}, "
         f"original {original_ordinary}/{original_banded}",
     )
@@ -1131,8 +1133,8 @@ def verify_wording_comparison_prose() -> None:
     worst_ltcg = ltcg_total + original_ordinary
     check(
         "extreme-flip split arithmetic",
-        (ordinary_total, ltcg_total, original_ordinary) == (18, 9, 5)
-        and (worst_ordinary, worst_ltcg) == (13, 14),
+        (ordinary_total, ltcg_total, original_ordinary) == (19, 10, 5)
+        and (worst_ordinary, worst_ltcg) == (14, 15),
         f"got {ordinary_total}/{ltcg_total}/{original_ordinary}",
     )
     check(

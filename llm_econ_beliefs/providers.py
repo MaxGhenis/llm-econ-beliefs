@@ -333,7 +333,12 @@ def run_litellm_prompt_logged(
         "max_tokens": max_completion_tokens,
         "temperature": temperature,
         "timeout": timeout_seconds,
-        "num_retries": 0,
+        # Transport-level retries only recover requests that returned no
+        # content, so they are equivalent to the fresh-draw replacement
+        # policy rerun_failed_runs applies after the fact. Default stays 0;
+        # recovery supervisors set the env var when a flaky network makes
+        # in-request retries cheaper than post-hoc slot replacement.
+        "num_retries": int(os.environ.get("LITELLM_NUM_RETRIES", "0")),
     }
     if output_mode == "json_object":
         request_kwargs["response_format"] = {"type": "json_object"}

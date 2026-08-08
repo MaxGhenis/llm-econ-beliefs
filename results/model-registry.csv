@@ -17,7 +17,7 @@ claude-sonnet-5,Claude Sonnet 5,anthropic,anthropic_native,claude,july_2026_fron
 gemini-3.5-flash,Gemini 3.5 Flash,google,litellm_completion,gemini,july_2026_frontier,Google,July 2026 frontier,false
 grok-4.3,Grok 4.3,xai,litellm_completion,grok,july_2026_frontier,xAI,July 2026 frontier,false
 deepseek-v4-pro,DeepSeek V4 Pro,deepseek,openrouter_via_litellm,deepseek,july_2026_independent,DeepSeek,July 2026 independent labs,true
-qwen-3.7-max,Qwen 3.7 Max,alibaba,openrouter_via_litellm,qwen,july_2026_independent,Alibaba,July 2026 independent labs,true
+qwen-3.7-max,Qwen 3.7 Max,alibaba,openrouter_via_litellm,qwen,july_2026_independent,Alibaba,July 2026 independent labs,false
 kimi-k2.6,Kimi K2.6,moonshot,openrouter_via_litellm,kimi,july_2026_independent,Moonshot AI,July 2026 independent labs,false
 glm-5.2,GLM-5.2,zhipu,openrouter_via_litellm,glm,july_2026_independent,Zhipu AI,July 2026 independent labs,true
 minimax-m3,MiniMax M3,minimax,openrouter_via_litellm,minimax,july_2026_independent,MiniMax,July 2026 independent labs,true
@@ -28,3 +28,5 @@ grok-4.5,Grok 4.5,xai,litellm_completion,grok,july_2026_late,xAI,July 2026 late,
 kimi-k3,Kimi K3,moonshot,openrouter_via_litellm,kimi,july_2026_late,Moonshot AI,July 2026 late,true
 gemini-3.6-flash,Gemini 3.6 Flash,google,litellm_completion,gemini,july_2026_late,Google,July 2026 late,true
 claude-opus-5,Claude Opus 5,anthropic,anthropic_native,claude,july_2026_late,Anthropic,July 2026 late,false
+qwen3.8-max,Qwen 3.8 Max,alibaba,openrouter_via_litellm,qwen,august_2026,Alibaba,August 2026,true
+inkling,Inkling,thinkingmachines,openrouter_via_litellm,inkling,august_2026,Thinking Machines,August 2026,true

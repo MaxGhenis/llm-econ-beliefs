@@ -1,0 +1,847 @@
+provider,model_name,quantity_id,run_index,prompt_version,tool_regime,parsed_ok,point_estimate,interpretation,lower_bound,upper_bound,confidence_level,quantiles,quantiles_repaired,citations,reasoning_summary,error,raw_response,prompt
+litellm_completion,inkling,trade.armington_elasticity.import_domestic,1,armington-clarify,none,True,1.5,Top-level elasticity of substitution between the aggregate import composite and domestically produced goods in U.S. aggregate trade or CGE calibration.,0.6,3.5,0.9,"{""p05"": 0.6, ""p25"": 1.0, ""p50"": 1.5, ""p75"": 2.2, ""p95"": 3.5}",False,"Backus, Kehoe, and Kydland (1994) international RBC calibration (elasticity ~1.5) | Broda-Weinstein (2006) / Feenstra (1994) elasticity puzzle (macro aggregates lower than sector-level) | Standard U.S. CGE and GTAP practice for domestic-import top nest (often 1.5–3 range)","Macro and CGE calibrations for the U.S. typically place the aggregate domestic-import Armington elasticity in the low-to-mid single digits, with 1.5 being a common benchmark reflecting lower aggregate substitutability versus sector-level estimates. Uncertainty spans roughly 0.6 to 3.5, accounting for different model structures (RBC vs. trade-policy CGE) and the well-known elasticity puzzle.",,"{
+  ""interpretation"": ""Top-level elasticity of substitution between the aggregate import composite and domestically produced goods in U.S. aggregate trade or CGE calibration."",
+  ""point_estimate"": 1.5,
+  ""quantiles"": {
+    ""p05"": 0.6,
+    ""p25"": 1.0,
+    ""p50"": 1.5,
+    ""p75"": 2.2,
+    ""p95"": 3.5
+  },
+  ""citations"": [
+    ""Backus, Kehoe, and Kydland (1994) international RBC calibration (elasticity ~1.5)"",
+    ""Broda-Weinstein (2006) / Feenstra (1994) elasticity puzzle (macro aggregates lower than sector-level)"",
+    ""Standard U.S. CGE and GTAP practice for domestic-import top nest (often 1.5–3 range)""
+  ],
+  ""reasoning_summary"": ""Macro and CGE calibrations for the U.S. typically place the aggregate domestic-import Armington elasticity in the low-to-mid single digits, with 1.5 being a common benchmark reflecting lower aggregate substitutability versus sector-level estimates. Uncertainty spans roughly 0.6 to 3.5, accounting for different model structures (RBC vs. trade-policy CGE) and the well-known elasticity puzzle.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,trade.armington_elasticity.import_domestic,2,armington-clarify,none,True,1.5,"Top-level elasticity of substitution between the aggregate import composite and domestically produced goods for the U.S. aggregate, not across foreign sources or at sector level.",0.6,3.0,0.9,"{""p05"": 0.6, ""p25"": 1.1, ""p50"": 1.5, ""p75"": 2.0, ""p95"": 3.0}",False,Armington (1969) product-demand estimation | Hertel et al. (2007) GTAP ESUBD/ESUBM calibration conventions | Backus-Kehoe-Kydland (1994) and open-economy macro calibration practice near 1.5,"In U.S. aggregate CGE and macro trade models, the domestic-vs-import Armington elasticity is typically calibrated around 1.5, well below the lower-nest cross-country elasticity (often 5–8). Empirical macro estimates are noisy but mostly fall between 0.5 and 2.5, so I center near 1.5 with a spread reflecting that conventional calibration and measurement uncertainty.",,"{
+
+
+  ""interpretation"": ""Top-level elasticity of substitution between the aggregate import composite and domestically produced goods for the U.S. aggregate, not across foreign sources or at sector level."",
+  ""point_estimate"": 1.5,
+  ""quantiles"": {
+    ""p05"": 0.6,
+    ""p25"": 1.1,
+    ""p50"": 1.5,
+    ""p75"": 2.0,
+    ""p95"": 3.0
+  },
+  ""citations"": [
+    ""Armington (1969) product-demand estimation"",
+    ""Hertel et al. (2007) GTAP ESUBD/ESUBM calibration conventions"",
+    ""Backus-Kehoe-Kydland (1994) and open-economy macro calibration practice near 1.5""
+  ],
+  ""reasoning_summary"": ""In U.S. aggregate CGE and macro trade models, the domestic-vs-import Armington elasticity is typically calibrated around 1.5, well below the lower-nest cross-country elasticity (often 5–8). Empirical macro estimates are noisy but mostly fall between 0.5 and 2.5, so I center near 1.5 with a spread reflecting that conventional calibration and measurement uncertainty.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,trade.armington_elasticity.import_domestic,3,armington-clarify,none,True,1.5,Top-level elasticity of substitution between the aggregate import composite and domestically produced goods in U.S. aggregate/macro trade calibration (not cross-country import sourcing).,0.6,3.5,0.9,"{""p05"": 0.6, ""p25"": 1.0, ""p50"": 1.5, ""p75"": 2.3, ""p95"": 3.5}",False,"Backus, Kehoe, and Kydland (1994) - RBC macro calibration using domestic-foreign elasticity near 1.5 | GTAP/Hertel (1997) CGE nesting framework with domestic-import (ESUBD) parameters typically in 2-4 range sectorally | Imbs and Mejean (2015) - macro aggregation of sectoral trade elasticities pulling effective aggregate values toward ~1","Macro and aggregate CGE calibrations for the U.S. typically set the top domestic-versus-import Armington elasticity lower than sectoral micro estimates. Classic RBC/DSGE calibrations center near 1.5, sectoral GTAP-style values are often 2-4, and macro aggregation arguments push the effective aggregate value closer to 1. I therefore center near 1.5 with a spread mostly between 1 and 2.5, allowing a tail down to ~0.6 and up to ~3.5.",,"{
+
+
+""interpretation"": ""Top-level elasticity of substitution between the aggregate import composite and domestically produced goods in U.S. aggregate/macro trade calibration (not cross-country import sourcing)."",
+""point_estimate"": 1.5,
+""quantiles"": {
+""p05"": 0.6,
+""p25"": 1.0,
+""p50"": 1.5,
+""p75"": 2.3,
+""p95"": 3.5
+},
+""citations"": [
+""Backus, Kehoe, and Kydland (1994) - RBC macro calibration using domestic-foreign elasticity near 1.5"",
+""GTAP/Hertel (1997) CGE nesting framework with domestic-import (ESUBD) parameters typically in 2-4 range sectorally"",
+""Imbs and Mejean (2015) - macro aggregation of sectoral trade elasticities pulling effective aggregate values toward ~1""
+],
+""reasoning_summary"": ""Macro and aggregate CGE calibrations for the U.S. typically set the top domestic-versus-import Armington elasticity lower than sectoral micro estimates. Classic RBC/DSGE calibrations center near 1.5, sectoral GTAP-style values are often 2-4, and macro aggregation arguments push the effective aggregate value closer to 1. I therefore center near 1.5 with a spread mostly between 1 and 2.5, allowing a tail down to ~0.6 and up to ~3.5.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,trade.armington_elasticity.import_domestic,4,armington-clarify,none,True,1.5,Top-level import-versus-domestic Armington elasticity for aggregate U.S. trade or CGE calibration,0.8,4.0,0.9,"{""p05"": 0.8, ""p25"": 1.2, ""p50"": 1.5, ""p75"": 2.2, ""p95"": 4.0}",False,"Backus, Kehoe, and Kydland (1994) – classic macro/RBC calibration at 1.5 | GTAP/USITC CGE practice – top-nest ESUBD often near 1.5–3 for aggregates | Imbs and Mejean (2015) – aggregation bias lowering macro elasticity toward unity","Aggregate top-level substitutability between imports and domestic goods is lower than cross-country micro elasticities. Standard U.S. macro and CGE calibrations cluster near 1.5 (BKK-style), with aggregation arguments pulling toward 1 and sectoral CGE settings reaching 2–3, so I center at 1.5 with spread roughly 0.8 to 4.",,"{
+
+
+  ""interpretation"": ""Top-level import-versus-domestic Armington elasticity for aggregate U.S. trade or CGE calibration"",
+  ""point_estimate"": 1.5,
+  ""quantiles"": {
+    ""p05"": 0.8,
+    ""p25"": 1.2,
+    ""p50"": 1.5,
+    ""p75"": 2.2,
+    ""p95"": 4.0
+  },
+  ""citations"": [
+    ""Backus, Kehoe, and Kydland (1994) – classic macro/RBC calibration at 1.5"",
+    ""GTAP/USITC CGE practice – top-nest ESUBD often near 1.5–3 for aggregates"",
+    ""Imbs and Mejean (2015) – aggregation bias lowering macro elasticity toward unity""
+  ],
+  ""reasoning_summary"": ""Aggregate top-level substitutability between imports and domestic goods is lower than cross-country micro elasticities. Standard U.S. macro and CGE calibrations cluster near 1.5 (BKK-style), with aggregation arguments pulling toward 1 and sectoral CGE settings reaching 2–3, so I center at 1.5 with spread roughly 0.8 to 4.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,trade.armington_elasticity.import_domestic,5,armington-clarify,none,True,1.5,Top-level elasticity of substitution between the aggregate import composite and domestically produced goods in U.S. aggregate trade or CGE calibration.,0.8,3.0,0.9,"{""p05"": 0.8, ""p25"": 1.2, ""p50"": 1.5, ""p75"": 2.0, ""p95"": 3.0}",False,"Armington (1969) original CES trade model and early calibration ranges | GTAP / USITC CGE model documentation (ESUBD aggregates, with macro/top-nest values typically lower than sectoral micro values) | Macro elasticity literature distinguishing lower home-foreign elasticity (e.g., Imbs-Mejean; Feenstra et al.) near 1-1.5","In aggregate U.S. CGE and macro trade calibrations, the broad domestic-versus-import elasticity is typically calibrated near 1.5, reflecting moderate substitutability at the top nest; sector-level CGE values are often higher (~2-4), but the macro aggregate is generally believed to lie closer to 1-2, with meaningful uncertainty spanning about 0.8 to 3.",,"{
+
+
+  ""interpretation"": ""Top-level elasticity of substitution between the aggregate import composite and domestically produced goods in U.S. aggregate trade or CGE calibration."",
+  ""point_estimate"": 1.5,
+  ""quantiles"": {
+    ""p05"": 0.8,
+    ""p25"": 1.2,
+    ""p50"": 1.5,
+    ""p75"": 2.0,
+    ""p95"": 3.0
+  },
+  ""citations"": [
+    ""Armington (1969) original CES trade model and early calibration ranges"",
+    ""GTAP / USITC CGE model documentation (ESUBD aggregates, with macro/top-nest values typically lower than sectoral micro values)"",
+    ""Macro elasticity literature distinguishing lower home-foreign elasticity (e.g., Imbs-Mejean; Feenstra et al.) near 1-1.5""
+  ],
+  ""reasoning_summary"": ""In aggregate U.S. CGE and macro trade calibrations, the broad domestic-versus-import elasticity is typically calibrated near 1.5, reflecting moderate substitutability at the top nest; sector-level CGE values are often higher (~2-4), but the macro aggregate is generally believed to lie closer to 1-2, with meaningful uncertainty spanning about 0.8 to 3.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,trade.armington_elasticity.import_domestic,6,armington-clarify,none,True,2.0,"Top-level elasticity of substitution between the aggregate import composite and domestically produced goods in a nested CES trade structure, calibrated for U.S. aggregate trade or CGE models.",0.8,4.5,0.9,"{""p05"": 0.8, ""p25"": 1.4, ""p50"": 2.0, ""p75"": 3.0, ""p95"": 4.5}",False,"Backus, Kehoe, and Kydland (1995) international macro calibration (σ ≈ 1.5) | GTAP / Hertel et al. CGE database with sectoral ESUBD (domestic-import) typically in 1.5–4 range | Reinert and Roloff (1980) empirical U.S. Armington elasticity estimates","Classic macro trade calibrations often place the top-nest home-foreign elasticity near 1.5, while applied U.S. CGE models use sectoral values mostly between 1.5 and 4. Aggregating across sectors and accounting for estimation uncertainty, I center my belief near 2, with a plausible range from about 0.8 to 4.5.",,"{
+
+
+ ""interpretation"": ""Top-level elasticity of substitution between the aggregate import composite and domestically produced goods in a nested CES trade structure, calibrated for U.S. aggregate trade or CGE models."",
+  ""point_estimate"": 2.0,
+
+  ""quantiles"": {
+    ""p05"": 0.8,
+    ""p25"": 1.4,
+    ""p50"": 2.0,
+    ""p75"": 3.0,
+    ""p95"": 4.5
+  },
+
+  ""citations"": [
+    ""Backus, Kehoe, and Kydland (1995) international macro calibration (σ ≈ 1.5)"",
+    ""GTAP / Hertel et al. CGE database with sectoral ESUBD (domestic-import) typically in 1.5–4 range"",
+    ""Reinert and Roloff (1980) empirical U.S. Armington elasticity estimates""
+  ],
+
+  ""reasoning_summary"": ""Classic macro trade calibrations often place the top-nest home-foreign elasticity near 1.5, while applied U.S. CGE models use sectoral values mostly between 1.5 and 4. Aggregating across sectors and accounting for estimation uncertainty, I center my belief near 2, with a plausible range from about 0.8 to 4.5.""
+
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,trade.armington_elasticity.import_domestic,7,armington-clarify,none,True,1.5,"Elasticity of substitution between the aggregate import composite and domestically produced goods at the top U.S. trade nest (import-versus-domestic, not across foreign sources or sectors).",0.6,3.0,0.9,"{""p05"": 0.6, ""p25"": 1.1, ""p50"": 1.5, ""p75"": 2.0, ""p95"": 3.0}",False,"Backus, Kehoe, and Kydland (1994) - classic RBC calibration of home-foreign substitutability near 1.5 | Christiano, Eichenbaum, and Evans (2005) - DSGE calibration of top-level import-domestic elasticity around 1.5 | Reinert and Roland-Holst (1992) - U.S. manufacturing Armington estimates with central tendency near 1.0, informing aggregate ranges","Aggregate U.S. CGE and macro models typically calibrate the top-nest home-foreign elasticity near 1.5 (BKK/CEE tradition), while sectoral estimates span widely with lower central values; I center my belief at 1.5 with a spread reflecting macro calibration consensus (~1–2) and tail uncertainty down to ~0.6 and up to ~3.",,"{
+
+
+  ""interpretation"": ""Elasticity of substitution between the aggregate import composite and domestically produced goods at the top U.S. trade nest (import-versus-domestic, not across foreign sources or sectors)."",
+  ""point_estimate"": 1.5,
+  ""quantiles"": {
+    ""p05"": 0.6,
+    ""p25"": 1.1,
+    ""p50"": 1.5,
+    ""p75"": 2.0,
+    ""p95"": 3.0
+  },
+  ""citations"": [
+    ""Backus, Kehoe, and Kydland (1994) - classic RBC calibration of home-foreign substitutability near 1.5"",
+    ""Christiano, Eichenbaum, and Evans (2005) - DSGE calibration of top-level import-domestic elasticity around 1.5"",
+    ""Reinert and Roland-Holst (1992) - U.S. manufacturing Armington estimates with central tendency near 1.0, informing aggregate ranges""
+  ],
+  ""reasoning_summary"": ""Aggregate U.S. CGE and macro models typically calibrate the top-nest home-foreign elasticity near 1.5 (BKK/CEE tradition), while sectoral estimates span widely with lower central values; I center my belief at 1.5 with a spread reflecting macro calibration consensus (~1–2) and tail uncertainty down to ~0.6 and up to ~3.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,trade.armington_elasticity.import_domestic,8,armington-clarify,none,True,1.5,Top-level elasticity of substitution between the aggregate imported goods composite and domestically produced goods in U.S. aggregate trade or CGE calibration.,0.8,3.5,0.9,"{""p05"": 0.8, ""p25"": 1.2, ""p50"": 1.5, ""p75"": 2.2, ""p95"": 3.5}",False,"Backus, Kehoe, and Kydland (1994) macro calibration (elasticity ~1.5) | GTAP/Hertel et al. CGE documentation (ESUBD sectoral/top-level values often 2-4) | Armington (1969) original framework with substitution values commonly near 3","In U.S. aggregate and macro trade calibrations the home-versus-import top-nest elasticity is most commonly anchored near 1.5 (BKK benchmark), while CGE databases often use somewhat higher values (around 2-3); I center at 1.5 with a range reflecting both conventions and empirical uncertainty.",,"{
+
+
+  ""interpretation"": ""Top-level elasticity of substitution between the aggregate imported goods composite and domestically produced goods in U.S. aggregate trade or CGE calibration."",
+  ""point_estimate"": 1.5,
+  ""quantiles"": {
+    ""p05"": 0.8,
+    ""p25"": 1.2,
+    ""p50"": 1.5,
+    ""p75"": 2.2,
+    ""p95"": 3.5
+  },
+  ""citations"": [
+    ""Backus, Kehoe, and Kydland (1994) macro calibration (elasticity ~1.5)"",
+    ""GTAP/Hertel et al. CGE documentation (ESUBD sectoral/top-level values often 2-4)"",
+    ""Armington (1969) original framework with substitution values commonly near 3""
+  ],
+  ""reasoning_summary"": ""In U.S. aggregate and macro trade calibrations the home-versus-import top-nest elasticity is most commonly anchored near 1.5 (BKK benchmark), while CGE databases often use somewhat higher values (around 2-3); I center at 1.5 with a range reflecting both conventions and empirical uncertainty.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,trade.armington_elasticity.import_domestic,9,armington-clarify,none,True,1.5,Top-level elasticity of substitution between the aggregate import composite and domestically produced goods in U.S. aggregate trade/CGE calibration.,0.9,3.2,0.9,"{""p05"": 0.9, ""p25"": 1.2, ""p50"": 1.5, ""p75"": 2.0, ""p95"": 3.2}",False,"Backus, Kehoe, and Kydland (1994) DSGE macro calibration (elasticity ~1.5) | GTAP database / Hertel (1997) CGE Armington parameter sets (domestic-import often ~2-3 by sector, lower at aggregate) | Armington (1969) original product-level substitution estimates","Macro and aggregate CGE calibrations for the U.S. typically center the domestic-vs-import elasticity near 1.5 (classic BKK benchmark), with aggregation bias pushing macro values below sector-level estimates that often sit near 2.5-4. I therefore center near 1.5, with a plausible range mostly within 1-3.",,"{
+
+
+  ""interpretation"": ""Top-level elasticity of substitution between the aggregate import composite and domestically produced goods in U.S. aggregate trade/CGE calibration."",
+  ""point_estimate"": 1.5,
+  ""quantiles"": {
+    ""p05"": 0.9,
+    ""p25"": 1.2,
+    ""p50"": 1.5,
+    ""p75"": 2.0,
+    ""p95"": 3.2
+  },
+  ""citations"": [
+    ""Backus, Kehoe, and Kydland (1994) DSGE macro calibration (elasticity ~1.5)"",
+    ""GTAP database / Hertel (1997) CGE Armington parameter sets (domestic-import often ~2-3 by sector, lower at aggregate)"",
+    ""Armington (1969) original product-level substitution estimates""
+  ],
+  ""reasoning_summary"": ""Macro and aggregate CGE calibrations for the U.S. typically center the domestic-vs-import elasticity near 1.5 (classic BKK benchmark), with aggregation bias pushing macro values below sector-level estimates that often sit near 2.5-4. I therefore center near 1.5, with a plausible range mostly within 1-3.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,trade.armington_elasticity.import_domestic,10,armington-clarify,none,True,1.4,Top-level elasticity of substitution between the aggregate import composite and domestically produced goods for U.S. aggregate trade or CGE calibration.,0.7,2.8,0.9,"{""p05"": 0.7, ""p25"": 1.0, ""p50"": 1.4, ""p75"": 1.8, ""p95"": 2.8}",False,"Backus, Kehoe, and Kydland (1994/1995) international RBC calibration using ~1.5 | GTAP database default ESUBD nesting parameters for domestic vs. import composites | USITC and aggregate U.S. CGE calibration literature clustering near 1.0-1.5","The top-level import-versus-domestic Armington elasticity in U.S. aggregate calibrations is usually set in the 1-2 range. Macro trade models often use about 1.5, while CGE databases apply sector-level values that average somewhat higher, but aggregate calibration tends to center near 1.3-1.6. I anchor near 1.4 with a spread reflecting model-dependence and limited direct aggregate estimation.",,"{
+
+
+  ""interpretation"": ""Top-level elasticity of substitution between the aggregate import composite and domestically produced goods for U.S. aggregate trade or CGE calibration."",
+  ""point_estimate"": 1.4,
+  ""quantiles"": {
+    ""p05"": 0.7,
+    ""p25"": 1.0,
+    ""p50"": 1.4,
+    ""p75"": 1.8,
+    ""p95"": 2.8
+  },
+  ""citations"": [
+    ""Backus, Kehoe, and Kydland (1994/1995) international RBC calibration using ~1.5"",
+    ""GTAP database default ESUBD nesting parameters for domestic vs. import composites"",
+    ""USITC and aggregate U.S. CGE calibration literature clustering near 1.0-1.5""
+  ],
+  ""reasoning_summary"": ""The top-level import-versus-domestic Armington elasticity in U.S. aggregate calibrations is usually set in the 1-2 range. Macro trade models often use about 1.5, while CGE databases apply sector-level values that average somewhat higher, but aggregate calibration tends to center near 1.3-1.6. I anchor near 1.4 with a spread reflecting model-dependence and limited direct aggregate estimation.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,trade.armington_elasticity.import_domestic,11,armington-clarify,none,True,1.5,"Top-level import-versus-domestic Armington elasticity for U.S. aggregate trade/CGE calibration (aggregate import composite vs. domestically produced goods, not cross-country).",0.75,3.5,0.9,"{""p05"": 0.75, ""p25"": 1.2, ""p50"": 1.5, ""p75"": 2.0, ""p95"": 3.5}",False,"Backus-Kehoe-Kydland (1994) international RBC calibration (~1.5) | Smets-Wouters (2003) open-economy DSGE (domestic/import elasticity ~1.5; import/import ~2.5) | Macro-trade literature (e.g., Imbs-Mejean 2015) noting top-level macro elasticity is well below micro cross-source estimates (~4-6)","In aggregate U.S. CGE and macro-trade calibrations, the upper-nest elasticity between domestic goods and the import composite is consistently smaller than lower-nest cross-country elasticities. Classic RBC and DSGE benchmarks cluster near 1.5, with CGE practice often spanning 1-3. Macro estimates tend toward the lower end (~1), while some calibrations use values up to 2-3. I center near 1.5 with a range reflecting this calibration spread and downward bias relative to micro estimates.",,"{
+
+
+  ""interpretation"": ""Top-level import-versus-domestic Armington elasticity for U.S. aggregate trade/CGE calibration (aggregate import composite vs. domestically produced goods, not cross-country)."",
+  ""point_estimate"": 1.5,
+  ""quantiles"": {
+    ""p05"": 0.75,
+    ""p25"": 1.2,
+    ""p50"": 1.5,
+    ""p75"": 2.0,
+    ""p95"": 3.5
+  },
+  ""citations"": [
+    ""Backus-Kehoe-Kydland (1994) international RBC calibration (~1.5)"",
+    ""Smets-Wouters (2003) open-economy DSGE (domestic/import elasticity ~1.5; import/import ~2.5)"",
+    ""Macro-trade literature (e.g., Imbs-Mejean 2015) noting top-level macro elasticity is well below micro cross-source estimates (~4-6)""
+  ],
+  ""reasoning_summary"": ""In aggregate U.S. CGE and macro-trade calibrations, the upper-nest elasticity between domestic goods and the import composite is consistently smaller than lower-nest cross-country elasticities. Classic RBC and DSGE benchmarks cluster near 1.5, with CGE practice often spanning 1-3. Macro estimates tend toward the lower end (~1), while some calibrations use values up to 2-3. I center near 1.5 with a range reflecting this calibration spread and downward bias relative to micro estimates.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,trade.armington_elasticity.import_domestic,12,armington-clarify,none,True,1.5,Top-level elasticity of substitution between the aggregate import composite and domestically produced goods in aggregate U.S. trade or CGE calibration.,0.8,3.5,0.9,"{""p05"": 0.8, ""p25"": 1.2, ""p50"": 1.5, ""p75"": 2.2, ""p95"": 3.5}",False,"GTAP database / Hertel et al. (two-level CES nesting with ESUBD and ESUBM) | Backus, Kehoe, and Kydland macro open-economy calibration literature | USITC CGE model documentation for U.S. aggregate calibration","In standard two-level Armington nests used in U.S. CGE and macro models, the top-level domestic-versus-import-composite elasticity is calibrated lower than the bottom-level cross-country elasticity. Common practice centers it near 1.5, with plausible range about 1–3, reflecting moderate substitutability between domestic and foreign goods bundles at the aggregate level.",,"{
+
+
+  ""interpretation"": ""Top-level elasticity of substitution between the aggregate import composite and domestically produced goods in aggregate U.S. trade or CGE calibration."",
+  ""point_estimate"": 1.5,
+  ""quantiles"": {
+    ""p05"": 0.8,
+    ""p25"": 1.2,
+    ""p50"": 1.5,
+    ""p75"": 2.2,
+    ""p95"": 3.5
+  },
+  ""citations"": [
+    ""GTAP database / Hertel et al. (two-level CES nesting with ESUBD and ESUBM)"",
+    ""Backus, Kehoe, and Kydland macro open-economy calibration literature"",
+    ""USITC CGE model documentation for U.S. aggregate calibration""
+  ],
+  ""reasoning_summary"": ""In standard two-level Armington nests used in U.S. CGE and macro models, the top-level domestic-versus-import-composite elasticity is calibrated lower than the bottom-level cross-country elasticity. Common practice centers it near 1.5, with plausible range about 1–3, reflecting moderate substitutability between domestic and foreign goods bundles at the aggregate level.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,trade.armington_elasticity.import_domestic,13,armington-clarify,none,True,0.8,,,,,{},False,,"{
+
+
+""Weakly increasing and numerically coherent: 0.8 ≤ 1.2 ≤ 1.5 ≤ 2.2 ≤ 3.5.""",,"{
+
+
+""Weakly increasing and numerically coherent: 0.8 ≤ 1.2 ≤ 1.5 ≤ 2.2 ≤ 3.5.""","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,trade.armington_elasticity.import_domestic,14,armington-clarify,none,True,1.5,Top-level import-versus-domestic Armington elasticity: the elasticity of substitution between the aggregate imported goods composite and domestically produced goods in U.S. aggregate trade or CGE calibration.,0.75,3.0,0.9,"{""p05"": 0.75, ""p25"": 1.1, ""p50"": 1.5, ""p75"": 2.0, ""p95"": 3.0}",False,"Backus, Kehoe, and Kydland (1994) - macro trade calibrations often use values near 1.5 | GTAP model documentation / CGE calibration practice - sectoral ESUBD averages cluster in 2-3 range for domestic/import | Hooper, Johnson, and Marquez (2000) - long-run U.S. import price elasticities near -0.5 to -1.0 imply modest substitution","The cross-source elasticity is well-estimated around 4-8, but the top-level domestic-versus-import composite elasticity is lower in macro and CGE calibrations, with a central cluster near 1.5 and typical ranges 1-2.5; I allow 0.75 to 3.0 to cover calibration spread and macro-estimation uncertainty.",,"{
+
+
+  ""interpretation"": ""Top-level import-versus-domestic Armington elasticity: the elasticity of substitution between the aggregate imported goods composite and domestically produced goods in U.S. aggregate trade or CGE calibration."",
+  ""point_estimate"": 1.5,
+  ""quantiles"": {
+    ""p05"": 0.75,
+    ""p25"": 1.1,
+    ""p50"": 1.5,
+    ""p75"": 2.0,
+    ""p95"": 3.0
+  },
+  ""citations"": [
+    ""Backus, Kehoe, and Kydland (1994) - macro trade calibrations often use values near 1.5"",
+    ""GTAP model documentation / CGE calibration practice - sectoral ESUBD averages cluster in 2-3 range for domestic/import"",
+    ""Hooper, Johnson, and Marquez (2000) - long-run U.S. import price elasticities near -0.5 to -1.0 imply modest substitution""
+  ],
+  ""reasoning_summary"": ""The cross-source elasticity is well-estimated around 4-8, but the top-level domestic-versus-import composite elasticity is lower in macro and CGE calibrations, with a central cluster near 1.5 and typical ranges 1-2.5; I allow 0.75 to 3.0 to cover calibration spread and macro-estimation uncertainty.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,trade.armington_elasticity.import_domestic,15,armington-clarify,none,True,1.5,,0.9,3.5,0.9,"{""p05"": 0.9, ""p25"": 1.3, ""p50"": 1.5, ""p75"": 2.0, ""p95"": 3.5}",False,"Backus | Kehoe, and Kydland (1994) macro trade calibration using elasticity of 1.5 between home and foreign goods","In U.S. aggregate CGE and macro trade calibration, the top-level elasticity between the import bundle and domestic goods is typically centered near 1.5. Macro estimates often cluster closer to 1, while sectoral CGE calibrations allow values up to 3-5, so I place the median at 1.5 with a right-skewed range roughly 0.9 to 3.5.",,"{"""" 
+     
+  	: 
+ ""interpretation"" 	, ""Top-level import-versus-domestic Armington elasticity for U.S. aggregate trade/CGE calibration (aggregate import composite vs. domestically produced goods)"" 	: ""point_estimate"" 	, 	""1.5"" 	: ""quantiles"" 	, ""p05"" 	: 	""0.9"" 	, ""p25"" 	: 	""1.3"" 	, ""p50"" 	: 	""1.5"" 	, ""p75"" 	: 	""2.0"" 	, ""p95"" 	: 	""3.5"" 	, ""citations"" 	: ""Backus, Kehoe, and Kydland (1994) macro trade calibration using elasticity of 1.5 between home and foreign goods"" 	, ""GTAP/Hertel (1997) sectoral Armington nests with import-domestic elasticities commonly in the 2-4 range"" 	: ""Feenstra (1994) sector-level import-demand elasticity estimates averaging near 3, with macro aggregation pushing the top-level value lower"" 	, ""reasoning_summary"" 	: ""In U.S. aggregate CGE and macro trade calibration, the top-level elasticity between the import bundle and domestic goods is typically centered near 1.5. Macro estimates often cluster closer to 1, while sectoral CGE calibrations allow values up to 3-5, so I place the median at 1.5 with a right-skewed range roughly 0.9 to 3.5.""   
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Armington elasticity
+- Definition: Elasticity of substitution between the aggregate import composite and domestically produced goods at the top trade nest.
+- Target interpretation: Top-level import-versus-domestic Armington elasticity
+- Population/context: U.S. aggregate trade or CGE calibration
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the top-level elasticity between the aggregate import composite and domestically produced goods.
+- It is not the elasticity across different foreign source countries.
+- It is not a sector-level or product-level import-demand elasticity.
+- Think of the value typically used in aggregate U.S. CGE or macro trade calibration.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"

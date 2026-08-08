@@ -1,0 +1,893 @@
+provider,model_name,quantity_id,run_index,prompt_version,tool_regime,parsed_ok,point_estimate,interpretation,lower_bound,upper_bound,confidence_level,quantiles,quantiles_repaired,citations,reasoning_summary,error,raw_response,prompt
+litellm_completion,inkling,household.intertemporal_elasticity_of_substitution,1,ies-clarify,none,True,0.75,"Elasticity of the growth rate of nondurable consumption with respect to the intertemporal price of consumption (real interest rate) for a representative U.S. household in annual macro calibration, treated separately from risk aversion.",0.2,1.5,0.9,"{""p05"": 0.2, ""p25"": 0.45, ""p50"": 0.75, ""p75"": 1.0, ""p95"": 1.5}",False,"Hall (1988) - Intertemporal Substitution in Consumption | Christiano, Eichenbaum, and Evans (2005) - DSGE calibration with habit formation | Vissing-Jorgensen (2002) - micro-estimated consumption-growth elasticity","Macro calibrations and Euler-equation estimates for nondurables typically place the IES between about 0.4 and 1.0. Early aggregate-IV work (Hall) pushed values near zero, while representative-agent DSGE calibrations often use log utility or nearby (IES ≈ 1). Micro and tax-variation studies tend to center around 0.5–0.8. Separating IES from risk aversion in Epstein-Zin settings also tends to yield IES near or above unity in asset-pricing contexts, but for pure annual macro consumption-growth calibration I weight the central cluster near 0.75 with a spread reflecting both low-IES micro evidence and unit-elasticity calibration norms.",,"{
+
+
+  ""interpretation"": ""Elasticity of the growth rate of nondurable consumption with respect to the intertemporal price of consumption (real interest rate) for a representative U.S. household in annual macro calibration, treated separately from risk aversion."",
+  ""point_estimate"": 0.75,
+  ""quantiles"": {
+    ""p05"": 0.2,
+    ""p25"": 0.45,
+    ""p50"": 0.75,
+    ""p75"": 1.0,
+    ""p95"": 1.5
+  },
+  ""citations"": [
+    ""Hall (1988) - Intertemporal Substitution in Consumption"",
+    ""Christiano, Eichenbaum, and Evans (2005) - DSGE calibration with habit formation"",
+    ""Vissing-Jorgensen (2002) - micro-estimated consumption-growth elasticity""
+  ],
+  ""reasoning_summary"": ""Macro calibrations and Euler-equation estimates for nondurables typically place the IES between about 0.4 and 1.0. Early aggregate-IV work (Hall) pushed values near zero, while representative-agent DSGE calibrations often use log utility or nearby (IES ≈ 1). Micro and tax-variation studies tend to center around 0.5–0.8. Separating IES from risk aversion in Epstein-Zin settings also tends to yield IES near or above unity in asset-pricing contexts, but for pure annual macro consumption-growth calibration I weight the central cluster near 0.75 with a spread reflecting both low-IES micro evidence and unit-elasticity calibration norms.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Intertemporal elasticity of substitution
+- Definition: Percent change in the growth rate of nondurable consumption from a 1 percent change in the intertemporal price of consumption.
+- Target interpretation: IES for nondurable consumption in annual macro calibration, distinct from risk aversion
+- Population/context: Representative U.S. household in an annual macro-calibration setting
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the elasticity of intertemporal substitution for nondurable consumption in a representative-household annual macro-calibration setting.
+- Treat it as a consumption-growth response to the intertemporal price of consumption, not as a generic willingness-to-take-risk parameter.
+- Do not answer with the inverse of CRRA unless you independently think that is the right value for this calibration target.
+- Do not switch to an asset-pricing or recursive-preferences interpretation.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,household.intertemporal_elasticity_of_substitution,2,ies-clarify,none,True,0.75,"Intertemporal elasticity of substitution for nondurable consumption in a representative-agent annual macro model: the percent change in consumption growth per 1 percent change in the intertemporal price of consumption, treated separately from risk aversion.",0.3,1.5,0.9,"{""p05"": 0.3, ""p25"": 0.55, ""p50"": 0.75, ""p75"": 1.0, ""p95"": 1.5}",False,"Hall (1988) - low micro elasticity estimates from Euler equation instruments | King, Plosser, and Rebelo (1988) - classic macro calibration using log utility (IES=1) | Smets and Wouters (2007) - DSGE estimation with power-utility parameter near 1.4 implying IES near 0.7","Micro studies (e.g., Hall) find very low IES, but identification is weak and results are disputed. Standard annual RBC/DSGE calibrations often use log utility (IES=1) or estimate power-utility coefficients near 1.4, implying IES around 0.7. For nondurables specifically, I place the central tendency near 0.75, with meaningful mass between 0.5 and 1.0, allowing a lower tail near 0.3 (micro evidence) and an upper tail to 1.5 (high-substitution calibrations), without mechanically inverting a risk-aversion parameter.",,"{
+
+
+  ""interpretation"": ""Intertemporal elasticity of substitution for nondurable consumption in a representative-agent annual macro model: the percent change in consumption growth per 1 percent change in the intertemporal price of consumption, treated separately from risk aversion."",
+  ""point_estimate"": 0.75,
+  ""quantiles"": {
+    ""p05"": 0.3,
+    ""p25"": 0.55,
+    ""p50"": 0.75,
+    ""p75"": 1.0,
+    ""p95"": 1.5
+  },
+  ""citations"": [
+    ""Hall (1988) - low micro elasticity estimates from Euler equation instruments"",
+    ""King, Plosser, and Rebelo (1988) - classic macro calibration using log utility (IES=1)"",
+    ""Smets and Wouters (2007) - DSGE estimation with power-utility parameter near 1.4 implying IES near 0.7""
+  ],
+  ""reasoning_summary"": ""Micro studies (e.g., Hall) find very low IES, but identification is weak and results are disputed. Standard annual RBC/DSGE calibrations often use log utility (IES=1) or estimate power-utility coefficients near 1.4, implying IES around 0.7. For nondurables specifically, I place the central tendency near 0.75, with meaningful mass between 0.5 and 1.0, allowing a lower tail near 0.3 (micro evidence) and an upper tail to 1.5 (high-substitution calibrations), without mechanically inverting a risk-aversion parameter.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Intertemporal elasticity of substitution
+- Definition: Percent change in the growth rate of nondurable consumption from a 1 percent change in the intertemporal price of consumption.
+- Target interpretation: IES for nondurable consumption in annual macro calibration, distinct from risk aversion
+- Population/context: Representative U.S. household in an annual macro-calibration setting
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the elasticity of intertemporal substitution for nondurable consumption in a representative-household annual macro-calibration setting.
+- Treat it as a consumption-growth response to the intertemporal price of consumption, not as a generic willingness-to-take-risk parameter.
+- Do not answer with the inverse of CRRA unless you independently think that is the right value for this calibration target.
+- Do not switch to an asset-pricing or recursive-preferences interpretation.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,household.intertemporal_elasticity_of_substitution,3,ies-clarify,none,True,0.6,"Intertemporal elasticity of substitution (IES) for nondurable consumption in an annual, representative-household macro calibration: percent change in the annual growth rate of nondurable consumption from a 1 percent change in the intertemporal price of consumption, treated as a consumption-smoothing parameter distinct from risk aversion.",0.2,1.3,0.9,"{""p05"": 0.2, ""p25"": 0.4, ""p50"": 0.6, ""p75"": 0.85, ""p95"": 1.3}",False,"Hall (1988) - aggregate time-series estimates of intertemporal substitution in consumption near zero | Attanasio-Weber micro-data studies suggesting moderate IES for food/nondurables (around 0.5-0.8) | Standard RBC/DSGE calibration practice for annual nondurable consumption (IES often calibrated near 0.5-1.0, separate from risk aversion)","For annual macro calibration of nondurables, IES is typically separated from risk aversion. Aggregate time-series evidence points to low responsiveness, but micro studies and calibrated DSGE/RBC models cluster in the 0.4-0.9 range for nondurables. I therefore center near 0.6, with a wide interval reflecting identification disagreement between macro and micro data and avoiding a mechanical inverse-CRRA answer.",,"{
+
+
+""interpretation"": ""Intertemporal elasticity of substitution (IES) for nondurable consumption in an annual, representative-household macro calibration: percent change in the annual growth rate of nondurable consumption from a 1 percent change in the intertemporal price of consumption, treated as a consumption-smoothing parameter distinct from risk aversion."",
+""point_estimate"": 0.6,
+""quantiles"": {
+  ""p05"": 0.2,
+  ""p25"": 0.4,
+  ""p50"": 0.6,
+  ""p75"": 0.85,
+  ""p95"": 1.3
+},
+""citations"": [
+""Hall (1988) - aggregate time-series estimates of intertemporal substitution in consumption near zero"",
+""Attanasio-Weber micro-data studies suggesting moderate IES for food/nondurables (around 0.5-0.8)"",
+""Standard RBC/DSGE calibration practice for annual nondurable consumption (IES often calibrated near 0.5-1.0, separate from risk aversion)""
+],
+""reasoning_summary"": ""For annual macro calibration of nondurables, IES is typically separated from risk aversion. Aggregate time-series evidence points to low responsiveness, but micro studies and calibrated DSGE/RBC models cluster in the 0.4-0.9 range for nondurables. I therefore center near 0.6, with a wide interval reflecting identification disagreement between macro and micro data and avoiding a mechanical inverse-CRRA answer.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Intertemporal elasticity of substitution
+- Definition: Percent change in the growth rate of nondurable consumption from a 1 percent change in the intertemporal price of consumption.
+- Target interpretation: IES for nondurable consumption in annual macro calibration, distinct from risk aversion
+- Population/context: Representative U.S. household in an annual macro-calibration setting
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the elasticity of intertemporal substitution for nondurable consumption in a representative-household annual macro-calibration setting.
+- Treat it as a consumption-growth response to the intertemporal price of consumption, not as a generic willingness-to-take-risk parameter.
+- Do not answer with the inverse of CRRA unless you independently think that is the right value for this calibration target.
+- Do not switch to an asset-pricing or recursive-preferences interpretation.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,household.intertemporal_elasticity_of_substitution,4,ies-clarify,none,True,0.75,"Percent change in the annual growth rate of U.S. nondurable consumption per 1 percent change in the intertemporal price of consumption, for a representative household in annual macro calibration, treating IES as distinct from risk aversion.",0.2,1.75,0.9,"{""p05"": 0.2, ""p25"": 0.5, ""p50"": 0.75, ""p75"": 1.0, ""p95"": 1.75}",False,"Hall (1988, JPE) 'Intertemporal Substitution in Consumption' - classic aggregate Euler-equation estimates near zero but imprecise | Attanasio and Weber (1993/1995) micro cohort Euler-equation studies pointing to moderate IES around 0.5-0.8 for nondurables | DSGE/macro calibration literature (e.g., Smets-Wouters 2007 style) separating IES from risk aversion, often calibrating in 0.5-1.5 range","Aggregate Euler-equation estimates for nondurables are noisy and often low (Hall), while micro cohort data and modern EZ-style macro calibrations center closer to 0.5-1.0 when risk aversion is separated. I place the median near 0.75, with a left tail reflecting near-zero substitutability and a right tail accommodating high-IES calibrations up to about 1.75.",,"{
+
+
+""interpretation"": ""Percent change in the annual growth rate of U.S. nondurable consumption per 1 percent change in the intertemporal price of consumption, for a representative household in annual macro calibration, treating IES as distinct from risk aversion."",
+  ""point_estimate"": 0.75,
+  ""quantiles"": {
+    ""p05"": 0.2,
+    ""p25"": 0.5,
+    ""p50"": 0.75,
+    ""p75"": 1.0,
+    ""p95"": 1.75
+  },
+  ""citations"": [
+    ""Hall (1988, JPE) 'Intertemporal Substitution in Consumption' - classic aggregate Euler-equation estimates near zero but imprecise"",
+    ""Attanasio and Weber (1993/1995) micro cohort Euler-equation studies pointing to moderate IES around 0.5-0.8 for nondurables"",
+    ""DSGE/macro calibration literature (e.g., Smets-Wouters 2007 style) separating IES from risk aversion, often calibrating in 0.5-1.5 range""
+  ],
+  ""reasoning_summary"": ""Aggregate Euler-equation estimates for nondurables are noisy and often low (Hall), while micro cohort data and modern EZ-style macro calibrations center closer to 0.5-1.0 when risk aversion is separated. I place the median near 0.75, with a left tail reflecting near-zero substitutability and a right tail accommodating high-IES calibrations up to about 1.75.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Intertemporal elasticity of substitution
+- Definition: Percent change in the growth rate of nondurable consumption from a 1 percent change in the intertemporal price of consumption.
+- Target interpretation: IES for nondurable consumption in annual macro calibration, distinct from risk aversion
+- Population/context: Representative U.S. household in an annual macro-calibration setting
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the elasticity of intertemporal substitution for nondurable consumption in a representative-household annual macro-calibration setting.
+- Treat it as a consumption-growth response to the intertemporal price of consumption, not as a generic willingness-to-take-risk parameter.
+- Do not answer with the inverse of CRRA unless you independently think that is the right value for this calibration target.
+- Do not switch to an asset-pricing or recursive-preferences interpretation.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,household.intertemporal_elasticity_of_substitution,5,ies-clarify,none,True,0.65,"The elasticity of intertemporal substitution for nondurable consumption in a representative U.S. household annual macro calibration, defined as the percent change in consumption growth from a 1 percent change in the intertemporal price of consumption, treated separately from risk aversion.",0.2,1.2,0.9,"{""p05"": 0.2, ""p25"": 0.45, ""p50"": 0.65, ""p75"": 0.85, ""p95"": 1.2}",False,Hall (1988) classic Euler-equation estimates near zero for consumption IES | Smets-Wouters (2007) DSGE estimates implying inverse IES near 1.4 (IES ≈ 0.7) | Kydland-Prescott (1982) log-utility calibration with IES = 1,"Macro calibrations and DSGE estimates for annual nondurables typically place IES between about 0.5 and 1, with prominent Euro-area/US-style estimates near 0.7 and classic RBC logs at 1, while micro/IV estimates often sit lower near 0.2–0.5. Separating IES from risk aversion avoids tying it mechanically to a CRRA coefficient. Given identification challenges and the need to match consumption smoothing without overstating intertemporal responsiveness in annual data, I center near 0.65 with a spread from roughly 0.2 to 1.2.",,"{
+  ""interpretation"": ""The elasticity of intertemporal substitution for nondurable consumption in a representative U.S. household annual macro calibration, defined as the percent change in consumption growth from a 1 percent change in the intertemporal price of consumption, treated separately from risk aversion."",
+  ""point_estimate"": 0.65,
+  ""quantiles"": {
+    ""p05"": 0.2,
+    ""p25"": 0.45,
+    ""p50"": 0.65,
+    ""p75"": 0.85,
+    ""p95"": 1.2
+  },
+  ""citations"": [
+    ""Hall (1988) classic Euler-equation estimates near zero for consumption IES"",
+    ""Smets-Wouters (2007) DSGE estimates implying inverse IES near 1.4 (IES ≈ 0.7)"",
+    ""Kydland-Prescott (1982) log-utility calibration with IES = 1""
+  ],
+  ""reasoning_summary"": ""Macro calibrations and DSGE estimates for annual nondurables typically place IES between about 0.5 and 1, with prominent Euro-area/US-style estimates near 0.7 and classic RBC logs at 1, while micro/IV estimates often sit lower near 0.2–0.5. Separating IES from risk aversion avoids tying it mechanically to a CRRA coefficient. Given identification challenges and the need to match consumption smoothing without overstating intertemporal responsiveness in annual data, I center near 0.65 with a spread from roughly 0.2 to 1.2.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Intertemporal elasticity of substitution
+- Definition: Percent change in the growth rate of nondurable consumption from a 1 percent change in the intertemporal price of consumption.
+- Target interpretation: IES for nondurable consumption in annual macro calibration, distinct from risk aversion
+- Population/context: Representative U.S. household in an annual macro-calibration setting
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the elasticity of intertemporal substitution for nondurable consumption in a representative-household annual macro-calibration setting.
+- Treat it as a consumption-growth response to the intertemporal price of consumption, not as a generic willingness-to-take-risk parameter.
+- Do not answer with the inverse of CRRA unless you independently think that is the right value for this calibration target.
+- Do not switch to an asset-pricing or recursive-preferences interpretation.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,household.intertemporal_elasticity_of_substitution,6,ies-clarify,none,True,0.6,"The percent change in the growth rate of annual nondurable consumption for a representative U.S. household in response to a 1 percent change in the intertemporal price of consumption, treating the IES as distinct from risk aversion in a macro-calibration setting.",0.2,1.5,0.9,"{""p05"": 0.2, ""p25"": 0.4, ""p50"": 0.6, ""p75"": 0.9, ""p95"": 1.5}",False,"Hall (1988) - instrumental-variable estimates near zero but identification controversies | Havranek et al. (2015) meta-analysis - reported IES estimates clustering near 0.5 across studies | Smets and Wouters (2007) DSGE - inverse IES (σ) estimated near 1.3–1.4, implying IES ≈ 0.7","Micro estimates (Hall) are often near zero but face weak-instrument and aggregation issues; macro DSGE estimates (Smets-Wouters) place inverse IES around 1.3–1.5, yielding IES near 0.65–0.75; meta-analyses center near 0.5. For annual nondurable consumption in representative-household calibration—explicitly separated from risk aversion—I center near 0.6 with a right skew reflecting occasional macro-finance calibrations near 1.5, while retaining substantial downward uncertainty.",,"{
+
+
+  ""interpretation"": ""The percent change in the growth rate of annual nondurable consumption for a representative U.S. household in response to a 1 percent change in the intertemporal price of consumption, treating the IES as distinct from risk aversion in a macro-calibration setting."",
+
+  ""point_estimate"": 0.6,
+
+  ""quantiles"": {
+
+    ""p05"": 0.2,
+
+    ""p25"": 0.4,
+
+    ""p50"": 0.6,
+
+    ""p75"": 0.9,
+
+    ""p95"": 1.5
+
+  },
+
+  ""citations"": [
+
+    ""Hall (1988) - instrumental-variable estimates near zero but identification controversies"",
+
+    ""Havranek et al. (2015) meta-analysis - reported IES estimates clustering near 0.5 across studies"",
+
+    ""Smets and Wouters (2007) DSGE - inverse IES (σ) estimated near 1.3–1.4, implying IES ≈ 0.7""
+
+  ],
+
+  ""reasoning_summary"": ""Micro estimates (Hall) are often near zero but face weak-instrument and aggregation issues; macro DSGE estimates (Smets-Wouters) place inverse IES around 1.3–1.5, yielding IES near 0.65–0.75; meta-analyses center near 0.5. For annual nondurable consumption in representative-household calibration—explicitly separated from risk aversion—I center near 0.6 with a right skew reflecting occasional macro-finance calibrations near 1.5, while retaining substantial downward uncertainty.""
+
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Intertemporal elasticity of substitution
+- Definition: Percent change in the growth rate of nondurable consumption from a 1 percent change in the intertemporal price of consumption.
+- Target interpretation: IES for nondurable consumption in annual macro calibration, distinct from risk aversion
+- Population/context: Representative U.S. household in an annual macro-calibration setting
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the elasticity of intertemporal substitution for nondurable consumption in a representative-household annual macro-calibration setting.
+- Treat it as a consumption-growth response to the intertemporal price of consumption, not as a generic willingness-to-take-risk parameter.
+- Do not answer with the inverse of CRRA unless you independently think that is the right value for this calibration target.
+- Do not switch to an asset-pricing or recursive-preferences interpretation.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,household.intertemporal_elasticity_of_substitution,7,ies-clarify,none,True,0.75,"Intertemporal elasticity of substitution for nondurable consumption in a representative U.S. household annual macro model: percent change in the growth rate of nondurable consumption per 1 percent change in the intertemporal price of consumption, treated separately from risk aversion.",0.3,1.5,0.9,"{""p05"": 0.3, ""p25"": 0.5, ""p50"": 0.75, ""p75"": 1.0, ""p95"": 1.5}",False,"Hall (1988) - low Euler-equation estimates of intertemporal substitution in aggregate consumption | Vissing-Jorgensen (2002) - micro evidence on IES for stockholders and non-stockholders near 0.3-0.8 | King, Plosser, and Rebelo (1988) / standard RBC calibrations - macro models often calibrate near log utility (IES ≈ 1)","Micro and Euler-equation estimates for nondurables often lie between 0.2 and 0.8, while macro RBC/DSGE calibrations frequently use values near 1 (log utility). I weigh both but lean slightly below 1 because the target is nondurable consumption growth response specifically, not tied to risk aversion, giving a central belief near 0.75 with a range roughly 0.3 to 1.5.",,"{
+
+
+  ""interpretation"": ""Intertemporal elasticity of substitution for nondurable consumption in a representative U.S. household annual macro model: percent change in the growth rate of nondurable consumption per 1 percent change in the intertemporal price of consumption, treated separately from risk aversion."",
+  ""point_estimate"": 0.75,
+  ""quantiles"": {
+    ""p05"": 0.3,
+    ""p25"": 0.5,
+    ""p50"": 0.75,
+    ""p75"": 1.0,
+    ""p95"": 1.5
+  },
+  ""citations"": [
+    ""Hall (1988) - low Euler-equation estimates of intertemporal substitution in aggregate consumption"",
+    ""Vissing-Jorgensen (2002) - micro evidence on IES for stockholders and non-stockholders near 0.3-0.8"",
+    ""King, Plosser, and Rebelo (1988) / standard RBC calibrations - macro models often calibrate near log utility (IES ≈ 1)""
+  ],
+  ""reasoning_summary"": ""Micro and Euler-equation estimates for nondurables often lie between 0.2 and 0.8, while macro RBC/DSGE calibrations frequently use values near 1 (log utility). I weigh both but lean slightly below 1 because the target is nondurable consumption growth response specifically, not tied to risk aversion, giving a central belief near 0.75 with a range roughly 0.3 to 1.5.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Intertemporal elasticity of substitution
+- Definition: Percent change in the growth rate of nondurable consumption from a 1 percent change in the intertemporal price of consumption.
+- Target interpretation: IES for nondurable consumption in annual macro calibration, distinct from risk aversion
+- Population/context: Representative U.S. household in an annual macro-calibration setting
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the elasticity of intertemporal substitution for nondurable consumption in a representative-household annual macro-calibration setting.
+- Treat it as a consumption-growth response to the intertemporal price of consumption, not as a generic willingness-to-take-risk parameter.
+- Do not answer with the inverse of CRRA unless you independently think that is the right value for this calibration target.
+- Do not switch to an asset-pricing or recursive-preferences interpretation.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,household.intertemporal_elasticity_of_substitution,8,ies-clarify,none,True,0.9,"Intertemporal elasticity of substitution for nondurable consumption in a representative U.S. household annual macro calibration: percent change in nondurable consumption growth per 1 percent change in the intertemporal price of consumption, separate from risk aversion.",0.3,1.8,0.9,"{""p05"": 0.3, ""p25"": 0.6, ""p50"": 0.9, ""p75"": 1.2, ""p95"": 1.8}",False,Hall (1988) micro estimates near zero for food/nondurable consumption | Bansal-Yaron (2004) EZ long-run-risk calibration with IES around 1.5 | Smets-Wouters (2007) DSGE estimates implying inverse IES near 1.4,"Annual macro calibrations often benchmark IES near unity (log utility), but micro evidence (Hall) pulls it well below 1, while EZ asset-pricing calibrations (Bansal-Yaron) push it above 1. For nondurables specifically, observed consumption-growth responses to real rates are modest, so I center near 0.9 with a wide range spanning roughly 0.3 to 1.8.",,"{
+
+
+  ""interpretation"": ""Intertemporal elasticity of substitution for nondurable consumption in a representative U.S. household annual macro calibration: percent change in nondurable consumption growth per 1 percent change in the intertemporal price of consumption, separate from risk aversion."",
+  ""point_estimate"": 0.9,
+  ""quantiles"": {
+    ""p05"": 0.3,
+    ""p25"": 0.6,
+    ""p50"": 0.9,
+    ""p75"": 1.2,
+    ""p95"": 1.8
+  },
+  ""citations"": [
+    ""Hall (1988) micro estimates near zero for food/nondurable consumption"",
+    ""Bansal-Yaron (2004) EZ long-run-risk calibration with IES around 1.5"",
+    ""Smets-Wouters (2007) DSGE estimates implying inverse IES near 1.4""
+  ],
+  ""reasoning_summary"": ""Annual macro calibrations often benchmark IES near unity (log utility), but micro evidence (Hall) pulls it well below 1, while EZ asset-pricing calibrations (Bansal-Yaron) push it above 1. For nondurables specifically, observed consumption-growth responses to real rates are modest, so I center near 0.9 with a wide range spanning roughly 0.3 to 1.8.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Intertemporal elasticity of substitution
+- Definition: Percent change in the growth rate of nondurable consumption from a 1 percent change in the intertemporal price of consumption.
+- Target interpretation: IES for nondurable consumption in annual macro calibration, distinct from risk aversion
+- Population/context: Representative U.S. household in an annual macro-calibration setting
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the elasticity of intertemporal substitution for nondurable consumption in a representative-household annual macro-calibration setting.
+- Treat it as a consumption-growth response to the intertemporal price of consumption, not as a generic willingness-to-take-risk parameter.
+- Do not answer with the inverse of CRRA unless you independently think that is the right value for this calibration target.
+- Do not switch to an asset-pricing or recursive-preferences interpretation.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,household.intertemporal_elasticity_of_substitution,9,ies-clarify,none,True,0.5,"Percent change in annual nondurable consumption growth per 1 percent change in the intertemporal price of consumption for a representative U.S. household in macro calibration, with risk aversion treated separately.",0.2,1.0,0.9,"{""p05"": 0.2, ""p25"": 0.4, ""p50"": 0.5, ""p75"": 0.7, ""p95"": 1.0}",False,Hall (1988) Euler-equation estimates for consumption IES yielding low values for nondurables/food | Havranek et al. (2015) meta-analysis of intertemporal substitution estimates with macro/micro central tendency near 0.5 | King and Rebelo (1999) RBC calibration discussion treating IES and risk aversion as distinct parameters,"Empirical Euler-equation studies and meta-analyses for aggregate nondurable consumption generally place the IES well below unity, with macro calibrations often clustering near 0.5 despite wide dispersion across specifications. I center my belief near 0.5 with a range of about 0.2 to 1.0, reflecting both low micro estimates and somewhat higher macro calibration practices, while keeping risk aversion separate.",,"{
+
+
+""interpretation"": ""Percent change in annual nondurable consumption growth per 1 percent change in the intertemporal price of consumption for a representative U.S. household in macro calibration, with risk aversion treated separately."",
+""point_estimate"": 0.5,
+""quantiles"": {
+""p05"": 0.2,
+""p25"": 0.4,
+""p50"": 0.5,
+""p75"": 0.7,
+""p95"": 1.0
+},
+""citations"": [
+""Hall (1988) Euler-equation estimates for consumption IES yielding low values for nondurables/food"",
+""Havranek et al. (2015) meta-analysis of intertemporal substitution estimates with macro/micro central tendency near 0.5"",
+""King and Rebelo (1999) RBC calibration discussion treating IES and risk aversion as distinct parameters""
+],
+""reasoning_summary"": ""Empirical Euler-equation studies and meta-analyses for aggregate nondurable consumption generally place the IES well below unity, with macro calibrations often clustering near 0.5 despite wide dispersion across specifications. I center my belief near 0.5 with a range of about 0.2 to 1.0, reflecting both low micro estimates and somewhat higher macro calibration practices, while keeping risk aversion separate.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Intertemporal elasticity of substitution
+- Definition: Percent change in the growth rate of nondurable consumption from a 1 percent change in the intertemporal price of consumption.
+- Target interpretation: IES for nondurable consumption in annual macro calibration, distinct from risk aversion
+- Population/context: Representative U.S. household in an annual macro-calibration setting
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the elasticity of intertemporal substitution for nondurable consumption in a representative-household annual macro-calibration setting.
+- Treat it as a consumption-growth response to the intertemporal price of consumption, not as a generic willingness-to-take-risk parameter.
+- Do not answer with the inverse of CRRA unless you independently think that is the right value for this calibration target.
+- Do not switch to an asset-pricing or recursive-preferences interpretation.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,household.intertemporal_elasticity_of_substitution,10,ies-clarify,none,True,0.65,"Percent change in nondurable consumption growth rate per 1 percent change in the intertemporal price of consumption, for a representative U.S. household in an annual macro model, treated as intertemporal substitution distinct from risk aversion.",0.2,1.5,0.9,"{""p05"": 0.2, ""p25"": 0.4, ""p50"": 0.65, ""p75"": 0.9, ""p95"": 1.5}",False,"Hall (1988) - Euler-equation estimates for aggregate consumption yielding very low intertemporal substitution | Campbell and Cochrane (1999) - external-habit model with risk-aversion coefficient near 2, implying an IES near 0.5 for nondurables | Bansal and Yaron (2004) - long-run-risk macro-finance calibration with Epstein-Zin IES around 1.5, marking the high end of macro ranges","Direct aggregate Euler-equation evidence (Hall) points to low values near zero, but macro calibrations with habits or recursive preferences typically need values in the 0.5-1 range to match consumption smoothing and interest-rate dynamics without tying IES mechanically to risk aversion. I center near 0.65, with a right-skewed spread reflecting uncertainty between micro-estimated responsiveness and the larger values used in quantitative macro models.",,"{
+
+
+""interpretation"": ""Percent change in nondurable consumption growth rate per 1 percent change in the intertemporal price of consumption, for a representative U.S. household in an annual macro model, treated as intertemporal substitution distinct from risk aversion."",
+
+
+""point_estimate"": 0.65,
+
+
+""quantiles"": {
+""p05"": 0.2,
+""p25"": 0.4,
+""p50"": 0.65,
+""p75"": 0.9,
+""p95"": 1.5
+},
+
+
+""citations"": [
+""Hall (1988) - Euler-equation estimates for aggregate consumption yielding very low intertemporal substitution"",
+""Campbell and Cochrane (1999) - external-habit model with risk-aversion coefficient near 2, implying an IES near 0.5 for nondurables"",
+""Bansal and Yaron (2004) - long-run-risk macro-finance calibration with Epstein-Zin IES around 1.5, marking the high end of macro ranges""
+],
+
+
+""reasoning_summary"": ""Direct aggregate Euler-equation evidence (Hall) points to low values near zero, but macro calibrations with habits or recursive preferences typically need values in the 0.5-1 range to match consumption smoothing and interest-rate dynamics without tying IES mechanically to risk aversion. I center near 0.65, with a right-skewed spread reflecting uncertainty between micro-estimated responsiveness and the larger values used in quantitative macro models.""
+
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Intertemporal elasticity of substitution
+- Definition: Percent change in the growth rate of nondurable consumption from a 1 percent change in the intertemporal price of consumption.
+- Target interpretation: IES for nondurable consumption in annual macro calibration, distinct from risk aversion
+- Population/context: Representative U.S. household in an annual macro-calibration setting
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the elasticity of intertemporal substitution for nondurable consumption in a representative-household annual macro-calibration setting.
+- Treat it as a consumption-growth response to the intertemporal price of consumption, not as a generic willingness-to-take-risk parameter.
+- Do not answer with the inverse of CRRA unless you independently think that is the right value for this calibration target.
+- Do not switch to an asset-pricing or recursive-preferences interpretation.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,household.intertemporal_elasticity_of_substitution,11,ies-clarify,none,True,0.6,"Percent change in the growth rate of nondurable consumption from a 1 percent change in the intertemporal price of consumption, for a representative U.S. household in an annual macro-calibration setting, treated separately from risk aversion.",0.2,1.3,0.9,"{""p05"": 0.2, ""p25"": 0.4, ""p50"": 0.6, ""p75"": 0.9, ""p95"": 1.3}",False,"Hall (1988) aggregate intertemporal-substitution estimates near zero | Campbell-Mankiw (1989) consumption-interest-rate time-series evidence | Standard RBC/DSGE calibrations (e.g., King-Rebelo 1999; Smets-Wouters 2007) placing IES roughly in 0.5–1","Micro evidence on interest-rate sensitivity of nondurable consumption tends to be low (<0.5), while representative-agent macro calibrations often use values near 0.5–1 (including log-utility cases). Keeping IES distinct from CRRA risk aversion, I center near 0.6 with broad uncertainty spanning about 0.2 to 1.3, reflecting disagreement between micro-estimated weak substitution and macro-model convenience.",,"{
+
+
+  ""interpretation"": ""Percent change in the growth rate of nondurable consumption from a 1 percent change in the intertemporal price of consumption, for a representative U.S. household in an annual macro-calibration setting, treated separately from risk aversion."",
+  ""point_estimate"": 0.6,
+  ""quantiles"": {
+    ""p05"": 0.2,
+    ""p25"": 0.4,
+    ""p50"": 0.6,
+    ""p75"": 0.9,
+    ""p95"": 1.3
+  },
+  ""citations"": [
+    ""Hall (1988) aggregate intertemporal-substitution estimates near zero"",
+    ""Campbell-Mankiw (1989) consumption-interest-rate time-series evidence"",
+    ""Standard RBC/DSGE calibrations (e.g., King-Rebelo 1999; Smets-Wouters 2007) placing IES roughly in 0.5–1""
+  ],
+  ""reasoning_summary"": ""Micro evidence on interest-rate sensitivity of nondurable consumption tends to be low (<0.5), while representative-agent macro calibrations often use values near 0.5–1 (including log-utility cases). Keeping IES distinct from CRRA risk aversion, I center near 0.6 with broad uncertainty spanning about 0.2 to 1.3, reflecting disagreement between micro-estimated weak substitution and macro-model convenience.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Intertemporal elasticity of substitution
+- Definition: Percent change in the growth rate of nondurable consumption from a 1 percent change in the intertemporal price of consumption.
+- Target interpretation: IES for nondurable consumption in annual macro calibration, distinct from risk aversion
+- Population/context: Representative U.S. household in an annual macro-calibration setting
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the elasticity of intertemporal substitution for nondurable consumption in a representative-household annual macro-calibration setting.
+- Treat it as a consumption-growth response to the intertemporal price of consumption, not as a generic willingness-to-take-risk parameter.
+- Do not answer with the inverse of CRRA unless you independently think that is the right value for this calibration target.
+- Do not switch to an asset-pricing or recursive-preferences interpretation.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,household.intertemporal_elasticity_of_substitution,12,ies-clarify,none,True,0.5,"Percent change in the growth rate of nondurable consumption in response to a 1 percent change in the intertemporal price of consumption, for a representative U.S. household in an annual macro model, treating the IES as distinct from risk aversion.",0.2,1.0,0.9,"{""p05"": 0.2, ""p25"": 0.4, ""p50"": 0.5, ""p75"": 0.7, ""p95"": 1.0}",False,"Hall (1988) - classic micro estimates near zero with weak-instrument concerns | Havranek et al. (2015) meta-analysis - central tendency near 0.5 for consumption IES | Kydland and Prescott (1982) RBC calibration - log utility benchmark implying IES=1, used as upper anchor","For annual nondurable consumption in representative-agent macro calibration, I center near 0.5. Micro estimates (Hall) push downward but are likely downward-biased by instruments and aggregation. Meta-analytic and calibration practice cluster between 0.4 and 0.8, with 1.0 (log utility) acting as an upper benchmark rather than the mode. I keep this separate from risk aversion and avoid setting it to the inverse of CRRA.",,"{
+
+
+  ""interpretation"": ""Percent change in the growth rate of nondurable consumption in response to a 1 percent change in the intertemporal price of consumption, for a representative U.S. household in an annual macro model, treating the IES as distinct from risk aversion."",
+  ""point_estimate"": 0.5,
+  ""quantiles"": {
+    ""p05"": 0.2,
+    ""p25"": 0.4,
+    ""p50"": 0.5,
+    ""p75"": 0.7,
+    ""p95"": 1.0
+  },
+  ""citations"": [
+    ""Hall (1988) - classic micro estimates near zero with weak-instrument concerns"",
+    ""Havranek et al. (2015) meta-analysis - central tendency near 0.5 for consumption IES"",
+    ""Kydland and Prescott (1982) RBC calibration - log utility benchmark implying IES=1, used as upper anchor""
+  ],
+  ""reasoning_summary"": ""For annual nondurable consumption in representative-agent macro calibration, I center near 0.5. Micro estimates (Hall) push downward but are likely downward-biased by instruments and aggregation. Meta-analytic and calibration practice cluster between 0.4 and 0.8, with 1.0 (log utility) acting as an upper benchmark rather than the mode. I keep this separate from risk aversion and avoid setting it to the inverse of CRRA.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Intertemporal elasticity of substitution
+- Definition: Percent change in the growth rate of nondurable consumption from a 1 percent change in the intertemporal price of consumption.
+- Target interpretation: IES for nondurable consumption in annual macro calibration, distinct from risk aversion
+- Population/context: Representative U.S. household in an annual macro-calibration setting
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the elasticity of intertemporal substitution for nondurable consumption in a representative-household annual macro-calibration setting.
+- Treat it as a consumption-growth response to the intertemporal price of consumption, not as a generic willingness-to-take-risk parameter.
+- Do not answer with the inverse of CRRA unless you independently think that is the right value for this calibration target.
+- Do not switch to an asset-pricing or recursive-preferences interpretation.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,household.intertemporal_elasticity_of_substitution,13,ies-clarify,none,True,0.5,"Percent change in the annual growth rate of U.S. nondurable consumption from a 1 percent change in the intertemporal price of consumption, interpreted as an intertemporal smoothing parameter distinct from risk aversion.",0.2,1.3,0.9,"{""p05"": 0.2, ""p25"": 0.35, ""p50"": 0.5, ""p75"": 0.75, ""p95"": 1.3}",False,Hall (1988) | Vissing-Jorgensen (2002) | King and Rebelo (1999),"Micro estimates for nondurables are noisy and often near zero, but macro calibrations with annual data typically place the IES in a moderate range to match consumption growth dynamics without tying it one-for-one to risk aversion; I center near 0.5 with a right skew reflecting occasional DSGE calibrations that allow values closer to unity or above.",,"{
+
+
+  ""interpretation"": ""Percent change in the annual growth rate of U.S. nondurable consumption from a 1 percent change in the intertemporal price of consumption, interpreted as an intertemporal smoothing parameter distinct from risk aversion."",
+  ""point_estimate"": 0.5,
+  ""quantiles"": {
+    ""p05"": 0.2,
+    ""p25"": 0.35,
+    ""p50"": 0.5,
+    ""p75"": 0.75,
+    ""p95"": 1.3
+  },
+  ""citations"": [
+    ""Hall (1988)"",
+    ""Vissing-Jorgensen (2002)"",
+    ""King and Rebelo (1999)""
+  ],
+  ""reasoning_summary"": ""Micro estimates for nondurables are noisy and often near zero, but macro calibrations with annual data typically place the IES in a moderate range to match consumption growth dynamics without tying it one-for-one to risk aversion; I center near 0.5 with a right skew reflecting occasional DSGE calibrations that allow values closer to unity or above.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Intertemporal elasticity of substitution
+- Definition: Percent change in the growth rate of nondurable consumption from a 1 percent change in the intertemporal price of consumption.
+- Target interpretation: IES for nondurable consumption in annual macro calibration, distinct from risk aversion
+- Population/context: Representative U.S. household in an annual macro-calibration setting
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the elasticity of intertemporal substitution for nondurable consumption in a representative-household annual macro-calibration setting.
+- Treat it as a consumption-growth response to the intertemporal price of consumption, not as a generic willingness-to-take-risk parameter.
+- Do not answer with the inverse of CRRA unless you independently think that is the right value for this calibration target.
+- Do not switch to an asset-pricing or recursive-preferences interpretation.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,household.intertemporal_elasticity_of_substitution,14,ies-clarify,none,True,0.5,"Percent change in the annual growth rate of nondurable consumption per 1 percent change in the intertemporal price of consumption for a representative U.S. household, treating intertemporal substitution as distinct from risk aversion.",0.2,1.1,0.9,"{""p05"": 0.2, ""p25"": 0.35, ""p50"": 0.5, ""p75"": 0.75, ""p95"": 1.1}",False,"Hall (1988, JPE) on intertemporal substitution in consumption finding low micro responsiveness | Campbell and Mankiw (1989) linking consumption growth to interest-rate dynamics in aggregate data | Standard annual DSGE/RBC calibration practice for nondurable consumption growth elasticity","Micro estimates often find IES near zero due to liquidity constraints and measurement issues, but aggregation and the exclusion of durables in this target push macro-calibrated values for nondurables somewhat higher. Annual smoothing reduces high-frequency responsiveness, yet intertemporal price changes still induce moderate consumption-growth adjustments. I center near 0.5, allowing for a range that covers low micro anchors up to near-log-utility values sometimes used in macro models, without equating IES to the inverse of CRRA risk aversion.",,"{
+
+
+  ""interpretation"": ""Percent change in the annual growth rate of nondurable consumption per 1 percent change in the intertemporal price of consumption for a representative U.S. household, treating intertemporal substitution as distinct from risk aversion."",
+  ""point_estimate"": 0.5,
+  ""quantiles"": {
+    ""p05"": 0.2,
+    ""p25"": 0.35,
+    ""p50"": 0.5,
+    ""p75"": 0.75,
+    ""p95"": 1.1
+  },
+  ""citations"": [
+    ""Hall (1988, JPE) on intertemporal substitution in consumption finding low micro responsiveness"",
+    ""Campbell and Mankiw (1989) linking consumption growth to interest-rate dynamics in aggregate data"",
+    ""Standard annual DSGE/RBC calibration practice for nondurable consumption growth elasticity""
+  ],
+  ""reasoning_summary"": ""Micro estimates often find IES near zero due to liquidity constraints and measurement issues, but aggregation and the exclusion of durables in this target push macro-calibrated values for nondurables somewhat higher. Annual smoothing reduces high-frequency responsiveness, yet intertemporal price changes still induce moderate consumption-growth adjustments. I center near 0.5, allowing for a range that covers low micro anchors up to near-log-utility values sometimes used in macro models, without equating IES to the inverse of CRRA risk aversion.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Intertemporal elasticity of substitution
+- Definition: Percent change in the growth rate of nondurable consumption from a 1 percent change in the intertemporal price of consumption.
+- Target interpretation: IES for nondurable consumption in annual macro calibration, distinct from risk aversion
+- Population/context: Representative U.S. household in an annual macro-calibration setting
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the elasticity of intertemporal substitution for nondurable consumption in a representative-household annual macro-calibration setting.
+- Treat it as a consumption-growth response to the intertemporal price of consumption, not as a generic willingness-to-take-risk parameter.
+- Do not answer with the inverse of CRRA unless you independently think that is the right value for this calibration target.
+- Do not switch to an asset-pricing or recursive-preferences interpretation.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
+litellm_completion,inkling,household.intertemporal_elasticity_of_substitution,15,ies-clarify,none,True,0.65,"Percent change in the growth rate of U.S. nondurable consumption in response to a 1 percent change in the intertemporal price of consumption (interest-rate/return-driven), in an annual representative-household macro calibration, separate from risk aversion.",0.2,1.1,0.9,"{""p05"": 0.2, ""p25"": 0.45, ""p50"": 0.65, ""p75"": 0.85, ""p95"": 1.1}",False,Hall (1988) | Havranek et al. (2015) | Smets and Wouters (2003) DSGE calibration literature,"Micro and macro Euler-equation estimates for nondurables typically cluster in the 0.4–0.9 range, with meta-analyses near 0.5; I center near 0.65 for annual aggregation allowing moderate smoothing, well below recursive-preference asset-pricing values and above near-zero early estimates, with wide uncertainty reflecting identification challenges.",,"{
+
+
+  ""interpretation"": ""Percent change in the growth rate of U.S. nondurable consumption in response to a 1 percent change in the intertemporal price of consumption (interest-rate/return-driven), in an annual representative-household macro calibration, separate from risk aversion."",
+  ""point_estimate"": 0.65,
+  ""quantiles"": {
+    ""p05"": 0.2,
+    ""p25"": 0.45,
+    ""p50"": 0.65,
+    ""p75"": 0.85,
+    ""p95"": 1.1
+  },
+  ""citations"": [
+    ""Hall (1988)"",
+    ""Havranek et al. (2015)"",
+    ""Smets and Wouters (2003) DSGE calibration literature""
+  ],
+  ""reasoning_summary"": ""Micro and macro Euler-equation estimates for nondurables typically cluster in the 0.4–0.9 range, with meta-analyses near 0.5; I center near 0.65 for annual aggregation allowing moderate smoothing, well below recursive-preference asset-pricing values and above near-zero early estimates, with wide uncertainty reflecting identification challenges.""
+}","Answer from your current memory and background knowledge only.
+Do not use tools, files, the web, code, or external resources.
+Do not try to reconstruct a literature review or search for a consensus estimate.
+Report the belief you currently endorse.
+
+Quantity of interest:
+- Name: Intertemporal elasticity of substitution
+- Definition: Percent change in the growth rate of nondurable consumption from a 1 percent change in the intertemporal price of consumption.
+- Target interpretation: IES for nondurable consumption in annual macro calibration, distinct from risk aversion
+- Population/context: Representative U.S. household in an annual macro-calibration setting
+- Units: elasticity
+
+Clarification for this quantity:
+- This is the elasticity of intertemporal substitution for nondurable consumption in a representative-household annual macro-calibration setting.
+- Treat it as a consumption-growth response to the intertemporal price of consumption, not as a generic willingness-to-take-risk parameter.
+- Do not answer with the inverse of CRRA unless you independently think that is the right value for this calibration target.
+- Do not switch to an asset-pricing or recursive-preferences interpretation.
+
+Task:
+1. Use exactly the target interpretation above. In `interpretation`, restate it briefly.
+2. Give your subjective quantiles p05, p25, p50, p75, and p95 for this quantity.
+3. Set `point_estimate` equal to `p50`.
+4. Make the quantiles weakly increasing and numerically coherent.
+5. In `citations`, list up to 3 source anchors from memory that influenced your belief. These are recall anchors only. If none come to mind confidently, return `[]`.
+6. Keep `reasoning_summary` brief and substantive.
+
+Return valid JSON only with exactly this shape:
+{
+  ""interpretation"": ""..."",
+  ""point_estimate"": <number>,
+  ""quantiles"": {
+    ""p05"": <number>,
+    ""p25"": <number>,
+    ""p50"": <number>,
+    ""p75"": <number>,
+    ""p95"": <number>
+  },
+  ""citations"": [""...""],
+  ""reasoning_summary"": ""...""
+}"
