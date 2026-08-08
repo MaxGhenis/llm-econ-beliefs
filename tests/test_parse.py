@@ -1,3 +1,5 @@
+import pytest
+
 from llm_econ_beliefs import parse_belief_response
 
 
@@ -54,34 +56,27 @@ def test_parse_json_response_uses_p50_as_point_estimate_when_present():
     assert parsed.point_estimate == 0.5
 
 
-def test_parse_free_text_response():
-    parsed = parse_belief_response("About 0.4 for a macro-calibration Frisch elasticity.")
-
-    assert parsed.point_estimate == 0.4
-    assert parsed.lower_bound is None
-    assert parsed.upper_bound is None
-
-
-def test_parse_free_text_with_explicit_point_estimate_and_interval():
-    parsed = parse_belief_response(
-        """
-        **Summary:** I chose the lifecycle interpretation.
-        A point estimate of **0.5** is reasonable.
-        The 90% interval [0.2, 1.5] spans the micro-to-macro gap.
-        """
-    )
-
-    assert parsed.point_estimate == 0.5
-    assert parsed.lower_bound == 0.2
-    assert parsed.upper_bound == 1.5
+def test_parse_free_text_response_without_quantiles_fails():
+    # The quantile-complete contract: prose with only a point estimate is a
+    # failed run, since the pooled mixture needs all five quantiles.
+    with pytest.raises(ValueError, match="missing quantiles"):
+        parse_belief_response("About 0.4 for a macro-calibration Frisch elasticity.")
 
 
-def test_parse_free_text_with_beta_symbol():
-    parsed = parse_belief_response("Annual discount factor β ≈ 0.96, 90% CI: [0.94, 0.99].")
+def test_parse_free_text_with_interval_but_no_quantiles_fails():
+    with pytest.raises(ValueError, match="missing quantiles"):
+        parse_belief_response(
+            """
+            **Summary:** I chose the lifecycle interpretation.
+            A point estimate of **0.5** is reasonable.
+            The 90% interval [0.2, 1.5] spans the micro-to-macro gap.
+            """
+        )
 
-    assert parsed.point_estimate == 0.96
-    assert parsed.lower_bound == 0.94
-    assert parsed.upper_bound == 0.99
+
+def test_parse_free_text_with_beta_symbol_but_no_quantiles_fails():
+    with pytest.raises(ValueError, match="missing quantiles"):
+        parse_belief_response("Annual discount factor β ≈ 0.96, 90% CI: [0.94, 0.99].")
 
 
 def test_parse_quantile_labels_from_free_text():
@@ -135,3 +130,27 @@ def test_disordered_quantiles_trigger_running_max_repair():
     )
     assert parsed.quantiles_repaired is True
     assert parsed.quantiles["p75"] == 0.5
+
+
+def test_structured_payload_missing_quantiles_fails_parse():
+    with pytest.raises(ValueError, match="missing quantiles: p05, p25"):
+        parse_belief_response(
+            """
+            {
+              "point_estimate": 0.4,
+              "quantiles": {"p50": 0.4, "p75": 0.6, "p95": 0.8},
+              "citations": [],
+              "reasoning_summary": ""
+            }
+            """
+        )
+
+
+def test_free_text_without_quantiles_fails_parse():
+    # Inkling once echoed the JSON-Schema URL and the text fallback plucked
+    # "2020" out of "draft/2020-12" as a point estimate; the quantile-complete
+    # contract turns that into a failed run instead of a parsed belief.
+    with pytest.raises(ValueError, match="missing quantiles"):
+        parse_belief_response(
+            '{\n"https://json-schema.org/draft/2020-12/schema"\n'
+        )

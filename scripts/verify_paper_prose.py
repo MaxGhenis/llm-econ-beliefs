@@ -304,9 +304,14 @@ def verify_harness_disclosure() -> None:
     model_col = next(iter(rows[0]))
 
     def row_for(model_id: str) -> dict[str, str] | None:
+        # Compare hyphen-insensitively: PolicyBench-style ids drop the
+        # hyphen between family and version (qwen3.8-max), while display
+        # labels space everything (Qwen 3.8 Max).
+        def canon(value: str) -> str:
+            return value.strip("`").lower().replace(" ", "").replace("-", "")
+
         for row in rows:
-            label = row[model_col].strip("`").lower().replace(" ", "-")
-            if label == model_id:
+            if canon(row[model_col]) == canon(model_id):
                 return row
         return None
 
@@ -470,18 +475,26 @@ def verify_correlates() -> None:
     )
 
 
-# Cover 1-30 so panel growth can never KeyError a check mid-run (a crash
-# here hides every later check, which happened at 26 and again at 18).
+# Cover 1-99 so panel growth can never KeyError a check mid-run (a crash
+# here hides every later check, which happened at 26, again at 18, and
+# again at 31 when the cap was 30).
 _ONES = (
     "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
     "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen",
     "seventeen", "eighteen", "nineteen", "twenty",
 )
+_TENS = {
+    20: "twenty", 30: "thirty", 40: "forty", 50: "fifty",
+    60: "sixty", 70: "seventy", 80: "eighty", 90: "ninety",
+}
 NUMBER_WORDS = {i + 1: word for i, word in enumerate(_ONES)}
 NUMBER_WORDS.update(
-    {20 + i: f"twenty-{_ONES[i - 1]}" for i in range(1, 10)}
+    {
+        tens + unit: (f"{word}-{_ONES[unit - 1]}" if unit else word)
+        for tens, word in _TENS.items()
+        for unit in range(10)
+    }
 )
-NUMBER_WORDS[30] = "thirty"
 
 
 def verify_cap_gains_audit() -> None:
