@@ -10,6 +10,7 @@ const NAV_ITEMS = [
   { href: "/generations", label: "Generations" },
   { href: "/process", label: "Process" },
   { href: "/methods", label: "Methods" },
+  { href: "/paper", label: "Paper" },
 ] as const;
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -29,13 +30,6 @@ export function SubNav(): ReactNode {
           AI beliefs
         </span>
         <NavLinks items={NAV_ITEMS} />
-        <a
-          href={`${basePath}/paper.pdf`}
-          className="rounded-md px-2.5 py-1.5 text-sm transition hover:bg-[color:var(--muted)]"
-          style={{ color: "var(--muted-foreground)" }}
-        >
-          Paper (PDF)
-        </a>
       </div>
     </nav>
   );
@@ -56,7 +50,7 @@ export function ProvenanceFooter({
       style={{ borderColor: "var(--border)", color: "var(--muted-foreground)" }}
     >
       <p>
-        {runCount.toLocaleString()} successful runs · elicited April and July
+        {runCount.toLocaleString()} successful runs · elicited April through August
         2026 · v4 prompts · 15 runs per model-quantity cell.{" "}
         <a
           className="underline underline-offset-2"

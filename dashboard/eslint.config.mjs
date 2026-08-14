@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Synced Quarto manuscript render (vendor JS, not ours to lint).
+    "public/paper/web/**",
   ]),
 ]);
 

@@ -89,7 +89,7 @@ export default function RootLayout({
                 Code and data
               </a>
               <span>
-                Elicited April and July 2026 · {modelCount} models · v4 prompts
+                Elicited April through August 2026 · {modelCount} models · v4 prompts
               </span>
             </div>
           </div>
