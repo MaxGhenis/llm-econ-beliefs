@@ -8,5 +8,4 @@ mkdir -p dashboard/public/paper/web
 cp paper/paper.html dashboard/public/paper/web/index.html
 cp paper/paper.pdf dashboard/public/paper/web/index.pdf
 rsync -a --delete paper/paper_files/ dashboard/public/paper/web/paper_files/
-cp paper/paper.pdf dashboard/public/paper.pdf  # legacy shared path
 echo "synced render into dashboard/public/paper/web/"

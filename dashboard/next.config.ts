@@ -30,6 +30,18 @@ function loadClientModelRegistry(): string {
 
 const nextConfig: NextConfig = {
   basePath,
+  // /paper.pdf predates the /paper wrapper and has been shared; keep it
+  // serving by pointing it at the synced render.
+  async redirects() {
+    return [
+      {
+        source: "/paper.pdf",
+        destination: "/paper/web/index.pdf",
+        permanent: false,
+        basePath: true,
+      },
+    ];
+  },
   env: {
     NEXT_PUBLIC_BASE_PATH: basePath,
     NEXT_PUBLIC_MODEL_REGISTRY_JSON: loadClientModelRegistry(),

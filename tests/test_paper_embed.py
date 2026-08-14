@@ -37,8 +37,10 @@ def test_synced_render_exists_and_carries_the_manuscript() -> None:
 
 def test_old_pdf_path_keeps_serving() -> None:
     # /ai-beliefs/paper.pdf predates the wrapper and has been shared;
-    # the file stays in public/ even though the wrapper links web/.
-    assert (REPO_ROOT / "dashboard" / "public" / "paper.pdf").exists()
+    # next.config redirects it to the synced render.
+    config = (REPO_ROOT / "dashboard" / "next.config.ts").read_text()
+    assert 'source: "/paper.pdf"' in config
+    assert 'destination: "/paper/web/index.pdf"' in config
 
 
 def test_iframe_contract() -> None:
