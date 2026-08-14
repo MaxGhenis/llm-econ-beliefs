@@ -38,7 +38,6 @@ const nextConfig: NextConfig = {
         source: "/paper.pdf",
         destination: "/paper/web/index.pdf",
         permanent: false,
-        basePath: true,
       },
     ];
   },
