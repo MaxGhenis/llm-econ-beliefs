@@ -1,9 +1,10 @@
 """Rebuild the retained manuscript analysis using only stdlib and cached inputs.
 
---check requires a clean checkout, copies tracked files into a temporary source
+--check requires a clean checkout, reads a pinned commit into a temporary source
 archive (no .git), deletes every declared output there, and rebuilds them with
 Python network access disabled. It compares bytes with the original committed
-outputs, verifies evidence hashes again, and leaves the caller's checkout alone.
+outputs, verifies evidence hashes and final commit/source identity, and leaves the
+caller's checkout alone.
 --write updates outputs in the current checkout for a deliberate, reviewable edit.
 Neither mode refreshes the evidence manifest, calls models, or runs PolicyEngine.
 """
@@ -11,9 +12,9 @@ Neither mode refreshes the evidence manifest, calls models, or runs PolicyEngine
 from __future__ import annotations
 
 import argparse
-import shutil
 import subprocess
 import sys
+import tarfile
 import tempfile
 from pathlib import Path
 
@@ -85,6 +86,22 @@ runpy.run_path(str(script), run_name='__main__')
 
 
 def require_clean_tree(root: Path) -> None:
+    # Git status deliberately suppresses changes behind these index flags. A
+    # working-copy replay cannot claim committed bytes while either flag is set.
+    index = subprocess.check_output(
+        ["git", "-C", str(root), "ls-files", "-v", "-z"],
+        text=True,
+    )
+    hidden = [
+        entry[2:]
+        for entry in index.split("\0")
+        if entry and (entry[0].islower() or entry[0] == "S")
+    ]
+    if hidden:
+        raise ValueError(
+            "--check requires a clean checkout without assume-unchanged or "
+            "skip-worktree index flags: " + ", ".join(hidden)
+        )
     status = subprocess.check_output(
         ["git", "-C", str(root), "status", "--porcelain", "--untracked-files=all"],
         text=True,
@@ -126,31 +143,75 @@ def rebuild(root: Path) -> None:
         raise ValueError("Builder omitted required outputs: " + ", ".join(missing))
 
 
-def check(root: Path = ROOT) -> None:
-    require_clean_tree(root)
-    verify_manifest(root)
-    expected = {path: (root / path).read_bytes() for path in OUTPUTS}
-    tracked = (
-        subprocess.check_output(["git", "-C", str(root), "ls-files", "-z"])
-        .decode()
+def head_commit(root: Path) -> str:
+    return subprocess.check_output(
+        ["git", "-C", str(root), "rev-parse", "--verify", "HEAD^{commit}"],
+        text=True,
+    ).strip()
+
+
+def materialize_commit(root: Path, commit: str, target: Path) -> dict[str, bytes]:
+    """Read source and expected bytes from a pinned commit, never the working tree."""
+    committed = {}
+    # Use a file-backed archive to avoid holding a second copy of all raw evidence
+    # in memory. Extract regular files ourselves; reject links and path escapes.
+    with tempfile.TemporaryFile() as stream:
+        subprocess.run(
+            ["git", "-C", str(root), "archive", "--format=tar", commit],
+            stdout=stream,
+            check=True,
+        )
+        stream.seek(0)
+        with tarfile.open(fileobj=stream) as archive:
+            for member in archive:
+                if member.isdir():
+                    continue
+                relative = Path(member.name)
+                if (
+                    not member.isfile()
+                    or relative.is_absolute()
+                    or ".." in relative.parts
+                ):
+                    raise ValueError(f"Unsupported source archive entry: {member.name}")
+                data = archive.extractfile(member).read()
+                path = target / relative
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(data)
+                committed[member.name] = data
+    tracked = set(
+        subprocess.check_output(
+            ["git", "-C", str(root), "ls-tree", "-r", "--name-only", "-z", commit],
+            text=True,
+        )
+        .strip("\0")
         .split("\0")
     )
+    if set(committed) != tracked:
+        raise ValueError(
+            "Source archive must include every tracked file (no export-ignore omissions)"
+        )
+    return committed
+
+
+def verify_checkout_commit(
+    root: Path, commit: str, committed: dict[str, bytes]
+) -> None:
+    """Detect a changed HEAD or tracked bytes even when Git's status cache misses it."""
+    require_clean_tree(root)
+    if head_commit(root) != commit:
+        raise ValueError("Checkout HEAD changed during cached reproduction")
+    compare_outputs(root, committed)
+
+
+def check(root: Path = ROOT) -> None:
+    require_clean_tree(root)
+    commit = head_commit(root)
+    verify_manifest(root)
     with tempfile.TemporaryDirectory(prefix="llm-econ-cached-") as temporary:
         clean = Path(temporary)
-        for relative in filter(None, tracked):
-            target = clean / relative
-            target.parent.mkdir(parents=True, exist_ok=True)
-            source = root / relative
-            if source.is_symlink():
-                raise ValueError(
-                    f"Source archive must not depend on symlinks: {relative}"
-                )
-            shutil.copyfile(source, target)
-        before = {
-            p.relative_to(clean).as_posix(): p.read_bytes()
-            for p in clean.rglob("*")
-            if p.is_file()
-        }
+        before = materialize_commit(root, commit, clean)
+        verify_checkout_commit(root, commit, before)
+        expected = {path: before[path] for path in OUTPUTS}
         for path in OUTPUTS:
             if path not in SEED_OUTPUTS:
                 (clean / path).unlink()
@@ -169,9 +230,10 @@ def check(root: Path = ROOT) -> None:
             raise ValueError(
                 "Reproduction changed the source archive: " + ", ".join(changed)
             )
-    require_clean_tree(root)
+        verify_checkout_commit(root, commit, before)
     print(
-        f"PASS: {len(OUTPUTS)} outputs reproduced byte-for-byte from a source archive without Git history; checkout remains clean"
+        f"PASS: {len(OUTPUTS)} outputs reproduced byte-for-byte from commit {commit} "
+        "in a source archive without Git history; checkout remains clean"
     )
 
 

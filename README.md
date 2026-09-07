@@ -196,13 +196,17 @@ clean checkout, including a shallow clone:
 python3 scripts/reproduce_cached.py --check
 ```
 
-The check copies tracked files to a temporary source archive **without `.git`**,
+The check reads tracked files and expected outputs from a pinned Git commit into
+a temporary source archive **without `.git`**,
 deletes all declared generated tables/results there, rebuilds them and compares
 bytes against the committed outputs. It verifies raw evidence hashes before and
 after, checks panel grids, scientific summaries, prompt identities and manuscript
 prose pins, and rejects missing outputs and unexpected changes. Network access
 and child processes are disabled inside every Python build step. The checkout
-must start and finish clean, including staged and untracked files.
+must start and finish clean, including staged and untracked files. The check
+also rejects `assume-unchanged` and `skip-worktree` index flags, which can hide
+uncommitted changes from `git status`. It also verifies the checkout's commit and
+every tracked file byte against the pinned commit before and after reproduction.
 
 For a deliberate edit, `python3 scripts/reproduce_cached.py --write` rebuilds
 outputs in place. Review its diff before committing; it does not refresh the

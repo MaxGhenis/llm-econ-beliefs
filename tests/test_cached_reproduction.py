@@ -199,3 +199,82 @@ def test_raw_summary_gate_rejects_changed_scientific_values(tmp_path, target):
             writer.writerows(rows)
     with pytest.raises(ValueError, match="differs|cached="):
         verify_directory(tmp_path)
+
+
+@pytest.mark.parametrize("flag", ["--assume-unchanged", "--skip-worktree"])
+def test_clean_tree_rejects_index_flags_that_hide_uncommitted_bytes(tmp_path, flag):
+    subprocess.run(["git", "init", "-q", str(tmp_path)], check=True)
+    path = tmp_path / "retained.csv"
+    path.write_text("committed\n")
+    subprocess.run(["git", "-C", str(tmp_path), "add", "."], check=True)
+    subprocess.run(
+        [
+            "git",
+            "-C",
+            str(tmp_path),
+            "-c",
+            "core.hooksPath=/dev/null",
+            "-c",
+            "user.name=Reproduction test",
+            "-c",
+            "user.email=test@example.com",
+            "commit",
+            "-qm",
+            "Fixture baseline",
+        ],
+        check=True,
+    )
+    require_clean_tree(tmp_path)
+    subprocess.run(
+        ["git", "-C", str(tmp_path), "update-index", flag, "retained.csv"], check=True
+    )
+    path.write_text("uncommitted\n")
+    # This is the real bypass: status alone cannot detect the changed evidence.
+    assert (
+        subprocess.check_output(["git", "-C", str(tmp_path), "status", "--porcelain"])
+        == b""
+    )
+    with pytest.raises(ValueError, match="index flags"):
+        require_clean_tree(tmp_path)
+
+
+def test_replay_uses_committed_bytes_and_detects_head_changes(tmp_path):
+    from scripts.reproduce_cached import (
+        head_commit,
+        materialize_commit,
+        verify_checkout_commit,
+    )
+
+    repo = tmp_path / "repo"
+    subprocess.run(["git", "init", "-q", str(repo)], check=True)
+    path = repo / "CITATION.cff"
+    path.write_text("committed author metadata\n")
+    git = [
+        "git",
+        "-C",
+        str(repo),
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-c",
+        "user.name=Reproduction test",
+        "-c",
+        "user.email=test@example.com",
+    ]
+    subprocess.run([*git, "add", "."], check=True)
+    subprocess.run([*git, "commit", "-qm", "First"], check=True)
+    commit = head_commit(repo)
+    subprocess.run(
+        [*git, "update-index", "--assume-unchanged", "CITATION.cff"], check=True
+    )
+    path.write_text("uncommitted author metadata\n")
+    target = tmp_path / "archive"
+    committed = materialize_commit(repo, commit, target)
+    assert (target / "CITATION.cff").read_text() == "committed author metadata\n"
+    subprocess.run(
+        [*git, "update-index", "--no-assume-unchanged", "CITATION.cff"], check=True
+    )
+    subprocess.run([*git, "add", "."], check=True)
+    subprocess.run([*git, "commit", "-qm", "Second"], check=True)
+    # Even a newly clean checkout must not be mistaken for the starting commit.
+    with pytest.raises(ValueError, match="HEAD changed"):
+        verify_checkout_commit(repo, commit, committed)
