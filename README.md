@@ -179,39 +179,57 @@ print(calibrated_distribution.quantile(0.5))
 
 ## Reproducing the v4 panel
 
-Two reproduction paths are supported.
+The retained main panel and its prompt-wording membership are inventoried from
+`runs.jsonl` in [results/archive-manifest.json](results/archive-manifest.json).
+[release-metadata.json](release-metadata.json) and the citation abstract derive
+from that manifest: 31 models from 10 organizations, 26 quantities and 15
+successful repetitions per cell (12,090 main-panel runs). Follow-ups, pilots and
+archived failed attempts are separate inventories, not additional main observations.
 
-### (a) From cached results
+### (a) Exact cached reproduction
 
-Use the artifacts already committed under `results/` to rebuild the
-analysis layer and all paper tables, then verify the test suite and
-prose pins. This incurs no provider API cost.
+Python 3.11-3.14 and Git are sufficient; no runtime packages, API credentials,
+PolicyEngine installation, microdata download or model calls are needed. From a
+clean checkout, including a shallow clone:
 
 ```bash
-python3 -m pytest
-python3 scripts/build_correlates.py
-cd paper && PYTHONPATH=$(pwd)/.. python3 build_tables.py
-cd .. && python3 scripts/verify_paper_prose.py
+python3 scripts/reproduce_cached.py --check
 ```
 
-The canonical order matters: `build_tables.py` writes the microdata
-calibration to `results/top-rate-calibration.json`, which
-`scripts/build_correlates.py` consumes to regenerate
-`results/correlates-*.csv`, which `build_tables.py` in turn reformats
-into `paper/tables/`. Starting from the committed artifacts, the
-sequence above is a fixed point — `git status` stays clean — and
-`verify_paper_prose.py` then asserts every pinned number in
-`paper/paper.qmd` against the regenerated tables.
+The check copies tracked files to a temporary source archive **without `.git`**,
+deletes all declared generated tables/results there, rebuilds them and compares
+bytes against the committed outputs. It verifies raw evidence hashes before and
+after, checks panel grids, scientific summaries, prompt identities and manuscript
+prose pins, and rejects missing outputs and unexpected changes. Network access
+and child processes are disabled inside every Python build step. The checkout
+must start and finish clean, including staged and untracked files.
 
-Two tables (Table 4 and Appendix A13) calibrate a Pareto tail from
-PolicyEngine US microdata. Point `POLICYENGINE_US_REPO` at a
-policyengine-us checkout with an installed `.venv` (or set
-`POLICYENGINE_US_PYTHON` to its interpreter) to reproduce the
-committed `a = 1.621` build; without it, `build_tables.py` prints a
-loud warning, uses the fallback `a = 1.5` for those two tables only,
-and leaves the committed `results/top-rate-calibration.json`
-untouched so `build_correlates.py` keeps working from the microdata
-values.
+For a deliberate edit, `python3 scripts/reproduce_cached.py --write` rebuilds
+outputs in place. Review its diff before committing; it does not refresh the
+archive manifest. Run the test suite with `uv venv`,
+`uv pip install -e ".[dev]"`, then `uv run --no-sync pytest`. Provider extras are
+unnecessary for this path.
+
+The order is raw-grid/summary validation -> registry/comparisons -> correlates ->
+manuscript tables -> release metadata -> prose verification. Scientific summaries
+are checked against raw parsed responses; historical usage/cost fields remain
+hashed cached inputs. Historical wording/tool-use inputs are exact blobs retained
+under `archive/`, so no full Git history is required.
+
+Table 4 and Appendix A13 use the unchanged frozen
+`results/top-rate-calibration.json` (`a = 1.6208594549947215`). Appendix A12 replays
+retained **rounded display values** from `results/frozen/`; it does not recompute
+microdata. [Calibration provenance](results/calibration-provenance.json) records
+what survives and what is unknown: historical model version, dataset build,
+simulation period and generation time. Cached reproduction establishes an exact
+replay of the retained results, not recovery of that missing provenance or
+calibration of the elicited responses against resolved truths.
+
+Fresh microdata calibration is a separate scientific operation; it is not
+implemented by this command. `paper/build_tables.py --fresh-calibration` fails
+before writing anything and lists the missing requirements. Installing a local
+PolicyEngine environment cannot silently change manuscript estimates. See
+[paper/README.md](paper/README.md) for rendering and fresh-calibration requirements.
 
 ### (b) Re-elicit from scratch
 

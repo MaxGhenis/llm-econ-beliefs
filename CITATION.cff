@@ -8,7 +8,6 @@ authors:
 repository-code: "https://github.com/PolicyEngine/llm-econ-beliefs"
 url: "https://policyengine.org/ai-beliefs"
 license: MIT
-date-released: "2026-07-18"
 keywords:
   - large language models
   - economic elasticities
@@ -16,8 +15,10 @@ keywords:
   - taxable income elasticity
   - optimal taxation
 abstract: >-
-  Elicitation harness, 11,310-run dataset, and paper studying the
-  prompt-conditioned response distributions that 29 frontier large
-  language models from nine organizations produce when asked about 26
-  economic elasticities under a fixed structured-output protocol with
-  15 repeated runs per model-quantity cell.
+  Elicitation harness, 12,090-run retained main-panel dataset, and paper studying
+  the prompt-conditioned response distributions that 31 frontier large
+  language models from 10 organizations produce when asked about
+  26 economic quantities with 15 successful repeated runs per model-quantity
+  cell. All retained main runs are tagged v4; three sign-clarified quantities
+  retain two disclosed prompt wordings. Follow-ups, pilots, and archived
+  failed attempts are counted separately in results/archive-manifest.json.

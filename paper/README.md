@@ -12,33 +12,59 @@ Supporting files:
 - simulation-facing tables: `tables/model-overview-simulation.md`, `tables/quantity-disagreement-simulation.md`
 - referee reports used during revision: `referee-reports/`
 
-Rebuild tables from the current `results/` CSVs:
+## Cached manuscript reproduction
+
+From the repository root:
 
 ```bash
-PYTHONPATH=$(pwd)/.. python3 build_tables.py
+python3 scripts/reproduce_cached.py --check
 ```
 
-(any Python 3.11+ interpreter with the project dependencies installed will work; `/opt/homebrew/opt/python@3.14/bin/python3.14` is an example of a specific interpreter that has been verified locally.)
+The dependency-free check requires a clean Git checkout. It deletes and rebuilds
+the declared analysis outputs in a temporary source copy with no Git history and
+compares bytes. Run `--write` to update outputs intentionally, then inspect and
+commit the diff before running `--check`. The lower-level `python3
+paper/build_tables.py` also uses only cached inputs and fails on missing or
+changed evidence. It never invokes a PolicyEngine interpreter.
 
-The flat-tax and optimal-top-rate tables call into a separate PolicyEngine-US venv. By default the script looks for the repo at `~/PolicyEngine/policyengine-us` and the venv Python at `~/PolicyEngine/policyengine-us/.venv/bin/python`. Override either via the `POLICYENGINE_US_REPO` and `POLICYENGINE_US_PYTHON` environment variables. If the venv is missing the script prints a warning to stderr and falls back to stylized Pareto parameters for the affected tables.
+Table 4 and A13 use the frozen `results/top-rate-calibration.json` exactly.
+A12 replays the retained rounded CSV in `results/frozen/`; unrounded values do
+not survive. `results/calibration-provenance.json` binds these files to their
+SHA-256 hashes and records unknown historical source identity explicitly.
+The existing manuscript describes Enhanced CPS 2024, but no retained record
+verifies the model version, dataset build, simulation period or generation time.
+This replay does not establish those facts.
 
-Render the manuscript:
+## Fresh calibration is separate
+
+`python3 paper/build_tables.py --fresh-calibration` is an explicit error, before
+any output is written. The former automatic subprocess path used unspecified
+local defaults and manual microdata weights; it has been removed. A future,
+explicitly requested recalibration requires a reviewed implementation using
+PolicyEngine's MicroSeries and `map_to`, an explicitly selected certified model
+and dataset release, a simulation period, and a new provenance artifact recording
+package versions, dataset identity/hash and execution time. It must write to a
+new artifact, compare with the frozen baseline, and receive scientific review
+before any manuscript calibration changes. A fresh run cannot retroactively fill
+in unknown historical provenance. No fresh calibration was run for this archive.
+
+## Render verification
+
+From the repository root, after any manuscript prose or table-note edit:
 
 ```bash
-/Users/maxghenis/quarto/bin/quarto render paper.qmd
+quarto render paper/paper.qmd --to html
+quarto render paper/paper.qmd --to pdf
+bash scripts/sync_paper_embed.sh
 ```
 
-Quarto is installed at `/Users/maxghenis/quarto/bin/quarto` locally and is not on the default shell `PATH`. The manuscript renders to `paper.html`; the bare `render` command does not rebuild the committed `paper.pdf`, so after any prose change also run:
-
-```bash
-/Users/maxghenis/quarto/bin/quarto render paper.qmd --to pdf
-```
-
-After rebuilding, run the prose-consistency gate from the repo root:
-
-```bash
-.venv/bin/python scripts/verify_paper_prose.py
-```
+Inspect the changed PDF pages with `pdftoppm`, and bump `PAPER_VERSION` in
+`dashboard/src/app/paper/page.tsx` when syncing the render. These commands create
+local artifacts only; do not dispatch the deployment workflow. HTML/PDF rendering
+requires Quarto and TeX and is separate from the dependency-free scientific
+reproduction gate. Binary render identity depends on those tools/fonts/metadata;
+the gate promises byte equality for analysis CSV/Markdown and release metadata,
+not for PDF binaries.
 
 ## Core question
 

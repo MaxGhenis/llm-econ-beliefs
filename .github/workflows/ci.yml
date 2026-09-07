@@ -27,6 +27,9 @@ jobs:
       - name: Run test suite
         run: python -m pytest
 
+      - name: Reproduce cached manuscript from a clean source archive
+        run: python -I -S scripts/reproduce_cached.py --check
+
       - name: Build package
         run: python -m build
 

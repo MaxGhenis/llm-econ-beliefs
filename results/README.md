@@ -87,3 +87,33 @@ replaced at most 5 of 15 runs under identical settings.
 `failed-runs-archive.jsonl` inside the affected directory before
 replacing them (the July round predates this and is reconstructed in
 the manifest from appended request logs).
+
+## Retained archive inventory
+
+`archive-manifest.json` is generated from observed model IDs, prompt-version tags,
+parse outcomes and prompt-text hashes in every retained run file. It locks all
+retained CSV/JSON/JSONL inputs by SHA-256, including raw responses, request logs,
+failed attempts, scientific summaries, the PolicyBench pin and frozen calibration.
+`python3 scripts/archive_manifest.py` verifies it; `--write` is an explicit archive
+update that requires reviewing the evidence diff, never an ordinary replay step.
+
+The retained main grid is 31 x 26 x 15 = 12,090 successful records. Separate
+inventories retain 930 follow-up records (903 parsed, 27 failed), 526 auxiliary
+records (375 parsed, 151 failed), and 5,896 archived failed-attempt records. Counts
+of archived attempts are not counts of distinct failed slots or paid requests.
+The older 58-slot recovery manifest above has its original July scope; it is not
+a count of all subsequent recoveries. Exact historical comparison snapshots under
+`archive/` are listed separately and are not added to these counts.
+
+A directory name alone does not prove prompt identity. In particular the retained
+April Claude Opus 4.7 Armington follow-up is tagged `v4`, not `armington-clarify`;
+the inventory reports the observed tag without relabeling it. Main-panel v4
+wording is uniform within each model-quantity cell; 23 quantities share one text
+across all 31 models, while three sign-clarified quantities split 24/7 between
+the disclosed revised/original wordings. The manifest preserves each variant's
+SHA-256 and model membership.
+
+`calibration-provenance.json` documents the frozen top-tail values and rounded
+flat-tax display table. Historical model/data source identity remains unknown;
+replaying those files is not a fresh microsimulation or a validation against
+resolved economic truths.

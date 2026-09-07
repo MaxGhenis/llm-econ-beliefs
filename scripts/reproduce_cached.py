@@ -1,0 +1,193 @@
+"""Rebuild the retained manuscript analysis using only stdlib and cached inputs.
+
+--check requires a clean checkout, copies tracked files into a temporary source
+archive (no .git), deletes every declared output there, and rebuilds them with
+Python network access disabled. It compares bytes with the original committed
+outputs, verifies evidence hashes again, and leaves the caller's checkout alone.
+--write updates outputs in the current checkout for a deliberate, reviewable edit.
+Neither mode refreshes the evidence manifest, calls models, or runs PolicyEngine.
+"""
+
+from __future__ import annotations
+
+import argparse
+import shutil
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from scripts.archive_manifest import GENERATED_RESULTS, verify_manifest  # noqa: E402
+
+# Fixed output inventory, not a glob of whatever the build happened to leave.
+TABLE_STEMS = (
+    "armington-clarify-delta",
+    "benchmark-comparison-labor-tax",
+    "cap-gains-convention-audit",
+    "correlates-country",
+    "correlates-model-summary",
+    "flat-tax-demogrant-appendix",
+    "harness-disclosure",
+    "ies-clarify-delta",
+    "leave-one-organization-out-appendix",
+    "leave-one-provider-out-appendix",
+    "mechanism-ablation",
+    "model-overview-labor-tax",
+    "model-overview-macro-trade",
+    "model-overview-simulation",
+    "policybench-correlates",
+    "pooling-robustness-appendix",
+    "quantile-rule-appendix",
+    "quantity-disagreement-simulation",
+    "quantity-disagreement",
+    "resampling-stability",
+    "stability-appendix",
+    "support-bounds",
+    "tool-use-appendix",
+    "top-rate-robustness",
+    "toy-top-rate-labor-tax",
+    "variance-decomposition",
+    "wording-comparison-tau",
+    "wording-comparison",
+)
+OUTPUTS = (
+    *(f"results/{name}" for name in GENERATED_RESULTS),
+    *(f"paper/tables/{stem}.{ext}" for stem in TABLE_STEMS for ext in ("csv", "md")),
+    "CITATION.cff",
+    "release-metadata.json",
+)
+# Citation contains authored metadata; regenerate only its abstract from a seed.
+SEED_OUTPUTS = {"CITATION.cff"}
+STEPS = (
+    ("scripts/check_panel_grid.py", "--require-parsed"),
+    ("scripts/verify_cached_summaries.py",),
+    ("scripts/build_model_registry.py", "--no-stage-dashboard"),
+    ("scripts/build_comparison_artifacts.py",),
+    ("scripts/build_correlates.py",),
+    ("paper/build_tables.py",),
+    ("scripts/build_release_metadata.py",),
+    ("scripts/verify_paper_prose.py",),
+)
+OFFLINE_RUNNER = """
+import runpy, sys
+from pathlib import Path
+def offline(event, args):
+    if event.startswith('socket.') or event in ('subprocess.Popen', 'os.system', 'os.posix_spawn', 'os.exec', 'os.fork'):
+        raise RuntimeError('Cached reproduction forbids network access and child processes: ' + event)
+sys.addaudithook(offline)
+script = Path(sys.argv[1]).resolve()
+sys.argv = sys.argv[1:]
+sys.path.insert(0, str(script.parents[1]))
+runpy.run_path(str(script), run_name='__main__')
+"""
+
+
+def require_clean_tree(root: Path) -> None:
+    status = subprocess.check_output(
+        ["git", "-C", str(root), "status", "--porcelain", "--untracked-files=all"],
+        text=True,
+    )
+    if status:
+        raise ValueError(
+            "--check requires a clean checkout (including staged and untracked files):\n"
+            + status
+        )
+
+
+def compare_outputs(root: Path, expected: dict[str, bytes]) -> None:
+    failures = []
+    for path, data in expected.items():
+        target = root / path
+        if not target.is_file():
+            failures.append(f"missing: {path}")
+        elif target.read_bytes() != data:
+            failures.append(f"changed: {path}")
+    if failures:
+        raise ValueError(
+            "Cached reproduction differs from committed outputs:\n"
+            + "\n".join(failures)
+        )
+
+
+def rebuild(root: Path) -> None:
+    verify_manifest(root)
+    for step in STEPS:
+        print("Cached step: " + " ".join(step), flush=True)
+        subprocess.run(
+            [sys.executable, "-I", "-S", "-c", OFFLINE_RUNNER, *step],
+            cwd=root,
+            check=True,
+        )
+    verify_manifest(root)
+    missing = [path for path in OUTPUTS if not (root / path).is_file()]
+    if missing:
+        raise ValueError("Builder omitted required outputs: " + ", ".join(missing))
+
+
+def check(root: Path = ROOT) -> None:
+    require_clean_tree(root)
+    verify_manifest(root)
+    expected = {path: (root / path).read_bytes() for path in OUTPUTS}
+    tracked = (
+        subprocess.check_output(["git", "-C", str(root), "ls-files", "-z"])
+        .decode()
+        .split("\0")
+    )
+    with tempfile.TemporaryDirectory(prefix="llm-econ-cached-") as temporary:
+        clean = Path(temporary)
+        for relative in filter(None, tracked):
+            target = clean / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            source = root / relative
+            if source.is_symlink():
+                raise ValueError(
+                    f"Source archive must not depend on symlinks: {relative}"
+                )
+            shutil.copyfile(source, target)
+        before = {
+            p.relative_to(clean).as_posix(): p.read_bytes()
+            for p in clean.rglob("*")
+            if p.is_file()
+        }
+        for path in OUTPUTS:
+            if path not in SEED_OUTPUTS:
+                (clean / path).unlink()
+        rebuild(clean)
+        compare_outputs(clean, expected)
+        # Detect any unexpected output or mutation beyond the declared products.
+        after = {
+            p.relative_to(clean).as_posix(): p.read_bytes()
+            for p in clean.rglob("*")
+            if p.is_file() and "__pycache__" not in p.parts
+        }
+        if before != after:
+            changed = sorted(
+                p for p in before.keys() | after.keys() if before.get(p) != after.get(p)
+            )
+            raise ValueError(
+                "Reproduction changed the source archive: " + ", ".join(changed)
+            )
+    require_clean_tree(root)
+    print(
+        f"PASS: {len(OUTPUTS)} outputs reproduced byte-for-byte from a source archive without Git history; checkout remains clean"
+    )
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    mode = parser.add_mutually_exclusive_group(required=True)
+    mode.add_argument("--check", action="store_true")
+    mode.add_argument("--write", action="store_true")
+    args = parser.parse_args()
+    try:
+        check() if args.check else rebuild(ROOT)
+    except (ValueError, FileNotFoundError, subprocess.CalledProcessError) as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

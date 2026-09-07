@@ -1172,8 +1172,8 @@ def verify_wording_comparison_prose() -> None:
 def verify_wording_comparison_tables() -> None:
     """Rebuild the A18-A19 tables from the ``ddca237`` archives and diff them
     against the committed CSVs, then pin the appendix's median-pair prose to
-    the same archives. Needs full git history, so this stays in the local
-    gate and out of the pytest wrapper (CI clones are shallow).
+    the same archives. Exact historical blobs are retained under archive/,
+    so the complete cached reproduction gate also runs this in shallow CI clones.
     """
     import importlib.util
     from statistics import median

@@ -1,10 +1,10 @@
 """Write the model and quantity registry CSVs from the canonical registries."""
 
+import argparse
 import csv
 import os
-from pathlib import Path
 import sys
-
+from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT))
@@ -55,12 +55,18 @@ def write_quantity_registry_csv(target: Path) -> Path:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--no-stage-dashboard", action="store_true")
+    args = parser.parse_args()
     primary = write_model_registry_csv()
     print(f"Wrote {primary}")
     quantity_primary = write_quantity_registry_csv(
         REPO_ROOT / "results" / "quantity-registry.csv"
     )
     print(f"Wrote {quantity_primary}")
+
+    if args.no_stage_dashboard:
+        return 0
 
     # dashboard/results is the build-root fallback used when Vercel cannot read
     # the repository-level results directory. It is a generated staging copy,

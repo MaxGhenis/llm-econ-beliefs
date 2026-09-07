@@ -1,0 +1,5 @@
+# Preserve evidence bytes across checkout platforms and accept CSV's CRLF format.
+*.csv -text whitespace=cr-at-eol
+*.jsonl -text
+results/top-rate-calibration.json -text
+archive/** -text
