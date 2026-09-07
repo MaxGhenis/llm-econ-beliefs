@@ -278,3 +278,32 @@ def test_replay_uses_committed_bytes_and_detects_head_changes(tmp_path):
     # Even a newly clean checkout must not be mistaken for the starting commit.
     with pytest.raises(ValueError, match="HEAD changed"):
         verify_checkout_commit(repo, commit, committed)
+
+
+def test_clean_tree_does_not_refresh_index_stat_cache(tmp_path, monkeypatch):
+    import hashlib
+    import os
+
+    monkeypatch.delenv("GIT_OPTIONAL_LOCKS", raising=False)
+    subprocess.run(["git", "init", "-q", str(tmp_path)], check=True)
+    path = tmp_path / "retained.csv"
+    path.write_text("unchanged bytes\n")
+    git = [
+        "git",
+        "-C",
+        str(tmp_path),
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-c",
+        "user.name=Reproduction test",
+        "-c",
+        "user.email=test@example.com",
+    ]
+    subprocess.run([*git, "add", "."], check=True)
+    subprocess.run([*git, "commit", "-qm", "Fixture baseline"], check=True)
+    index = tmp_path / ".git/index"
+    before = hashlib.sha256(index.read_bytes()).hexdigest()
+    stat = path.stat()
+    os.utime(path, ns=(stat.st_atime_ns, stat.st_mtime_ns + 5_000_000_000))
+    require_clean_tree(tmp_path)
+    assert hashlib.sha256(index.read_bytes()).hexdigest() == before

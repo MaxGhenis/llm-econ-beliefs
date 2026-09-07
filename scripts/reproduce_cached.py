@@ -103,7 +103,15 @@ def require_clean_tree(root: Path) -> None:
             "skip-worktree index flags: " + ", ".join(hidden)
         )
     status = subprocess.check_output(
-        ["git", "-C", str(root), "status", "--porcelain", "--untracked-files=all"],
+        [
+            "git",
+            "--no-optional-locks",
+            "-C",
+            str(root),
+            "status",
+            "--porcelain",
+            "--untracked-files=all",
+        ],
         text=True,
     )
     if status:
