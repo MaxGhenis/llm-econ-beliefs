@@ -1,0 +1,51 @@
+[
+  {
+    "git_blob": "325874bcd11490dbaad3e0cb803036bdf9d395ee",
+    "path": "archive/791b8e392be5c010a74c22b29b731fc2969aaf28/results/gpt-5.4-elasticities-fulltools15-v1/requests.csv",
+    "sha256": "b5fecd5453b3cc58756cb9a08bc57923c621ce8b2615044942228c6c34c605d9",
+    "source_commit": "791b8e392be5c010a74c22b29b731fc2969aaf28",
+    "source_path": "results/gpt-5.4-elasticities-fulltools15-v1/requests.csv"
+  },
+  {
+    "git_blob": "799b1ce5d8c27f9fb0622841f316a3104c768032",
+    "path": "archive/791b8e392be5c010a74c22b29b731fc2969aaf28/results/gpt-5.4-mini-elasticities-fulltools15-v1/requests.csv",
+    "sha256": "cc63dc7f486c4c3d96b83548fad0a9ec92cf21d71b99f22ad09aca09dc5c3b5b",
+    "source_commit": "791b8e392be5c010a74c22b29b731fc2969aaf28",
+    "source_path": "results/gpt-5.4-mini-elasticities-fulltools15-v1/requests.csv"
+  },
+  {
+    "git_blob": "89f96ecfb5e656c3af9636e2559f717ff56579de",
+    "path": "archive/791b8e392be5c010a74c22b29b731fc2969aaf28/results/gpt-5.4-nano-elasticities-fulltools15-v1/requests.csv",
+    "sha256": "2067c48ce01091c84c1bdcb14472c396bcb64ba7d0d9adbb8cc92f69e3fdd9df",
+    "source_commit": "791b8e392be5c010a74c22b29b731fc2969aaf28",
+    "source_path": "results/gpt-5.4-nano-elasticities-fulltools15-v1/requests.csv"
+  },
+  {
+    "git_blob": "2b3181dcbd21b363e69b6a7e917d684a7c81cc88",
+    "path": "archive/ddca237501ffa3ea658b86fa6546aa98307bb3be/results/claude-opus-4.7-elasticities-batch15/runs.jsonl",
+    "sha256": "e5f72be9051a9c99c14091a2f46f4a90ecf130e8be9f85299047eaf6d8e8402b",
+    "source_commit": "ddca237501ffa3ea658b86fa6546aa98307bb3be",
+    "source_path": "results/claude-opus-4.7-elasticities-batch15/runs.jsonl"
+  },
+  {
+    "git_blob": "aa4ccb08f45b115c96492de928a2f33905c000f3",
+    "path": "archive/ddca237501ffa3ea658b86fa6546aa98307bb3be/results/claude-sonnet-4.6-elasticities-batch15/runs.jsonl",
+    "sha256": "bb7bad4ff3faadb9c4c41a6d31c4c69255f93a5cfcd1e82edf8d26ce5a5c537d",
+    "source_commit": "ddca237501ffa3ea658b86fa6546aa98307bb3be",
+    "source_path": "results/claude-sonnet-4.6-elasticities-batch15/runs.jsonl"
+  },
+  {
+    "git_blob": "63e968519389d37e775158ef9f4e8c2cadb278f1",
+    "path": "archive/ddca237501ffa3ea658b86fa6546aa98307bb3be/results/gemini-3.1-pro-preview-elasticities-batch15/runs.jsonl",
+    "sha256": "85af7dcc4e47dcfefba55f0d812603ea481ec1d0b8a3cf204e921b6334d11d8d",
+    "source_commit": "ddca237501ffa3ea658b86fa6546aa98307bb3be",
+    "source_path": "results/gemini-3.1-pro-preview-elasticities-batch15/runs.jsonl"
+  },
+  {
+    "git_blob": "e4f02e0b8adb68825adbc28b1938fc0ffb08ce9c",
+    "path": "archive/ddca237501ffa3ea658b86fa6546aa98307bb3be/results/grok-4.20-elasticities-batch15/runs.jsonl",
+    "sha256": "4c9b179e709a5aaab13a50519f0460e8bc3ec167fcdd09c33e6f3fab635a70d5",
+    "source_commit": "ddca237501ffa3ea658b86fa6546aa98307bb3be",
+    "source_path": "results/grok-4.20-elasticities-batch15/runs.jsonl"
+  }
+]

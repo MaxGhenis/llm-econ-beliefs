@@ -1,0 +1,31 @@
+{
+  "artifact": "results/top-rate-calibration.json",
+  "claimed_source": "PolicyEngine US microdata; manuscript describes Enhanced CPS 2024",
+  "first_committed_at": "4172ec8",
+  "flat_tax_table": {
+    "artifact": "results/frozen/flat-tax-demogrant-appendix.csv",
+    "provenance_limit": "Only rounded display values survive. No unrounded calibration or verified historical model/data identity is retained.",
+    "retained_at_commit": "959a9d06c1993fcc18de0a4224d16f80df1cbd9b",
+    "sha256": "76e443b4007709798b9654b79d59721bb7889bde91923e5bacf756378abed555",
+    "source_path": "paper/tables/flat-tax-demogrant-appendix.csv",
+    "status": "frozen_rounded_display_values"
+  },
+  "mapping_assumptions": {
+    "crra_gamma": 1.0,
+    "percentile": 0.99
+  },
+  "provenance_limit": "The retained artifact records values only. The historical model, dataset build, period and generation time are unknown; the manuscript source description is not a verified data identity.",
+  "retained_at_commit": "959a9d06c1993fcc18de0a4224d16f80df1cbd9b",
+  "schema_version": 1,
+  "sha256": "cbcef43d257d348d8923734ca2c87c2dfd014381a4f3c472fcfe2ed7d13d7d0e",
+  "status": "frozen_historical_artifact",
+  "verified_source_identity": {
+    "dataset_id": null,
+    "dataset_sha256": null,
+    "dataset_version": null,
+    "generated_at": null,
+    "policyengine_us_version": null,
+    "policyengine_version": null,
+    "simulation_period": null
+  }
+}

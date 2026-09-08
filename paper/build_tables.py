@@ -2,19 +2,16 @@
 
 from __future__ import annotations
 
+import argparse
 import csv
-import io
 import json
 import math
-import os
 import random
 import re
-import subprocess
 import sys
 from dataclasses import dataclass
 from pathlib import Path
 from statistics import NormalDist, mean, median
-
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 RESULTS_DIR = REPO_ROOT / "results"
@@ -35,24 +32,6 @@ TOP_RATE_PARETO_A = 1.5
 TOP_RATE_CRRA_GAMMA = 1.0
 TOP_RATE_PARETO_PERCENTILE = 0.99
 FLAT_TAX_FRONTIER_DISPLAY_RATES = (0.0, 0.2, 0.4, 0.6, 0.8, 0.95)
-_POLICYENGINE_US_REPO_DEFAULT = "/Users/maxghenis/PolicyEngine/policyengine-us"
-POLICYENGINE_US_REPO = Path(
-    os.environ.get("POLICYENGINE_US_REPO", _POLICYENGINE_US_REPO_DEFAULT)
-)
-_POLICYENGINE_US_PYTHON_DEFAULT = str(POLICYENGINE_US_REPO / ".venv" / "bin" / "python")
-POLICYENGINE_US_PYTHON = Path(
-    os.environ.get("POLICYENGINE_US_PYTHON", _POLICYENGINE_US_PYTHON_DEFAULT)
-)
-if not POLICYENGINE_US_PYTHON.exists() or not POLICYENGINE_US_REPO.exists():
-    print(
-        "warning: PolicyEngine-US repo or venv not found at "
-        f"POLICYENGINE_US_REPO={POLICYENGINE_US_REPO} "
-        f"POLICYENGINE_US_PYTHON={POLICYENGINE_US_PYTHON}; "
-        "PolicyEngine-backed tables will use fallback constants and display NaN "
-        "for microdata-derived fields. Set POLICYENGINE_US_REPO and "
-        "POLICYENGINE_US_PYTHON to override.",
-        file=sys.stderr,
-    )
 NORMAL = NormalDist()
 
 sys.path.insert(0, str(REPO_ROOT))
@@ -61,15 +40,20 @@ from llm_econ_beliefs.distributions import (  # noqa: E402
     distribution_from_belief_estimate,
     mixture_distribution,
 )
-from llm_econ_beliefs.models import BeliefEstimate  # noqa: E402
 from llm_econ_beliefs.model_registry import (  # noqa: E402
     WAVE_DISPLAY_LABELS,
     get_panel_model,
     organization_display_label,
     serving_provider_display_label,
 )
+from llm_econ_beliefs.models import BeliefEstimate  # noqa: E402
 from llm_econ_beliefs.prompts import create_belief_prompt  # noqa: E402
 from llm_econ_beliefs.registry import get_quantity  # noqa: E402
+from scripts.archive_manifest import verify_manifest  # noqa: E402
+from scripts.cached_calibration import (  # noqa: E402
+    load_frozen_calibration,
+    verify_calibration_provenance,
+)
 
 LEGACY_QUANTITY_LABELS = {
     "labor_supply.policy_response.income_elasticity": (
@@ -142,10 +126,39 @@ class ComparisonRow:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--fresh-calibration",
+        action="store_true",
+        help="reserved for a separately reviewed microdata recalibration (not implemented)",
+    )
+    args = parser.parse_args()
+    if args.fresh_calibration:
+        parser.error(
+            "Fresh calibration is not implemented in this cached-replay builder. "
+            "It requires an explicitly selected model/data release and period, a "
+            "reviewed MicroSeries/map_to calculation, and a new provenance artifact. "
+            "The historical source identity is unknown; see paper/README.md."
+        )
+    verify_manifest(REPO_ROOT)
+    verify_calibration_provenance(REPO_ROOT)
+    frozen = load_frozen_calibration(TOP_RATE_CALIBRATION_PATH)
+    top_rate_calibration = {
+        "a": frozen["a"],
+        "welfare_weight": frozen["gbar"],
+        "threshold": frozen["threshold"],
+        "mean_above": frozen["tail_mean"],
+        "percentile": TOP_RATE_PARETO_PERCENTILE,
+    }
+    # Validate all required correlates before writing any manuscript tables.
+    build_correlates_tables()
+    build_country_table()
     TABLES_DIR.mkdir(parents=True, exist_ok=True)
 
     comparison_rows = read_comparison_rows(MAIN_COMPARISON_PATH)
-    income_delta_rows = read_csv(INCOME_DELTA_PATH) if INCOME_DELTA_PATH.exists() else []
+    income_delta_rows = (
+        read_csv(INCOME_DELTA_PATH) if INCOME_DELTA_PATH.exists() else []
+    )
 
     canonical_rows = [
         row for row in comparison_rows if quantity_panel(row.quantity_id) == "canonical"
@@ -157,23 +170,15 @@ def main() -> int:
         row for row in canonical_rows if row.quantity_id in MACRO_TRADE_QUANTITY_IDS
     ]
     simulation_rows = [
-        row for row in comparison_rows if quantity_panel(row.quantity_id) == "simulation"
+        row
+        for row in comparison_rows
+        if quantity_panel(row.quantity_id) == "simulation"
     ]
 
     quantity_disagreement = build_quantity_disagreement_table(canonical_rows)
     labor_tax_overview = build_model_overview_table(labor_tax_rows)
     macro_trade_overview = build_model_overview_table(macro_trade_rows)
     labor_tax_benchmarks = build_benchmark_table(labor_tax_rows)
-    top_rate_calibration = estimate_policyengine_top_tail_pareto_parameter()
-    if math.isfinite(top_rate_calibration["threshold"]):
-        write_top_rate_calibration(top_rate_calibration)
-    else:
-        print(
-            "WARNING: fallback calibration in effect — leaving the committed "
-            "results/top-rate-calibration.json untouched so build_correlates "
-            "keeps the microdata values.",
-            file=sys.stderr,
-        )
     top_rate_mapping = build_top_rate_table(
         labor_tax_rows,
         pareto_parameter=top_rate_calibration["a"],
@@ -182,9 +187,8 @@ def main() -> int:
         labor_tax_rows,
         baseline_a=top_rate_calibration["a"],
     )
-    flat_tax_frontier = build_flat_tax_demogrant_table(
-        estimate_policyengine_flat_tax_demogrant_frontier()
-    )
+    # Only rounded A12 display values survive; replay them explicitly as frozen.
+    flat_tax_frontier = read_csv(RESULTS_DIR / "frozen/flat-tax-demogrant-appendix.csv")
     pooling_robustness = build_pooling_robustness_table()
     leave_one_organization_out = build_leave_one_organization_out_table(
         labor_tax_rows=labor_tax_rows,
@@ -192,7 +196,9 @@ def main() -> int:
     )
     quantile_rule_robustness = build_quantile_rule_robustness_table(canonical_rows)
     simulation_model_overview = build_model_overview_table(simulation_rows)
-    simulation_quantity_disagreement = build_quantity_disagreement_table(simulation_rows)
+    simulation_quantity_disagreement = build_quantity_disagreement_table(
+        simulation_rows
+    )
     income_delta = build_income_delta_table(income_delta_rows)
     armington_delta = build_armington_delta_table()
     ies_delta = build_ies_delta_table()
@@ -234,34 +240,21 @@ def main() -> int:
             "These intervals are hand-coded literature anchors rather than benchmark truths."
         ),
     )
-    if math.isfinite(top_rate_calibration["threshold"]) and math.isfinite(
-        top_rate_calibration["mean_above"]
-    ):
-        top_rate_note = (
-            "Toy public-finance mapping from each model's pooled ETI distribution to an optimal top marginal tax rate "
-            "under the Saez top-bracket formula tau* = (1 - g_bar) / (1 - g_bar + a e), with a Pareto parameter "
-            f"a = {top_rate_calibration['a']:.3f} estimated from the weighted top {100 * (1 - top_rate_calibration['percentile']):.0f}% "
-            f"tax-unit AGI tail in PolicyEngine's certified microdata (threshold ${top_rate_calibration['threshold']:,.0f}, "
-            f"tail mean ${top_rate_calibration['mean_above']:,.0f}). "
-            f"The welfare weight g_bar = a / (a + gamma) = {top_rate_calibration['welfare_weight']:.3f} is the average marginal "
-            "utility of top-bracket earners under CRRA (gamma = 1) utility and a Pareto(a) income tail, normalized to the marginal "
-            "utility of the earner at the top-bracket threshold. It is a threshold-normalized weight, not the population-normalized "
-            "utilitarian weight, which would drive g_bar toward zero; the Revenue-max column reports that g_bar -> 0 "
-            "(Diamond-Saez revenue-maximizing) benchmark tau* = 1 / (1 + a e) at the ETI median. "
-            "ETI is truncated below at zero for this policy mapping."
-        )
-    else:
-        top_rate_note = (
-            "Toy public-finance mapping from each model's pooled ETI distribution to an optimal top marginal tax rate "
-            "under the Saez top-bracket formula tau* = (1 - g_bar) / (1 - g_bar + a e), using the FALLBACK Pareto parameter "
-            f"a = {top_rate_calibration['a']:.3f} because the PolicyEngine microdata calibration was unavailable at build time "
-            "(the build prints a warning when this path is used; the text of the paper assumes the microdata calibration). "
-            f"The welfare weight g_bar = a / (a + gamma) = {top_rate_calibration['welfare_weight']:.3f} is the average marginal "
-            "utility of top-bracket earners under CRRA (gamma = 1) utility and a Pareto(a) income tail, normalized to the marginal "
-            "utility of the earner at the top-bracket threshold; the Revenue-max column reports the g_bar -> 0 "
-            "(Diamond-Saez revenue-maximizing) benchmark tau* = 1 / (1 + a e) at the ETI median. "
-            "ETI is truncated below at zero for this policy mapping."
-        )
+    top_rate_note = (
+        "Toy public-finance mapping from each model's pooled ETI distribution to an optimal top marginal tax rate "
+        "under the Saez top-bracket formula tau* = (1 - g_bar) / (1 - g_bar + a e), with a Pareto parameter "
+        f"a = {top_rate_calibration['a']:.3f} estimated from the weighted top {100 * (1 - top_rate_calibration['percentile']):.0f}% "
+        f"tax-unit AGI tail in the retained PolicyEngine calibration (threshold ${top_rate_calibration['threshold']:,.0f}, "
+        f"tail mean ${top_rate_calibration['mean_above']:,.0f}). "
+        f"The welfare weight g_bar = a / (a + gamma) = {top_rate_calibration['welfare_weight']:.3f} is the average marginal "
+        "utility of top-bracket earners under CRRA (gamma = 1) utility and a Pareto(a) income tail, normalized to the marginal "
+        "utility of the earner at the top-bracket threshold. It is a threshold-normalized weight, not the population-normalized "
+        "utilitarian weight, which would drive g_bar toward zero; the Revenue-max column reports that g_bar -> 0 "
+        "(Diamond-Saez revenue-maximizing) benchmark tau* = 1 / (1 + a e) at the ETI median. "
+        "ETI is truncated below at zero for this policy mapping. "
+        "Cached replay uses the frozen calibration artifact; its historical model version, "
+        "dataset build and simulation period are unknown (results/calibration-provenance.json)."
+    )
 
     write_table_bundle(
         stem="toy-top-rate-labor-tax",
@@ -294,7 +287,8 @@ def main() -> int:
             stem="flat-tax-demogrant-appendix",
             rows=flat_tax_frontier,
             note=(
-                "Static PolicyEngine benchmark on Enhanced CPS 2024 microdata. Each row applies a flat tax to the "
+                "Frozen rounded display values from the historical PolicyEngine benchmark, described in the manuscript as Enhanced CPS 2024. "
+                "The model version, dataset build and simulation period are unknown; cached replay does not recompute microdata. Each row applies a flat tax to the "
                 "current positive-AGI base and rebates the revenue as an equal per-person demogrant using tax-unit size. "
                 "This is a distributional frontier, not a behavioral or leisure-adjusted optimal-tax exercise. Mean per-person "
                 "resources are mechanically constant across rows, so the informative objects are the demogrant, the distributional "
@@ -422,7 +416,7 @@ def main() -> int:
         stem="resampling-stability",
         rows=build_resampling_stability_table(canonical_rows),
         note=(
-            f"Monte Carlo uncertainty in the pooled summaries from resampling the 15 runs within each canonical cell "
+            "Monte Carlo uncertainty in the pooled summaries from resampling the 15 runs within each canonical cell "
             "(200 bootstrap resamples, fixed seed). Center MC SE is the standard error of the pooled center; relative "
             "width MC SE is the standard error of the pooled 90% width divided by its mean. The final columns show the "
             "distribution of each model's average width rank across resamples; narrow intervals indicate the "
@@ -896,13 +890,10 @@ def build_tool_use_table() -> list[dict[str, object]]:
     total_code_calls = 0
 
     for model_name in FULLTOOLS_MODELS:
-        try:
-            rows = read_archived_csv(
-                FULLTOOLS_ARCHIVE_COMMIT,
-                f"results/{model_name}-elasticities-fulltools15-v1/requests.csv",
-            )
-        except (subprocess.CalledProcessError, FileNotFoundError):
-            return []
+        rows = read_archived_csv(
+            FULLTOOLS_ARCHIVE_COMMIT,
+            f"results/{model_name}-elasticities-fulltools15-v1/requests.csv",
+        )
 
         request_count = len(rows)
         web_requests = sum(as_int(row["web_search_call_count"]) > 0 for row in rows)
@@ -1442,8 +1433,6 @@ def build_cap_gains_convention_audit_table(
 def build_country_table() -> list[dict[str, object]]:
     """Display rows for the US-versus-China comparison table."""
     path = RESULTS_DIR / "correlates-country.csv"
-    if not path.exists():
-        return []
     rows: list[dict[str, object]] = []
     with path.open() as handle:
         for row in csv.DictReader(handle):
@@ -1458,7 +1447,8 @@ def build_country_table() -> list[dict[str, object]]:
                     "China - US": f"{float(row['china_minus_us']):+.3f}",
                     "Permutation p": f"{float(row['permutation_p']):.3f}",
                     "Holm p": (
-                        f"{float(row['holm_adjusted_p']):.3f}" + ("*" if derived else "")
+                        f"{float(row['holm_adjusted_p']):.3f}"
+                        + ("*" if derived else "")
                         if row.get("holm_adjusted_p")
                         else "—"
                     ),
@@ -1477,14 +1467,15 @@ def build_correlates_tables() -> tuple[
 ]:
     """Display rows for the PolicyBench-correlates tables.
 
-    Reads the artifacts scripts/build_correlates.py writes; returns
-    ([], [], "") when they are absent so the build degrades cleanly.
+    Missing or obsolete inputs are errors, never a reason to retain stale tables.
     """
     summary_path = RESULTS_DIR / "correlates-model-summary.csv"
     spearman_path = RESULTS_DIR / "correlates-spearman.csv"
     scores_path = RESULTS_DIR / "policybench-scores.csv"
-    if not summary_path.exists() or not spearman_path.exists():
-        return [], [], ""
+    if not summary_path.is_file() or not spearman_path.is_file():
+        raise FileNotFoundError(
+            "Missing required correlates; run scripts/build_correlates.py"
+        )
 
     required_spearman_columns = {
         "predictor",
@@ -1501,14 +1492,10 @@ def build_correlates_tables() -> tuple[
         fieldnames = set(csv.DictReader(handle).fieldnames or ())
     missing_columns = sorted(required_spearman_columns - fieldnames)
     if missing_columns:
-        print(
-            "warning: ignoring stale correlates-spearman.csv; rerun "
-            "scripts/build_correlates.py after calibration (missing columns: "
-            + ", ".join(missing_columns)
-            + ")",
-            file=sys.stderr,
+        raise ValueError(
+            "Stale correlates-spearman.csv; rerun scripts/build_correlates.py "
+            "(missing columns: " + ", ".join(missing_columns) + ")"
         )
-        return [], [], ""
 
     release = ""
     if scores_path.exists():
@@ -1529,9 +1516,7 @@ def build_correlates_tables() -> tuple[
             summary_rows.append(
                 {
                     "Model": metadata.display_label,
-                    "Organization": organization_display_label(
-                        metadata.organization
-                    ),
+                    "Organization": organization_display_label(metadata.organization),
                     "Wave": WAVE_DISPLAY_LABELS[metadata.wave],
                     "PolicyBench within-$1": fmt(row["policybench_within_dollar"], 1),
                     "ETI median": fmt(row["eti_median"], 3),
@@ -1609,6 +1594,21 @@ def build_grok_failure_table() -> list[dict[str, object]]:
     return table_rows
 
 
+def resolve_result_dir(source_dir: str) -> Path:
+    """Resolve portable in-repository evidence; reject accidental foreign checkouts."""
+    relative = Path(source_dir)
+    if (
+        relative.is_absolute()
+        or ".." in relative.parts
+        or relative.parts[0] != "results"
+    ):
+        raise ValueError(f"Expected checkout-relative results path, got {source_dir!r}")
+    path = (REPO_ROOT / relative).resolve()
+    if not path.is_relative_to(RESULTS_DIR.resolve()):
+        raise ValueError(f"Result path escapes this checkout: {source_dir!r}")
+    return path
+
+
 def read_comparison_rows(path: Path) -> list[ComparisonRow]:
     rows = []
     for row in read_csv(path):
@@ -1622,10 +1622,12 @@ def read_comparison_rows(path: Path) -> list[ComparisonRow]:
                 pooled_lower=pooled_lower,
                 pooled_upper=pooled_upper,
                 pooled_width=pooled_upper - pooled_lower,
-                cost_per_run_usd=float(row["usage_estimated_total_cost_usd_per_successful_run"])
+                cost_per_run_usd=float(
+                    row["usage_estimated_total_cost_usd_per_successful_run"]
+                )
                 if row["usage_estimated_total_cost_usd_per_successful_run"]
                 else None,
-                source_dir=row["source_dir"],
+                source_dir=str(resolve_result_dir(row["source_dir"])),
             )
         )
     return rows
@@ -1637,11 +1639,8 @@ def read_csv(path: Path) -> list[dict[str, str]]:
 
 
 def read_archived_csv(commit: str, git_path: str) -> list[dict[str, str]]:
-    content = subprocess.check_output(
-        ["git", "-C", str(REPO_ROOT), "show", f"{commit}:{git_path}"],
-        text=True,
-    )
-    return list(csv.DictReader(io.StringIO(content)))
+    """Read an exact committed blob retained in the source archive."""
+    return read_csv(REPO_ROOT / "archive" / commit / git_path)
 
 
 def _belief_estimate_from_row(row: dict[str, str]) -> BeliefEstimate:
@@ -1719,205 +1718,6 @@ def optimal_top_rate_from_eti(
     if denominator <= 0:
         return 1.0
     return numerator / denominator
-
-
-def write_top_rate_calibration(
-    calibration: dict[str, float],
-    path: Path = TOP_RATE_CALIBRATION_PATH,
-) -> dict[str, float | None]:
-    """Write the microdata calibration used by downstream correlates."""
-
-    def finite_or_none(value: float) -> float | None:
-        numeric = float(value)
-        return numeric if math.isfinite(numeric) else None
-
-    payload: dict[str, float | None] = {
-        "a": finite_or_none(calibration["a"]),
-        "gbar": finite_or_none(calibration["welfare_weight"]),
-        "threshold": finite_or_none(calibration["threshold"]),
-        "tail_mean": finite_or_none(calibration["mean_above"]),
-    }
-    path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_name(f".{path.name}.tmp")
-    with temporary.open("w") as handle:
-        json.dump(payload, handle, indent=2, sort_keys=True, allow_nan=False)
-        handle.write("\n")
-    os.replace(temporary, path)
-    return payload
-
-
-def estimate_policyengine_top_tail_pareto_parameter() -> dict[str, float]:
-    if not POLICYENGINE_US_PYTHON.exists() or not POLICYENGINE_US_REPO.exists():
-        print(
-            "WARNING: PolicyEngine venv not found — Table 4/A13 will use the "
-            f"FALLBACK Pareto parameter a = {TOP_RATE_PARETO_A}, not the microdata "
-            "calibration described in the paper text.",
-            file=sys.stderr,
-        )
-        welfare_weight = utilitarian_top_welfare_weight(
-            pareto_parameter=TOP_RATE_PARETO_A,
-            crra_gamma=TOP_RATE_CRRA_GAMMA,
-        )
-        return {
-            "a": TOP_RATE_PARETO_A,
-            "percentile": TOP_RATE_PARETO_PERCENTILE,
-            "threshold": float("nan"),
-            "mean_above": float("nan"),
-            "welfare_weight": welfare_weight,
-        }
-
-    script = f"""
-import json
-import numpy as np
-from policyengine_us import Microsimulation
-
-sim = Microsimulation()
-agi = sim.calc("adjusted_gross_income")
-weights = agi.weights.to_numpy()
-values = agi.values.astype(float)
-mask = np.isfinite(values) & np.isfinite(weights) & (weights > 0) & (values > 0)
-values = values[mask]
-weights = weights[mask]
-order = np.argsort(values)
-values = values[order]
-weights = weights[order]
-cum = np.cumsum(weights)
-total = cum[-1]
-percentile = {TOP_RATE_PARETO_PERCENTILE}
-cutoff = percentile * total
-idx = np.searchsorted(cum, cutoff)
-threshold = float(values[min(idx, len(values) - 1)])
-tail = values >= threshold
-mean_above = float(np.average(values[tail], weights=weights[tail]))
-a = float(mean_above / (mean_above - threshold))
-print(json.dumps({{
-    "a": a,
-    "percentile": percentile,
-    "threshold": threshold,
-    "mean_above": mean_above,
-}}))
-"""
-    try:
-        completed = subprocess.run(
-            [str(POLICYENGINE_US_PYTHON), "-P", "-c", script],
-            cwd=POLICYENGINE_US_REPO,
-            capture_output=True,
-            text=True,
-            check=True,
-        )
-        result = json.loads(completed.stdout.strip())
-        result["welfare_weight"] = utilitarian_top_welfare_weight(
-            pareto_parameter=float(result["a"]),
-            crra_gamma=TOP_RATE_CRRA_GAMMA,
-        )
-        return result
-    except (subprocess.CalledProcessError, json.JSONDecodeError, ValueError) as exc:
-        detail = ""
-        if isinstance(exc, subprocess.CalledProcessError) and exc.stderr:
-            detail = " Subprocess stderr tail: " + exc.stderr.strip()[-300:]
-        print(
-            "WARNING: PolicyEngine microdata Pareto calibration FAILED — Table 4/A13 "
-            f"will use the FALLBACK a = {TOP_RATE_PARETO_A}, not the microdata "
-            f"calibration described in the paper text. ({exc.__class__.__name__}){detail}",
-            file=sys.stderr,
-        )
-        welfare_weight = utilitarian_top_welfare_weight(
-            pareto_parameter=TOP_RATE_PARETO_A,
-            crra_gamma=TOP_RATE_CRRA_GAMMA,
-        )
-        return {
-            "a": TOP_RATE_PARETO_A,
-            "percentile": TOP_RATE_PARETO_PERCENTILE,
-            "threshold": float("nan"),
-            "mean_above": float("nan"),
-            "welfare_weight": welfare_weight,
-        }
-
-
-def estimate_policyengine_flat_tax_demogrant_frontier() -> dict[str, object]:
-    if not POLICYENGINE_US_PYTHON.exists() or not POLICYENGINE_US_REPO.exists():
-        return {"rows": []}
-
-    display_rates = ", ".join(repr(rate) for rate in FLAT_TAX_FRONTIER_DISPLAY_RATES)
-    script = f"""
-import json
-import numpy as np
-from policyengine_us import Microsimulation
-
-def weighted_quantile(values, weights, probability):
-    order = np.argsort(values)
-    values = values[order]
-    weights = weights[order]
-    cumulative = np.cumsum(weights)
-    cutoff = probability * cumulative[-1]
-    index = np.searchsorted(cumulative, cutoff, side="left")
-    return float(values[min(index, len(values) - 1)])
-
-def weighted_gini(values, weights):
-    order = np.argsort(values)
-    values = values[order]
-    weights = weights[order]
-    weighted_values = values * weights
-    cumulative = np.cumsum(weighted_values)
-    previous = np.concatenate(([0.0], cumulative[:-1]))
-    total_value = float(cumulative[-1])
-    total_weight = float(np.sum(weights))
-    if total_value <= 0 or total_weight <= 0:
-        return float("nan")
-    return float(1.0 - np.sum(weights * (previous + cumulative)) / (total_weight * total_value))
-
-sim = Microsimulation()
-agi = sim.calc("positive_agi")
-size = sim.calc("tax_unit_size")
-values = agi.values.astype(float)
-weights = agi.weights.to_numpy()
-sizes = size.values.astype(float)
-mask = (
-    np.isfinite(values)
-    & np.isfinite(weights)
-    & np.isfinite(sizes)
-    & (weights > 0)
-    & (sizes > 0)
-)
-values = values[mask]
-weights = weights[mask]
-sizes = sizes[mask]
-person_weights = weights * sizes
-total_people = float(np.sum(person_weights))
-
-rows = []
-for rate in [{display_rates}]:
-    tax = rate * values
-    demogrant = float(np.sum(weights * tax) / total_people)
-    resources = (values - tax) / sizes + demogrant
-    rows.append({{
-        "rate": float(rate),
-        "demogrant_per_person": demogrant,
-        "p10_resources": weighted_quantile(resources, person_weights, 0.10),
-        "p50_resources": weighted_quantile(resources, person_weights, 0.50),
-        "p90_resources": weighted_quantile(resources, person_weights, 0.90),
-        "gini": weighted_gini(resources, person_weights),
-    }})
-
-print(json.dumps({{
-    "tax_base": "positive_agi",
-    "rows": rows,
-}}))
-"""
-    try:
-        completed = subprocess.run(
-            [str(POLICYENGINE_US_PYTHON), "-P", "-c", script],
-            cwd=POLICYENGINE_US_REPO,
-            capture_output=True,
-            text=True,
-            check=True,
-        )
-        result = json.loads(completed.stdout.strip())
-        if not isinstance(result.get("rows"), list):
-            return {"rows": []}
-        return result
-    except (subprocess.CalledProcessError, json.JSONDecodeError, ValueError):
-        return {"rows": []}
 
 
 def utilitarian_top_welfare_weight(
@@ -2115,7 +1915,9 @@ def quantity_label(quantity_id: str) -> str:
 
 
 CAP_GAINS_TAX_RATE_ID = "tax.capital_gains_realizations.elasticity"
-CAP_GAINS_NET_OF_TAX_RATE_ID = "tax.capital_gains_realizations.elasticity.net_of_tax_rate"
+CAP_GAINS_NET_OF_TAX_RATE_ID = (
+    "tax.capital_gains_realizations.elasticity.net_of_tax_rate"
+)
 
 
 def quantity_panel(quantity_id: str) -> str:
@@ -2172,9 +1974,6 @@ def format_markdown_cell(header: str, value: object) -> str:
     return str(value)
 
 
-
-
-
 # ---------------------------------------------------------------------------
 # Referee-round additions: harness disclosure, variance decomposition,
 # resampling stability, support bounds, and the cross-mechanism ablation.
@@ -2182,37 +1981,285 @@ def format_markdown_cell(header: str, value: object) -> str:
 
 HARNESS_DISCLOSURE_ROWS: list[dict[str, str]] = [
     # Serving-provider path is registry-derived; rows hold the remaining harness fields.
-    {"model": "gpt-5.5", "mechanism": "strict JSON schema", "budget": "1200 (8000 for the 40 re-elicited runs)", "sampling": "temperature 1.0, batched n <= 8", "reasoning": "provider default effort", "identifier": "gpt-5.5", "id_type": "alias"},
-    {"model": "gpt-5.6-sol", "mechanism": "strict JSON schema", "budget": "8000", "sampling": "temperature 1.0, batched n <= 8", "reasoning": "provider default effort", "identifier": "gpt-5.6-sol", "id_type": "alias"},
-    {"model": "gpt-5.6-luna", "mechanism": "strict JSON schema", "budget": "8000", "sampling": "temperature 1.0, batched n <= 8", "reasoning": "provider default effort", "identifier": "gpt-5.6-luna", "id_type": "alias"},
-    {"model": "gpt-5.6-terra", "mechanism": "strict JSON schema", "budget": "8000", "sampling": "temperature 1.0, batched n <= 8", "reasoning": "provider default effort", "identifier": "gpt-5.6-terra", "id_type": "alias"},
-    {"model": "gpt-5.4", "mechanism": "strict JSON schema", "budget": "1200", "sampling": "temperature 1.0, batched n <= 8", "reasoning": "provider default effort", "identifier": "gpt-5.4", "id_type": "alias"},
-    {"model": "gpt-5.4-mini", "mechanism": "strict JSON schema", "budget": "1200", "sampling": "temperature 1.0, batched n <= 8", "reasoning": "provider default effort", "identifier": "gpt-5.4-mini", "id_type": "alias"},
-    {"model": "gpt-5.4-nano", "mechanism": "strict JSON schema", "budget": "1200", "sampling": "temperature 1.0, batched n <= 8", "reasoning": "provider default effort", "identifier": "gpt-5.4-nano", "id_type": "alias"},
-    {"model": "claude-fable-5", "mechanism": "strict JSON schema", "budget": "32000", "sampling": "none accepted (provider default)", "reasoning": "always-on reasoning", "identifier": "claude-fable-5", "id_type": "alias"},
-    {"model": "claude-opus-4.8", "mechanism": "strict JSON schema", "budget": "32000", "sampling": "none accepted (provider default)", "reasoning": "off (provider default)", "identifier": "claude-opus-4-8", "id_type": "alias"},
-    {"model": "claude-sonnet-5", "mechanism": "strict JSON schema", "budget": "32000", "sampling": "none accepted (provider default)", "reasoning": "adaptive (provider default)", "identifier": "claude-sonnet-5", "id_type": "alias"},
-    {"model": "claude-opus-5", "mechanism": "strict JSON schema", "budget": "32000", "sampling": "none accepted (provider default)", "reasoning": "adaptive, on by default (provider default)", "identifier": "claude-opus-5", "id_type": "alias"},
-    {"model": "claude-opus-4.7", "mechanism": "forced function call", "budget": "1200", "sampling": "temperature 1.0", "reasoning": "off (provider default)", "identifier": "claude-opus-4-7", "id_type": "alias"},
-    {"model": "claude-sonnet-4.6", "mechanism": "forced function call", "budget": "1200", "sampling": "temperature 1.0", "reasoning": "off (provider default)", "identifier": "claude-sonnet-4-6", "id_type": "alias"},
-    {"model": "claude-haiku-4.5", "mechanism": "forced function call", "budget": "1200", "sampling": "temperature 1.0", "reasoning": "off (provider default)", "identifier": "claude-haiku-4-5-20251001", "id_type": "dated snapshot"},
-    {"model": "gemini-3.1-pro-preview", "mechanism": "forced JSON object", "budget": "1200", "sampling": "temperature 1.0", "reasoning": "provider default thinking", "identifier": "gemini-3.1-pro-preview", "id_type": "preview alias"},
-    {"model": "gemini-3.5-flash", "mechanism": "forced JSON object", "budget": "4000", "sampling": "temperature 1.0", "reasoning": "provider default thinking", "identifier": "gemini-3.5-flash", "id_type": "alias"},
-    {"model": "gemini-3.6-flash", "mechanism": "forced JSON object", "budget": "8000", "sampling": "temperature 1.0", "reasoning": "provider default thinking", "identifier": "gemini-3.6-flash", "id_type": "alias"},
-    {"model": "gemini-3-flash-preview", "mechanism": "forced JSON object", "budget": "1200", "sampling": "temperature 1.0", "reasoning": "provider default thinking", "identifier": "gemini-3-flash-preview", "id_type": "preview alias"},
-    {"model": "gemini-3.1-flash-lite-preview", "mechanism": "forced JSON object", "budget": "1200", "sampling": "temperature 1.0", "reasoning": "provider default thinking", "identifier": "gemini-3.1-flash-lite-preview", "id_type": "preview alias"},
-    {"model": "grok-4.20", "mechanism": "forced function call", "budget": "1200", "sampling": "temperature 1.0", "reasoning": "reasoning variant", "identifier": "xai/grok-4.20-reasoning", "id_type": "alias"},
-    {"model": "grok-4.3", "mechanism": "forced function call", "budget": "4000", "sampling": "temperature 1.0", "reasoning": "provider default", "identifier": "xai/grok-4.3", "id_type": "alias"},
-    {"model": "grok-4.5", "mechanism": "forced function call", "budget": "8000", "sampling": "temperature 1.0", "reasoning": "provider default", "identifier": "xai/grok-4.5", "id_type": "alias"},
-    {"model": "deepseek-v4-pro", "mechanism": "forced JSON object (schema validated locally)", "budget": "8000", "sampling": "temperature 1.0", "reasoning": "provider default", "identifier": "openrouter/deepseek/deepseek-v4-pro", "id_type": "alias"},
-    {"model": "qwen-3.7-max", "mechanism": "forced JSON object (schema validated locally)", "budget": "8000", "sampling": "temperature 1.0", "reasoning": "provider default", "identifier": "openrouter/qwen/qwen3.7-max", "id_type": "alias"},
-    {"model": "kimi-k2.6", "mechanism": "forced JSON object (schema validated locally)", "budget": "8000", "sampling": "temperature 1.0", "reasoning": "provider default", "identifier": "openrouter/moonshotai/kimi-k2.6", "id_type": "alias"},
-    {"model": "kimi-k3", "mechanism": "forced JSON object (schema validated locally)", "budget": "8000", "sampling": "temperature 1.0", "reasoning": "provider default", "identifier": "openrouter/moonshotai/kimi-k3", "id_type": "alias"},
-    {"model": "glm-5.2", "mechanism": "forced JSON object (schema validated locally)", "budget": "16000", "sampling": "temperature 1.0", "reasoning": "provider default", "identifier": "openrouter/z-ai/glm-5.2", "id_type": "alias"},
-    {"model": "minimax-m3", "mechanism": "forced JSON object (schema validated locally)", "budget": "8000", "sampling": "temperature 1.0", "reasoning": "provider default", "identifier": "openrouter/minimax/minimax-m3", "id_type": "alias"},
-    {"model": "grok-4.1-fast", "mechanism": "forced function call", "budget": "1200", "sampling": "temperature 1.0", "reasoning": "non-reasoning variant", "identifier": "xai/grok-4-1-fast-non-reasoning", "id_type": "alias"},
-    {"model": "qwen3.8-max", "mechanism": "forced JSON object (schema validated locally)", "budget": "32000", "sampling": "temperature 1.0", "reasoning": "provider default", "identifier": "openrouter/qwen/qwen3.8-max", "id_type": "alias"},
-    {"model": "inkling", "mechanism": "forced JSON object (schema validated locally)", "budget": "24000", "sampling": "temperature 1.0", "reasoning": "provider default", "identifier": "openrouter/thinkingmachines/inkling", "id_type": "alias"},
+    {
+        "model": "gpt-5.5",
+        "mechanism": "strict JSON schema",
+        "budget": "1200 (8000 for the 40 re-elicited runs)",
+        "sampling": "temperature 1.0, batched n <= 8",
+        "reasoning": "provider default effort",
+        "identifier": "gpt-5.5",
+        "id_type": "alias",
+    },
+    {
+        "model": "gpt-5.6-sol",
+        "mechanism": "strict JSON schema",
+        "budget": "8000",
+        "sampling": "temperature 1.0, batched n <= 8",
+        "reasoning": "provider default effort",
+        "identifier": "gpt-5.6-sol",
+        "id_type": "alias",
+    },
+    {
+        "model": "gpt-5.6-luna",
+        "mechanism": "strict JSON schema",
+        "budget": "8000",
+        "sampling": "temperature 1.0, batched n <= 8",
+        "reasoning": "provider default effort",
+        "identifier": "gpt-5.6-luna",
+        "id_type": "alias",
+    },
+    {
+        "model": "gpt-5.6-terra",
+        "mechanism": "strict JSON schema",
+        "budget": "8000",
+        "sampling": "temperature 1.0, batched n <= 8",
+        "reasoning": "provider default effort",
+        "identifier": "gpt-5.6-terra",
+        "id_type": "alias",
+    },
+    {
+        "model": "gpt-5.4",
+        "mechanism": "strict JSON schema",
+        "budget": "1200",
+        "sampling": "temperature 1.0, batched n <= 8",
+        "reasoning": "provider default effort",
+        "identifier": "gpt-5.4",
+        "id_type": "alias",
+    },
+    {
+        "model": "gpt-5.4-mini",
+        "mechanism": "strict JSON schema",
+        "budget": "1200",
+        "sampling": "temperature 1.0, batched n <= 8",
+        "reasoning": "provider default effort",
+        "identifier": "gpt-5.4-mini",
+        "id_type": "alias",
+    },
+    {
+        "model": "gpt-5.4-nano",
+        "mechanism": "strict JSON schema",
+        "budget": "1200",
+        "sampling": "temperature 1.0, batched n <= 8",
+        "reasoning": "provider default effort",
+        "identifier": "gpt-5.4-nano",
+        "id_type": "alias",
+    },
+    {
+        "model": "claude-fable-5",
+        "mechanism": "strict JSON schema",
+        "budget": "32000",
+        "sampling": "none accepted (provider default)",
+        "reasoning": "always-on reasoning",
+        "identifier": "claude-fable-5",
+        "id_type": "alias",
+    },
+    {
+        "model": "claude-opus-4.8",
+        "mechanism": "strict JSON schema",
+        "budget": "32000",
+        "sampling": "none accepted (provider default)",
+        "reasoning": "off (provider default)",
+        "identifier": "claude-opus-4-8",
+        "id_type": "alias",
+    },
+    {
+        "model": "claude-sonnet-5",
+        "mechanism": "strict JSON schema",
+        "budget": "32000",
+        "sampling": "none accepted (provider default)",
+        "reasoning": "adaptive (provider default)",
+        "identifier": "claude-sonnet-5",
+        "id_type": "alias",
+    },
+    {
+        "model": "claude-opus-5",
+        "mechanism": "strict JSON schema",
+        "budget": "32000",
+        "sampling": "none accepted (provider default)",
+        "reasoning": "adaptive, on by default (provider default)",
+        "identifier": "claude-opus-5",
+        "id_type": "alias",
+    },
+    {
+        "model": "claude-opus-4.7",
+        "mechanism": "forced function call",
+        "budget": "1200",
+        "sampling": "temperature 1.0",
+        "reasoning": "off (provider default)",
+        "identifier": "claude-opus-4-7",
+        "id_type": "alias",
+    },
+    {
+        "model": "claude-sonnet-4.6",
+        "mechanism": "forced function call",
+        "budget": "1200",
+        "sampling": "temperature 1.0",
+        "reasoning": "off (provider default)",
+        "identifier": "claude-sonnet-4-6",
+        "id_type": "alias",
+    },
+    {
+        "model": "claude-haiku-4.5",
+        "mechanism": "forced function call",
+        "budget": "1200",
+        "sampling": "temperature 1.0",
+        "reasoning": "off (provider default)",
+        "identifier": "claude-haiku-4-5-20251001",
+        "id_type": "dated snapshot",
+    },
+    {
+        "model": "gemini-3.1-pro-preview",
+        "mechanism": "forced JSON object",
+        "budget": "1200",
+        "sampling": "temperature 1.0",
+        "reasoning": "provider default thinking",
+        "identifier": "gemini-3.1-pro-preview",
+        "id_type": "preview alias",
+    },
+    {
+        "model": "gemini-3.5-flash",
+        "mechanism": "forced JSON object",
+        "budget": "4000",
+        "sampling": "temperature 1.0",
+        "reasoning": "provider default thinking",
+        "identifier": "gemini-3.5-flash",
+        "id_type": "alias",
+    },
+    {
+        "model": "gemini-3.6-flash",
+        "mechanism": "forced JSON object",
+        "budget": "8000",
+        "sampling": "temperature 1.0",
+        "reasoning": "provider default thinking",
+        "identifier": "gemini-3.6-flash",
+        "id_type": "alias",
+    },
+    {
+        "model": "gemini-3-flash-preview",
+        "mechanism": "forced JSON object",
+        "budget": "1200",
+        "sampling": "temperature 1.0",
+        "reasoning": "provider default thinking",
+        "identifier": "gemini-3-flash-preview",
+        "id_type": "preview alias",
+    },
+    {
+        "model": "gemini-3.1-flash-lite-preview",
+        "mechanism": "forced JSON object",
+        "budget": "1200",
+        "sampling": "temperature 1.0",
+        "reasoning": "provider default thinking",
+        "identifier": "gemini-3.1-flash-lite-preview",
+        "id_type": "preview alias",
+    },
+    {
+        "model": "grok-4.20",
+        "mechanism": "forced function call",
+        "budget": "1200",
+        "sampling": "temperature 1.0",
+        "reasoning": "reasoning variant",
+        "identifier": "xai/grok-4.20-reasoning",
+        "id_type": "alias",
+    },
+    {
+        "model": "grok-4.3",
+        "mechanism": "forced function call",
+        "budget": "4000",
+        "sampling": "temperature 1.0",
+        "reasoning": "provider default",
+        "identifier": "xai/grok-4.3",
+        "id_type": "alias",
+    },
+    {
+        "model": "grok-4.5",
+        "mechanism": "forced function call",
+        "budget": "8000",
+        "sampling": "temperature 1.0",
+        "reasoning": "provider default",
+        "identifier": "xai/grok-4.5",
+        "id_type": "alias",
+    },
+    {
+        "model": "deepseek-v4-pro",
+        "mechanism": "forced JSON object (schema validated locally)",
+        "budget": "8000",
+        "sampling": "temperature 1.0",
+        "reasoning": "provider default",
+        "identifier": "openrouter/deepseek/deepseek-v4-pro",
+        "id_type": "alias",
+    },
+    {
+        "model": "qwen-3.7-max",
+        "mechanism": "forced JSON object (schema validated locally)",
+        "budget": "8000",
+        "sampling": "temperature 1.0",
+        "reasoning": "provider default",
+        "identifier": "openrouter/qwen/qwen3.7-max",
+        "id_type": "alias",
+    },
+    {
+        "model": "kimi-k2.6",
+        "mechanism": "forced JSON object (schema validated locally)",
+        "budget": "8000",
+        "sampling": "temperature 1.0",
+        "reasoning": "provider default",
+        "identifier": "openrouter/moonshotai/kimi-k2.6",
+        "id_type": "alias",
+    },
+    {
+        "model": "kimi-k3",
+        "mechanism": "forced JSON object (schema validated locally)",
+        "budget": "8000",
+        "sampling": "temperature 1.0",
+        "reasoning": "provider default",
+        "identifier": "openrouter/moonshotai/kimi-k3",
+        "id_type": "alias",
+    },
+    {
+        "model": "glm-5.2",
+        "mechanism": "forced JSON object (schema validated locally)",
+        "budget": "16000",
+        "sampling": "temperature 1.0",
+        "reasoning": "provider default",
+        "identifier": "openrouter/z-ai/glm-5.2",
+        "id_type": "alias",
+    },
+    {
+        "model": "minimax-m3",
+        "mechanism": "forced JSON object (schema validated locally)",
+        "budget": "8000",
+        "sampling": "temperature 1.0",
+        "reasoning": "provider default",
+        "identifier": "openrouter/minimax/minimax-m3",
+        "id_type": "alias",
+    },
+    {
+        "model": "grok-4.1-fast",
+        "mechanism": "forced function call",
+        "budget": "1200",
+        "sampling": "temperature 1.0",
+        "reasoning": "non-reasoning variant",
+        "identifier": "xai/grok-4-1-fast-non-reasoning",
+        "id_type": "alias",
+    },
+    {
+        "model": "qwen3.8-max",
+        "mechanism": "forced JSON object (schema validated locally)",
+        "budget": "32000",
+        "sampling": "temperature 1.0",
+        "reasoning": "provider default",
+        "identifier": "openrouter/qwen/qwen3.8-max",
+        "id_type": "alias",
+    },
+    {
+        "model": "inkling",
+        "mechanism": "forced JSON object (schema validated locally)",
+        "budget": "24000",
+        "sampling": "temperature 1.0",
+        "reasoning": "provider default",
+        "identifier": "openrouter/thinkingmachines/inkling",
+        "id_type": "alias",
+    },
 ]
 
 
@@ -2510,19 +2557,9 @@ def _read_runs_jsonl_records(text: str) -> list[dict[str, object]]:
 
 
 def _read_archived_runs_jsonl(commit: str, git_path: str) -> list[dict[str, object]]:
-    try:
-        content = subprocess.check_output(
-            ["git", "-C", str(REPO_ROOT), "show", f"{commit}:{git_path}"],
-            text=True,
-            stderr=subprocess.PIPE,
-        )
-    except subprocess.CalledProcessError as error:
-        raise RuntimeError(
-            f"cannot read {git_path} at {commit}: {error.stderr.strip()} "
-            "(the wording ablation needs full git history; run "
-            "`git fetch --unshallow` in shallow clones)"
-        ) from error
-    return _read_runs_jsonl_records(content)
+    return _read_runs_jsonl_records(
+        (REPO_ROOT / "archive" / commit / git_path).read_text()
+    )
 
 
 def _wording_cell(

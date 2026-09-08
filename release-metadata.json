@@ -1,0 +1,73 @@
+{
+  "archive_manifest": "results/archive-manifest.json",
+  "calibration_provenance": "results/calibration-provenance.json",
+  "main_panel": {
+    "failed_records": 0,
+    "model_count": 31,
+    "model_ids": [
+      "claude-fable-5",
+      "claude-haiku-4.5",
+      "claude-opus-4.7",
+      "claude-opus-4.8",
+      "claude-opus-5",
+      "claude-sonnet-4.6",
+      "claude-sonnet-5",
+      "deepseek-v4-pro",
+      "gemini-3-flash-preview",
+      "gemini-3.1-flash-lite-preview",
+      "gemini-3.1-pro-preview",
+      "gemini-3.5-flash",
+      "gemini-3.6-flash",
+      "glm-5.2",
+      "gpt-5.4",
+      "gpt-5.4-mini",
+      "gpt-5.4-nano",
+      "gpt-5.5",
+      "gpt-5.6-luna",
+      "gpt-5.6-sol",
+      "gpt-5.6-terra",
+      "grok-4.1-fast",
+      "grok-4.20",
+      "grok-4.3",
+      "grok-4.5",
+      "inkling",
+      "kimi-k2.6",
+      "kimi-k3",
+      "minimax-m3",
+      "qwen-3.7-max",
+      "qwen3.8-max"
+    ],
+    "organization_count": 10,
+    "prompt_versions": {
+      "v4": 12090
+    },
+    "quantity_count": 26,
+    "records": 12090,
+    "repetitions_per_cell": 15,
+    "successful_records": 12090
+  },
+  "release_status": "archival preparation; no DOI or new release asserted",
+  "retained_run_scopes": {
+    "archived_failures": {
+      "failed_records": 5896,
+      "records": 5896,
+      "successful_records": 0
+    },
+    "retained_auxiliary": {
+      "failed_records": 151,
+      "records": 526,
+      "successful_records": 375
+    },
+    "retained_followups": {
+      "failed_records": 27,
+      "records": 930,
+      "successful_records": 903
+    },
+    "retained_main": {
+      "failed_records": 0,
+      "records": 12090,
+      "successful_records": 12090
+    }
+  },
+  "schema_version": 1
+}

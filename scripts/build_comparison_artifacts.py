@@ -26,13 +26,13 @@ from typing import Mapping, Sequence
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT))
 
-from llm_econ_beliefs import list_quantities
-from llm_econ_beliefs.compare import (
+from llm_econ_beliefs import list_quantities  # noqa: E402
+from llm_econ_beliefs.compare import (  # noqa: E402
     build_comparison_rows,
     read_summary_rows,
     write_comparison_csv,
 )
-from llm_econ_beliefs.model_registry import PANEL_MODEL_IDS
+from llm_econ_beliefs.model_registry import PANEL_MODEL_IDS  # noqa: E402
 
 try:
     from panel_grid_gate import gate_panel_models
@@ -233,6 +233,8 @@ def main() -> int:
         return 1
 
     comparison_rows = build_comparison_rows(result_dirs)
+    for row in comparison_rows:
+        row["source_dir"] = Path(row["source_dir"]).relative_to(REPO_ROOT).as_posix()
     write_comparison_csv(COMPARISON_PATH, comparison_rows)
     print(f"Wrote {len(comparison_rows)} rows to {COMPARISON_PATH}")
 

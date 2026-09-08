@@ -27,7 +27,6 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Iterable, Sequence, TextIO
 
-
 REPO_ROOT = Path(__file__).resolve().parents[1]
 RESULTS = REPO_ROOT / "results"
 sys.path.insert(0, str(REPO_ROOT))
@@ -63,12 +62,16 @@ MACRO_TRADE = {
     "production.capital_labor_substitution",
     "trade.armington_elasticity.import_domestic",
 }
-CANONICAL = LABOR_TAX | MACRO_TRADE | {
-    "household.annual_discount_factor",
-    "household.relative_risk_aversion.crra",
-    "macro.tfp_persistence.ar1",
-    "production.capital_share",
-}
+CANONICAL = (
+    LABOR_TAX
+    | MACRO_TRADE
+    | {
+        "household.annual_discount_factor",
+        "household.relative_risk_aversion.crra",
+        "macro.tfp_persistence.ar1",
+        "production.capital_share",
+    }
+)
 ETI_QUANTITY_ID = "tax.elasticity_of_taxable_income.top_earners"
 
 EXPECTED_PANEL_ONLY = {"gpt-5.4", "grok-4.20", "grok-4.1-fast"}
@@ -128,9 +131,7 @@ def parse_estimate_interval_cell(cell: str) -> tuple[float, float, float]:
     estimate = float(match.group(1))
     if not math.isfinite(estimate):
         raise ValueError(f"Estimate must be finite: {cell!r}")
-    lower, upper = _parse_ordered_bounds(
-        match.group(2), match.group(3), cell=cell
-    )
+    lower, upper = _parse_ordered_bounds(match.group(2), match.group(3), cell=cell)
     return estimate, lower, upper
 
 
@@ -150,15 +151,12 @@ def parse_percentage_interval_cell(cell: str) -> tuple[float, float, float]:
     match = _PERCENTAGE_INTERVAL_PATTERN.fullmatch(cell)
     if match is None:
         raise ValueError(
-            "Expected 'x% [lower%, upper%]' with explicit '%' signs: "
-            f"{cell!r}"
+            f"Expected 'x% [lower%, upper%]' with explicit '%' signs: {cell!r}"
         )
     estimate = float(match.group(1))
     if not math.isfinite(estimate):
         raise ValueError(f"Percentage estimate must be finite: {cell!r}")
-    lower, upper = _parse_ordered_bounds(
-        match.group(2), match.group(3), cell=cell
-    )
+    lower, upper = _parse_ordered_bounds(match.group(2), match.group(3), cell=cell)
     return estimate, lower, upper
 
 
@@ -219,8 +217,7 @@ def pooled_eti_median(run_rows: Iterable[dict[str, object]]) -> float:
     estimates = [
         _belief_estimate_from_run(row)
         for row in run_rows
-        if row.get("parsed_ok") is True
-        and row.get("quantity_id") == ETI_QUANTITY_ID
+        if row.get("parsed_ok") is True and row.get("quantity_id") == ETI_QUANTITY_ID
     ]
     eti_quantity = get_quantity(ETI_QUANTITY_ID)
     components = [
@@ -326,13 +323,9 @@ def validate_policybench_crosswalk(
 
     if any(not model for model in models):
         raise ValueError("PolicyBench model IDs must not be blank")
-    duplicates = sorted(
-        model for model, count in Counter(models).items() if count != 1
-    )
+    duplicates = sorted(model for model, count in Counter(models).items() if count != 1)
     if duplicates:
-        raise ValueError(
-            "Duplicate PolicyBench model IDs: " + ", ".join(duplicates)
-        )
+        raise ValueError("Duplicate PolicyBench model IDs: " + ", ".join(duplicates))
     if len(panel_set) != len(panel_model_ids):
         raise ValueError("Panel registry model IDs must be unique")
 
@@ -388,52 +381,10 @@ def load_policybench(
 def load_top_rate_calibration(
     path: Path = RESULTS / "top-rate-calibration.json",
 ) -> dict[str, float]:
-    """Load a non-fallback microdata calibration for the top-rate mapping."""
-    if not path.exists():
-        raise FileNotFoundError(
-            "Missing required results/top-rate-calibration.json; run "
-            "paper/build_tables.py with the PolicyEngine microdata calibration first."
-        )
-    try:
-        payload = json.loads(path.read_text())
-    except json.JSONDecodeError as exc:
-        raise ValueError(f"Invalid top-rate calibration JSON: {exc.msg}") from exc
-    if not isinstance(payload, dict):
-        raise ValueError("Top-rate calibration must be a JSON object")
-    required = ("a", "gbar", "threshold", "tail_mean")
-    missing = [field for field in required if field not in payload]
-    if missing:
-        raise ValueError(
-            "Top-rate calibration is missing fields: " + ", ".join(missing)
-        )
-    raw_a = payload["a"]
-    if isinstance(raw_a, bool) or not isinstance(raw_a, (int, float)):
-        raise ValueError("Top-rate calibration a must be numeric")
-    a = float(raw_a)
-    if not math.isfinite(a):
-        raise ValueError("Top-rate calibration a must be finite")
-    if math.isclose(a, 1.5, rel_tol=0.0, abs_tol=1e-12):
-        raise ValueError(
-            "results/top-rate-calibration.json carries fallback a=1.5; rerun "
-            "paper/build_tables.py with the PolicyEngine microdata calibration."
-        )
-    values: dict[str, float] = {"a": a}
-    for field in required[1:]:
-        value = payload[field]
-        if isinstance(value, bool) or not isinstance(value, (int, float)):
-            raise ValueError(f"Top-rate calibration {field} must be numeric")
-        values[field] = float(value)
-    if not all(math.isfinite(value) for value in values.values()):
-        raise ValueError("Top-rate calibration fields must all be finite")
-    if values["a"] <= 0:
-        raise ValueError("Top-rate calibration a must be positive")
-    if not 0 <= values["gbar"] < 1:
-        raise ValueError("Top-rate calibration gbar must be in [0, 1)")
-    if values["threshold"] <= 0 or values["tail_mean"] <= values["threshold"]:
-        raise ValueError(
-            "Top-rate calibration requires 0 < threshold < tail_mean"
-        )
-    return values
+    """Use the same frozen input and validation as the manuscript tables."""
+    from scripts.cached_calibration import load_frozen_calibration
+
+    return load_frozen_calibration(path)
 
 
 def implied_top_rates(eti: float, calibration: dict[str, float]) -> tuple[float, float]:
@@ -458,8 +409,7 @@ def rank_map(values: dict[str, float], *, reverse: bool = False) -> dict[str, fl
     while index < len(ordered):
         tie_end = index
         while (
-            tie_end + 1 < len(ordered)
-            and ordered[tie_end + 1][1] == ordered[index][1]
+            tie_end + 1 < len(ordered) and ordered[tie_end + 1][1] == ordered[index][1]
         ):
             tie_end += 1
         average = (index + 1 + tie_end + 1) / 2
@@ -479,10 +429,7 @@ def spearman(xs: list[float], ys: list[float]) -> float:
         i = 0
         while i < len(indexed):
             j = i
-            while (
-                j + 1 < len(indexed)
-                and values[indexed[j + 1]] == values[indexed[i]]
-            ):
+            while j + 1 < len(indexed) and values[indexed[j + 1]] == values[indexed[i]]:
                 j += 1
             average = (i + 1 + j + 1) / 2
             for k in range(i, j + 1):
@@ -780,9 +727,7 @@ def build_sensitivity_rows(
                 "omitted_organization": omitted,
                 "wave": None,
                 "n_models": len(retained),
-                "n_organizations": len(
-                    {str(row["organization"]) for row in retained}
-                ),
+                "n_organizations": len({str(row["organization"]) for row in retained}),
                 "statistic_level": "model",
                 "permutation_unit": None,
                 "n_permutations": None,
@@ -807,9 +752,7 @@ def build_sensitivity_rows(
                 "omitted_organization": None,
                 "wave": wave_label,
                 "n_models": len(subset),
-                "n_organizations": len(
-                    {str(row["organization"]) for row in subset}
-                ),
+                "n_organizations": len({str(row["organization"]) for row in subset}),
                 "statistic_level": "model",
                 "permutation_unit": None,
                 "n_permutations": None,
@@ -885,9 +828,7 @@ def organization_block_permutation(
         permuted_score_by_model: dict[str, float] = {}
         for target, target_rows in by_organization.items():
             source_rows = by_organization[source_by_target[target]]
-            source_scores = [
-                float(row[PRIMARY_PREDICTOR_KEY]) for row in source_rows
-            ]
+            source_scores = [float(row[PRIMARY_PREDICTOR_KEY]) for row in source_rows]
             for target_row, score in zip(target_rows, source_scores, strict=True):
                 permuted_score_by_model[str(target_row["model"])] = score
         permuted_xs = [permuted_score_by_model[model_id] for model_id in model_ids]
@@ -1095,9 +1036,7 @@ def build_posthoc_consistency_rows(
     summary_rows: Sequence[dict[str, object]],
 ) -> list[dict[str, object]]:
     """Capability versus run-to-run consistency, reported outside the family."""
-    metrics = load_consistency_metrics(
-        [str(row["model"]) for row in summary_rows]
-    )
+    metrics = load_consistency_metrics([str(row["model"]) for row in summary_rows])
     outcomes = [
         ("max_between_run_share", "Max between-run variance share"),
         ("median_between_run_sd", "Median between-run SD"),

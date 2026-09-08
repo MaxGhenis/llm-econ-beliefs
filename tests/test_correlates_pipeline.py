@@ -7,7 +7,6 @@ from pathlib import Path
 
 import pytest
 
-from paper import build_tables as paper_build_tables
 from llm_econ_beliefs.model_registry import (
     FRONTIER_MODEL_IDS,
     MODEL_REGISTRY,
@@ -19,11 +18,11 @@ from llm_econ_beliefs.model_registry import (
     WAVES,
     write_model_registry_csv,
 )
+from paper import build_tables as paper_build_tables
 from paper.build_tables import (
     ComparisonRow,
     build_leave_one_organization_out_table,
     pooled_eti_quantiles_from_csv_rows,
-    write_top_rate_calibration,
 )
 from scripts import build_comparison_artifacts, build_correlates, panel_grid_gate
 from scripts.build_correlates import (
@@ -32,7 +31,6 @@ from scripts.build_correlates import (
     EXPECTED_POLICYBENCH_ONLY,
     bh_adjusted_pvalues,
     holm_adjusted_pvalues,
-    load_top_rate_calibration,
     pooled_eti_median,
     validate_policybench_crosswalk,
 )
@@ -75,9 +73,7 @@ def test_registry_has_exact_taxonomy_and_round_trips_to_csv(tmp_path: Path) -> N
             MODEL_REGISTRY[0].organization
         ],
         "wave_label": WAVE_DISPLAY_LABELS[MODEL_REGISTRY[0].wave],
-        "is_frontier": str(
-            MODEL_REGISTRY[0].model_id in FRONTIER_MODEL_IDS
-        ).lower(),
+        "is_frontier": str(MODEL_REGISTRY[0].model_id in FRONTIER_MODEL_IDS).lower(),
     }
     frontier_rows = [row for row in rows if row["is_frontier"] == "true"]
     assert {row["model_id"] for row in frontier_rows} == set(FRONTIER_MODEL_IDS)
@@ -85,7 +81,9 @@ def test_registry_has_exact_taxonomy_and_round_trips_to_csv(tmp_path: Path) -> N
 
 
 def _valid_policybench_rows() -> list[dict[str, str]]:
-    models = sorted((set(PANEL_MODEL_IDS) - EXPECTED_PANEL_ONLY) | EXPECTED_POLICYBENCH_ONLY)
+    models = sorted(
+        (set(PANEL_MODEL_IDS) - EXPECTED_PANEL_ONLY) | EXPECTED_POLICYBENCH_ONLY
+    )
     return [
         {
             "model": model,
@@ -244,9 +242,7 @@ def test_derived_tau_row_reuses_eti_test_and_family_has_eight_tests(
             and row["outcome"] == build_correlates.PRIMARY_OUTCOME_LABEL
         )
         tau = next(
-            row
-            for row in output
-            if row["predictor"] == predictor and row["is_derived"]
+            row for row in output if row["predictor"] == predictor and row["is_derived"]
         )
         assert tau["raw_p"] == eti["raw_p"]
         assert tau["holm_adjusted_p"] == eti["holm_adjusted_p"]
@@ -254,8 +250,7 @@ def test_derived_tau_row_reuses_eti_test_and_family_has_eight_tests(
         assert tau["spearman_rho"] == pytest.approx(-eti["spearman_rho"])
 
 
-def test_sensitivities_cover_each_organization_both_wave_groups_and_clusters(
-) -> None:
+def test_sensitivities_cover_each_organization_both_wave_groups_and_clusters() -> None:
     overlap = [
         model for model in MODEL_REGISTRY if model.model_id not in EXPECTED_PANEL_ONLY
     ]
@@ -271,7 +266,9 @@ def test_sensitivities_cover_each_organization_both_wave_groups_and_clusters(
     ]
 
     output = build_correlates.build_sensitivity_rows(summary_rows)
-    leave_out = [row for row in output if row["analysis"] == "leave_one_organization_out"]
+    leave_out = [
+        row for row in output if row["analysis"] == "leave_one_organization_out"
+    ]
     within_wave = [row for row in output if row["analysis"] == "within_wave"]
     cluster = next(
         row for row in output if row["analysis"] == "organization_cluster_permutation"
@@ -333,43 +330,7 @@ def test_runs_jsonl_eti_median_matches_build_tables_piecewise_mixture(
     )
 
 
-def test_calibration_writer_round_trips_stub_and_fallback_error_is_explicit(
-    tmp_path: Path,
-) -> None:
-    path = tmp_path / "top-rate-calibration.json"
-    payload = write_top_rate_calibration(
-        {
-            "a": 1.47,
-            "welfare_weight": 0.595,
-            "threshold": 612_345.0,
-            "mean_above": 1_915_000.0,
-        },
-        path,
-    )
-
-    assert payload == {
-        "a": 1.47,
-        "gbar": 0.595,
-        "threshold": 612_345.0,
-        "tail_mean": 1_915_000.0,
-    }
-    assert json.loads(path.read_text()) == payload
-    assert load_top_rate_calibration(path) == payload
-
-    write_top_rate_calibration(
-        {
-            "a": 1.5,
-            "welfare_weight": 0.6,
-            "threshold": float("nan"),
-            "mean_above": float("nan"),
-        },
-        path,
-    )
-    with pytest.raises(ValueError, match="carries fallback a=1.5"):
-        load_top_rate_calibration(path)
-
-
-def test_build_tables_ignores_legacy_correlates_schema(
+def test_build_tables_rejects_legacy_correlates_schema(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
 ) -> None:
     (tmp_path / "correlates-model-summary.csv").write_text("model,eti_median\na,0.3\n")
@@ -378,8 +339,8 @@ def test_build_tables_ignores_legacy_correlates_schema(
     )
     monkeypatch.setattr(paper_build_tables, "RESULTS_DIR", tmp_path)
 
-    assert paper_build_tables.build_correlates_tables() == ([], [], "")
-    assert "ignoring stale correlates-spearman.csv" in capsys.readouterr().err
+    with pytest.raises(ValueError, match="Stale correlates-spearman.csv"):
+        paper_build_tables.build_correlates_tables()
 
 
 def test_leave_one_organization_out_keeps_independent_labs_separate() -> None:
