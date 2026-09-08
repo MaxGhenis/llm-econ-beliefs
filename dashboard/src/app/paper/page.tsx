@@ -7,7 +7,7 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 // Bump on every manuscript revision, in lockstep everywhere this page
 // links the render (tests/test_paper_embed.py locks the lockstep).
-const PAPER_VERSION = "n31-cached-20260907";
+const PAPER_VERSION = "n31-eti-claim-20260907";
 
 const STANDALONE_HREF = `${basePath}/paper/web/index.html?v=${PAPER_VERSION}`;
 const PDF_HREF = `${basePath}/paper/web/index.pdf?v=${PAPER_VERSION}`;

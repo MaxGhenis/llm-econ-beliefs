@@ -201,6 +201,45 @@ def verify_top_rate() -> None:
     )
 
 
+def verify_eti_support_prose() -> None:
+    """Pin the Table 4 lower quantile and the limits of its support convention."""
+    rows = read_rows("toy-top-rate-labor-tax")
+    lower_quantiles = {
+        row["Model"]: float(row["ETI median [90%]"].split("[")[1].split(",")[0])
+        for row in rows
+    }
+    minimum = min(lower_quantiles.values())
+    opus_p05 = lower_quantiles["Claude Opus 5"]
+    check(
+        "Table 4 Claude Opus 5 ETI p05 prose",
+        f"Table 4 reports a pooled ETI p05 of `{opus_p05:.3f}` for `Claude Opus 5`."
+        in PAPER,
+        f"expected {opus_p05:.3f} for Claude Opus 5",
+    )
+    check(
+        "ETI support convention is distinguished from positive conditioning",
+        "I reconstruct each run's ETI distribution with a zero lower-tail endpoint "
+        "before pooling; the rate formula also maps any negative ETI input to zero."
+        in PAPER
+        and "This is a support convention, not conditioning an unrestricted pooled "
+        "distribution on positive ETI." in PAPER,
+    )
+    check(
+        "ETI quantiles do not establish negative-tail mass or negligible effects",
+        "These reported quantiles do not measure excluded negative-tail mass or "
+        "establish that the convention's effect is negligible." in PAPER
+        and "truncation affects negligible mass" not in PAPER,
+    )
+    for threshold in re.findall(
+        r"Every model's pooled ETI p05 exceeds `([0-9.]+)`", PAPER
+    ):
+        check(
+            "universal ETI p05 threshold is supported by Table 4",
+            all(value > float(threshold) for value in lower_quantiles.values()),
+            f"minimum {minimum:.3f}, claimed threshold {threshold}",
+        )
+
+
 def verify_stability() -> None:
     note = (TABLES / "stability-appendix.md").read_text()
     rows = read_rows("stability-appendix")
@@ -1268,6 +1307,7 @@ def verify_wording_comparison_tables() -> None:
 def main() -> int:
     verify_superlatives()
     verify_top_rate()
+    verify_eti_support_prose()
     verify_stability()
     verify_loo()
     verify_variance_decomposition()
